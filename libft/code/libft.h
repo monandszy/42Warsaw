@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:53:31 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/22 19:06:56 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:36:26 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-int ft_isalnum(int c);
 int ft_isalpha(int c);
+int ft_isalnum(int c);
 int ft_isdigit(int c);
 int ft_isascii(int c);
 int ft_isprint(int c);
@@ -53,9 +53,9 @@ char **ft_split(char const *s, char c);
 char *ft_itoa(int n);
 char *ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void ft_striteri(char *s, void (*f)(unsigned int, char*));
-void ft_putchar_ft(char c, int fd);
+void ft_putchar_fd(char c, int fd);
 void ft_putstr_fd(char *s, int fd);
-void gt_putendl_fd(char *s, int fd);
+void ft_putendl_fd(char *s, int fd);
 void ft_putnbr_fd(int n, int fd);
 
 /* typedef struct s_list
