@@ -1,4 +1,5 @@
 #include "ft_test.h"
+#include "./../code/libft.h"
 
 #include <ctype.h>
 

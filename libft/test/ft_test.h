@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "./../code/libft.h"
 
 /*
 ** Return Value Convention:
@@ -11,11 +12,11 @@
 **  - 1 (or any non-zero): Test FAILED
 */
 
-extern int ft_isalpha(int c);
+/*extern int ft_isalpha(int c);
 extern int ft_isdigit(int c);
 extern int ft_isalnum(int c);
 extern int ft_isascii(int c);
-extern int ft_isprint(int c);
+extern int ft_isprint(int c); 
 
 extern int ft_toupper(int c);
 extern int ft_tolower(int c);
@@ -27,7 +28,7 @@ extern size_t ft_strlcat(char *dst, const char *src, size_t size);
 extern char *ft_strchr(const char *s, int c);
 extern char *ft_strrchr(const char *s, int c);
 extern void *ft_memchr(const void *s, int c, size_t n);
-extern char *ft_strnstr(const char *big,const char *little, size_t len);
+extern char *ft_strnstr(const char *big, const char *little, size_t len);
 
 extern void *ft_memset(void *s, int c, size_t n);
 extern void ft_bzero(void *s, size_t n);
@@ -39,7 +40,7 @@ extern int ft_memcmp (const void *s1, const void *s2, size_t n);
 
 extern int ft_atoi(const char *nptr);
 extern void *ft_calloc(size_t nmemb, size_t size);
-extern char *ft_strndup(const char *s, size_t n);
+extern char *ft_strndup(const char *s, size_t n); */
 
 // === Test functions from is_x.c ===
 int test_isalpha(void);

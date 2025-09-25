@@ -7,8 +7,8 @@ SRCS = \
 	to_x.c \
 	mem_mani.c \
 	str_mani.c \
-	str_search.c \
-	str_cmp.c \
+	search.c \
+	cmp.c \
 	misc.c
 
 OBJS = $(SRCS:.c=.o)
@@ -25,10 +25,10 @@ mkdirs:
 	mkdir -p $(OBJS_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $(OBJS_DIR)/$@
+	$(CC) $(CFLAGS) -c $< -o $(OBJS_DIR)/$@ 
 
 $(NAME): lib_make
-	$(CC) $(CFLAGS) $(OBJ_PATHS) $(LIB_DIR)/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ_PATHS) $(LIB_DIR)/libft.a -o $(NAME) -lbsd
 
 lib_make:
 	make -C $(LIB_DIR)
