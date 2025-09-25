@@ -48,8 +48,8 @@ int main(void)
 	test(test_strncmp(), "test_strncmp"); 
 	test(test_memcmp(), "test_memcmp"); 
 
-/*	// --- Miscellaneous Tests ---
+	// --- Miscellaneous Tests ---
 	test(test_atoi(), "test_atoi"); 
 	test(test_calloc(), "test_calloc");  
-	test(test_strndup(), "test_strndup");  */
+	test(test_strdup(), "test_strdup");  
 }

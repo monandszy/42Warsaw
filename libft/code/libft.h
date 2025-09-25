@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:53:31 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/24 13:16:31 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:49:31 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int ft_memcmp (const void *s1, const void *s2, size_t n);
 
 int ft_atoi(const char *nptr);
 void *ft_calloc(size_t nmemb, size_t size);
-char *ft_strndup(const char *s, size_t n);
+char *ft_strdup(const char *s);
 
 char *ft_substr(char const *s, unsigned int start, size_t len);
 char *ft_strjoin(char const *s1, char const *s2);
