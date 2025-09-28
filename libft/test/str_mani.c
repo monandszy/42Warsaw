@@ -112,4 +112,4 @@ int test_strlcat(void)
         }
     }
     return (0);
-}	
+}

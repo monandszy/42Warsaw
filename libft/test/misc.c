@@ -146,3 +146,8 @@ int test_strdup(void)
     }
     return (0);
 }
+
+int test_itoa(void)
+{
+    return 1;
+}

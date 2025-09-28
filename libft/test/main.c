@@ -51,5 +51,20 @@ int main(void)
 	// --- Miscellaneous Tests ---
 	test(test_atoi(), "test_atoi"); 
 	test(test_calloc(), "test_calloc");  
-	test(test_strdup(), "test_strdup");  
+	test(test_strdup(), "test_strdup");
+	test(test_itoa(), "test_itoa");
+
+	// --- Advanced String Manipulation Tests ---
+	test(test_substr(), "test_substr");
+	test(test_strjoin(), "test_strjoin");
+	test(test_strtrim(), "test_strtrim");
+	test(test_split(), "test_split");
+	test(test_strmapi(), "test_strmapi");	
+	test(test_striteri(), "test_striteri");
+
+	// --- File Manimulation Tests ---
+	test(test_putchar_fd(), "test_putchar_fd");
+	test(test_putstr_fd(), "test_putstr_fd");
+	test(test_puntendl_fd(), "test_putendl_fd");
+	test(test_putnbr_fd(), "test_putnbr_fd");	
 }
