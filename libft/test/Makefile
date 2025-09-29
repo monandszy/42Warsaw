@@ -36,7 +36,7 @@ lib_make:
 	make -C $(LIB_DIR)
 
 test: 
-	./test_runner
+	./$(NAME)
 
 run: re test
 

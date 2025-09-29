@@ -1,40 +1,56 @@
 
 #include "libft.h"
 
-char *recursive(int n, int iter)
+static size_t int_size(unsigned int n);
+static char *process(unsigned int n, size_t size, char *b);
+
+size_t int_size(unsigned int n)
 {
-	int i;
-	char *out;
+    size_t i;
 
-	if (n > 0)
+    i = 0;
+    while (n > 0)
+    {
+        n /= 10;
+        i++;
+    }
+    return (i);
+}
+
+char *process(unsigned int n, size_t size, char *b)
+{
+	b[size] = '\0';
+	size--;
+    while (n > 0) 
 	{
-		i = n % 10;
-		iter++;
-		out = recursive(n/10, iter);
-		if (out == NULL)
-			return (NULL);
-		out[iter] = (i + '0');
-		return (out);
-	}
-	iter++;
-	out = (char *) malloc(iter * sizeof(char));
-	if (out == NULL)
-		return (NULL);
-	out[iter] = '\0';
-	return (out);
-
+        b[size] = (char) ((n % 10) + '0');
+        n /= 10;
+		size--;
+    }
+	return (b);
 }
 
 char *ft_itoa(int n)
-{
-	char *str;
+{   
+    char *new;
+	size_t size;
 
-	if (n < 0)
-	{
-		str = recursive(-n, 1);
-		str[0] = '-';
-		return (str);
-	}
-	else
-		return (recursive(n, 0));
+    if (n < 0)
+    {   
+		size = int_size(-n) + 1;
+        new = (char *) malloc(size * sizeof(char));
+        if (new == NULL)
+            return (NULL);
+        new[0] = '-';
+        return(process(-n, size, new));
+    }
+    else
+    {
+		size = int_size(n);
+        new = (char *) malloc(size * sizeof(char)); 
+        if (new == NULL)
+            return (NULL); 
+        return(process(n, size, new));
+    }
 }
+

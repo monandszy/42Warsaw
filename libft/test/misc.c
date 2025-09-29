@@ -28,6 +28,7 @@ int test_atoi(void)
         "+-123",
         "-+123",
         "a123",
+		"0000000000123",
         "",
         "2147483647", // INT_MAX
         "-2147483648",// INT_MIN
@@ -65,9 +66,8 @@ int test_calloc(void)
         {0, 10, "zero count"},
         {10, 0, "zero size"},
         {0, 0, "zero count and size"},
-        {INT_MAX, 2, "overflow test 1"},
-	    {3, INT_MAX, "overflow test 2"},
-        {(INT_MAX / 2 + 1), 2, "exact overflow"},
+        {(size_t) -1 , 3, "overflow test 1"},
+	    {3, (size_t) - 1, "overflow test 2"},
         {2, 1, NULL},
         {0, 0, NULL}
     };
@@ -85,20 +85,22 @@ int test_calloc(void)
             free(std_ptr);
             return (1);
         }
-
-        if (std_ptr != NULL)
+		else if (std_ptr == NULL && ft_ptr == NULL)
+		{
+			free(ft_ptr);
+       		free(std_ptr);
+			continue;
+		}
+        size_t total_size = test_cases[i].count * test_cases[i].size;
+        int mem_diff = memcmp(ft_ptr, std_ptr, total_size);
+        if (mem_diff != 0)
         {
-            size_t total_size = test_cases[i].count * test_cases[i].size;
-            int mem_diff = memcmp(ft_ptr, std_ptr, total_size);
-            if (mem_diff != 0)
-            {
-                printf("FAIL: test_calloc | memory not zeroed | case: %s, mem_diff: %d\n", test_cases[i].desc, mem_diff);
-            }
+        	printf("FAIL: test_calloc | memory not zeroed | case: %s, mem_diff: %d\n", test_cases[i].desc, mem_diff);
         }
-
         free(ft_ptr);
         free(std_ptr);
     }
+
     return (0);
 }
 
@@ -153,6 +155,7 @@ int test_itoa(void)
     	int         input;            
     	const char* expected;
 	} test_cases[] = {
+	    { 1000203,    "1000203" },
 		{ 42,         "42" },
 		{ -42,        "-42" },
 		{ 1,          "1" },
@@ -184,7 +187,6 @@ int test_itoa(void)
 	    { 101,        "101" },
 	    { 700,        "700" },
 	    { -1050,      "-1050" },
-	    { 1000203,    "1000203" },
     	{ 1234567,    "1234567" },
 	    { -9876543,   "-9876543" },
 		{ 0,          "0" }

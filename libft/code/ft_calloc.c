@@ -6,21 +6,24 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:50:14 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/29 10:42:11 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:44:51 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 // malloc, free
 void *ft_calloc(size_t nmemb, size_t size)
 {
 	char *i;
-	int b;
+	size_t b;
 
 	b = size * nmemb;
-	if (b <= 0 || (b / nmemb != size))
+	if (b == 0)
 		return (malloc(0));
+	if (b / nmemb != size)
+		return (NULL); 
 
 	i = (char *) malloc(b);
 	if (i == NULL)
