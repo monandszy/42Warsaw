@@ -12,11 +12,11 @@ char *ft_strtrim(char const *s1, char const *set)
 
 	i = 0;
 	j = 0;
-len = ft_strlen(s1);
+	len = ft_strlen(s1);
 	while (is_in_set(s1[i], set) && s1[i])	
 		i++;
 	if (i == len)
-		return(ft_calloc(1, 1));
+		return(malloc(0));
 	while (is_in_set(s1[len + j], set) && s1[j])
 		j++;
 	len = len - i - j;

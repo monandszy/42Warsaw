@@ -149,5 +149,61 @@ int test_strdup(void)
 
 int test_itoa(void)
 {
-    return 1;
+	struct {
+    	int         input;            
+    	const char* expected;
+	} test_cases[] = {
+		{ 42,         "42" },
+		{ -42,        "-42" },
+		{ 1,          "1" },
+		{ -1,         "-1" },
+		{ 9,          "9" },
+		{ -9,         "-9" },
+		{ INT_MAX,    "2147483647" },     // The largest positive integer
+		{ INT_MIN,    "-2147483648" },    // The smallest negative integer (critical edge case)
+		{ INT_MAX - 1,"2147483646" },
+		{ INT_MIN + 1,"-2147483647" },
+		{ 10,         "10" },
+		{ 100,        "100" },
+		{ 100000,     "100000" },
+		{ -10,        "-10" },
+		{ -100,       "-100" },
+		{ 99,         "99" },
+		{ 99999,      "99999" },
+		{ -99,        "-99" },
+		{ 2,          "2" },
+		{ 16,         "16" },
+		{ 32,         "32" },
+		{ 64,         "64" },
+		{ 1024,       "1024" },
+		{ -256,       "-256" },
+	    { 15,         "15" },
+	    { 63,         "63" },
+	    { 255,        "255" },
+	    { -255,       "-255" },
+	    { 101,        "101" },
+	    { 700,        "700" },
+	    { -1050,      "-1050" },
+	    { 1000203,    "1000203" },
+    	{ 1234567,    "1234567" },
+	    { -9876543,   "-9876543" },
+		{ 0,          "0" }
+};
+
+	for (int i = 0; test_cases[i].input != 0; ++i)
+	{
+		int d = test_cases[i].input;
+		const char *exp = test_cases[i].expected;
+		const char *out;
+
+		out = ft_itoa(d);
+
+		if (memcmp(out, exp, strlen(exp)))
+		{
+			printf("FAIL: test_itoa | d: \"%d\"\n", d);
+			printf("Expected: \"%s\", Got: \"%s\"\n", exp, out);
+			return (1);
+		}
+	}
+	return (0);
 }
