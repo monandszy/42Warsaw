@@ -167,7 +167,7 @@ int test_strnstr(void)
         if (ft_ret != std_ret)
         {
             printf("FAIL: test_strnstr | haystack: \"%s\", needle: \"%s\", len: %zu\n", test_cases[i].h, test_cases[i].n, test_cases[i].len);
-            printf("Expected: %p, Got: %p\n", (void*)std_ret, (void*)ft_ret);
+            printf("Expected: %p, %s, Got: %p, %s\n", (void*)std_ret, std_ret, (void*)ft_ret, ft_ret );
             return (1);
         }
     }

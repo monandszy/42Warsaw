@@ -56,7 +56,7 @@ int test_strjoin(void);
 int test_strtrim(void);
 int test_split(void);
 int test_strmapi(void);
-int test_striter(void);
+int test_striteri(void);
 
 // === Test functions from file_mani.c ===
 

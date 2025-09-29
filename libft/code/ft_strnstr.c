@@ -18,16 +18,15 @@ char *ft_strnstr(const char *big, const char *little, size_t len)
 	char *ndl = (char *) little;
 	char *res;
 	int flag;
-
+	
+	flag = 1;
 	res = hay;
 	if (*ndl == '\0')
 		return (res);
 
 	while (*hay != '\0' && len > 0)
 	{
-		if (*ndl == '\0')
-			return (res);
-		else if (*hay == *ndl)
+		if (*hay == *ndl)
 		{
 			if (flag == 1)
 			{

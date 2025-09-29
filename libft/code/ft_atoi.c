@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:34:11 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/25 17:49:48 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/09/29 10:01:20 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int ft_atoi(const char *nptr)
 	value = 0;
 	c = 0;
 
-	while (*i == ' ' || *i == '\t' || *i == '\n' || *i == '\v' || *i == '\f' || *i == '\r')
-	{
+	while (*i == ' ' || (*i >= 9 && *i <= 13))
 		i++;
-	}
 	if (*i == '+' || i[c] == '-')
 		c++;
 	while (ft_isdigit(i[c]))
