@@ -48,5 +48,20 @@ int test_memcmp(void);
 int test_atoi(void);
 int test_calloc(void);
 int test_strdup(void);
+int test_itoa(void);
 
+// == Test functions from adv_str_mani.c ===
+int test_substr(void);
+int test_strjoin(void);
+int test_strtrim(void);
+int test_split(void);
+int test_strmapi(void);
+int test_striteri(void);
+
+// === Test functions from file_mani.c ===
+
+int test_putchar_fd(void);
+int test_putstr_fd(void);
+int test_putendl_fd(void);
+int test_putnbr_fd(void);
 #endif
