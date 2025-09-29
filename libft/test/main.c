@@ -65,6 +65,6 @@ int main(void)
 	// --- File Manimulation Tests ---
 	test(test_putchar_fd(), "test_putchar_fd");
 	test(test_putstr_fd(), "test_putstr_fd");
-	test(test_puntendl_fd(), "test_putendl_fd");
+	test(test_putendl_fd(), "test_putendl_fd");
 	test(test_putnbr_fd(), "test_putnbr_fd");	
 }
