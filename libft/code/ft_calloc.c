@@ -14,20 +14,19 @@
 #include <stdio.h>
 
 // malloc, free
-void *ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char *i;
-	size_t b;
+	char	*i;
+	size_t	b;
 
 	b = size * nmemb;
 	if (b == 0)
 		return (malloc(0));
 	if (b / nmemb != size)
-		return (NULL); 
-
-	i = (char *) malloc(b);
+		return (NULL);
+	i = (char *)malloc(b);
 	if (i == NULL)
 		return (NULL);
 	ft_bzero(i, size);
-	return ((void *) i);
+	return ((void *)i);
 }

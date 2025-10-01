@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-static int ft_islower(int c);
+static int	ft_islower(int c);
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (ft_islower(c))
 	{
@@ -24,15 +24,14 @@ int ft_toupper(int c)
 	}
 }
 
-int ft_islower(int c)
+int	ft_islower(int c)
 {
-    if (c >= 'a' && c <= 'z')
-    {
-        return (1);
-    }
-    else
-    {
-        return (0);
-    }
+	if (c >= 'a' && c <= 'z')
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
 }
-

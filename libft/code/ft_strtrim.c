@@ -1,35 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/01 14:47:01 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/10/01 16:20:16 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 
-static int is_in_set(char c, char const *set);
+static int	is_in_set(char c, char const *set);
 
-char *ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	unsigned int i;
-	unsigned int j;
-	size_t len;
-	char *new;
+	unsigned int	i;
+	unsigned int	j;
+	size_t			len;
+	char			*new;
 
 	i = 0;
-	j = 0;
 	len = ft_strlen(s1);
-	while (is_in_set(s1[i], set) && s1[i])	
+	while (is_in_set(s1[i], set) && s1[i])
 		i++;
 	if (i == len)
-		return(malloc(0));
-	while (is_in_set(s1[len + j], set) && s1[j])
+		return (ft_calloc(1, sizeof(char)));
+	j = 0;
+	while (is_in_set(s1[len - 1 - j], set) && s1[len - 1 - j])
 		j++;
 	len = len - i - j;
-	new = (char *) malloc((len + 1) * sizeof(char));
-	new[len + 1] = '\0';
+	new = (char *)malloc((len + 1) * sizeof(char));
 	if (new == NULL)
 		return (NULL);
+	new[len] = '\0';
 	return (ft_memcpy(new, &s1[i], len));
 }
 
-int is_in_set(char c, char const *set)
+int	is_in_set(char c, char const *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])

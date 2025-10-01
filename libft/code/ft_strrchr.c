@@ -13,15 +13,15 @@
 #include "libft.h"
 #include <stdio.h>
 
-char *ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char *last;
-	char *i;
-	char needle;
+	char	*last;
+	char	*i;
+	char	needle;
 
-	needle = (char) c;
+	needle = (char)c;
 	last = NULL;
-	i = (char *) s;
+	i = (char *)s;
 	while (*i != '\0')
 	{
 		if (*i == needle)

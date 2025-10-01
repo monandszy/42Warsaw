@@ -12,18 +12,19 @@
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	char *hay = (char *) big;
-	char *ndl = (char *) little;
-	char *res;
-	int flag;
-	
+	char	*hay;
+	char	*ndl;
+	char	*res;
+	int		flag;
+
+	hay = (char *)big;
+	ndl = (char *)little;
 	flag = 1;
 	res = hay;
 	if (*ndl == '\0')
 		return (res);
-
 	while (*hay != '\0' && len > 0)
 	{
 		if (*hay == *ndl)
@@ -39,11 +40,11 @@ char *ft_strnstr(const char *big, const char *little, size_t len)
 		}
 		else
 		{
-			ndl = (char *) little;
+			ndl = (char *)little;
 			if (flag == 0)
 			{
 				flag = 1;
-				continue;
+				continue ;
 			}
 		}
 		len--;

@@ -12,16 +12,15 @@
 
 #include "libft.h"
 
-int ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
-	int value;
-	char *i;
-	int c;
+	int		value;
+	char	*i;
+	int		c;
 
-	i = (char *) nptr;
+	i = (char *)nptr;
 	value = 0;
 	c = 0;
-
 	while (*i == ' ' || (*i >= 9 && *i <= 13))
 		i++;
 	if (*i == '+' || i[c] == '-')
@@ -34,6 +33,5 @@ int ft_atoi(const char *nptr)
 	}
 	if (i[0] == '-')
 		value = -value;
-
 	return (value);
 }
