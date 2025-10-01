@@ -14,7 +14,7 @@ int test_strlen(void)
         NULL
     };
 
-    for (int i = 0; test_cases[i] != NULL; ++i)
+    for (int i = 0; test_cases[i] != NULL; i++)
     {
         const char *str = test_cases[i];
         size_t ft_result = ft_strlen(str);
@@ -39,7 +39,7 @@ int test_strlcpy(void)
     size_t sizes[] = {50, 23, 15, 1, 0};
     int num_tests = sizeof(sizes) / sizeof(sizes[0]);
 
-    for (int i = 0; i < num_tests; ++i)
+    for (int i = 0; i < num_tests; i++)
     {
         size_t size = sizes[i];
         memset(ft_dest, 'X', sizeof(ft_dest));
@@ -86,7 +86,7 @@ int test_strlcat(void)
         {NULL, 0}
     };
 
-    for (int i = 0; test_cases[i].initial_dest != NULL; ++i)
+    for (int i = 0; test_cases[i].initial_dest != NULL; i++)
     {
         const char *initial = test_cases[i].initial_dest;
         size_t size = test_cases[i].size;

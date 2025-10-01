@@ -18,7 +18,7 @@ int test_strchr(void)
         {0}
     };
 
-    for (int i = 0; test_cases[i].c != 0; ++i)
+    for (int i = 0; test_cases[i].c != 0; i++)
     {
         char *ft_ret = ft_strchr(s, test_cases[i].c);
         char *std_ret = strchr(s, test_cases[i].c);
@@ -67,7 +67,7 @@ int test_strrchr(void)
         {NULL, 0}
     };
 
-    for (int i = 0; test_cases[i].str != NULL; ++i)
+    for (int i = 0; test_cases[i].str != NULL; i++)
     {
         char *ft_ret = ft_strrchr(test_cases[i].str, test_cases[i].c);
         char *std_ret = strrchr(test_cases[i].str, test_cases[i].c);
@@ -116,7 +116,7 @@ int test_memchr(void)
         {NULL, 0, 0}
     };
 
-    for (int i = 0; test_cases[i].str != NULL; ++i)
+    for (int i = 0; test_cases[i].str != NULL; i++)
     {
         void *ft_ret = ft_memchr(test_cases[i].str, test_cases[i].c, test_cases[i].n);
         void *std_ret = memchr(test_cases[i].str, test_cases[i].c, test_cases[i].n);
@@ -159,7 +159,7 @@ int test_strnstr(void)
         {NULL, NULL, 0}
     };
 
-    for (int i = 0; test_cases[i].h != NULL; ++i)
+    for (int i = 0; test_cases[i].h != NULL; i++)
     {
         char *ft_ret = ft_strnstr(test_cases[i].h, test_cases[i].n, test_cases[i].len);
         char *std_ret = strnstr(test_cases[i].h, test_cases[i].n, test_cases[i].len);

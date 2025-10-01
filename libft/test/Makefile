@@ -11,6 +11,7 @@ SRCS = \
 	cmp.c \
 	misc.c \
 	adv_str_mani.c \
+	str_mapi.c \
 	file_mani.c
 
 OBJS = $(SRCS:.c=.o)
