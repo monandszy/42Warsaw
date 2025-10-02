@@ -19,10 +19,10 @@ int	test_substr(void)
         { "Hello", 2, 10, "llo" },
         { "abc", 2, 1, "c" },
         { "abc", 3, 5, "" },
-        { "abc", 4, 5, NULL },
+        { "abc", 4, 5, "" },
         { "", 0, 5, "" },
         { "", 0, 0, "" },
-        { "", 1, 5, NULL },
+	{ "", 1, 5, "" },
         { NULL, 0, 0, NULL }
     };
 	for (int i = 0; test_cases[i].input != NULL; i++)

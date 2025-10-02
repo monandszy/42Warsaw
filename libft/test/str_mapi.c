@@ -109,15 +109,15 @@ int test_strmapi(void)
 	};
     for (int i = 0; test_cases[i].s != NULL; i++)
     {
-		char  *s = test_cases[i].s;
+	char  *s = test_cases[i].s;
         char  *expected = test_cases[i].expected;
     	char  *out;
 
-		out = ft_strmapi(s, f);
+	out = ft_strmapi(s, f);
 
-		if (out == NULL && expected != NULL)
+	if (out == NULL && expected != NULL)
         {
-			printf("FAIL: test_strmapi | s: \"%s\"\n", s);
+	    printf("FAIL: test_strmapi | s: \"%s\"\n", s);
             printf("Expected: \"%s\", Got: \"%s\"\n", expected, out);
             free(out);
             return (1);
@@ -125,14 +125,15 @@ int test_strmapi(void)
         else if (out == NULL && expected == NULL)
         {
         }
-		else if (strcmp(out, expected))
-		{
-			printf("FAIL: test_strmapi | s: \"%s\"\n", s);
+	else if (strcmp(out, expected))
+	{
+	    printf("FAIL: test_strmapi | s: \"%s\"\n", s);
             printf("Expected: \"%s\", Got: \"%s\"\n", expected, out);
-			free(out);
-			return (1);
-		}
+	    free(out);
+	    return (1);
 	}
+	free(out);
+   }
 	return (0);
 }
 
@@ -177,13 +178,14 @@ int test_striteri(void)
         else if (buff == NULL && expected == NULL)
         {
         }
-		else if (strcmp(buff, expected))
-		{
-			printf("FAIL: test_striter | s: \"%s\"\n", s);
-            printf("Expected: \"%s\", Got: \"%s\"\n", expected, buff);
-			return (1);
-		}
+	else if (strcmp(buff, expected))
+	{
+		printf("FAIL: test_striter | s: \"%s\"\n", s);
+	        printf("Expected: \"%s\", Got: \"%s\"\n", expected, buff);
+		return (1);
+	}	
     }
+    free(buff);
     return (0);
 }
 

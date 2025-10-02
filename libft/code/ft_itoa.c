@@ -18,7 +18,8 @@ static char		*process(unsigned int n, size_t size, char *b);
 size_t	int_size(unsigned int n)
 {
 	size_t	i;
-
+	if (n == 0)
+		return (1);
 	i = 0;
 	while (n > 0)
 	{
@@ -32,6 +33,8 @@ char	*process(unsigned int n, size_t size, char *b)
 {
 	b[size] = '\0';
 	size--;
+	if (n == 0)
+		b[size] = '0';
 	while (n > 0)
 	{
 		b[size] = (char) ((n % 10) + '0');
