@@ -3,6 +3,7 @@
 
 int	test_putchar_fd(void)
 {
+	
 	return (1);
 }
 
