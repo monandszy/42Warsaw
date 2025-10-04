@@ -18,6 +18,7 @@ static char		*process(unsigned int n, size_t size, char *b);
 size_t	int_size(unsigned int n)
 {
 	size_t	i;
+
 	if (n == 0)
 		return (1);
 	i = 0;
@@ -37,7 +38,7 @@ char	*process(unsigned int n, size_t size, char *b)
 		b[size] = '0';
 	while (n > 0)
 	{
-		b[size] = (char) ((n % 10) + '0');
+		b[size] = (char)((n % 10) + '0');
 		n /= 10;
 		size--;
 	}
@@ -52,7 +53,7 @@ char	*ft_itoa(int n)
 	if (n < 0)
 	{
 		size = int_size(-n) + 1;
-		new = (char *) malloc((size + 1) * sizeof(char));
+		new = (char *)malloc((size + 1) * sizeof(char));
 		if (new == NULL)
 			return (NULL);
 		new[0] = '-';

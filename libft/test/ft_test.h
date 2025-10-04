@@ -64,4 +64,21 @@ int	test_putchar_fd(void);
 int	test_putstr_fd(void);
 int	test_putendl_fd(void);
 int	test_putnbr_fd(void);
+
+// === BONUS === 
+
+// === Test functions from lst_add.c ===
+
+int test_lstnew(void);
+int test_lstadd_front(void);
+int test_lstsize(void);
+int test_lstlast(void);
+int test_lstadd_back(void);
+
+// === Test functions from lst_mani.c ===
+
+int test_lstdelone(void);
+int test_lstclear(void);
+int test_lstiter(void);
+int test_lstmap(void);
 #endif

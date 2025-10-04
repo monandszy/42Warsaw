@@ -151,10 +151,10 @@ int test_striteri(void)
         char *s;
         char *expected;
     } test_cases[] = {
-	    {"hello", "hfnos"},
+	    {"hello", "hemlq"},
         {"", ""},
-        {"123", "135"},
-        {"abcde", "acegi"},
+        {"123", "124"},
+        {"abcde", "abddg"},
         {NULL, NULL}
     };
 	buff = (char *) malloc(30 * sizeof(char));

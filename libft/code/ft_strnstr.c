@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int inner_find(char *start, char *ndl, size_t len);
+static int	inner_find(char *start, char *ndl, size_t len);
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -21,7 +21,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	hay = (char *)big;
 	ndl = (char *)little;
-
 	if (*little == '\0' || little == NULL)
 		return (hay);
 	while (len > 0 && *hay != '\0')
@@ -29,7 +28,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		if (*hay == *ndl)
 		{
 			if (inner_find(hay, ndl, len))
-				return (hay);	
+				return (hay);
 		}
 		len--;
 		hay++;
@@ -37,16 +36,16 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 
-int inner_find(char *start, char *ndl, size_t len)
+int	inner_find(char *start, char *ndl, size_t len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (start[i] && len > 0)
 	{
 		if (ndl[i] == start[i] && ndl[i + 1] == '\0')
 			return (1);
-		else if(ndl[i] != start[i])
+		else if (ndl[i] != start[i])
 		{
 			return (0);
 		}

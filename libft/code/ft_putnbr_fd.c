@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/04 12:59:04 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/10/04 12:59:07 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 
-static void recurse(int n, int fd);
+static void	recurse(int n, int fd);
 
-void ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	if (n == 0)
 		ft_putchar_fd('0', fd);
@@ -17,9 +28,9 @@ void ft_putnbr_fd(int n, int fd)
 	recurse(n, fd);
 }
 
-void recurse(int n, int fd)
+void	recurse(int n, int fd)
 {
-	int tmp;
+	int	tmp;
 
 	if (n > 0)
 	{

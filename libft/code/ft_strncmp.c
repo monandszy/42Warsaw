@@ -12,13 +12,13 @@
 
 #include "libft.h"
 
-static char ft_abs(char c);
+static char	ft_abs(char c);
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int	i;
-	unsigned char c1;
-	unsigned char c2;
+	unsigned char	c1;
+	unsigned char	c2;
 
 	i = 0;
 	while (i < n)
@@ -36,7 +36,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-char ft_abs(char c)
+char	ft_abs(char c)
 {
 	if (c < 0)
 		return (-c);

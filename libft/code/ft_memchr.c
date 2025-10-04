@@ -15,7 +15,7 @@
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	char	*i;
-	char			needle;
+	char	needle;
 
 	i = (char *)s;
 	needle = (char)c;

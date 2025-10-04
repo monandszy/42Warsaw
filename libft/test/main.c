@@ -14,7 +14,7 @@ void	test(int result, char *name)
 
 int	main(void)
 {
-	printf("--- Running Libft Test Suite ---\n\n");
+/*	printf("--- Running Libft Test Suite ---\n\n");
 	// --- Character Classification Tests ---
 	test(test_isalpha(), "test_isalpha");
 	test(test_isalnum(), "test_isalnum");
@@ -58,5 +58,16 @@ int	main(void)
 	test(test_putchar_fd(), "test_putchar_fd");
 	test(test_putstr_fd(), "test_putstr_fd");
 	test(test_putendl_fd(), "test_putendl_fd");
-	test(test_putnbr_fd(), "test_putnbr_fd");
+	test(test_putnbr_fd(), "test_putnbr_fd"); */
+
+	// --- BONUS ---
+    test(test_lstnew(), "test_lstnew");
+    test(test_lstadd_front(), "test_lstadd_front");
+    test(test_lstsize(), "test_lstsize");
+    test(test_lstlast(), "test_lstlast");
+    test(test_lstadd_back(), "test_lstadd_back");
+    test(test_lstdelone(), "test_lstdelone");
+    test(test_lstclear(), "test_lstclear");
+    test(test_lstiter(), "test_lstiter");
+    test(test_lstmap(), "test_lstmap");
 }

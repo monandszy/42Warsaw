@@ -12,7 +12,9 @@ SRCS = \
 	misc.c \
 	adv_str_mani.c \
 	str_mapi.c \
-	file_mani.c
+	file_mani.c \
+	lst_add.c \
+	lst_mani.c
 
 OBJS = $(SRCS:.c=.o)
 OBJ_PATHS = $(addprefix $(OBJS_DIR)/, $(OBJS))
