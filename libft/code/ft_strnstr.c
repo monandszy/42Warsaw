@@ -21,9 +21,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	hay = (char *)big;
 	ndl = (char *)little;
-	if (*ndl == '\0')
+
+	if (*little == '\0' || little == NULL)
 		return (hay);
-	while (*hay != '\0' && len > 0)
+	while (len > 0 && *hay != '\0')
 	{
 		if (*hay == *ndl)
 		{

@@ -12,20 +12,33 @@
 
 #include "libft.h"
 
+static char ft_abs(char c);
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int	i;
+	unsigned char c1;
+	unsigned char c2;
 
 	i = 0;
 	while (i < n)
 	{
-		if (s1[i] == '\0' && s2[i] == '\0')
+		c1 = ft_abs(s1[i]);
+		c2 = ft_abs(s2[i]);
+		if (c1 == '\0' && c2 == '\0')
 			return (0);
-		else if (s1[i] < s2[i])
-			return (s1[i] - s2[i]);
-		else if (s1[i] > s2[i])
-			return (s1[i] - s2[i]);
+		else if (c1 > c2)
+			return (c1 - c2);
+		else if (c1 < c2)
+			return (c1 - c2);
 		i++;
 	}
 	return (0);
+}
+
+char ft_abs(char c)
+{
+	if (c < 0)
+		return (-c);
+	return (c);
 }

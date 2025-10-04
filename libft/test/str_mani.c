@@ -11,7 +11,7 @@ int test_strlen(void)
         "hello",
         "a slightly longer test string",
         "12345\0hidden",
-        NULL
+	NULL
     };
 
     for (int i = 0; test_cases[i] != NULL; i++)
@@ -27,7 +27,7 @@ int test_strlen(void)
             return (1);
         }
     }
-    return (0);
+       return (0);
 }
 
 int test_strlcpy(void)
@@ -72,7 +72,7 @@ int test_strlcat(void)
     const char *src = " to append.";
 
     struct {
-        const char *initial_dest;
+        const char *id;
         size_t size;
     } test_cases[] = {
         {"start", 30},
@@ -82,13 +82,13 @@ int test_strlcat(void)
         {"start", 5},
         {"", 20},
         {"start", 0},
-		{"start", 1},
-        {NULL, 0}
+	{"start", 1},
+	{NULL, 0},
     };
 
-    for (int i = 0; test_cases[i].initial_dest != NULL; i++)
+    for (int i = 0; test_cases[i].id != NULL; i++)
     {
-        const char *initial = test_cases[i].initial_dest;
+        const char *initial = test_cases[i].id;
         size_t size = test_cases[i].size;
 
         strcpy(ft_dest, initial);

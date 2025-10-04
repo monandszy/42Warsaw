@@ -63,5 +63,8 @@ fclean: clean
 
 re: fclean all
 
+breaker: fclean compile
+	$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(OBJ_PATHS)
+
 # Prevents confusing a flag's name for a file
 .PHONY: all clean fclean re

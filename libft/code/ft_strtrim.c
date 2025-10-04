@@ -22,6 +22,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char			*new;
 
 	i = 0;
+	if (s1 == NULL)
+		return (NULL);
 	len = ft_strlen(s1);
 	while (is_in_set(s1[i], set) && s1[i])
 		i++;
@@ -42,6 +44,8 @@ int	is_in_set(char c, char const *set)
 {
 	int	i;
 
+	if (set == NULL)
+		return (0);
 	i = 0;
 	while (set[i])
 	{

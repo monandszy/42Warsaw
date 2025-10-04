@@ -19,7 +19,8 @@ char	**ft_split(char const *s, char c)
 {
 	char	**spl;
 	size_t	len;
-
+	if (s == NULL)
+		return (NULL);
 	len = count_occurence((char *)s, c);
 	spl = (char **)malloc((len + 1) * sizeof(char *));
 	if (spl == NULL)

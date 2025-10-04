@@ -156,10 +156,11 @@ int test_strnstr(void)
         {"aaabcabcd", "abcd", 9},
         {"unlucky", "lucky", 7},
         {"unlucky", "lucky", 6},
+	{NULL, "cat", 0},
         {NULL, NULL, 0}
     };
 
-    for (int i = 0; test_cases[i].h != NULL; i++)
+    for (int i = 0; test_cases[i].h == NULL && test_cases[i].n == NULL; i++)
     {
         char *ft_ret = ft_strnstr(test_cases[i].h, test_cases[i].n, test_cases[i].len);
         char *std_ret = strnstr(test_cases[i].h, test_cases[i].n, test_cases[i].len);

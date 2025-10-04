@@ -12,7 +12,13 @@ int	test_memset(void)
 	{
 		int c;
 		size_t n;
-	} test_cases[] = {{'A', 10}, {0, 20}, {'B', 0}, {255, 5}, {'C', 1}, {0, 0}};
+	} test_cases[] = 
+		{{'A', 10}, 
+		{0, 20}, 
+		{'B', 0}, 
+		{255, 5}, 
+		{'C', 1}, 
+		{0, 0}};
 	for (int i = 0; test_cases[i].n != 0 || test_cases[i].c != 0; i++)
 	{
 		memset(ft_buf, 'X', 20);
@@ -130,6 +136,7 @@ int	test_memmove(void)
 		printf("Expected: \"%s\", Got: \"%s\"\n", std_buf, ft_buf);
 		return (1);
 	}
+		return (0);
 	// Test 3: Overlap, src > dest
 	memcpy(ft_buf, initial, 27);
 	memcpy(std_buf, initial, 27);

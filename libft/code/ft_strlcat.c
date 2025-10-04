@@ -21,11 +21,11 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t			l2;
 	unsigned int	i;
 
-	l1 = ft_strlen(dst);
 	l2 = ft_strlen(src);
-	i = 0;
 	if (size == 0)
 		return (l2);
+	i = 0;
+	l1 = ft_strlen(dst);
 	while (src[i] && (l1 + i < size - 1))
 	{
 		dst[l1 + i] = src[i];
