@@ -14,7 +14,7 @@ void	test(int result, char *name)
 
 int	main(void)
 {
-/*	printf("--- Running Libft Test Suite ---\n\n");
+	printf("--- Running Libft Test Suite ---\n\n");
 	// --- Character Classification Tests ---
 	test(test_isalpha(), "test_isalpha");
 	test(test_isalnum(), "test_isalnum");
@@ -58,7 +58,7 @@ int	main(void)
 	test(test_putchar_fd(), "test_putchar_fd");
 	test(test_putstr_fd(), "test_putstr_fd");
 	test(test_putendl_fd(), "test_putendl_fd");
-	test(test_putnbr_fd(), "test_putnbr_fd"); */
+	test(test_putnbr_fd(), "test_putnbr_fd");
 
 	// --- BONUS ---
     test(test_lstnew(), "test_lstnew");
