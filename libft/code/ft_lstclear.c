@@ -4,24 +4,22 @@
 void ft_lstclear(t_list **lst, void(*del)(void *))
 {
 	t_list *tmp;
-	t_list *current;
+	t_list *i;
 
 	if (lst == NULL || del == NULL)
 		return ;
 	else if (*lst == NULL)
 	{
-		lst = NULL;
+		*lst = NULL;
 		return ;
 	}
-	current = *lst;
-	tmp = current -> next;
-	while (tmp != NULL)
+	i = *lst;
+	while (i != NULL)
 	{
-		(*del)(current -> content);
-		free(current);
-		*lst = tmp;
-		current = *lst;
-		tmp = current -> next;
+		(*del)(i -> content);
+		tmp = i;
+		i = tmp -> next;
+		free(tmp);
 	}
-	lst = NULL;
+	*lst = NULL;
 }
