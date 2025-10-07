@@ -6,13 +6,11 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:07:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/04 14:09:03 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:46:43 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int ft_lstsize(t_list *lst)
 {
 	unsigned int i;
-
-	while
 }
