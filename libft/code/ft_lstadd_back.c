@@ -14,8 +14,7 @@
 
 void ft_lstadd_back(t_list **lst, t_list *new)
 {
-    t_list *c;
-    unsigned int i;
+	t_list *last;
 
     if (lst == NULL)
         return ;
@@ -24,11 +23,6 @@ void ft_lstadd_back(t_list **lst, t_list *new)
         *lst = new;
         return ;
     }
-    c = lst[0];
-    while (c -> next != NULL)
-    {
-        c = lst[i]
-        i++;
-    }
-    c -> next = new;
+    last = ft_lstlast(*lst);
+    last -> next = new;
 } 

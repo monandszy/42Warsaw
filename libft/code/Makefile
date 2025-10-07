@@ -64,8 +64,6 @@ all:  $(OBJS) archive
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-compile:
-
 %.o: %.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $(OBJS_DIR)/$@
 
@@ -80,8 +78,7 @@ fclean: clean
 
 re: fclean all
 
-breaker: fclean $(OBJS)
-	$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(OBJ_PATHS)
+breaker: fclean $(OBJS) $(BOBJS)
+	$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(OBJ_PATHS) $(BOBJ_PATHS)
 
-# Prevents confusing a flag's name for a file
 .PHONY: all clean fclean re
