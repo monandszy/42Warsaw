@@ -6,12 +6,11 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 18:37:31 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/29 10:42:32 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:15:16 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strdup(const char *src)
 {

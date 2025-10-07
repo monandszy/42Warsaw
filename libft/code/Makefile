@@ -78,7 +78,4 @@ fclean: clean
 
 re: fclean all
 
-breaker: fclean $(OBJS) $(BOBJS)
-	$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(OBJ_PATHS) $(BOBJ_PATHS)
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re archive bonus

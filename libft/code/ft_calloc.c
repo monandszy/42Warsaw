@@ -6,14 +6,12 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 17:50:14 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/09/29 17:44:51 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:15:22 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-// malloc, free
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char	*i;
