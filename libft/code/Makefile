@@ -78,6 +78,8 @@ fclean: clean
 
 re: fclean all
 
+so: breaker
+
 breaker: fclean $(OBJS) $(BOBJS)
 	$(CC) -nostartfiles -shared -fPIC -ldl $(CFLAGS) -o libft.so $(OBJ_PATHS) $(BOBJ_PATHS)
 
