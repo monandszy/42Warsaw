@@ -1,1 +1,1 @@
-cp -r ./../libft/code/ ./code/libft/
+cp -r ./../mylibft/code/ ./code/libft/
