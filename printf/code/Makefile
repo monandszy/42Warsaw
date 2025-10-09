@@ -2,15 +2,17 @@ NAME = libftprintf.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRC = \
-	ft_printf.c
+	ft_printf.c \
+	formatter.c \
+	utils.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
-LIBFT_PATH = libft
+LIB_DIR = libft
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
 
 $(NAME): all
 
-all: $(OBJ) archive
+all: libmake $(OBJ) archive
 
 %.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@
@@ -18,8 +20,11 @@ all: $(OBJ) archive
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+libmake:
+	make -C $(LIB_DIR) > /dev/null 2>&1
+
 archive:
-	ar rcs $(NAME) $(OBJ_PATH)
+	ar rcs $(NAME) $(LIB_DIR)/libft.a $(OBJ_PATH)
 
 clean:
 	rm -rf $(OBJ_DIR)

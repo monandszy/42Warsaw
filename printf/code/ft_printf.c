@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:29:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/08 18:46:25 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:52:57 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,10 @@
 	if not sufficient arguments - takes next anyway
 	if additional arguments - does not process them
 	if type mismatch - processes as specifier
-	if invalid specifier - print %
+	if invalid specifier - print % without specifier
+
+	if crash nothing will print
 */
-int ft_printf(const char * format, ...)
-{
-	char *formatted;
-
-	va_list args;
-	va_start(args, format);
-	formatted = format(ft_strdup(format), args);
-	va_end(args);
-	ft_putstr(formatted);
-	free(formatted);
-}
-
 /* PROCESS
 convert args to a string list
 -> count %ts -> alloc master list (validate)
@@ -38,44 +28,36 @@ convert args to a string list
 	->	applies flags
 apply string list to the format, creating new string
 */
-char *format(char *format, va_list args)
+int ft_printf(const char * format, ...)
 {
-	char type;
+	char *formatted;
+	char **master;
+	int c;
+	va_list args;
+	size_t len;
 
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			type = extract_specifier(format)
-			if (type == 0)
-			{
-				format++;
-				continue;
-			}
-			format = process_specifier(type, format, args);
-		}
-		format++;
-	}
-	return (format);
+	c = count_args((char *) format);
+	master = (char **) malloc(sizeof(char *) * (c + 1));
+	if (!master)
+		return (0);
+	master[c] = NULL;
+	va_start(args, format);
+	master = extract_args((char *) format, args, master);
+	va_end(args);
+	if (!master)
+		return (0);
+	formatted = ft_format((char *) format, master);
+	ft_putstr(formatted);
+	len = ft_strlen(formatted);
+	free(formatted);
+	return (len);
 }
 
-/*
-Each conversion specification is introduced
-by the character %, and ends with a conversion specifier. 
-In between there may be (in this order) zero or more flags, an
-optional minimum field width, an optional precision and an
-optional length modifier.
-
-%
-[argument$] // not in req
-[flags] // # 0 - ' ' +
-[width] // (number) - minium
-[.precision] // .(number)
-[length modifier] // not in req
-conversion // c s p d i u x X %
-*/
-char *process_specifier(char *index)
+char *ft_format(char *format, char **master)
 {
+	(void) format;
+	(void) master;
+	return (NULL);
 }
 
-char *extract_specifier
+

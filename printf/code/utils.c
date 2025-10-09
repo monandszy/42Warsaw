@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 16:34:11 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/08 19:09:03 by sandrzej         ###   ########.fr       */
+/*   Created: 2025/10/08 18:51:53 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/10/09 16:11:40 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_atoi(const char *nptr)
+size_t count_args(char *f)
 {
-	int		value;
-	char	*i;
-	int		c;
+	size_t c;
 
-	i = (char *)nptr;
-	value = 0;
 	c = 0;
-	while (*i == ' ' || (*i >= 9 && *i <= 13))
-		i++;
-	if (*i == '+' || i[c] == '-')
-		c++;
-	while (ft_isdigit(i[c]))
-	{
-		value *= 10;
-		value += (i[c] - '0');
-		c++;
-	}
-	if (i[0] == '-')
-		value = -value;
-	return (value);
+    while (*f)
+    {
+        if (*f == '%')
+        {
+			c++;
+			while(*f++)
+				if (!((*f == '#' || *f == '0' || *f == '-' || *f == ' ' || *f == '+')
+					|| (*f == '.')))
+					break ;
+			if (!*f)
+				return (c);
+        }
+        f++;
+    }
+    return (c);
 }
+

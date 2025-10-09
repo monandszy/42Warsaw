@@ -5,7 +5,6 @@
 
 #include "ft_test.h"
 
-
 int test_putchar_fd(void)
 {
     struct

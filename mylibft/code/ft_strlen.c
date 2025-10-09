@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 10:31:43 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/07 17:32:33 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/08 19:36:29 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_strlen(const char *s)
 {
 	unsigned int	i;
-
+	
 	i = 0;
 	while (s[i])
 		i++;
