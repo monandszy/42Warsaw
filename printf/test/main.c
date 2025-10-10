@@ -19,28 +19,26 @@ int main(void)
 //	printf("\n");
 //	printf("[%d]", printf("%d%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", NULL));
 	// if no num after . set is as 0
-//	printf("[%d]", printf("[%.0h] \n", "CAT"));
 
-	test(test_count_args(), "test_count_args");
+	
+	test(test_alloc_args(), "test_alloc_args");
 	test(test_extract_args(), "test_extract_args");
 	test(test_ft_format(), "test_ft_format");
 	test(test_ft_printf(), "test_ft_printf");
 }
 
-int test_count_args()
+int test_alloc_args()
 {
-	struct {
+	/*struct {
 		char *input;
 		size_t expected;
 	} c[] = {
 		{"% %", 1},
-		{"END", 0},
-		{"END", 0},
-		{"END", 0},
-		{"END", 0},
-		{"END", 0},
-		{"END", 0},
-		{"END", 0},
+		{"%a%b%c%d", 4},
+		{"%#0- +.d%%", 2},
+		{"%%%", 2},
+		{"%", 1},
+		{"%s%d", 2},
 		{"END", 0},
 	};
 	
@@ -49,15 +47,16 @@ int test_count_args()
 		char *str = c[i].input;
 		size_t e = c[i].expected;
 		size_t returned;
-
+		
 		returned = count_args(str);
 		if (returned != e)
 		{
-			printf("FAIL: Expected: %zu, Got: %zu\n", e, returned);
+			printf("FAIL: For: \"%s\"\n", str);
+			printf("Expected: %zu, Got: %zu\n", e, returned);
 			return (1);
 		}
-	}
-	return (0);
+	} */
+	return (1);
 }
 
 int test_extract_args()
@@ -72,5 +71,30 @@ int test_ft_format()
 
 int test_ft_printf()
 {
-	return (1);
+    struct {
+        char *input;
+    } c[] = {
+        {"% %"},
+        {"%a%b%c%d"},
+        {"%#0- +.d%%"},
+        {"aaaaaaaaaaa%%%%%%%"},
+        {"%"},
+        {"%s%d"},
+        {"%#0- +%"},
+		{""},
+		{NULL},
+        {"END"},
+    };
+    for (int i = 0; i < (sizeof(c) / sizeof(c[0])); i++)
+    {
+        char *str = c[i].input;
+        size_t returned;
+ 
+ 		printf("case: %10s | ", str);
+        printf("(");
+        int c = printf(str);
+        printf(")");
+        printf("{%d}\n", c);
+    }
+    return (1);
 }
