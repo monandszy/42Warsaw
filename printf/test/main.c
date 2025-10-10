@@ -33,7 +33,7 @@ int test_count_args()
 		char *input;
 		size_t expected;
 	} c[] = {
-		{"%%", 0},
+		{"% %", 1},
 		{"END", 0},
 		{"END", 0},
 		{"END", 0},
