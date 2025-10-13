@@ -1,6 +1,7 @@
-NAME = main
+NAME = test_runner.out
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g 
+# -Wall -Wextra -Werror
 SRC = \
     main.c
 

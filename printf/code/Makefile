@@ -1,6 +1,7 @@
 NAME = libftprintf.a
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g
+# -Wall -Wextra -Werror
 SRC = \
 	ft_printf.c \
 	extractor.c \

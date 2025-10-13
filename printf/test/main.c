@@ -13,51 +13,33 @@ void    test(int result, char *name)
     }
 }
 
+#define RUN_TEST(input, ...) \
+    do { \
+        int c1, c2; \
+        printf("case: %-25s | ", input); \
+        printf("original: ("); \
+        fflush(stdout); \
+        c1 = printf(input, __VA_ARGS__); \
+        printf(") len:%d | ", c1); \
+        printf("ft:("); \
+        fflush(stdout); \
+        c2 = ft_printf(input, __VA_ARGS__); \
+        printf(") len:%d\n", c2); \
+    } while (0)
+
 int main(void)
 {
-	//printf("[%d]", printf("%a%s %a %q %w %d %t %c %y %f %h %% a%% a%% %d %%g %d %h %%%"));
-//	printf("\n");
-//	printf("[%d]", printf("%d%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", NULL));
-	// if no num after . set is as 0
+    RUN_TEST("Hello, %s!", "world");
+    RUN_TEST("An empty string: <%s>", "");
+    RUN_TEST("A NULL string: <%s>", (char *)NULL);
+    RUN_TEST("%s, %s, and %s!", "one", "two", "three");
+    RUN_TEST("%s is the best", "ft_printf"); 
+    RUN_TEST("The best is %s", "ft_printf"); 
+    RUN_TEST("%s", "lonely string");
+    RUN_TEST("a %s %", "lonely faulty string");
 
-
-	printf("[%d]", printf("%p\n", &test));
-	printf("[%d]", printf("%lu\n", (unsigned long) &test));
-	printf("[%d]", printf("%lx\n", (unsigned long) &test));
-
-	test(test_ft_printf(), "test_ft_printf");
-}
-
-int test_ft_printf()
-{
-    struct {
-        char *input;
-    } c[] = {
-        {"% %"},
-        {"%a%b%c%d"},
-        {"%#0- +.d%%"},
-        {"aaaaaaaaaaa%%%%%%%"},
-        {"%"},
-        {"%s%d"},
-        {"%#0- +%"},
-		{""},
-		{NULL},
-        {"END"},
-    };
-    for (int i = 0; i < (sizeof(c) / sizeof(c[0])); i++)
-    {
-        char *str = c[i].input;
-        size_t returned;
- 
- 		/*printf("case: %10s | ", str);
-        printf("original: (");
-        int c1 = printf(str);
-        printf(") "); */
-        printf("ft:("); 
-        int c2 = ft_printf(str);
-        printf(")");
-        printf("{%d}\n", c2);
-
-    }
-    return (1);
+    RUN_TEST("The character is %c.", 'A');
+    RUN_TEST("A tab: <%c>.", '\t');
+    RUN_TEST("A null char: <%c>.", '\0');
+    RUN_TEST("%c%c%c", 'a', 'b', 'c');
 }

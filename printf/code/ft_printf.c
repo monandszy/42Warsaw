@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:29:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 14:02:27 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:59:29 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,62 @@ int	ft_printf(const char *format, ...)
 	char	*formatted;
 	t_list	***master;
 	va_list	args;
-	size_t	len;
+	int len;
 
 	if (!format)
-		return (ft_putstr(NULL));
+		return (ft_putstr(NULL, 1));
 	master = (t_list ***)malloc(sizeof(t_list **));
 	if (!master)
-		return (ft_putstr(NULL));
+		return (ft_putstr(NULL, 1));
 	va_start(args, format);
 	if (extract_args((char *)format, args, master))
 		return (free_params(master, args));
 	if (process_flags((char *)format, args, *master))
 		return (free_params(master, args));
-	formatted = ft_format((char *)format, *master);
+	formatted = ft_format((char *)format, *master, &len);
 	free_params(master, args);
-	return (ft_putstr(formatted));
+	return (ft_putstr(formatted, len));
 }
 
 int	free_params(t_list ***master, va_list args)
 {
-	// todo nested free logic
+	t_pobj *tmp;
+	t_list *i;
+	t_list *prev;
+
+	i = **master;
+	while(i)
+	{
+		tmp = (t_pobj *) i -> content;
+		if (tmp -> content)
+			free(tmp -> content);
+		if (tmp)
+			free(tmp);
+		prev = i;
+		i = i -> next;
+		free(prev);
+	}
+	free(*master);
+	free(master);
 	va_end(args);
 	return (-1);
 }
 
-int	ft_putstr(char *str)
+int	ft_putstr(char *str, int len)
 {
-	size_t	len;
-
 	if (str == NULL)
-		len = -2;
+		return (-1);
+	if (len > 0)
+	{
+		write(STDOUT_FILENO, str, len);
+		free(str);
+	}
 	else
 	{
 		len = ft_strlen(str);
 		write(STDOUT_FILENO, str, len);
 		free(str);
+		return (-1);
 	}
 	return (len);
 }

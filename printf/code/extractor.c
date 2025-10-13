@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 13:53:37 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:58:05 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,24 @@ if % at end return (-1), but print rest
 int	extract_args(char *f, va_list args, t_list ***alloc)
 {
 	t_list	**master;
-//	t_list	*i;
 	t_pobj	*tmp;
 	char	*t;
 
 	master = (t_list **)malloc(sizeof(t_list *));
 	if (!master)
-		return (1);
+		return (1);	
+	*master = NULL;
 	*alloc = master;
 	t = find_trigger(f);
 	f = find_specifier(t);
 	while (f && t && *f)
 	{
 		tmp = (t_pobj *)malloc(sizeof(t_pobj));
-		if (!tmp)
-			return (1);
 		extract_flags(f, t, tmp);
 		extract_string(*f, args, tmp);
+		if (!tmp)
+			return (1);
 		ft_lstadd_back(master, ft_lstnew(tmp));
-//		*i = *i->next;
 		t = find_trigger(f);
 		f = find_specifier(t);
 	}
@@ -62,6 +61,8 @@ int	extract_args(char *f, va_list args, t_list ***alloc)
 
 void	extract_flags(char *t, char *f, t_pobj *obj)
 {
+	if (obj == NULL)
+		return;
 	while (t != f)
 	{
 		if (*t == '-')
@@ -90,10 +91,12 @@ void	extract_string(char specifier, va_list args, t_pobj *obj)
 {
 	char	*str;
 
+	if (obj == NULL)
+		return;
 	if (specifier == 'c')
-		str = to_c(va_arg(args, char *));
+		str = to_c(va_arg(args, unsigned int));
 	else if (specifier == 's')
-		str = va_arg(args, char *);
+		str = to_s(va_arg(args, char *));
 	else if (specifier == 'p')
 		str = to_hex(((unsigned long)va_arg(args, void *)), 'a', 0);
 	else if (specifier == 'd' || specifier == 'i')
@@ -106,6 +109,11 @@ void	extract_string(char specifier, va_list args, t_pobj *obj)
 		str = to_hex(va_arg(args, unsigned int), 'A', 0);
 	else
 		str = get_default();
+	if (str == NULL)
+	{
+		free (obj);
+		return ;
+	}
 	obj->content = str;
 	obj->len = ft_strlen(str);
 	obj->specifier = specifier;

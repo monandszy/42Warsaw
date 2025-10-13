@@ -6,20 +6,29 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:13:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 13:55:51 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:59:10 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*to_c(char *str)
+char	*to_c(int c)
 {
-	char	*c;
+	char *s;
 
-	c = (char *)malloc(sizeof(char) * 2);
-	c[0] = *str;
-	c[1] = '\0';
-	return (c);
+	s = (char *) malloc(sizeof(char) * 2);
+	if (s == NULL)
+		return (NULL);
+	s[0] = (char) c;
+	s[1] = '\0';
+	return (s);
+}
+
+char	*to_s(char *str)
+{
+	if (str == NULL)
+		str = "(null)";
+	return (strdup(str));
 }
 
 char	*to_hex(unsigned long d, char format, unsigned int i)
@@ -40,6 +49,8 @@ char	*to_hex(unsigned long d, char format, unsigned int i)
 	else
 	{
 		str = (char *)malloc(sizeof(char) * (i + 1));
+		if (str == NULL)
+			return (NULL);
 		str[i] = '\0';
 		return (str);
 	}
@@ -52,6 +63,8 @@ char	*get_default(void)
 	char	*d;
 
 	d = (char *)malloc(sizeof(char) * 2);
+	if (d == NULL)
+		return (NULL);
 	d[0] = '%';
 	d[1] = '\0';
 	return (d);
