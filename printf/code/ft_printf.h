@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:13 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/10 18:25:36 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:01:56 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,18 @@ typedef struct s_pobj
 }			t_pobj;
 
 int			ft_printf(const char *, ...);
-// char **alloc_args(char *format);
-t_list		**extract_args(char *format, va_list args);
+int 		extract_args(char *format, va_list args, t_list ***master);
 void		extract_string(char specifier, va_list args, t_pobj *obj);
 void		extract_flags(char *f, char *t, t_pobj *obj);
-char		*extract_c(char *c);
-char		*extract_s(char *s);
-char		*extract_p(void *p);
-char		*extract_di(int di);
-char		*extract_u(unsigned int u);
-char		*extract_x(unsigned int x);
-char		*extract_X(unsigned int X);
-char		*extract_default(void);
+char		*to_c(char *c);
+char 		*to_hex(unsigned long d, char format, unsigned int i);
+char		*get_default(void);
 char		*find_trigger(char *format);
 char		*find_specifier(char *format);
 
-t_list		**process_flags(char *format, va_list args, t_list **master);
+int 		process_flags(char *format, va_list args, t_list **master);
 char		*ft_format(char *format, t_list **master);
-void		ft_putstr(char *str);
-int			free_args(t_list **master, va_list args);
+int			ft_putstr(char *str);
+int			free_params(t_list ***master, va_list args);
 
 #endif

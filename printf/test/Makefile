@@ -1,4 +1,4 @@
-NAME = test_runner.out
+NAME = main
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror
 SRC = \

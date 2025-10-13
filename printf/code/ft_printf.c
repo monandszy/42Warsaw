@@ -6,14 +6,11 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:29:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/10 17:08:04 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:02:27 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-const static char	*g_flags = "#0- +.";
-const static char	*g_specifiers = "cspdiuxX";
 
 /* UNDEFINED BEHAVIOUR
 	if not sufficient arguments - takes next anyway
@@ -34,37 +31,43 @@ apply string list to the format, creating new string
 int	ft_printf(const char *format, ...)
 {
 	char	*formatted;
-	t_list	**master;
+	t_list	***master;
 	va_list	args;
 	size_t	len;
 
 	if (!format)
-		return (-1);
-	va_start(args, format);
-	master = extract_args((char *)format, args);
-	master = process_flags((char *)format, args, master);
+		return (ft_putstr(NULL));
+	master = (t_list ***)malloc(sizeof(t_list **));
 	if (!master)
-		return (free_args(master, args));
-	formatted = ft_format((char *)format, master);
-	free_args(master, args);
-	if (!formatted)
-		return (-1);
-	ft_putstr(formatted);
-	len = ft_strlen(formatted);
-	free(formatted);
-	return (len);
+		return (ft_putstr(NULL));
+	va_start(args, format);
+	if (extract_args((char *)format, args, master))
+		return (free_params(master, args));
+	if (process_flags((char *)format, args, *master))
+		return (free_params(master, args));
+	formatted = ft_format((char *)format, *master);
+	free_params(master, args);
+	return (ft_putstr(formatted));
 }
 
-int	free_args(t_list **master, va_list args)
+int	free_params(t_list ***master, va_list args)
 {
+	// todo nested free logic
 	va_end(args);
-	// free master
 	return (-1);
 }
 
-char	*ft_format(char *format, t_list **master)
+int	ft_putstr(char *str)
 {
-	(void)format;
-	(void)master;
-	return (NULL);
+	size_t	len;
+
+	if (str == NULL)
+		len = -2;
+	else
+	{
+		len = ft_strlen(str);
+		write(STDOUT_FILENO, str, len);
+		free(str);
+	}
+	return (len);
 }

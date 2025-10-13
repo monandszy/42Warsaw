@@ -4,7 +4,9 @@ CC = cc
 SRC = \
 	ft_printf.c \
 	extractor.c \
+	converter.c \
 	processor.c \
+	formatter.c \
 	utils.c
 LIBFT_SRC = \
     ft_isalpha.c \
