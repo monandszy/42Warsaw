@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 16:58:05 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:37:32 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ void	extract_string(char specifier, va_list args, t_pobj *obj)
 	else if (specifier == 's')
 		str = to_s(va_arg(args, char *));
 	else if (specifier == 'p')
-		str = to_hex(((unsigned long)va_arg(args, void *)), 'a', 0);
+		str = to_xXp(((unsigned long)va_arg(args, void *)), 'a');
 	else if (specifier == 'd' || specifier == 'i')
 		str = ft_itoa(va_arg(args, int));
 	else if (specifier == 'u')
 		str = ft_itoa(va_arg(args, unsigned int));
 	else if (specifier == 'x')
-		str = to_hex(va_arg(args, unsigned int), 'a', 0);
+		str = to_xXp(va_arg(args, unsigned int), 'a');
 	else if (specifier == 'X')
-		str = to_hex(va_arg(args, unsigned int), 'A', 0);
+		str = to_xXp(va_arg(args, unsigned int), 'A');
 	else
 		str = get_default();
 	if (str == NULL)

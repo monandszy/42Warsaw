@@ -1,5 +1,6 @@
 
 #include "ft_test.h"
+#include <limits.h>
 
 void    test(int result, char *name)
 {
@@ -42,4 +43,34 @@ int main(void)
     RUN_TEST("A tab: <%c>.", '\t');
     RUN_TEST("A null char: <%c>.", '\0');
     RUN_TEST("%c%c%c", 'a', 'b', 'c');
+	
+	RUN_TEST("Number: %d", 42);
+    RUN_TEST("Number: %i", -42);
+    RUN_TEST("Number: %d", 0);
+    RUN_TEST("Max int: %d", INT_MAX);
+    RUN_TEST("Min int: %d", INT_MIN);
+    RUN_TEST("%d, %i, %d", 1, -2, 300);
+
+    RUN_TEST("Number: %u", 0);
+    RUN_TEST("Number: %u", 42);
+    RUN_TEST("Number: %u", -1);
+    RUN_TEST("Max unsigned: %u", UINT_MAX); 
+
+    RUN_TEST("Hex: %x", 0);
+    RUN_TEST("Hex: %x", 42);
+    RUN_TEST("Hex: %X", 42);
+    RUN_TEST("Hex: %x", 255);
+    RUN_TEST("Hex: %X", 255);
+    RUN_TEST("Hex: %x", INT_MAX);
+    RUN_TEST("Hex: %x", -1); // Should be all f's
+
+    int a;
+    RUN_TEST("Pointer: %p", &a);
+    RUN_TEST("Pointer: %p", NULL);
+
+    RUN_TEST("Hello, world without specifiers.", "");
+    RUN_TEST("A percent sign: %%", "");
+    RUN_TEST("100%% of the time, it's 50%% C, 50%% sea.", "");
+    RUN_TEST("Str '%s', Dec %d, Hex %X, Char %c, Ptr %p %%", "test", -123, 123, 'Z', &a);
+    RUN_TEST("%s%d%c", "str", 123, 'X');
 }

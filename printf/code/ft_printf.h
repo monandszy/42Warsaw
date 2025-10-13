@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:13 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 16:55:28 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:21:22 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int 		extract_args(char *format, va_list args, t_list ***master);
 void		extract_string(char specifier, va_list args, t_pobj *obj);
 void		extract_flags(char *f, char *t, t_pobj *obj);
 char		*to_c(int c);
-char    *to_s(char *str);
-char 		*to_hex(unsigned long d, char format, unsigned int i);
+char    	*to_s(char *str);
+char 		*to_xXp(unsigned long d, char format);
 char		*get_default(void);
 char		*find_trigger(char *format);
 char		*find_specifier(char *format);
