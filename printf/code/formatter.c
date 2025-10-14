@@ -12,10 +12,10 @@
 
 #include "ft_printf.h"
 
-static int	copy_parts(char *f, t_list *i, char *new);
+static int		copy_parts(char *f, t_list *i, char *new);
 static size_t	get_total_len(char *f, t_list **master);
 
-char *ft_format(char *f, t_list **master, int *len)
+char	*ft_format(char *f, t_list **master, int *len)
 {
 	char	*new;
 
@@ -43,7 +43,7 @@ size_t	get_total_len(char *f, t_list **master)
 			if (f == NULL)
 				break ;
 			f++;
-			continue;
+			continue ;
 		}
 		i++;
 		f++;
@@ -51,7 +51,7 @@ size_t	get_total_len(char *f, t_list **master)
 	j = *master;
 	while (j)
 	{
-		i += ((t_pobj *) (j-> content)) -> len;
+		i += ((t_pobj *)(j->content))->len;
 		j = j->next;
 	}
 	return (i);
@@ -69,7 +69,7 @@ int	copy_parts(char *f, t_list *i, char *new)
 			if (f == NULL)
 				return (1);
 			f++;
-			arg = ((t_pobj *) i->content) -> content;
+			arg = ((t_pobj *)i->content)->content;
 			while (*arg)
 			{
 				*new = *arg;
@@ -77,10 +77,10 @@ int	copy_parts(char *f, t_list *i, char *new)
 				arg++;
 			}
 			i = i->next;
-			continue;
+			continue ;
 		}
 		*new = *f;
-		new++;
+		new ++;
 		f++;
 	}
 	return (0);

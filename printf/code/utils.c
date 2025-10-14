@@ -6,13 +6,11 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 18:51:53 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 13:52:14 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:06:36 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-const static char	*g_flags = "#0- +.";
 
 char	*find_trigger(char *f)
 {
@@ -40,7 +38,7 @@ char	*find_specifier(char *t)
 	i = 0;
 	while (t[i])
 	{
-		if (!ft_strchr(g_flags, t[i]))
+		if (!ft_strchr("#0- +.", t[i]))
 			return (&t[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:29:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/13 17:12:53 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:45:45 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_printf(const char *format, ...)
 	char	*formatted;
 	t_list	***master;
 	va_list	args;
-	int len;
+	int		len;
 
 	if (!format)
 		return (ft_putstr(NULL, 1));
@@ -52,23 +52,24 @@ int	ft_printf(const char *format, ...)
 
 int	free_params(t_list ***master, va_list args)
 {
-	t_pobj *tmp;
-	t_list *i;
-	t_list *prev;
+	t_pobj	*tmp;
+	t_list	*i;
+	t_list	*prev;
 
 	i = **master;
-	while(i)
+	while (i)
 	{
-		tmp = (t_pobj *) i -> content;
-		if (tmp -> content)
-			free(tmp -> content);
+		tmp = (t_pobj *)i->content;
+		if (tmp->content)
+			free(tmp->content);
 		if (tmp)
 			free(tmp);
 		prev = i;
-		i = i -> next;
+		i = i->next;
 		free(prev);
 	}
-	free(*master);
+	if (*master)
+		free(*master);
 	free(master);
 	va_end(args);
 	return (-1);
