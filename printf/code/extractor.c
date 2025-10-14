@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 14:15:41 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:25:44 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 		return (1);
 	}
 	obj->content = str;
+	obj->len = ft_strlen(str);
 	obj->specifier = specifier;
 	return (0);
 }
