@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:13:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 13:19:41 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:16:52 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*to_c(int c)
 	s = (char *)malloc(sizeof(char) * 2);
 	if (s == NULL)
 		return (NULL);
-	if (c == 0)
-		c = 1;
 	s[0] = (char)c;
 	s[1] = '\0';
 	return (s);

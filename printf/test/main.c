@@ -30,15 +30,19 @@ void    test(int result, char *name)
 
 int main(void)
 {
-	 RUN_TEST("%10.1+1s", "c");
+
+//	RUN_TEST("%s", "");
+	RUN_TEST("%c %c %c", '0', 0, '1');
+	RUN_TEST("%c %c %c", '0', 0, '1');
+/* RUN_TEST("%10.1+1s", "c");
 	 RUN_TEST("%10.1h", "caaaaaa");
 	 RUN_TEST("%h %h %h", "caaaaaa");
 	 RUN_TEST("%h%h%h", "caaaaaa");
 	 RUN_TEST("%h%h%h%h%h", "caaaaaa");
 	 RUN_TEST("%h", "caaaaaa");
 	 RUN_TEST("%h ", "caaaaaa");
-	 RUN_TEST("%-+#.120.s", "c");
-/*    RUN_TEST("Hello, %s!", "world");
+	 RUN_TEST("%-+#.120.s", "c"); 
+    RUN_TEST("Hello, %s!", "world");
     RUN_TEST("An empty string: <%s>", "");
     RUN_TEST("A NULL string: <%s>", (char *)NULL);
     RUN_TEST("%s, %s, and %s!", "one", "two", "three");
@@ -82,7 +86,7 @@ int main(void)
     RUN_TEST("Str '%s', Dec %d, Hex %X, Char %c, Ptr %p %%", "test", -123, 123, 'Z', &a);
     RUN_TEST("%s%d%c", "str", 123, 'X');  */
 	
-    RUN_TEST("Left-justify (minus): |%-10s|", "left");
+/*    RUN_TEST("Left-justify (minus): |%-10s|", "left");
     RUN_TEST("Left-justify int: |%-10d|", 123);
     RUN_TEST("Zero-padding: |%010d|", 123);
     RUN_TEST("Zero-padding negative: |%010d|", -123);
@@ -91,7 +95,7 @@ int main(void)
     RUN_TEST("Space sign: |% d|, |% d|", 123, -123);
     RUN_TEST("Plus overrides space: |%+ d|, |% +d|", 123, 123);
     RUN_TEST("Hash flag hex: %#x, %#X", 123, 123);
-    RUN_TEST("Hash flag with zero: %#x", 0);
+    RUN_TEST("Hash flag with zero: %#x", 0); */
 
 /*    RUN_TEST("Width on string: |%20s|", "hello");
     RUN_TEST("Width on int: |%10d|", 123);
