@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 12:44:31 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:20:00 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 	else if (specifier == 'u')
 		str = ft_unsigned_itoa(va_arg(args, unsigned int));
 	else if (specifier == 'x' || specifier == 'X')
-		str = to_hex(va_arg(args, unsigned int), specifier - 29, 0);
+		str = to_hex(va_arg(args, unsigned int), (specifier - 29), 0);
 	else
 		str = get_default();
 	if (str == NULL)
