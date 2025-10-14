@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:18:51 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 14:30:37 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:41:17 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ char	*ft_format(char *f, t_list **master, int *len)
 	char	*new;
 	
 	*len = get_total_len(f, master);
+	correct_len(master, len);
 	new = (char *)malloc((*len + 1) * sizeof(char));
 	if (!new)
 		return (NULL);
 	new[*len] = '\0';
 	if (copy_parts(f, *master, new))
 		*len = -1;
-	correct_len(master, len);
 	return (new);
 }
 
@@ -87,11 +87,19 @@ int	copy_parts(char *f, t_list *i, char *new)
 				return (1);
 			f++;
 			arg = ((t_pobj *)i->content)->content;
-			while (*arg)
+			if (!arg && ((t_pobj *)i->content)->specifier == 'c')
 			{
-				*new = *arg;
-				new ++;
-				arg++;
+				*new = '\0';
+				new++;
+			}
+			else
+			{
+				while (*arg)
+				{
+					*new = *arg;
+					new ++;
+					arg++;
+				}
 			}
 			i = i->next;
 			continue ;
