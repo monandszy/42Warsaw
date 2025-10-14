@@ -6,6 +6,7 @@ SRC = \
 	ft_printf.c \
 	extractor.c \
 	converter.c \
+	digit_processor.c \
 	processor.c \
 	formatter.c \
 	utils.c

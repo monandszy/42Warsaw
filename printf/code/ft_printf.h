@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:13 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 14:27:24 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:15:05 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			free_params(t_list ***master, va_list args);
 char		*ft_unsigned_itoa(unsigned int n);
 char		*to_p(void *p);
 char		*to_hex(unsigned long d, char format, unsigned int i);
-void			correct_len(t_list **master, int *len);
-
+void		correct_len(t_list **master, int *len);
+char		*process_arg(char *arg, char *n, t_list *i);
 
 #endif

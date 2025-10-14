@@ -50,7 +50,7 @@ s - truncation
 	{
 		if (ft_strchr("cs", t[i]))
 		{
-			
+
 		}
 		tmp = (t_pobj *) i -> content;
 		if (tmp -> precision)
@@ -76,13 +76,13 @@ s - truncation
 		{
 		}
 		i = i -> next;
-	} 
+	}
 	return (0); */
 
 int	process_flags(char *format, va_list args, t_list **master)
 {
-	(void) format;
-	(void) args;
-	(void) master;
+	(void)format;
+	(void)args;
+	(void)master;
 	return (0);
 }
