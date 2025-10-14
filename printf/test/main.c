@@ -30,10 +30,10 @@ void    test(int result, char *name)
 
 int main(void)
 {
-
+	printf("%d", 'X' - 'A');
 //	RUN_TEST("%s", "");
-	RUN_TEST("%c %c %c", '0', 0, '1');
-	RUN_TEST("%c %c %c", '0', 0, '1');
+//	RUN_TEST("%c %c %c", '0', 0, '1');
+//	RUN_TEST("%c %c %c", '0', 0, '1');
 /* RUN_TEST("%10.1+1s", "c");
 	 RUN_TEST("%10.1h", "caaaaaa");
 	 RUN_TEST("%h %h %h", "caaaaaa");
@@ -66,17 +66,20 @@ int main(void)
     RUN_TEST("Number: %u", 0);
     RUN_TEST("Number: %u", 42);
     RUN_TEST("Number: %u", -1);
-    RUN_TEST("Max unsigned: %u", UINT_MAX); 
+    RUN_TEST("Max unsigned: %u", UINT_MAX); */ 
 
     RUN_TEST("Hex: %x", 0);
-    RUN_TEST("Hex: %x", 42);
+    RUN_TEST("Hex: %x", -1); 
+    RUN_TEST("Hex: %x", 10);
+    RUN_TEST("Hex: %x", 15);
+    RUN_TEST("Hex: %x", -9);
+    RUN_TEST("Hex: %x", 10);
     RUN_TEST("Hex: %X", 42);
     RUN_TEST("Hex: %x", 255);
     RUN_TEST("Hex: %X", 255);
     RUN_TEST("Hex: %x", INT_MAX); 
-    RUN_TEST("Hex: %x", -1); 
 
-    int a;
+/*    int a;
     RUN_TEST("Pointer: %p", &a);
     RUN_TEST("Pointer: %p", NULL);
 
