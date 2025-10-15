@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:29:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 14:44:55 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/14 19:47:47 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ convert args to a string list
 	->	applies .precision
 	->	applies flags
 apply string list to the format, creating new string
+	if (process_flags((char *)format, args, *master))
+		return (free_params(master, args));
 */
 int	ft_printf(const char *format, ...)
 {
@@ -42,8 +44,6 @@ int	ft_printf(const char *format, ...)
 		return (ft_putstr(NULL, 1));
 	va_start(args, format);
 	if (extract_args((char *)format, args, master))
-		return (free_params(master, args));
-	if (process_flags((char *)format, args, *master))
 		return (free_params(master, args));
 	formatted = ft_format((char *)format, *master, &len);
 	free_params(master, args);

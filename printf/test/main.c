@@ -30,9 +30,10 @@ void    test(int result, char *name)
 
 int main(void)
 {
+/*
 	printf("%d", 'X' - 'A');
 	RUN_TEST("%s", "");
-	RUN_TEST("%c %c %c", '0', 0, '1');
+	RUN_TEST("%c%c%c", '0', 0, '1');
 	RUN_TEST("%c %c %c", '0', 0, '1');
 	 RUN_TEST("%10.1+1s", "c");
 	 RUN_TEST("%10.1h", "caaaaaa");
@@ -61,7 +62,8 @@ int main(void)
     RUN_TEST("Number: %d", 0);
     RUN_TEST("Max int: %d", INT_MAX);
     RUN_TEST("Min int: %d", INT_MIN);
-    RUN_TEST("%d, %i, %d", 1, -2, 300); 
+    RUN_TEST("%d, %i, %d", 1, -2, 300);
+	RUN_TEST("%s"
 
     RUN_TEST("Number: %u", 0);
     RUN_TEST("Number: %u", 42);
@@ -114,5 +116,10 @@ int main(void)
     RUN_TEST("Combo: |%#012x|", 0xabcdef);
     RUN_TEST("Combo: |% 010d|", 42);
     RUN_TEST("Pointer with width: |%20p|", &a);
-    RUN_TEST("Multiple args: %s %d %c %x", "test", 42, 'Z', 42);
+    RUN_TEST("Multiple args: %s %d %c %x", "test", 42, 'Z', 42);*/
+	if ((printf("\n%shi%shi%d%d%s%shi\n", "ho", "ho", 12, 30, "ho", "ho")) == (ft_printf("\n%shi%shi%d%d%s%shi\n", "ho", "ho", 12, 30, "ho", "ho")))
+		printf("\nok\n");
+	ft_printf("\n\n\n%0\n");
+	printf("\nhello\n");
+	printf("\n\n\n%0\n");
 }

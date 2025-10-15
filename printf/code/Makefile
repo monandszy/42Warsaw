@@ -1,15 +1,15 @@
 NAME = libftprintf.a
 CC = cc
-CFLAGS = -g 
-# -Wall -Wextra -Werror
+CFLAGS = -g  -Wall -Wextra -Werror
 SRC = \
 	ft_printf.c \
 	extractor.c \
 	converter.c \
-	digit_processor.c \
-	processor.c \
+	digit_converter.c \
 	formatter.c \
 	utils.c
+BONUS = \
+	processor_bonus.c
 LIBFT_SRC = \
     ft_isalpha.c \
     ft_isalnum.c \
@@ -55,6 +55,7 @@ LIBFT_SRC = \
     ft_lstiter.c \
     ft_lstmap.c
 OBJ = $(SRC:.c=.o)
+BOBJ = $(BONUS:.c=.o)
 LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 OBJ_DIR = objs
 LIB_DIR = libft
@@ -64,6 +65,10 @@ LIBFT_OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(LIBFT_OBJ))
 $(NAME): all
 
 all: $(OBJ) libmake archive
+
+bonus: OBJ += $(BOBJ)
+bonus: $(BOBJ)
+bonus: all
 
 %.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@
@@ -86,4 +91,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all comile archive fclean clean re
+.PHONY: all comile archive fclean clean re bonus libmake
