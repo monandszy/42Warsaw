@@ -10,9 +10,15 @@ int main(void)
 	char *buf;
 	char *fn = "./test_file";
 	int fd = open(fn, O_RDONLY);
-	buf = get_next_line(fd);
-	printf("{%d}", printf("[%s]", buf));
-	free (buf);
-	close(fd);
+	int i = 0;
+	while (i <= 3)
+	{
+		buf = get_next_line(fd);
+//		int c = 
+		printf("%s", buf);
+		free (buf);
+//		printf("{%d}", c);
+		i++;
+	}
 	return (0);
 }
