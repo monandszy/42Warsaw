@@ -29,6 +29,7 @@ char *get_next_line(int fd)
 	s_chunk = provide_singleton(fd, &end);
 	if (!s_chunk || end == 2 || join_to_nl(fd, s_chunk, chunk, &end))
 	{
+		free(*chunk);
 		free(chunk);
 		return (NULL); 
 	}
@@ -56,9 +57,6 @@ int join_to_nl(int fd, char **s_chunk, char **chunk, int *end)
 	int bread;
 
 	bread = 0;
-	printf("(s_c:%s)\n", *s_chunk);
-	printf("(c:%s)\n", *chunk); 
-
 	nlpos = ft_strchr(*s_chunk, '\n');
 	if (nlpos)
 	{
@@ -112,7 +110,10 @@ int read_buffer(int fd, char **chunk)
 		return (-1);
 	bread = read(fd, buf, BUFFER_SIZE);
 	if (bread < 0)
+	{
+		free (buf);
 		return (-1);
+	}
 	buf[bread] = '\0';
 	*chunk = buf;
 	return (bread);
@@ -123,7 +124,7 @@ char **provide_singleton(int fd, int *end)
 	static int sfd;
 	static char **chunk;
 
-	if (sfd != fd || !sfd)
+	if (sfd != fd || !chunk)
 	{
 		sfd = fd;
 		if (chunk)
@@ -132,11 +133,7 @@ char **provide_singleton(int fd, int *end)
 				free(*chunk);
 			free(chunk);
 		}
-		*end = 0;
-	}
-	(void) fd;
-	if (!chunk)
-	{
+		*end = 0; 
 		chunk = (char **) malloc(sizeof(char *));
 		if (!chunk)
 			return (NULL);

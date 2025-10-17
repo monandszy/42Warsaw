@@ -4,14 +4,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "./../code/get_next_line.h"
-
+#include <string.h>
 int main(void)
 {
 	char *buf;
 	char *fn = "./test_file";
 	int fd = open(fn, O_RDONLY);
 	int i = 0;
-	while (i <= 20)
+	buf = "CATS";
+	while (buf != NULL)
 	{
 		buf = get_next_line(fd);
 		int c = 
