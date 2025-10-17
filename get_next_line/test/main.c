@@ -11,13 +11,13 @@ int main(void)
 	char *fn = "./test_file";
 	int fd = open(fn, O_RDONLY);
 	int i = 0;
-	while (i <= 3)
+	while (i <= 20)
 	{
 		buf = get_next_line(fd);
-//		int c = 
-		printf("%s", buf);
+		int c = 
+		printf("[%s]", buf);
 		free (buf);
-//		printf("{%d}", c);
+		printf("{%d}", c);
 		i++;
 	}
 	return (0);
