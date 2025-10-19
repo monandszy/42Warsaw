@@ -33,69 +33,68 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-char    *ft_strjoin(char *s1, char *s2, size_t l2)
+char	*ft_strjoin(char *s1, char *s2, size_t l2)
 {
-    size_t  l1;
-    char    *new;
+	size_t	l1;
+	char	*new;
 
-    if (s1 == NULL && s2 == NULL)
-        return (NULL);
-    if (s1 == NULL)
-        l1 = 0;
-    else
-        l1 = ft_strlen(s1);
-    if (s2 == NULL)
-        l2 = 0;
-    new = (char *)malloc((l1 + l2 + 1) * sizeof(char));
-    if (new)
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	if (s1 == NULL)
+		l1 = 0;
+	else
+		l1 = ft_strlen(s1);
+	if (s2 == NULL)
+		l2 = 0;
+	new = (char *)malloc((l1 + l2 + 1) * sizeof(char));
+	if (new)
 	{
-    	new[l1 + l2] = '\0';
-	    ft_memcpy(new, s1, l1);
-	    ft_memcpy(&new[l1], s2, l2);
+		new[l1 + l2] = '\0';
+		ft_memcpy(new, s1, l1);
+		ft_memcpy(&new[l1], s2, l2);
 	}
-    return (new);
+	return (new);
 }
 
-size_t  ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    unsigned int    i;
+	unsigned int	i;
 
-    i = 0;
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-void    *ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-    unsigned char   *srci;
-    unsigned char   *dsti;
+	unsigned char	*srci;
+	unsigned char	*dsti;
 
-    dsti = (unsigned char *)dest;
-    srci = (unsigned char *)src;
-    while (n > 0)
-    {
-        *dsti = *srci;
-        dsti++;
-        srci++;
-        n--;
-    }
-    return (dest);
+	dsti = (unsigned char *)dest;
+	srci = (unsigned char *)src;
+	while (n > 0)
+	{
+		*dsti = *srci;
+		dsti++;
+		srci++;
+		n--;
+	}
+	return (dest);
 }
 
-size_t ft_strchr(char *s, char needle)
+size_t	ft_strchr(char *s, char needle)
 {
-    size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!s)
 		return (0);
-    while (s[i])
-    {
-        if (s[i] == needle)
-            return (++i);
-        i++;
-    }
-    return (0);
+	while (s[i])
+	{
+		if (s[i] == needle)
+			return (++i);
+		i++;
+	}
+	return (0);
 }
-
