@@ -16,7 +16,8 @@ CFLAGS = -g \
 -D BUFFER_SIZE=16 \
  -Wall -Wextra -Werror
 SRC = \
-	main.c
+	main.c \
+	better_get_next_line.c
 EX_SRC_N = \
 	get_next_line.c \
 	get_next_line_utils.c
@@ -27,17 +28,19 @@ BEX_SRC_N = \
 EX_DIR = ./../code
 
 OBJ = $(SRC:.c=.o)
+
 OBJ_DIR = ./objs
+OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
 all: base
 
 base: $(OBJ) 
 	$(CC) $(CFLAGS) -c $(EX_DIR)/get_next_line.c -o $(OBJ_DIR)/gnl.o && \
 	$(CC) $(CFLAGS) -c $(EX_DIR)/get_next_line_utils.c -o $(OBJ_DIR)/gnlu.o && \
-	$(CC) $(CFLAGS) $(OBJ_DIR)/$(OBJ) $(OBJ_DIR)/gnl.o $(OBJ_DIR)/gnlu.o -o $(NAME) -lbsd
+	$(CC) $(CFLAGS) $(OBJ_PATH) $(OBJ_DIR)/gnl.o $(OBJ_DIR)/gnlu.o -o $(NAME) -lbsd
 bonus: $(OBJ)
 	$(CC) $(CFLAGS) -c $(EX_DIR)/get_next_line_bonus.c -o $(OBJ_DIR)/gnlb.o && \
 	$(CC) $(CFLAGS) -c $(EX_DIR)/get_next_line_utils_bonus.c -o $(OBJ_DIR)/gnlub.o && \
-	$(CC) $(CFLAGS) $(OBJ_DIR)/$(OBJ) $(OBJ_DIR)/gnlb.o $(OBJ_DIR)/gnlub.o -o $(NAME) -lbsd
+	$(CC) $(CFLAGS) $(OBJ_PATH) $(OBJ_DIR)/gnlb.o $(OBJ_DIR)/gnlub.o -o $(NAME) -lbsd
 
 %.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@
