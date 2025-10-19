@@ -12,120 +12,90 @@
 
 #include "get_next_line_bonus.h"
 
-/* char	*get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static t_buffer	*i;
-	t_buffer		*data;
-	char			*chunk;
+	static char	*persisted[4096];
+	int			bread;
 
-	chunk = NULL;
-	data = provide_singleton(i, fd);
-	if (!data)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (join_to_nl(data->fd, &(data->content), &chunk))
+	bread = read_buffer(fd, persisted);
+	if (bread < 0 || (bread == 0 && (!persisted[fd] || !*persisted[fd])))
 	{
-		free(chunk);
-		chunk = NULL;
+		if (persisted[fd])
+			free(persisted[fd]);
+		persisted[fd] = NULL;
+		return (NULL);
 	}
-	else if (*chunk == '\0')
-	{
-		free_buffer(i, data);
-		free(chunk);
-		chunk = NULL;
-	}
-	return (chunk);
+	return (process_nl(&persisted[fd]));
 }
 
-//	printf("(nl:%s)\n", nl);
-//	printf("[a:%ld]\n", nl - *chunk + 1);
-//	printf("(s_c:%s)\n", *s_chunk);
-//	printf("(c:%s)\n", *chunk);
-
-// has to free *chunk && s_chunk && *s_chunk
-int	join_to_nl(int fd, char **s_chunk, char **chunk)
+int	read_buffer(int fd, char **persisted)
 {
-	size_t	nlpos;
-	char	*join;
 	int		bread;
-
-	nlpos = ft_strchr(*s_chunk, '\n');
-	if (nlpos)
-	{
-		*chunk = *s_chunk;
-		*s_chunk = NULL;
-	}
-	while (!nlpos)
-	{
-		join = ft_strjoin(*s_chunk, *chunk);
-		free(*s_chunk);
-		free(*chunk);
-		*s_chunk = join;
-		bread = read_buffer(fd, chunk);
-		if (bread == -1)
-			return (1);
-		nlpos = ft_strchr(*chunk, '\n');
-		if (bread == 0)
-			break ;
-	}
-	process_nl(nlpos, s_chunk, chunk);
-	return (0);
-}
-
-int	read_buffer(int fd, char **chunk)
-{
 	char	*buf;
-	int		bread;
+	char	*tmp;
 
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (-1);
-	bread = read(fd, buf, BUFFER_SIZE);
-	if (bread < 0)
+	bread = 1;
+	while (bread > 0 && !ft_strchr(persisted[fd], '\n'))
 	{
-		free(buf);
-		return (-1);
+		bread = read(fd, buf, BUFFER_SIZE);
+		if (bread <= 0)
+			break ;
+		buf[bread] = '\0';
+		tmp = persisted[fd];
+		persisted[fd] = ft_strjoin(tmp, buf);
+		free(tmp);
 	}
-	buf[bread] = '\0';
-	*chunk = buf;
+	free(buf);
 	return (bread);
 }
 
-void	process_nl(size_t nlpos, char **s_chunk, char **chunk)
+char	*process_nl(char **persisted)
 {
-	char	*tmpprev;
-	char	*tmpnext;
+	char	*line;
+	char	*temp;
+	char	*nlpos;
 
-	tmpprev = ft_substr(*chunk, 0, nlpos);
-	tmpnext = ft_substr(*chunk, nlpos, ft_strlen(*chunk));
-	free(*chunk);
-	if (s_chunk && *s_chunk)
+	nlpos = ft_strchr(*persisted, '\n');
+	if (nlpos)
 	{
-		*chunk = ft_strjoin(*s_chunk, tmpprev);
-		free(tmpprev);
+		line = ft_substr(*persisted, 0, nlpos - *persisted + 1);
+		temp = ft_strdup(nlpos + 1);
+		free(*persisted);
+		*persisted = temp;
+		if (**persisted == '\0')
+		{
+			free(*persisted);
+			*persisted = NULL;
+		}
+		return (line);
 	}
-	else
-		*chunk = tmpprev;
-	free(*s_chunk);
-	*s_chunk = tmpnext;
+	line = ft_strdup(*persisted);
+	free(*persisted);
+	*persisted = NULL;
+	return (line);
 }
 
-t_buffer	*provide_singleton(t_buffer *i, int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	t_buffer	*tmp;
+	char	*i;
+	char	needle;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!s)
 		return (NULL);
-	tmp = i;
-	while (tmp)
+	needle = (char)c;
+	i = (char *)s;
+	while (*i)
 	{
-		if (tmp->fd == fd)
-			return (tmp);
-		tmp = tmp->next;
+		if (*i == needle)
+			return (i);
+		i++;
 	}
-	tmp = (t_buffer *)malloc(sizeof(t_buffer));
-	tmp->fd = fd;
-	tmp->next = NULL;
-	if (!i)
-		i = tmp;
-	return (tmp);
-} */
+	if (needle == '\0' && *i == '\0')
+		return (i);
+	return (NULL);
+}

@@ -21,7 +21,6 @@ char	*get_next_line(int fd);
 int		join_to_nl(int fd, char **s_chunk, char **chunk);
 int		read_buffer(int fd, char **chunk);
 char	**provide_singleton(int fd, int *end);
-void	free_params(char **chunk);
 char	*ft_strjoin(char *s1, char *s2);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strchr(char *s, char needle);

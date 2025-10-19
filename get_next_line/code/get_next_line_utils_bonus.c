@@ -12,33 +12,6 @@
 
 #include "get_next_line_bonus.h"
 
-/* void	free_buffer(t_buffer *data, t_buffer *i)
-{
-	t_buffer	*tmp;
-	t_buffer	*prev;
-
-	tmp = i;
-	if (tmp->fd == data->fd)
-	{
-		tmp = data->next;
-		free(data);
-		i = tmp;
-		return ;
-	}
-	prev = NULL;
-	while (tmp)
-	{
-		if (tmp->fd == data->fd)
-		{
-			prev->next = tmp->next;
-			free(tmp->content);
-			free(tmp);
-		}
-		prev = tmp;
-		tmp = tmp->next;
-	}
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	olen;
@@ -59,6 +32,26 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
+char	*ft_strdup(const char *src)
+{
+	int		l;
+	int		i;
+	char	*new;
+
+	i = 0;
+	l = ft_strlen(src);
+	new = (char *)malloc((l + 1) * sizeof(char));
+	if (new == NULL)
+		return (NULL);
+	while (i < l)
+	{
+		new[i] = src[i];
+		i++;
+	}
+	new[l] = '\0';
+	return (new);
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	l1;
@@ -66,7 +59,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*new;
 
 	if (s1 == NULL && s2 == NULL)
-		return (NULL);
+		return (ft_strdup(""));
 	if (s1 == NULL)
 		l1 = 0;
 	else
@@ -114,19 +107,3 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-
-size_t	ft_strchr(char *s, char needle)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == needle)
-			return (++i);
-		i++;
-	}
-	return (0);
-} */
