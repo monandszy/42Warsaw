@@ -16,34 +16,27 @@
 char	*get_next_line(int fd)
 {
 	char		**s_chunk;
-	char		**chunk;
-	char		*out;
+	char		*chunk;
 	static int	end;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	chunk = (char **)malloc(sizeof(char *));
-	if (!chunk)
-		return (NULL);
-	*chunk = NULL;
+	chunk = NULL;
 	s_chunk = provide_singleton(fd, &end);
-	if (!s_chunk || join_to_nl(fd, s_chunk, chunk))
-	{
-		free(*chunk);
-		free(chunk);
+	if (!s_chunk)
 		return (NULL);
+	if (join_to_nl(fd, s_chunk, &chunk))
+	{
+		free(chunk);
+		chunk = NULL;
 	}
-	if (**chunk == '\0')
+	else if (*chunk == '\0')
 	{
 		free(*s_chunk);
 		free(s_chunk);
-		free(*chunk);
-		*chunk = NULL;
+		free(chunk);
+		chunk = NULL;
 		end = 1;
 	}
-	out = *chunk;
-	free(chunk);
-	return (out);
+	return (chunk);
 }
 
 //	printf("(nl:%s)\n", nl);
@@ -58,17 +51,15 @@ int	join_to_nl(int fd, char **s_chunk, char **chunk)
 	char	*join;
 	int		bread;
 
-	bread = 0;
 	nlpos = ft_strchr(*s_chunk, '\n');
 	if (nlpos)
 	{
 		*chunk = *s_chunk;
 		*s_chunk = NULL;
-		bread = ft_strlen(*chunk);
 	}
 	while (!nlpos)
 	{
-		join = ft_strjoin(*s_chunk, *chunk, bread);
+		join = ft_strjoin(*s_chunk, *chunk);
 		free(*s_chunk);
 		free(*chunk);
 		*s_chunk = join;
@@ -79,27 +70,8 @@ int	join_to_nl(int fd, char **s_chunk, char **chunk)
 		if (bread == 0)
 			break ;
 	}
-	process_nl(nlpos, s_chunk, chunk, bread);
+	process_nl(nlpos, s_chunk, chunk);
 	return (0);
-}
-
-void	process_nl(size_t nlpos, char **s_chunk, char **chunk, int bread)
-{
-	char	*tmpprev;
-	char	*tmpnext;
-
-	tmpprev = ft_substr(*chunk, 0, nlpos);
-	tmpnext = ft_substr(*chunk, nlpos, bread);
-	free(*chunk);
-	if (s_chunk && *s_chunk)
-	{
-		*chunk = ft_strjoin(*s_chunk, tmpprev, ft_strlen(tmpprev));
-		free(tmpprev);
-	}
-	else
-		*chunk = tmpprev;
-	free(*s_chunk);
-	*s_chunk = tmpnext;
 }
 
 int	read_buffer(int fd, char **chunk)
@@ -121,11 +93,32 @@ int	read_buffer(int fd, char **chunk)
 	return (bread);
 }
 
+void	process_nl(size_t nlpos, char **s_chunk, char **chunk)
+{
+	char	*tmpprev;
+	char	*tmpnext;
+
+	tmpprev = ft_substr(*chunk, 0, nlpos);
+	tmpnext = ft_substr(*chunk, nlpos, ft_strlen(*chunk));
+	free(*chunk);
+	if (s_chunk && *s_chunk)
+	{
+		*chunk = ft_strjoin(*s_chunk, tmpprev);
+		free(tmpprev);
+	}
+	else
+		*chunk = tmpprev;
+	free(*s_chunk);
+	*s_chunk = tmpnext;
+}
+
 char	**provide_singleton(int fd, int *end)
 {
 	static int	sfd;
 	static char	**chunk;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	if (*end || sfd != fd || !chunk)
 	{
 		sfd = fd;
