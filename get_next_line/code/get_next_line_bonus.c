@@ -17,7 +17,7 @@ char	*get_next_line(int fd)
 	static char	*persisted[4096];
 	int			bread;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 4096 || BUFFER_SIZE <= 0)
 		return (NULL);
 	bread = read_buffer(fd, persisted);
 	if (bread < 0 || (bread == 0 && (!persisted[fd] || !*persisted[fd])))
