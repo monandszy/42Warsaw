@@ -32,9 +32,9 @@ int main(void)
 {
     int a;
 
-	// RUN_TEST("%s", "");
+	RUN_TEST("%s", "");
 	RUN_TEST("%c%c%c", 0, 0, '0');
-/* 	RUN_TEST("%c %c %c", '0', 0, '1');
+ 	RUN_TEST("%c %c %c", '0', 0, '1');
 	 RUN_TEST("%10.1+1s", "c");
 	 RUN_TEST("%10.1h", "caaaaaa");
 	 RUN_TEST("%h %h %h", "caaaaaa");
@@ -98,21 +98,21 @@ int main(void)
     RUN_TEST("Space sign: |% d|, |% d|", 123, -123);
     RUN_TEST("Plus overrides space: |%+ d|, |% +d|", 123, 123);
     RUN_TEST("Hash flag hex: %#x, %#X", 123, 123);
-    RUN_TEST("Hash flag with zero: %#x", 0); */
+    RUN_TEST("Hash flag with zero: %#x", 0);
 
-    // RUN_TEST("Width on string: |%20s|", "hello");
-    // RUN_TEST("Width on int: |%10d|", 123);
-    // RUN_TEST("Precision on string: |%.3s|", "hello");
-    // RUN_TEST("Precision on int: |%.5d|", 123);
-    // RUN_TEST("Precision on zero int: |%.0d|", 0);
-    // RUN_TEST("Precision on zero value: |%.5d|", 0);
-    // RUN_TEST("Width and precision string: |%10.3s|", "hello");
-    // RUN_TEST("Width and precision int: |%10.5d|", 123);
-    // RUN_TEST("Width and precision, left-justify: |%-10.5d|", -123);
+    RUN_TEST("Width on string: |%20s|", "hello");
+    RUN_TEST("Width on int: |%10d|", 123);
+    RUN_TEST("Precision on string: |%.3s|", "hello");
+    RUN_TEST("Precision on int: |%.5d|", 123);
+    RUN_TEST("Precision on zero int: |%.0d|", 0);
+    RUN_TEST("Precision on zero value: |%.5d|", 0);
+    RUN_TEST("Width and precision string: |%10.3s|", "hello");
+    RUN_TEST("Width and precision int: |%10.5d|", 123);
+    RUN_TEST("Width and precision, left-justify: |%-10.5d|", -123);
 
-    // RUN_TEST("Combo: |%-+20.10d|", 12345);
-    // RUN_TEST("Combo: |%#012x|", 0xabcdef);
-    // RUN_TEST("Combo: |% 010d|", 42);
-    // RUN_TEST("Pointer with width: |%20p|", &a);
-    // RUN_TEST("Multiple args: %s %d %c %x", "test", 42, 'Z', 42);
+    RUN_TEST("Combo: |%-+20.10d|", 12345);
+    RUN_TEST("Combo: |%#012x|", 0xabcdef);
+    RUN_TEST("Combo: |% 010d|", 42);
+    RUN_TEST("Pointer with width: |%20p|", &a);
+    RUN_TEST("Multiple args: %s %d %c %x", "test", 42, 'Z', 42);
 }
