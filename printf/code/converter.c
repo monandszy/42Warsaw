@@ -6,13 +6,13 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:13:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/23 16:24:03 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:31:23 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*to_c(t_pobj *obj, int c)
+char	*to_c(int c)
 {
 	char	*s;
 
@@ -36,7 +36,7 @@ char	*to_s(t_pobj *obj, char *str)
 	return (ft_strdup(str));
 }
 
-char	*to_p(void *p)
+char	*to_p(t_pobj *obj, void *p)
 {
 	char			*new;
 	unsigned long	d;

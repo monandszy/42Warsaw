@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:21 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/23 16:25:20 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:38:07 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,8 @@ int	process_subflags(t_list **master)
 	while (i)
 	{
 		pobj = (t_pobj *)i->content;
-		if (!(pobj->is_null == 1))
-		{
-			prefix = create_prefix(pobj);
-		}
-		if (pobj->precision >= 0)
+		prefix = create_prefix(pobj);
+		if (pobj->is_null != 1 && pobj->precision >= 0)
 			if (apply_precision(pobj))
 			{
 				free(prefix);
