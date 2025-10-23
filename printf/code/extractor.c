@@ -50,7 +50,7 @@ int	extract_args(char *f, va_list args, t_list ***alloc)
 		tmp = (t_pobj *)malloc(sizeof(t_pobj));
 		if (!tmp)
 			return (1);
-		extract_flags(f, t, tmp);
+		extract_flags(++t, f, tmp);
 		if (extract_string(*f, args, tmp))
 			return (1);
 		f++;
@@ -63,6 +63,7 @@ int	extract_args(char *f, va_list args, t_list ***alloc)
 
 void	extract_flags(char *t, char *f, t_pobj *obj)
 {
+	null_init(obj);
 	while (t != f)
 	{
 		if (*t == '-')
@@ -85,6 +86,17 @@ void	extract_flags(char *t, char *f, t_pobj *obj)
 		t++;
 	if (*t == '.')
 		obj->precision = ft_atoi(++t);
+}
+void null_init(t_pobj *pobj)
+{
+		pobj -> specifier = -1;
+		pobj -> justification = -1;
+		pobj -> width = -1;
+		pobj -> precision = -1;
+		pobj -> zero_padding = -1;
+		pobj -> alt_type = -1;
+		pobj -> plus_padding = -1;
+		pobj -> spc_padding = -1;
 }
 
 int	extract_string(char specifier, va_list args, t_pobj *obj)
@@ -112,6 +124,8 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 	}
 	obj->content = str;
 	obj->len = ft_strlen(str);
+	if (specifier == 'c')
+		obj -> len = 1;
 	obj->specifier = specifier;
 	return (0);
 }

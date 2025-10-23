@@ -45,6 +45,8 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	if (extract_args((char *)format, args, master))
 		return (free_params(master, args));
+	if (process_subflags(*master))
+		return (free_params(master, args));
 	formatted = ft_format((char *)format, *master, &len);
 	free_params(master, args);
 	return (ft_putstr(formatted, len));

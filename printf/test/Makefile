@@ -24,7 +24,7 @@ $(NAME): lib_make
 	$(CC) $(CFLAGS) $(OBJ_PATH) $(LIB_DIR)/libftprintf.a -o $(NAME) -lbsd
 
 lib_make:
-	make -C $(LIB_DIR)
+	make bonus -C $(LIB_DIR)
 
 test: 
 	./$(NAME)

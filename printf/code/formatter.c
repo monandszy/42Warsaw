@@ -20,7 +20,6 @@ char	*ft_format(char *f, t_list **master, int *len)
 	char	*new;
 
 	*len = get_total_len(f, master);
-	correct_len(master, len);
 	new = (char *)malloc((*len + 1) * sizeof(char));
 	if (!new)
 		return (NULL);
@@ -28,21 +27,6 @@ char	*ft_format(char *f, t_list **master, int *len)
 	if (copy_parts(f, *master, new))
 		*len = -1;
 	return (new);
-}
-
-void	correct_len(t_list **master, int *len)
-{
-	t_list	*i;
-	t_pobj	*tmp;
-
-	i = *master;
-	while (i)
-	{
-		tmp = i->content;
-		if (tmp->specifier == 'c' && tmp->len == 0)
-			*len = *len + 1;
-		i = i->next;
-	}
 }
 
 size_t	get_total_len(char *f, t_list **master)
@@ -76,6 +60,7 @@ size_t	get_total_len(char *f, t_list **master)
 int	copy_parts(char *f, t_list *i, char *new)
 {
 	char	*arg;
+	size_t len;
 
 	while (f && *f)
 	{
@@ -85,8 +70,15 @@ int	copy_parts(char *f, t_list *i, char *new)
 			if (f == NULL)
 				return (1);
 			f++;
+			len = ((t_pobj *)i->content)->len;
 			arg = ((t_pobj *)i->content)->content;
-			new = process_arg(arg, new, i);
+			while (len > 0)
+			{
+				*new = *arg;
+				new++;
+				arg++;
+				len--;
+			}
 			i = i->next;
 			continue ;
 		}
@@ -95,23 +87,4 @@ int	copy_parts(char *f, t_list *i, char *new)
 		f++;
 	}
 	return (0);
-}
-
-char	*process_arg(char *arg, char *new, t_list *i)
-{
-	if (!(*arg) && ((t_pobj *)i->content)->specifier == 'c')
-	{
-		*new = '\0';
-		new ++;
-	}
-	else
-	{
-		while (*arg)
-		{
-			*new = *arg;
-			new ++;
-			arg++;
-		}
-	}
-	return (new);
 }
