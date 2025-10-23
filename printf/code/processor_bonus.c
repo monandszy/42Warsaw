@@ -58,98 +58,57 @@ s - truncation
 int	process_subflags(t_list **master)
 {
 	t_list	*i;
-	t_pobj	*pobj;
-	char	*prefix;
 
 	i = *master;
 	while (i)
 	{
-		pobj = (t_pobj *)i->content;
-		prefix = create_prefix(pobj);
-		if (pobj->precision >= 0)
-		{
-			if (pobj->is_null == 1 && pobj->precision < 6)
-			{
-				free(pobj->content);
-				pobj->len = 0;
-				pobj->content = ft_strdup("");
-				if (!pobj->content)
-					return (1);
-			}
-			if (apply_precision(pobj))
-			{
-				free(prefix);
-				return (1);
-			}
-		}
-		if (assemble_output(pobj, prefix))
-		{
-			free(prefix);
+		if (process_pobj((t_pobj *)i->content))
 			return (1);
-		}
-		free(prefix);
 		i = i->next;
 	}
 	return (0);
 }
 
-int	assemble_output(t_pobj *pobj, char *prefix)
+int	process_pobj(t_pobj *pobj)
 {
-	size_t	prefix_len;
-	size_t	payload_len;
-	size_t	padding_len;
-	size_t	final_len;
-	char	pad_char;
-	char	*output_str;
-	char	*i;
+	char	*prefix;
 
-	if (prefix != NULL && *prefix != '\0')
-		prefix_len = ft_strlen(prefix);
-	else
-		prefix_len = 0;
-	payload_len = prefix_len + pobj->len;
-	if (pobj->width >= 0 && (size_t)pobj->width > payload_len)
-		final_len = pobj->width;
-	else
-		final_len = payload_len;
-	padding_len = final_len - payload_len;
-	output_str = (char *)malloc(sizeof(char) * (final_len + 1));
-	if (!output_str)
+	prefix = create_prefix(pobj);
+	if (handle_precision(pobj))
+	{
+		free(prefix);
 		return (1);
-	i = output_str;
-	pad_char = ' ';
-	if (pobj->zero_padding == 1 && pobj->justification != 1
-		&& !(pobj->precision >= 0) && ft_strchr("diuoxX", pobj->specifier))
-	{
-		pad_char = '0';
 	}
-	if (pobj->justification == 1)
+	if (assemble_output(pobj, prefix))
 	{
-		ft_memcpy(i, prefix, prefix_len);
-		i += prefix_len;
-		ft_memcpy(i, pobj->content, pobj->len);
-		i += pobj->len;
-		ft_memset(i, ' ', padding_len);
+		free(prefix);
+		return (1);
 	}
-	else if (pad_char == '0')
+	free(prefix);
+	return (0);
+}
+
+int	handle_null_precision(t_pobj *pobj)
+{
+	if (pobj->is_null == 1 && pobj->precision < 6)
 	{
-		ft_memcpy(i, prefix, prefix_len);
-		i += prefix_len;
-		ft_memset(i, '0', padding_len);
-		i += padding_len;
-		ft_memcpy(i, pobj->content, pobj->len);
+		free(pobj->content);
+		pobj->content = ft_strdup("");
+		if (!pobj->content)
+			return (1);
+		pobj->len = 0;
 	}
-	else
+	return (0);
+}
+
+int	handle_precision(t_pobj *pobj)
+{
+	if (pobj->precision >= 0)
 	{
-		ft_memset(i, ' ', padding_len);
-		i += padding_len;
-		ft_memcpy(i, prefix, prefix_len);
-		i += prefix_len;
-		ft_memcpy(i, pobj->content, pobj->len);
+		if (handle_null_precision(pobj))
+			return (1);
+		if (apply_precision(pobj))
+			return (1);
 	}
-	output_str[final_len] = '\0';
-	free(pobj->content);
-	pobj->content = output_str;
-	pobj->len = final_len;
 	return (0);
 }

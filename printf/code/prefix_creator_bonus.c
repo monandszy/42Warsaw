@@ -21,39 +21,51 @@ char	*create_prefix(t_pobj *pobj)
 	sign = 0;
 	if (ft_strchr("di", pobj->specifier))
 	{
+		if (pobj->plus_padding == 1)
+			sign = '+';
+		if (pobj->spc_padding == 1)
+			sign = ' ';
 		if (pobj->content[0] == '-')
 		{
 			sign = '-';
 			if (deminus_content(pobj))
 				return (NULL);
 		}
-		else
-		{
-			if (pobj->plus_padding == 1)
-				sign = '+';
-			if (pobj->spc_padding == 1)
-				sign = ' ';
-		}
-		if (sign != 0)
-		{
-			prefix = (char *)malloc(sizeof(char) * (2));
-			if (!prefix)
-				return (NULL);
-			prefix[0] = sign;
-			prefix[1] = '\0';
-			ft_strlcpy(prefix, &sign, 2);
-		}
+		prefix = create_di_prefix(sign);
 	}
 	else if (pobj->alt_type == 1 && ft_strchr("xX", pobj->specifier)
 		&& (pobj->len != 1 || pobj->content[0] != '0'))
+		prefix = create_hex_prefix(pobj->specifier);
+	return (prefix);
+}
+
+char	*create_di_prefix(char sign)
+{
+	char	*prefix;
+
+	prefix = NULL;
+	if (sign != 0)
 	{
-		prefix = (char *)malloc(sizeof(char) * (3));
+		prefix = (char *)malloc(sizeof(char) * (2));
 		if (!prefix)
 			return (NULL);
-		prefix[0] = '0';
-		prefix[1] = pobj->specifier;
-		prefix[2] = '\0';
+		prefix[0] = sign;
+		prefix[1] = '\0';
 	}
+	return (prefix);
+}
+
+char	*create_hex_prefix(char sign)
+{
+	char	*prefix;
+
+	prefix = NULL;
+	prefix = (char *)malloc(sizeof(char) * (3));
+	if (!prefix)
+		return (NULL);
+	prefix[0] = '0';
+	prefix[1] = sign;
+	prefix[2] = '\0';
 	return (prefix);
 }
 

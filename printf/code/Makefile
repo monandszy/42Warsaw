@@ -7,9 +7,11 @@ SRC = \
 	converter.c \
 	digit_converter.c \
 	formatter.c \
-	utils.c
-BONUS = \
-	processor_bonus.c
+	utils.c \
+	processor_bonus.c \
+	precision_applier_bonus.c \
+	prefix_creator_bonus.c \
+	assembler_bonus.c
 LIBFT_SRC = \
     ft_isalpha.c \
     ft_isalnum.c \

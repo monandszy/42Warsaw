@@ -12,9 +12,6 @@
 
 #include "ft_printf.h"
 
-static int		copy_parts(char *f, t_list *i, char *new);
-static size_t	get_total_len(char *f, t_list **master);
-
 char	*ft_format(char *f, t_list **master, int *len)
 {
 	char	*new;
@@ -59,9 +56,6 @@ size_t	get_total_len(char *f, t_list **master)
 
 int	copy_parts(char *f, t_list *i, char *new)
 {
-	char	*arg;
-	size_t	len;
-
 	while (f && *f)
 	{
 		if (*f == '%')
@@ -70,15 +64,7 @@ int	copy_parts(char *f, t_list *i, char *new)
 			if (f == NULL)
 				return (1);
 			f++;
-			len = ((t_pobj *)i->content)->len;
-			arg = ((t_pobj *)i->content)->content;
-			while (len > 0)
-			{
-				*new = *arg;
-				new ++;
-				arg++;
-				len--;
-			}
+			new = copy_part(i, new);
 			i = i->next;
 			continue ;
 		}
@@ -87,4 +73,21 @@ int	copy_parts(char *f, t_list *i, char *new)
 		f++;
 	}
 	return (0);
+}
+
+char	*copy_part(t_list *i, char *new)
+{
+	char	*arg;
+	size_t	len;
+
+	len = ((t_pobj *)i->content)->len;
+	arg = ((t_pobj *)i->content)->content;
+	while (len > 0)
+	{
+		*new = *arg;
+		new ++;
+		arg++;
+		len--;
+	}
+	return (new);
 }
