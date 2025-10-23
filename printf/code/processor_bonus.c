@@ -66,12 +66,22 @@ int	process_subflags(t_list **master)
 	{
 		pobj = (t_pobj *)i->content;
 		prefix = create_prefix(pobj);
-		if (pobj->is_null != 1 && pobj->precision >= 0)
+		if (pobj->precision >= 0)
+		{
+			if (pobj->is_null == 1 && pobj -> precision < 6)
+			{
+				free(pobj -> content);
+				pobj -> len = 0;
+				pobj -> content = ft_strdup("");
+				if (!pobj -> content)
+					return (1);
+			}
 			if (apply_precision(pobj))
 			{
 				free(prefix);
 				return (1);
 			}
+		}
 		if (assemble_output(pobj, prefix))
 		{
 			free(prefix);
