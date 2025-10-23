@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 15:05:24 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:24:27 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ void	extract_flags(char *t, char *f, t_pobj *obj)
 	if (*t == '.')
 		obj->precision = ft_atoi(++t);
 }
-void null_init(t_pobj *pobj)
+void	null_init(t_pobj *pobj)
 {
-		pobj -> specifier = -1;
-		pobj -> justification = -1;
-		pobj -> width = -1;
-		pobj -> precision = -1;
-		pobj -> zero_padding = -1;
-		pobj -> alt_type = -1;
-		pobj -> plus_padding = -1;
-		pobj -> spc_padding = -1;
+	pobj->is_null = -1;
+	pobj->specifier = -1;
+	pobj->justification = -1;
+	pobj->width = -1;
+	pobj->precision = -1;
+	pobj->zero_padding = -1;
+	pobj->alt_type = -1;
+	pobj->plus_padding = -1;
+	pobj->spc_padding = -1;
 }
 
 int	extract_string(char specifier, va_list args, t_pobj *obj)
@@ -106,9 +107,9 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 	if (specifier == 'c')
 		str = to_c(va_arg(args, unsigned int));
 	else if (specifier == 's')
-		str = to_s(va_arg(args, char *));
+		str = to_s(obj, va_arg(args, char *));
 	else if (specifier == 'p')
-		str = to_p(va_arg(args, void *));
+		str = to_p(obj, va_arg(args, void *));
 	else if (specifier == 'd' || specifier == 'i')
 		str = ft_itoa(va_arg(args, int));
 	else if (specifier == 'u')
@@ -125,7 +126,7 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 	obj->content = str;
 	obj->len = ft_strlen(str);
 	if (specifier == 'c')
-		obj -> len = 1;
+		obj->len = 1;
 	obj->specifier = specifier;
 	return (0);
 }

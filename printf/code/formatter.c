@@ -60,7 +60,7 @@ size_t	get_total_len(char *f, t_list **master)
 int	copy_parts(char *f, t_list *i, char *new)
 {
 	char	*arg;
-	size_t len;
+	size_t	len;
 
 	while (f && *f)
 	{
@@ -75,7 +75,7 @@ int	copy_parts(char *f, t_list *i, char *new)
 			while (len > 0)
 			{
 				*new = *arg;
-				new++;
+				new ++;
 				arg++;
 				len--;
 			}

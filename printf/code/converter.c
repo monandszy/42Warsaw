@@ -6,28 +6,33 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:13:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/14 17:01:03 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:24:03 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*to_c(int c)
+char	*to_c(t_pobj *obj, int c)
 {
 	char	*s;
 
 	s = (char *)malloc(sizeof(char) * 2);
 	if (s == NULL)
+	{
 		return (NULL);
+	}
 	s[0] = (char)c;
 	s[1] = '\0';
 	return (s);
 }
 
-char	*to_s(char *str)
+char	*to_s(t_pobj *obj, char *str)
 {
 	if (str == NULL)
+	{
 		str = "(null)";
+		obj->is_null = 1;
+	}
 	return (ft_strdup(str));
 }
 
@@ -37,7 +42,10 @@ char	*to_p(void *p)
 	unsigned long	d;
 
 	if (!p)
+	{
+		obj->is_null = 1;
 		return (ft_strdup("(nil)"));
+	}
 	else
 	{
 		d = (unsigned long)p;
