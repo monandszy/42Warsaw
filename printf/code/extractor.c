@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 13:14:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/23 16:24:27 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:56:55 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	extract_flags(char *t, char *f, t_pobj *obj)
 	if (*t == '.')
 		obj->precision = ft_atoi(++t);
 }
+
 void	null_init(t_pobj *pobj)
 {
 	pobj->is_null = -1;
@@ -119,10 +120,7 @@ int	extract_string(char specifier, va_list args, t_pobj *obj)
 	else
 		str = get_default();
 	if (str == NULL)
-	{
-		free(obj);
-		return (1);
-	}
+		return (free(obj), 1);
 	obj->content = str;
 	obj->len = ft_strlen(str);
 	if (specifier == 'c')

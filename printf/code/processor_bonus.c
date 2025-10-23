@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:21 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/10/23 16:38:07 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:55:40 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	process_subflags(t_list **master)
 		prefix = create_prefix(pobj);
 		if (pobj->precision >= 0)
 		{
-			if (pobj->is_null == 1 && pobj -> precision < 6)
+			if (pobj->is_null == 1 && pobj->precision < 6)
 			{
-				free(pobj -> content);
-				pobj -> len = 0;
-				pobj -> content = ft_strdup("");
-				if (!pobj -> content)
+				free(pobj->content);
+				pobj->len = 0;
+				pobj->content = ft_strdup("");
+				if (!pobj->content)
 					return (1);
 			}
 			if (apply_precision(pobj))
@@ -151,129 +151,5 @@ int	assemble_output(t_pobj *pobj, char *prefix)
 	free(pobj->content);
 	pobj->content = output_str;
 	pobj->len = final_len;
-	return (0);
-}
-
-int	deminus_content(t_pobj *pobj)
-{
-	char	*new_content;
-
-	new_content = ft_strdup(pobj->content + 1);
-	if (!new_content)
-		return (1);
-	free(pobj->content);
-	pobj->content = new_content;
-	pobj->len = pobj->len - 1;
-	return (0);
-}
-
-char	*create_prefix(t_pobj *pobj)
-{
-	char	*prefix;
-	char	sign;
-
-	prefix = NULL;
-	sign = 0;
-	if (ft_strchr("di", pobj->specifier))
-	{
-		if (pobj->content[0] == '-')
-		{
-			sign = '-';
-			if (deminus_content(pobj))
-				return (NULL);
-		}
-		else
-		{
-			if (pobj->plus_padding == 1)
-				sign = '+';
-			if (pobj->spc_padding == 1)
-				sign = ' ';
-		}
-		if (sign != 0)
-		{
-			prefix = (char *)malloc(sizeof(char) * (2));
-			if (!prefix)
-				return (NULL);
-			prefix[0] = sign;
-			prefix[1] = '\0';
-			ft_strlcpy(prefix, &sign, 2);
-		}
-	}
-	else if (pobj->alt_type == 1 && ft_strchr("xX", pobj->specifier)
-		&& (pobj->len != 1 || pobj->content[0] != '0'))
-	{
-		prefix = (char *)malloc(sizeof(char) * (3));
-		if (!prefix)
-			return (NULL);
-		prefix[0] = '0';
-		prefix[1] = pobj->specifier;
-		prefix[2] = '\0';
-	}
-	return (prefix);
-}
-
-// Edge case: Precision of 0 for a value of 0 results in an empty string.
-// e.g., printf("%.0d", 0) prints nothing.
-// If the precision is less than or equal to the current length, do nothing.
-int	apply_numeric_precision(t_pobj *pobj)
-{
-	size_t	zeros_to_add;
-	char	*new_content;
-
-	if (pobj->precision == 0 && pobj->content[0] == '0')
-	{
-		free(pobj->content);
-		pobj->content = ft_strdup("");
-		if (!pobj->content)
-			return (1);
-		pobj->len = 0;
-		return (0);
-	}
-	if ((size_t)pobj->precision <= pobj->len)
-		return (0);
-	zeros_to_add = pobj->precision - pobj->len;
-	new_content = (char *)malloc(sizeof(char) * (pobj->precision + 1));
-	if (!new_content)
-		return (1);
-	ft_memset(new_content, '0', zeros_to_add);
-	ft_memcpy(new_content + zeros_to_add, pobj->content, pobj->len);
-	new_content[pobj->precision] = '\0';
-	free(pobj->content);
-	pobj->content = new_content;
-	pobj->len = pobj->precision;
-	return (0);
-}
-
-int	apply_string_precision(t_pobj *pobj)
-{
-	char	*new_content;
-
-	if ((size_t)pobj->precision >= pobj->len)
-		return (0);
-	new_content = (char *)malloc(sizeof(char) * (pobj->precision + 1));
-	if (!new_content)
-		return (1);
-	ft_memcpy(new_content, pobj->content, pobj->precision);
-	new_content[pobj->precision] = '\0';
-	free(pobj->content);
-	pobj->content = new_content;
-	pobj->len = pobj->precision;
-	return (0);
-}
-
-// For other specifiers like 'c', '%', 'p', precision is ignored.
-int	apply_precision(t_pobj *pobj)
-{
-	char	s;
-
-	if (pobj->precision < 0)
-		return (0);
-	s = pobj->specifier;
-	if (ft_strchr("diuoxX", s))
-		return (apply_numeric_precision(pobj));
-	else if (s == 's')
-	{
-		return (apply_string_precision(pobj));
-	}
 	return (0);
 }
