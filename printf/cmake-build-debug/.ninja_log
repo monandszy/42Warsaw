@@ -1,6 +1,0 @@
-# ninja log v6
-21	213	7820397897086389	CMakeFiles/printf.dir/code/processor.c.obj	fd00c1c83566c47e
-8	233	7820397896956426	CMakeFiles/printf.dir/code/extractor.c.obj	e4fe61a9d957a112
-3	17	7820397895356440	clean	47dbc16c3ad81b34
-16	232	7820397897036432	CMakeFiles/printf.dir/code/ft_printf.c.obj	e5c9287e16d016a4
-214	348	7820397899006412	CMakeFiles/printf.dir/code/utils.c.obj	e45b681d53dd0ed2

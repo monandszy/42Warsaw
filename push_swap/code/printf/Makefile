@@ -1,8 +1,7 @@
-NAME = push_swap
-BNAME = checker
+NAME = libftprintf.a
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror
-PRINTF_SRC = \
+CFLAGS = -g  -Wall -Wextra -Werror
+SRC = \
 	ft_printf.c \
 	extractor.c \
 	converter.c \
@@ -12,7 +11,8 @@ PRINTF_SRC = \
 	processor_bonus.c \
 	precision_applier_bonus.c \
 	prefix_creator_bonus.c \
-	assembler_bonus.c \
+	assembler_bonus.c
+LIBFT_SRC = \
     ft_isalpha.c \
     ft_isalnum.c \
     ft_isdigit.c \
@@ -56,55 +56,24 @@ PRINTF_SRC = \
     ft_lstclear.c \
     ft_lstiter.c \
     ft_lstmap.c
-
-MAIN = ps.c
-BMAIN = sc.c
-
-SRC =  \
-	main_utils.c \
-	sorter.c \
-	validator.c
-BONUS = \
-	check_utils.c
-
+OBJ = $(SRC:.c=.o)
+BOBJ = $(BONUS:.c=.o)
+LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 OBJ_DIR = objs
-LIB_DIR = printf
-SRC_DIR = ps
-BSRC_DIR = sc
-
-#SRC_PATH = $(addprefix $(SRC_DIR)/, $(SRC))
-#BSRC_PATH = $(addprefix $(BSRC_DIR)/, $(BONUS))
-
-MOBJ = $(OBJ_DIR)/$(MAIN:.c=.o)
-BMOBJ = $(OBJ_DIR)/$(BMAIN:.c=.o)
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-BOBJ = $(addprefix $(OBJ_DIR)/, $(BONUS:.c=.o))
-PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC:.c=.o))
-
-all: $(MOBJ) $(OBJ) libmake compile_ps
-
-bonus: $(BMOBJ) $(OBJ) $(BOBJ) libmake compile_sc
+LIB_DIR = libft
+OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
+LIBFT_OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(LIBFT_OBJ))
 
 $(NAME): all
-$(BNAME): bonus
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+all: $(OBJ) libmake archive
 
-$(OBJ_DIR)/%.o: $(BSRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+bonus: OBJ += $(BOBJ)
+bonus: $(BOBJ)
+bonus: all
 
-compile_ps:
-	$(CC) $(CFLAGS) $(MOBJ) $(OBJ) $(PRINTF_OBJ) -o $(NAME)
-
-compile_sc:
-	$(CC) $(CFLAGS) $(BMOBJ) $(OBJ) $(BOBJ) $(PRINTF_OBJ) -o $(BNAME)
-
-run: all
-	./$(NAME)
-
-test: bonus
-	./$(BNAME)
+%.o: %.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -113,12 +82,15 @@ libmake:
 	make bonus -C $(LIB_DIR) > /dev/null 2>&1
 	cp $(LIB_DIR)/$(OBJ_DIR)/* $(OBJ_DIR)
 
+archive:
+	ar rcs $(NAME) $(OBJ_PATH) $(LIBFT_OBJ_PATH)
+
 clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf $(NAME) $(BNAME)
+	rm -rf $(NAME) printf.h.gch
 
 re: fclean all
 
-.PHONY: all compile_sc compile_ps fclean clean re bonus libmake test run $(NAME) $(BNAME)
+.PHONY: all comile archive fclean clean re bonus libmake

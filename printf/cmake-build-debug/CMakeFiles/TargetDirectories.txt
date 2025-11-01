@@ -1,3 +1,0 @@
-C:/Users/stasz/_My/_Repositories/42Warsaw/Code/printf/cmake-build-debug/CMakeFiles/printf.dir
-C:/Users/stasz/_My/_Repositories/42Warsaw/Code/printf/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/stasz/_My/_Repositories/42Warsaw/Code/printf/cmake-build-debug/CMakeFiles/rebuild_cache.dir
