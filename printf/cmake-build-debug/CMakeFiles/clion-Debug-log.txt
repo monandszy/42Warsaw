@@ -1,0 +1,4 @@
+C:\Users\stasz\_MyPrograms\Programing\clion\app\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/stasz/_MyPrograms/Programing/clion/app/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\stasz\_My\_Repositories\42Warsaw\Code\printf -B C:\Users\stasz\_My\_Repositories\42Warsaw\Code\printf\cmake-build-debug
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/stasz/_My/_Repositories/42Warsaw/Code/printf/cmake-build-debug
