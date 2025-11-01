@@ -32,7 +32,7 @@ void test(char *path)
 				printf("[Error while reading \"%s\"]\n", path);
 				printf("[Expected: \"%s\" Got: \"%s\"]\n", s1, s2);
 		}
-//		printf("[Expected: \"%s\" Got: \"%s\"]\n", s1, s2);
+		printf("[Expected: \"%s\" Got: \"%s\"]\n", s1, s2);
 		free (s1);
 		free (s2);
 		i++;
@@ -47,5 +47,6 @@ int main(void)
 	test("./testdir/random");
 	test("./testdir/long");
 	test("./testdir/test_file");
+//	test("./invalid");
 	return (0);
 }
