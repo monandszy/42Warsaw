@@ -6,6 +6,8 @@ int initialize_stack(char **args, t_stack *a, t_stack *b)
   b = (t_stack *) malloc(sizeof(t_stack));
   if (!a || !b || initialize_dlist(args, a))
     return (1);
+  a -> size = (sizeof(*args) / sizeof(**args));
+  b -> size = 0;
   return (0);
 }
 

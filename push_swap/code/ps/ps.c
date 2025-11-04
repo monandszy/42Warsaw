@@ -10,6 +10,7 @@ int main(int argc, char **argv)
 
   a = NULL;
   b = NULL; 
+  steps = NULL;
 	if (argc == 1)
 		return (0); 
 	else if (argc == 2)
@@ -17,14 +18,15 @@ int main(int argc, char **argv)
     args = ft_split(*argv, ' ');
 		if (!args || validate_argv(args))
 			return (free_split(args), ft_printf("Error\n"), 1);
-		if (initialize_stack(args, a, b))
-      return (free_split(args), free_stack(a), free_stack(b), ft_printf("Error\n"), 1);
-		steps = sort(a, b);
-    print_steps(steps);
-    return (free_split(args), free_stack(a), free_stack(b), free_list(steps), 0);
 	}
 	else
 		return (ft_printf("Error\n"), 1);
+  if (initialize_stack(args, a, b))
+      return (free_split(args), free_stack(a), free_stack(b), ft_printf("Error\n"), 1);
+  if (plan(steps, a, b))
+    return (free_split(args), free_stack(a), free_stack(b), free_list(steps), ft_printf("Error\n"), 1);
+  print_steps(steps);
+  return (free_split(args), free_stack(a), free_stack(b), free_list(steps), 0);
 }
 
 void print_steps(t_list *steps)
