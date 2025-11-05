@@ -1,42 +1,43 @@
 
 #include "ps.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	char **args;
-	t_list *steps;
-	t_stack *a;
-	t_stack *b;
+	char	**args;
+	t_dlist	*steps;
+	t_stack	*a;
+	t_stack	*b;
 
-  a = NULL;
-  b = NULL; 
-  steps = NULL;
+	a = NULL;
+	b = NULL;
+	steps = NULL;
 	if (argc == 1)
-		return (0); 
+		return (0);
 	else if (argc == 2)
-	{	
-    args = ft_split(*argv, ' ');
+	{
+		args = ft_split(*argv, ' ');
 		if (!args || validate_argv(args))
-			return (free_split(args), ft_printf("Error\n"), 1);
+			return (f_sp(args), ft_printf("Error\n"), 1);
 	}
 	else
 		return (ft_printf("Error\n"), 1);
-  if (initialize_stack(args, a, b))
-      return (free_split(args), free_stack(a), free_stack(b), ft_printf("Error\n"), 1);
-  if (plan(steps, a, b))
-    return (free_split(args), free_stack(a), free_stack(b), free_list(steps), ft_printf("Error\n"), 1);
+	if (initialize_stack(args, a, b))
+		return (f_sp(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
+	if (plan(steps, a, b))
+		return (f_sp(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);
-  return (free_split(args), free_stack(a), free_stack(b), free_list(steps), 0);
+	return (f_sp(args), f_st(a), f_st(b), f_dl(steps),
+		0);
 }
 
-void print_steps(t_list *steps)
+void	print_steps(t_dlist *steps)
 {
-  t_list *i;
+	t_dlist *i;
 
-  i = steps;
-  while (i)
-  {
-    ft_printf("%s\n", (const char *) i -> content);
-    i = i -> next;
-  }
+	i = steps;
+	while (i)
+	{
+		ft_printf("%s\n", (char *)i->content);
+		i = i->next;
+	}
 }

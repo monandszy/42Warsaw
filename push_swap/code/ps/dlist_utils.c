@@ -1,0 +1,15 @@
+
+#include "ps.h"
+
+t_dlist	*ft_dlstnew(void *content)
+{
+	t_dlist	*new;
+
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
+}
