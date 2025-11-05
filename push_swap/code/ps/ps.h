@@ -21,9 +21,9 @@ typedef struct s_stack
 	size_t			size;
 }					t_stack;
 
-int					initialize_stack(char **args, t_stack *a, t_stack *b);
+int	initialize_stack(char **args, t_stack **a, t_stack **b, int argc);  
 int					initialize_dlist(int **args, t_stack *a);
-int					to_int_arr(char **args, int **int_args, int a_size);
+int					to_int_arr(char **args, int ***int_args, int a_size);
 void				bubble_sort(int **args);
 void				initialize_targets(int **args, t_stack *a);
 void				print_steps(t_dlist *steps);
@@ -36,10 +36,11 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
-int					plan(t_dlist *steps, t_stack *a, t_stack *b);
+int					plan(t_dlist **steps, t_stack *a, t_stack *b);
 void				f_st(t_stack *st);
-void				f_sp(char **sp);
 void				f_dl(t_dlist *dl);
+
+char	**argv_split(char **argv, int argc);
 
 t_dlist				*sa(t_dlist *steps, t_stack *a);
 t_dlist				*sb(t_dlist *steps, t_stack *b);

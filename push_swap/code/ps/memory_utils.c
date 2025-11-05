@@ -2,10 +2,12 @@
 
 void	f_st(t_stack *st)
 {
-	if (st->start)
-		f_dl(st->start);
-	if (st)
-		free(st);
+  if (st)
+  {
+    if (st->start)
+		  f_dl(st->start);
+    free(st);
+  }
 }
 
 void	f_dl(t_dlist *dl)
@@ -15,6 +17,8 @@ void	f_dl(t_dlist *dl)
 	while (dl)
 	{
 		tmp = dl;
+    if (tmp -> content)
+      free(tmp -> content);
 		dl = tmp->next;
 		free(tmp);
 	}

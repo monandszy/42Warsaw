@@ -59,6 +59,7 @@ int	check_maxint(char **args, int i)
 					return (1);
 			}
 		}
+    i++;
 	}
 	return (0);
 }

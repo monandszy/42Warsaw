@@ -1,39 +1,40 @@
 #include "ps.h"
 
-int	initialize_stack(char **args, t_stack *a, t_stack *b)
+int	initialize_stack(char **args, t_stack **a, t_stack **b, int argc)
 {
-	int	a_size;
 	int	**int_args;
 
 	int_args = NULL;
-	a = (t_stack *)malloc(sizeof(t_stack));
-	b = (t_stack *)malloc(sizeof(t_stack));
-	a_size = (((long)sizeof(args)) / ((long)sizeof(args[0])));
-	if (!a || !b || to_int_arr(args, int_args, a_size)
-		|| initialize_dlist(int_args, a))
+	*a = (t_stack *)malloc(sizeof(t_stack));
+	*b = (t_stack *)malloc(sizeof(t_stack));
+	if (!a || !b || to_int_arr(args, &int_args, argc)
+		|| initialize_dlist(int_args, *a))
 		return (1);
 	bubble_sort(int_args);
-	initialize_targets(int_args, a);
+	initialize_targets(int_args, *a);
 	free(int_args);
-	a->size = a_size;
-	b->size = 0;
+	(*a)->size = argc;
+	(*b)->size = 0;
 	return (0);
 }
 
-int	to_int_arr(char **args, int **int_args, int a_size)
+int	to_int_arr(char **args, int ***int_args, int argc)
 {
 	int	res;
+  int *tmp;
 
-	int_args = (int **)malloc(sizeof(int *) * a_size);
-	if (!int_args)
+	*int_args = (int **)malloc(sizeof(int *) * (argc + 1));
+	if (!*int_args)
 		return (1);
-	a_size--;
-	int_args[a_size] = NULL;
-	while (a_size >= 0)
+	int_args[0][argc] = NULL;
+  argc--;
+	while (argc >= 0)
 	{
-		res = ft_atoi(args[a_size]);
-		int_args[a_size] = &res;
-		a_size--;
+    tmp = (int *) malloc(sizeof(int));
+		res = ft_atoi(args[argc]);
+    *tmp = res;
+		int_args[0][argc] = tmp;
+		argc--;
 	}
 	return (0);
 }
@@ -98,7 +99,7 @@ int	initialize_dlist(int **args, t_stack *a)
 	prev = (t_dlist *)malloc(sizeof(t_dlist));
 	if (!prev)
 		return (1);
-	prev->content = &args[0][0];
+	prev->content = args[0];
 	a->start = prev;
 	i = 1;
 	while (args[i])
@@ -106,7 +107,7 @@ int	initialize_dlist(int **args, t_stack *a)
 		new = (t_dlist *)malloc(sizeof(t_dlist));
 		if (!new)
 			return (1);
-		new->content = &args[i][0];
+		new->content = args[i];
 		new->prev = prev;
 		prev->next = new;
 		prev = new;

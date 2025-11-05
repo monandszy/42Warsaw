@@ -3,7 +3,7 @@
 
 int	main(int argc, char **argv)
 {
-	char	**args;
+  char **args;
 	t_dlist	*steps;
 	t_stack	*a;
 	t_stack	*b;
@@ -13,20 +13,15 @@ int	main(int argc, char **argv)
 	steps = NULL;
 	if (argc == 1)
 		return (0);
-	else if (argc == 2)
-	{
-		args = ft_split(*argv, ' ');
-		if (!args || validate_argv(args))
-			return (f_sp(args), ft_printf("Error\n"), 1);
-	}
-	else
-		return (ft_printf("Error\n"), 1);
-	if (initialize_stack(args, a, b))
-		return (f_sp(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
+  args = argv_split(++argv, --argc);
+  if (!args || validate_argv(args))
+    return (free(args), ft_printf("Error\n"), 1);
+	if (initialize_stack(args, &a, &b, argc))
+		return (free(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
 	if (plan(steps, a, b))
-		return (f_sp(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
+		return (free(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);
-	return (f_sp(args), f_st(a), f_st(b), f_dl(steps),
+	return (free(args), f_st(a), f_st(b), f_dl(steps),
 		0);
 }
 

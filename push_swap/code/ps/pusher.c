@@ -23,6 +23,7 @@ t_dlist	*pa(t_dlist *steps, t_stack *a, t_stack *b)
 {
 	push(a, b);
 	steps->next = ft_dlstnew("pa");
+  steps->next->prev = steps;
 	return (steps->next);
 }
 
@@ -30,5 +31,6 @@ t_dlist	*pb(t_dlist *steps, t_stack *a, t_stack *b)
 {
 	push(b, a);
 	steps->next = ft_dlstnew("pb");
+  steps->next->prev = steps;
 	return (steps->next);
 }

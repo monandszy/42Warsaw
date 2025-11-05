@@ -1,11 +1,16 @@
 
 #include "ps.h"
 
-int	plan(t_dlist *steps, t_stack *a, t_stack *b)
+int	plan(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	(void)steps;
-	(void)a;
-	(void)b;
+  (void) steps;
+  (void) a;
+  (void) b;
+  // t_dlist *i;
+  // int size;
+
+  // i = a -> start;
+  // size = a -> size;
 	return (0);
 }
 

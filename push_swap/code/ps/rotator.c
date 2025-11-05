@@ -21,6 +21,7 @@ t_dlist	*ra(t_dlist *steps, t_stack *a)
 {
 	rotate(a);
 	steps->next = ft_dlstnew("ra");
+  steps->next->prev = steps;
 	return (steps->next);
 }
 
@@ -28,6 +29,7 @@ t_dlist	*rb(t_dlist *steps, t_stack *b)
 {
 	rotate(b);
 	steps->next = ft_dlstnew("rb");
+  steps->next->prev = steps;
 	return (steps->next);
 }
 
@@ -36,5 +38,6 @@ t_dlist	*rr(t_dlist *steps, t_stack *a, t_stack *b)
 	rotate(a);
 	rotate(b);
 	steps->next = ft_dlstnew("rr");
+  steps->next->prev = steps;
 	return (steps->next);
 }

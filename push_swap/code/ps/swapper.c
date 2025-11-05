@@ -19,12 +19,14 @@ t_dlist	*sa(t_dlist *steps, t_stack *a)
 {
 	swap(a);
 	steps->next = ft_dlstnew("sa");
+  steps->next->prev = steps;
 	return (steps->next);
 }
 
 t_dlist	*sb(t_dlist *steps, t_stack *b)
 {
 	swap(b);
+  steps->next->prev = steps;
 	steps->next = ft_dlstnew("sb");
 	return (steps->next);
 }
@@ -42,6 +44,7 @@ t_dlist	*ss(t_dlist *steps, t_stack *a, t_stack *b)
 	tmp = a_start->content;
 	a_start->content = b_start->content;
 	b_start->content = tmp;
+  steps->next->prev = steps;
 	steps->next = ft_dlstnew("ss");
 	return (steps->next);
 }

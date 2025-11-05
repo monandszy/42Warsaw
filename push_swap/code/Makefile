@@ -60,6 +60,7 @@ PRINTF_SRC = \
 SRC =  \
 	initialize_utils.c \
 	memory_utils.c \
+	argv_split.c \
 	dlist_utils.c \
 	sorter.c \
 	validator.c \
