@@ -27,7 +27,7 @@ int	check_duplicates(char **args, int i, int j)
 	{
 		while (args[j])
 		{
-			if (i != j && ft_strncmp(args[i], args[j], ft_strlen(args[i])) == 0)
+			if (i != j && ft_strncmp(args[i], args[j], ft_strlen(args[i]) + 1) == 0)
 				return (1);
 			j++;
 		}

@@ -18,7 +18,7 @@ static void	swap(t_stack *s)
 t_dlist	*sa(t_dlist *steps, t_stack *a)
 {
 	swap(a);
-	steps->next = ft_dlstnew("sa");
+	steps->next = ft_dlstnew(ft_strdup("sa"));
   steps->next->prev = steps;
 	return (steps->next);
 }
@@ -27,7 +27,7 @@ t_dlist	*sb(t_dlist *steps, t_stack *b)
 {
 	swap(b);
   steps->next->prev = steps;
-	steps->next = ft_dlstnew("sb");
+	steps->next = ft_dlstnew(ft_strdup("sb"));
 	return (steps->next);
 }
 
@@ -45,6 +45,6 @@ t_dlist	*ss(t_dlist *steps, t_stack *a, t_stack *b)
 	a_start->content = b_start->content;
 	b_start->content = tmp;
   steps->next->prev = steps;
-	steps->next = ft_dlstnew("ss");
+	steps->next = ft_dlstnew(ft_strdup("ss"));
 	return (steps->next);
 }

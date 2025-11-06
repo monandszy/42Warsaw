@@ -20,7 +20,7 @@ static void	rotate(t_stack *s)
 t_dlist	*ra(t_dlist *steps, t_stack *a)
 {
 	rotate(a);
-	steps->next = ft_dlstnew("ra");
+	steps->next = ft_dlstnew(ft_strdup("ra"));
   steps->next->prev = steps;
 	return (steps->next);
 }
@@ -28,7 +28,7 @@ t_dlist	*ra(t_dlist *steps, t_stack *a)
 t_dlist	*rb(t_dlist *steps, t_stack *b)
 {
 	rotate(b);
-	steps->next = ft_dlstnew("rb");
+	steps->next = ft_dlstnew(ft_strdup("rb"));
   steps->next->prev = steps;
 	return (steps->next);
 }
@@ -37,7 +37,7 @@ t_dlist	*rr(t_dlist *steps, t_stack *a, t_stack *b)
 {
 	rotate(a);
 	rotate(b);
-	steps->next = ft_dlstnew("rr");
+	steps->next = ft_dlstnew(ft_strdup("rr"));
   steps->next->prev = steps;
 	return (steps->next);
 }

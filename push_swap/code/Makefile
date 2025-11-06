@@ -58,9 +58,13 @@ PRINTF_SRC = \
 	ft_lstmap.c
 
 SRC =  \
+	to_string.c \
+	executor.c \
+	calc_utils.c \
+	rr_calculator.c \
+	rrr_calculator.c \
 	initialize_utils.c \
 	memory_utils.c \
-	argv_split.c \
 	dlist_utils.c \
 	sorter.c \
 	validator.c \

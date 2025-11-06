@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
     return (free(args), ft_printf("Error\n"), 1);
 	if (initialize_stack(args, &a, &b, argc))
 		return (free(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
-	if (plan(steps, a, b))
+	if (plan(&steps, a, b))
 		return (free(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);
 	return (free(args), f_st(a), f_st(b), f_dl(steps),

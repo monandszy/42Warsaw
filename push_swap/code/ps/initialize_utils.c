@@ -1,5 +1,22 @@
 #include "ps.h"
 
+char	**argv_split(char **argv, int argc)
+{
+	char	**spl;
+
+	spl = (char **)malloc((argc + 1) * sizeof(char *));
+	if (!spl)
+		return (NULL);
+	spl[argc] = NULL;
+  argc--;
+	while (argc >= 0)
+  {
+    spl[argc] = argv[argc];
+    argc--; 
+  }
+	return (spl);
+}
+
 int	initialize_stack(char **args, t_stack **a, t_stack **b, int argc)
 {
 	int	**int_args;
@@ -10,11 +27,11 @@ int	initialize_stack(char **args, t_stack **a, t_stack **b, int argc)
 	if (!a || !b || to_int_arr(args, &int_args, argc)
 		|| initialize_dlist(int_args, *a))
 		return (1);
-	bubble_sort(int_args);
-	initialize_targets(int_args, *a);
+	// bubble_sort(int_args);
+	// initialize_targets(int_args, *a);
 	free(int_args);
-	(*a)->size = argc;
-	(*b)->size = 0;
+	(*a)->e_count = argc;
+	(*b)->e_count = 0;
 	return (0);
 }
 
@@ -39,56 +56,56 @@ int	to_int_arr(char **args, int ***int_args, int argc)
 	return (0);
 }
 
-void	bubble_sort(int **args)
-{
-	int	i;
-	int	*prev;
-	int	*current;
-	int	*tmp;
-	int	is_sorted;
+// void	bubble_sort(int **args)
+// {
+// 	int	i;
+// 	int	*prev;
+// 	int	*current;
+// 	int	*tmp;
+// 	int	is_sorted;
 
-	is_sorted = 0;
-	while (!is_sorted)
-	{
-		is_sorted = 1;
-		i = 1;
-		while (args[i])
-		{
-			prev = args[i - 1];
-			current = args[i];
-			if (*prev > *current)
-			{
-				tmp = prev;
-				prev = current;
-				current = tmp;
-				is_sorted = 0;
-			}
-			i++;
-		}
-	}
-}
+// 	is_sorted = 0;
+// 	while (!is_sorted)
+// 	{
+// 		is_sorted = 1;
+// 		i = 1;
+// 		while (args[i])
+// 		{
+// 			prev = args[i - 1];
+// 			current = args[i];
+// 			if (*prev > *current)
+// 			{
+// 				tmp = prev;
+// 				prev = current;
+// 				current = tmp;
+// 				is_sorted = 0;
+// 			}
+// 			i++;
+// 		}
+// 	}
+// }
 
-void	initialize_targets(int **args, t_stack *a)
-{
-	t_dlist	*i;
-	int		j;
+// void	initialize_targets(int **args, t_stack *a)
+// {
+// 	t_dlist	*i;
+// 	int		j;
 
-	i = a->start;
-	while (i)
-	{
-		j = 0;
-		while (args[j])
-		{
-			if (*(args[j]) == *((int *)(i->content)))
-			{
-				i->target = j;
-				break ;
-			}
-			j++;
-		}
-		i = i->next;
-	}
-}
+// 	i = a->start;
+// 	while (i)
+// 	{
+// 		j = 0;
+// 		while (args[j])
+// 		{
+// 			if (*(args[j]) == *((int *)(i->content)))
+// 			{
+// 				i->target = j;
+// 				break ;
+// 			}
+// 			j++;
+// 		}
+// 		i = i->next;
+// 	}
+// }
 
 int	initialize_dlist(int **args, t_stack *a)
 {

@@ -20,7 +20,7 @@ static void	rrotate(t_stack *s)
 t_dlist	*rra(t_dlist *steps, t_stack *a)
 {
 	rrotate(a);
-	steps->next = ft_dlstnew("rra");
+	steps->next = ft_dlstnew(ft_strdup("rra"));
   steps->next->prev = steps;
 	return (steps->next);
 }
@@ -28,7 +28,7 @@ t_dlist	*rra(t_dlist *steps, t_stack *a)
 t_dlist	*rrb(t_dlist *steps, t_stack *b)
 {
 	rrotate(b);
-	steps->next = ft_dlstnew("rrb");
+	steps->next = ft_dlstnew(ft_strdup("rrb"));
   steps->next->prev = steps;
 	return (steps->next);
 }
@@ -37,7 +37,7 @@ t_dlist	*rrr(t_dlist *steps, t_stack *a, t_stack *b)
 {
 	rrotate(a);
 	rrotate(b);
-	steps->next = ft_dlstnew("rrr");
+	steps->next = ft_dlstnew(ft_strdup("rrr"));
   steps->next->prev = steps;
 	return (steps->next);
 }
