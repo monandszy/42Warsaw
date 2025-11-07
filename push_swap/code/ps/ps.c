@@ -21,8 +21,7 @@ int	main(int argc, char **argv)
 	if (plan(&steps, a, b))
 		return (free(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);
-	return (free(args), f_st(a), f_st(b), f_dl(steps),
-		0);
+	return (free(args), f_st(a), f_st(b), f_dl(steps), 0);
 }
 
 void	print_steps(t_dlist *steps)
@@ -30,6 +29,8 @@ void	print_steps(t_dlist *steps)
 	t_dlist *i;
 
 	i = steps;
+  if (!i)
+    return;
   i = i->next;
 	while (i)
 	{

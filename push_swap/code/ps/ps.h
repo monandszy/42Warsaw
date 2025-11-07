@@ -9,7 +9,6 @@
 typedef struct s_dlist
 {
 	void			*content;
-	// int				target;
 	struct s_dlist	*next;
 	struct s_dlist	*prev;
 }					t_dlist;
@@ -36,14 +35,12 @@ void print_dlist(t_dlist **dl);
 int	        initialize_stack(char **args, t_stack **a, t_stack **b, int argc);  
 int					initialize_dlist(int **args, t_stack *a);
 int					to_int_arr(char **args, int ***int_args, int a_size);
-char	**argv_split(char **argv, int argc);
-// void				bubble_sort(int **args);
-// void				initialize_targets(int **args, t_stack *a);
+char	      **argv_split(char **argv, int argc);
 
 void				print_steps(t_dlist *steps);
 void				f_st(t_stack *st);
 void				f_dl(t_dlist *dl);
-t_dlist				*ft_dlstnew(void *content);
+t_dlist			*ft_dlstnew(void *content);
 
 int					validate_argv(char **args);
 int					check_numonly(char **args, int i);
@@ -65,11 +62,18 @@ int ft_abs(int i);
 int ft_greater(int i1, int i2);
 t_move *calculate_cost(int a_index, int b_index);
 
+void	push(t_stack *to, t_stack *from);
+void	rrotate(t_stack *s);
+void	rotate(t_stack *s);
+void	swap(t_stack *s);
+void swap_first(t_stack *a, t_stack *b);
+
 t_dlist				*sa(t_dlist *steps, t_stack *a);
 t_dlist				*sb(t_dlist *steps, t_stack *b);
 t_dlist				*ss(t_dlist *steps, t_stack *a, t_stack *b);
 t_dlist				*pa(t_dlist *steps, t_stack *a, t_stack *b);
 t_dlist				*pb(t_dlist *steps, t_stack *a, t_stack *b);
+t_dlist				*transfer(t_dlist *steps, t_stack *to, t_stack *from);
 t_dlist				*ra(t_dlist *steps, t_stack *a);
 t_dlist				*rb(t_dlist *steps, t_stack *b);
 t_dlist				*rr(t_dlist *steps, t_stack *a, t_stack *b);

@@ -1,94 +1,6 @@
 
 #include "test.h"
 
-void test_swap_two_stacks_empty_scenarios()
-{
-	t_stack *a, *b;
-
-	// Case 1: Both stacks are empty
-	a = init_stack();
-	b = init_stack();
-	swap_first(a, b);
-	assert(a->start == NULL && a->e_count == 0);
-	assert(b->start == NULL && b->e_count == 0);
-	free_stack(a);
-	free_stack(b);
-
-	// Case 2: 'a' is empty, 'b' has one element
-	a = init_stack();
-	b = init_stack();
-	t_dlist *node1 = new_node(10);
-	b->start = b->end = node1;
-	b->e_count = 1;
-	swap_first(a, b);
-	// 'a' should now have the element, 'b' should be empty
-	assert(a->start == node1 && a->e_count == 1);
-	assert(b->start == NULL && b->e_count == 0);
-	free_stack(a);
-	free_stack(b);
-
-	// Case 3: 'a' has one element, 'b' is empty
-	a = init_stack();
-	b = init_stack();
-	t_dlist *node2 = new_node(20);
-	a->start = a->end = node2;
-	a->e_count = 1;
-	swap_first(a, b);
-	// 'b' should now have the element, 'a' should be empty
-	assert(b->start == node2 && b->e_count == 1);
-	assert(a->start == NULL && a->e_count == 0);
-	free_stack(a);
-	free_stack(b);
-
-	// Case 4: 'a' is empty, 'b' has multiple elements
-	a = init_stack();
-	b = init_stack();
-	t_dlist *b_node1 = new_node(30);
-	t_dlist *b_node2 = new_node(40);
-	b->start = b_node1;
-	b_node1->next = b_node2;
-	b_node2->prev = b_node1;
-	b->end = b_node2;
-	b->e_count = 2;
-	swap_first(a, b);
-	// 'a' should get the first element of 'b'
-	assert(a->start == b_node1 && a->e_count == 1 && a->start->next == NULL);
-	assert(b->start == b_node2 && b->e_count == 1 && b->start->prev == NULL);
-	free_stack(a);
-	free_stack(b);
-
-	printf("test_swap_two_stacks_empty_scenarios: PASSED\n");
-}
-
-void test_swap_two_stacks_one_element_each()
-{
-	t_stack *a = init_stack();
-	t_stack *b = init_stack();
-	t_dlist *node_a = new_node(100);
-	t_dlist *node_b = new_node(200);
-
-	a->start = a->end = node_a;
-	a->e_count = 1;
-	b->start = b->end = node_b;
-	b->e_count = 1;
-
-	swap_first(a, b);
-
-	assert(a->e_count == 1);
-	assert(a->start == node_b);
-	assert(a->end == node_b);
-	assert(*(int *)a->start->content == 200);
-
-	assert(b->e_count == 1);
-	assert(b->start == node_a);
-	assert(b->end == node_a);
-	assert(*(int *)b->start->content == 100);
-
-	printf("test_swap_two_stacks_one_element_each: PASSED\n");
-	free_stack(a);
-	free_stack(b);
-}
-
 void test_swap_single_stack_empty_and_one_element()
 {
 	t_stack *s = init_stack();
@@ -173,6 +85,94 @@ void test_swap_two_stacks()
     assert(b->e_count == 2);
 
     printf("test_swap_two_stacks: PASSED\n");
+	free_stack(a);
+	free_stack(b);
+}
+
+void test_swap_two_stacks_empty_scenarios()
+{
+	t_stack *a, *b;
+
+	// Case 1: Both stacks are empty
+	a = init_stack();
+	b = init_stack();
+	swap_first(a, b);
+	assert(a->start == NULL && a->e_count == 0);
+	assert(b->start == NULL && b->e_count == 0);
+	free_stack(a);
+	free_stack(b);
+
+	// Case 2: 'a' is empty, 'b' has one element
+	a = init_stack();
+	b = init_stack();
+	t_dlist *node1 = new_node(10);
+	b->start = b->end = node1;
+	b->e_count = 1;
+	swap_first(a, b);
+	// 'a' should now have the element, 'b' should be empty
+	assert(a->start == node1 && a->e_count == 1);
+	assert(b->start == NULL && b->e_count == 0);
+	free_stack(a);
+	free_stack(b);
+
+	// Case 3: 'a' has one element, 'b' is empty
+	a = init_stack();
+	b = init_stack();
+	t_dlist *node2 = new_node(20);
+	a->start = a->end = node2;
+	a->e_count = 1;
+	swap_first(a, b);
+	// 'b' should now have the element, 'a' should be empty
+	assert(b->start == node2 && b->e_count == 1);
+	assert(a->start == NULL && a->e_count == 0);
+	free_stack(a);
+	free_stack(b);
+
+	// Case 4: 'a' is empty, 'b' has multiple elements
+	a = init_stack();
+	b = init_stack();
+	t_dlist *b_node1 = new_node(30);
+	t_dlist *b_node2 = new_node(40);
+	b->start = b_node1;
+	b_node1->next = b_node2;
+	b_node2->prev = b_node1;
+	b->end = b_node2;
+	b->e_count = 2;
+	swap_first(a, b);
+	// 'a' should get the first element of 'b'
+	assert(a->start == b_node1 && a->e_count == 1 && a->start->next == NULL);
+	assert(b->start == b_node2 && b->e_count == 1 && b->start->prev == NULL);
+	free_stack(a);
+	free_stack(b);
+
+	printf("test_swap_two_stacks_empty_scenarios: PASSED\n");
+}
+
+void test_swap_two_stacks_one_element_each()
+{
+	t_stack *a = init_stack();
+	t_stack *b = init_stack();
+	t_dlist *node_a = new_node(100);
+	t_dlist *node_b = new_node(200);
+
+	a->start = a->end = node_a;
+	a->e_count = 1;
+	b->start = b->end = node_b;
+	b->e_count = 1;
+
+	swap_first(a, b);
+
+	assert(a->e_count == 1);
+	assert(a->start == node_b);
+	assert(a->end == node_b);
+	assert(*(int *)a->start->content == 200);
+
+	assert(b->e_count == 1);
+	assert(b->start == node_a);
+	assert(b->end == node_a);
+	assert(*(int *)b->start->content == 100);
+
+	printf("test_swap_two_stacks_one_element_each: PASSED\n");
 	free_stack(a);
 	free_stack(b);
 }

@@ -1,25 +1,28 @@
 #include "ps.h"
 
-// pushes from b to a
-static void	push(t_stack *to, t_stack *from)
+void	push(t_stack *to, t_stack *from)
 {
-	t_dlist	*from_start;
-	t_dlist	*to_start;
+	t_dlist	*fnode;
+	t_dlist	*tnode;
 
-	to_start = to->start;
-	from_start = from->start;
-	if (!from_start)
+	tnode = to->start;
+	fnode = from->start;
+	if (!fnode)
 		return ;
-	from->e_count--;
-	to->e_count++;
-	from->start = from_start->next;
-	from_start->prev = NULL;
-	from_start->next = to_start;
-  if (to_start)
-	  to_start->prev = from_start;
+  if (fnode == from->end)
+    from->end = NULL;
+  if (fnode->next)
+      fnode->next->prev = NULL;
+	from->start = fnode->next;
+	fnode->prev = NULL;
+	fnode->next = tnode;
+  if (tnode)
+    tnode->prev = fnode;
   if (!to -> end)
-    to -> end = from_start;
-	to->start = from_start;
+    to -> end = fnode;
+	to->start = fnode;
+  from->e_count--;
+	to->e_count++;
 }
 
 t_dlist	*pa(t_dlist *steps, t_stack *a, t_stack *b)
@@ -36,4 +39,11 @@ t_dlist	*pb(t_dlist *steps, t_stack *a, t_stack *b)
 	steps->next = ft_dlstnew(ft_strdup("pb"));
   steps->next->prev = steps;
 	return (steps->next);
+}
+
+t_dlist *transfer(t_dlist *steps, t_stack *to, t_stack *from)
+{
+  while(from -> e_count > 0)
+    steps = pa(steps, to, from);
+  return (steps);
 }

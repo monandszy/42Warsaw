@@ -1,6 +1,6 @@
 #include "ps.h"
 
-static void	rrotate(t_stack *s)
+void	rrotate(t_stack *s)
 {
 	t_dlist	*start;
 	t_dlist	*end;
