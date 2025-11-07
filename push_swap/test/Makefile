@@ -56,6 +56,7 @@ PROGRAM_SRC = \
 	ft_lstclear.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
+	\
 	to_string.c \
 	executor.c \
 	calc_utils.c \
@@ -75,7 +76,11 @@ PROGRAM_SRC = \
 BONUS = \
 	check_utils.c
 SRC = \
-    main.c
+	main.c \
+	pusher_tests.c \
+	rotator_tests.c \
+	rrotator_tests.c \
+	swapper_tests.c
 
 OBJ = $(SRC:.c=.o)
 POBJ = $(PROGRAM_SRC:.c=.o)

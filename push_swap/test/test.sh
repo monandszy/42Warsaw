@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [ ! -f ./push_swap ] || [ ! -f ./checker_linux ]; then
-  make
-fi
+make
 
 chmod 777 ./push_swap
 chmod 777 ./checker_linux
