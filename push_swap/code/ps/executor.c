@@ -27,7 +27,6 @@ int execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
 
 int execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move)
 {
-  // printf("cost:[%d]\n", move -> cost);
   while (move -> shared > 0)
   {
     *steps = rr(*steps, a, b);
@@ -49,7 +48,6 @@ int execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *mov
 
 int execute_optimal_rrr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move)
 {
-  // printf("cost:[%d]\n", move -> cost);
   while (move -> shared > 0)
   {
     *steps = rrr(*steps, a, b);

@@ -1,6 +1,7 @@
 
 #include "ps.h"
 
+// TODO impl LIS
 int	plan(t_dlist **steps, t_stack *a, t_stack *b)
 {
   t_dlist *start;
