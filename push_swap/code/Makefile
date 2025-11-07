@@ -60,7 +60,7 @@ PRINTF_SRC = \
 SRC =  \
 	to_string.c \
 	executor.c \
-	calc_utils.c \
+	calculator.c \
 	rr_calculator.c \
 	rrr_calculator.c \
 	initialize_utils.c \

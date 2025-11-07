@@ -38,6 +38,8 @@ void swap_top(t_stack *a, t_stack *b)
 
 t_dlist	*sa(t_dlist *steps, t_stack *a)
 {
+  if (a -> e_count < 2)
+    return (steps);
 	swap(a);
 	steps->next = ft_dlstnew(ft_strdup("sa"));
   steps->next->prev = steps;
@@ -46,6 +48,8 @@ t_dlist	*sa(t_dlist *steps, t_stack *a)
 
 t_dlist	*sb(t_dlist *steps, t_stack *b)
 {
+  if (b -> e_count < 2)
+    return (steps);
 	swap(b);
   steps->next->prev = steps;
 	steps->next = ft_dlstnew(ft_strdup("sb"));
@@ -54,6 +58,8 @@ t_dlist	*sb(t_dlist *steps, t_stack *b)
 
 t_dlist	*ss(t_dlist *steps, t_stack *a, t_stack *b)
 {
+  if (a -> e_count == 0 && b -> e_count == 0)
+    return (steps);
   swap_top(a, b);
   steps->next->prev = steps;
 	steps->next = ft_dlstnew(ft_strdup("ss"));

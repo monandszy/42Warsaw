@@ -51,10 +51,15 @@ int					ft_isnumber(char *str);
 int					plan(t_dlist **steps, t_stack *a, t_stack *b);
 
 t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b);
-int calculate_b_move_rr(int target, t_stack *b);
+int calculate_rb_move(int target, t_stack *b);
 
-void execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b);
-void execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
+t_move *calculate_optimal_rrr_cost(t_stack *a, t_stack *b);
+int calculate_rrb_move(int target, t_stack *b);
+
+int execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b);
+int execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
+int execute_optimal_rrr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
+
 
 void adjust_order(t_dlist **steps, t_stack *b);
 

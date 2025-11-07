@@ -21,6 +21,8 @@ void	rotate(t_stack *s)
 
 t_dlist	*ra(t_dlist *steps, t_stack *a)
 {
+  if (a -> e_count <= 1)
+    return (steps);
 	rotate(a);
 	steps->next = ft_dlstnew(ft_strdup("ra"));
   steps->next->prev = steps;
@@ -29,6 +31,8 @@ t_dlist	*ra(t_dlist *steps, t_stack *a)
 
 t_dlist	*rb(t_dlist *steps, t_stack *b)
 {
+  if (b -> e_count <= 1)
+    return (steps);
 	rotate(b);
 	steps->next = ft_dlstnew(ft_strdup("rb"));
   steps->next->prev = steps;
@@ -37,6 +41,8 @@ t_dlist	*rb(t_dlist *steps, t_stack *b)
 
 t_dlist	*rr(t_dlist *steps, t_stack *a, t_stack *b)
 {
+  if (a -> e_count <= 1 && b -> e_count <= 1)
+    return (steps);
 	rotate(a);
 	rotate(b);
 	steps->next = ft_dlstnew(ft_strdup("rr"));

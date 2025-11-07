@@ -6,7 +6,7 @@ t_move *calculate_cost(int a_index, int b_index)
   t_move *new;
 
   new = (t_move *) malloc(sizeof(t_move));
-  if(!new)
+  if (!new)
     return (NULL);
   if (a_index >= b_index)
   {
@@ -24,8 +24,6 @@ t_move *calculate_cost(int a_index, int b_index)
   }
   return (new);
 }
-
-
 
 int ft_abs(int i)
 {

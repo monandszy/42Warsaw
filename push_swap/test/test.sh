@@ -27,30 +27,28 @@ run_test() {
   result=$(./checker_linux "${numbers[@]}" < out.txt)
 
   if [ "$result" == "OK" ]; then
-  
     wc -l < out.txt
     return 0
   else
-  
     echo -e "\n--- FAILED ---" >&2
     echo "Input: ${numbers[*]}" >&2
     echo "Checker Result: $result" >&2
-    echo "Instructions Generated:" >&2
-    cat out.txt >&2
-    echo "-------------------" >&2
+    # echo "Instructions Generated:" >&2
+    # cat out.txt >&2
     return 1
   fi
 }
 
 highest_lines=0
-total_runs=10
-range=100
+lines=0
+total_runs=100
+range=500
 
 for i in $(seq 1 $total_runs)
 do
   numbers_to_test=$(generate_unique_numbers $range 0 1000)
   lines=$(run_test $numbers_to_test) || true
-  if [ $? -eq 0 ]; then
+  if [ $lines > 0 ]; then
     echo "OK. Operations: $lines"
     if (( lines > highest_lines )); then
       highest_lines=$lines

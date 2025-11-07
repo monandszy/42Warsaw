@@ -17,7 +17,7 @@ t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b)
   // && a_index <= (a -> e_count / 2)
   )
   {
-    b_index = calculate_b_move_rr(*((int *) (i -> content)), b);
+    b_index = calculate_rb_move(*((int *) (i -> content)), b);
     cost = calculate_cost(a_index, b_index);
     if (!min_cost || cost->cost < min_cost->cost)
     {
@@ -32,7 +32,7 @@ t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b)
   return (min_cost);
 }
 
-int calculate_b_move_rr(int target, t_stack *b)
+int calculate_rb_move(int target, t_stack *b)
 {
   t_dlist *i;
   int closest_target;

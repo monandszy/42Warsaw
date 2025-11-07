@@ -27,6 +27,8 @@ void	push(t_stack *to, t_stack *from)
 
 t_dlist	*pa(t_dlist *steps, t_stack *a, t_stack *b)
 {
+  if (b -> e_count == 0)
+    return (steps);
 	push(a, b);
 	steps->next = ft_dlstnew(ft_strdup("pa"));
   steps->next->prev = steps;
@@ -35,6 +37,8 @@ t_dlist	*pa(t_dlist *steps, t_stack *a, t_stack *b)
 
 t_dlist	*pb(t_dlist *steps, t_stack *a, t_stack *b)
 {
+  if (a -> e_count == 0)
+    return (steps);
 	push(b, a);
 	steps->next = ft_dlstnew(ft_strdup("pb"));
   steps->next->prev = steps;
