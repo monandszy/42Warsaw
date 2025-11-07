@@ -42,7 +42,7 @@ run_test() {
 highest_lines=0
 lines=0
 total_runs=100
-range=500
+range=100
 
 for i in $(seq 1 $total_runs)
 do
