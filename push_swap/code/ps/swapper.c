@@ -4,30 +4,36 @@ void	swap(t_stack *s)
 {
 	t_dlist	*start;
 	t_dlist	*second;
-	void	*tmp;
 
 	start = s->start;
-	second = start->next;
-	if (!second)
+	if (!start)
 		return ;
-	tmp = start->content;
-	start->content = second->content;
-	second->content = tmp;
+	second = start->next;
+  if (!second)
+    return;
+  if (second->next)
+    second->next->prev = start;
+  if (s->end == second)
+    s->end=start;
+  s->start = second;
+  start->prev = second;
+  start->next = second->next;
+  second->prev = NULL;
+  second->next = start;
 }
 
-void swap_first(t_stack *a, t_stack *b)
+void swap_top(t_stack *a, t_stack *b)
 {
-  t_dlist *a_start;
-	t_dlist *b_start;
-	void *tmp;
-
-	a_start = a->start;
-	b_start = b->start;
-	if (!a_start || !b_start)
-		return ;
-	tmp = a_start->content;
-	a_start->content = b_start->content;
-	b_start->content = tmp;
+  if (!a->start || !b->start) {
+    if (!a->start)
+        push(a, b);
+    else if (!b->start)
+        push(b, a);
+    return;
+  }
+  push(a, b);
+  swap(a);
+  push(b, a);
 }
 
 t_dlist	*sa(t_dlist *steps, t_stack *a)
@@ -48,7 +54,7 @@ t_dlist	*sb(t_dlist *steps, t_stack *b)
 
 t_dlist	*ss(t_dlist *steps, t_stack *a, t_stack *b)
 {
-  swap_first(a, b);
+  swap_top(a, b);
   steps->next->prev = steps;
 	steps->next = ft_dlstnew(ft_strdup("ss"));
 	return (steps->next);

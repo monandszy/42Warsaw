@@ -70,7 +70,7 @@ void test_swap_two_stacks()
     b->end = node4;
     b->e_count = 2;
 
-    swap_first(a, b);
+    swap_top(a, b);
 
     assert(a->start == node3);
     assert(a->start->next == node2);
@@ -96,7 +96,7 @@ void test_swap_two_stacks_empty_scenarios()
 	// Case 1: Both stacks are empty
 	a = init_stack();
 	b = init_stack();
-	swap_first(a, b);
+	swap_top(a, b);
 	assert(a->start == NULL && a->e_count == 0);
 	assert(b->start == NULL && b->e_count == 0);
 	free_stack(a);
@@ -108,7 +108,7 @@ void test_swap_two_stacks_empty_scenarios()
 	t_dlist *node1 = new_node(10);
 	b->start = b->end = node1;
 	b->e_count = 1;
-	swap_first(a, b);
+	swap_top(a, b);
 	// 'a' should now have the element, 'b' should be empty
 	assert(a->start == node1 && a->e_count == 1);
 	assert(b->start == NULL && b->e_count == 0);
@@ -121,7 +121,7 @@ void test_swap_two_stacks_empty_scenarios()
 	t_dlist *node2 = new_node(20);
 	a->start = a->end = node2;
 	a->e_count = 1;
-	swap_first(a, b);
+	swap_top(a, b);
 	// 'b' should now have the element, 'a' should be empty
 	assert(b->start == node2 && b->e_count == 1);
 	assert(a->start == NULL && a->e_count == 0);
@@ -138,7 +138,7 @@ void test_swap_two_stacks_empty_scenarios()
 	b_node2->prev = b_node1;
 	b->end = b_node2;
 	b->e_count = 2;
-	swap_first(a, b);
+	swap_top(a, b);
 	// 'a' should get the first element of 'b'
 	assert(a->start == b_node1 && a->e_count == 1 && a->start->next == NULL);
 	assert(b->start == b_node2 && b->e_count == 1 && b->start->prev == NULL);
@@ -160,7 +160,7 @@ void test_swap_two_stacks_one_element_each()
 	b->start = b->end = node_b;
 	b->e_count = 1;
 
-	swap_first(a, b);
+	swap_top(a, b);
 
 	assert(a->e_count == 1);
 	assert(a->start == node_b);

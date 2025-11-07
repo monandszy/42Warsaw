@@ -11,12 +11,7 @@ void test_push_to_empty()
 	a->end = node1;
 	a->e_count = 1;
 
-  print_stack(a);
-  print_stack(b);
 	push(b, a);
-  printf("\n");
-  print_stack(a);
-  print_stack(b);
 
 	assert(b->e_count == 1);
 	assert(b->start == node1);
@@ -46,12 +41,7 @@ void test_push_from_one_element_stack()
 	b->end = node2;
 	b->e_count = 1;
 
-  print_stack(a);
-  print_stack(b);
 	push(b, a);
-  printf("\n");
-  print_stack(a);
-  print_stack(b);
 
 	assert(b->e_count == 2);
 	assert(b->start == node1);
@@ -86,12 +76,7 @@ void test_push_from_multi_element_stack()
   b->end = node3;
   b->e_count = 1;
 
-  print_stack(a);
-  print_stack(b);
   push(b, a);
-  printf("\n");
-  print_stack(a);
-  print_stack(b);
 
   assert(b->e_count == 2);
   assert(b->start == node1);

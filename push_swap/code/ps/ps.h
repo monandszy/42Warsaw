@@ -66,7 +66,7 @@ void	push(t_stack *to, t_stack *from);
 void	rrotate(t_stack *s);
 void	rotate(t_stack *s);
 void	swap(t_stack *s);
-void swap_first(t_stack *a, t_stack *b);
+void swap_top(t_stack *a, t_stack *b);
 
 t_dlist				*sa(t_dlist *steps, t_stack *a);
 t_dlist				*sb(t_dlist *steps, t_stack *b);

@@ -8,6 +8,8 @@ void	rotate(t_stack *s)
 
 	start = s->start;
 	end = s->end;
+  if (start == end)
+    return ;
 	second = start->next;
 	second->prev = NULL;
 	s->start = second;
