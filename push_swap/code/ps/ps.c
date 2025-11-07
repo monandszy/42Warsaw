@@ -30,6 +30,7 @@ void	print_steps(t_dlist *steps)
 	t_dlist *i;
 
 	i = steps;
+  i = i->next;
 	while (i)
 	{
 		ft_printf("%s\n", (char *)i->content);

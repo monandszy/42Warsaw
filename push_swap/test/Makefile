@@ -56,7 +56,14 @@ PROGRAM_SRC = \
 	ft_lstclear.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
-	main_utils.c \
+	to_string.c \
+	executor.c \
+	calc_utils.c \
+	rr_calculator.c \
+	rrr_calculator.c \
+	initialize_utils.c \
+	memory_utils.c \
+	dlist_utils.c \
 	sorter.c \
 	validator.c \
 	sorter.c \
@@ -77,7 +84,7 @@ OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
 OBJ_DIR = ./objs
 PROGRAM_DIR = ./../code
 
-all: compile $(NAME)
+all: fclean compile $(NAME)
 
 compile: $(OBJ_DIR) $(OBJ)
 
@@ -92,8 +99,9 @@ $(NAME): program_make
 
 program_make:
 	make bonus -C $(PROGRAM_DIR)
+	make -C $(PROGRAM_DIR)
 	cp $(PROGRAM_DIR)/push_swap push_swap
-	$(PROGRAM_DIR)/checker checker
+	cp $(PROGRAM_DIR)/checker checker
 
 test:
 	./$(NAME)
@@ -105,5 +113,7 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf push_swap
+	rm -rf checker
 
 re: fclean all

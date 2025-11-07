@@ -41,19 +41,22 @@ int calculate_b_move_rr(int target, t_stack *b)
   int b_index;
 
   b_index = 0;
+  closest_target = 0;
   ctb_index = 0;
   i = b -> start;
   while (i)
   {
     // diff = ft_abs(target - (i -> target));
-    diff = ft_abs(target - *((int*) (i -> content)));
-    // printf("diff:[%d]\n", diff);
+    diff = target - *((int*) (i -> content));
+    // printf("diff:[%d] ct:[%d]\n", diff, closest_target);
     // if element in b > than element of a
     // means that a is to be on top of b
-    if (diff < closest_target)
+    if (ft_abs(diff) <= closest_target || closest_target == 0)
     {
       ctb_index = b_index;
-      closest_target = diff;
+      if (diff < 0)
+        ctb_index++;
+      closest_target = ft_abs(diff);
     }
     b_index++;
     i = i -> next;

@@ -18,6 +18,8 @@ int	plan(t_dlist **steps, t_stack *a, t_stack *b)
 
   // i = a -> start;
   // size = a -> e_count;
+  *steps = pb(*steps, a, b);
+  *steps = pb(*steps, a, b);
   print_stack(a);
   print_stack(b);
   while (a -> e_count > 0)
@@ -31,7 +33,22 @@ int	plan(t_dlist **steps, t_stack *a, t_stack *b)
     print_stack(b);
     // printf("\n");
   }
+  adjust_order(steps, b);
+  while(b -> e_count > 0)
+  {
+    *steps = pa(*steps, a, b);
+  }
+  print_stack(a);
+  print_stack(b);
   *steps = start;
 	return (0);
+}
+
+void adjust_order(t_dlist **steps, t_stack *b)
+{
+  while (*((int*) (b -> start -> content)) < *((int*) (b -> end -> content)))
+  {
+    *steps = rb(*steps, b);
+  }
 }
 

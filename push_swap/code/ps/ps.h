@@ -59,6 +59,8 @@ int calculate_b_move_rr(int target, t_stack *b);
 void execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b);
 void execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
 
+void adjust_order(t_dlist **steps, t_stack *b);
+
 int ft_abs(int i);
 int ft_greater(int i1, int i2);
 t_move *calculate_cost(int a_index, int b_index);
