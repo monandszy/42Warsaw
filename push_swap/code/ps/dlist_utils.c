@@ -13,3 +13,4 @@ t_dlist	*ft_dlstnew(void *content)
 	new->prev = NULL;
 	return (new);
 }
+

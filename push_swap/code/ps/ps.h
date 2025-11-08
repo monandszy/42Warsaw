@@ -53,6 +53,7 @@ int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
 int radix(t_dlist **steps, t_stack *a, t_stack *b);
+int biradix(t_dlist **steps, t_stack *a, t_stack *b);
 
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b);

@@ -12,7 +12,7 @@ generate_unique_numbers() {
 
   local range_size=$((max - min + 1))
   if (( count > range_size )); then
-    echo "Error: Cannot generate $count unique numbers from a range of size $range_size."
+    echo "Error: Cannot generate $count unique numbers from a range of size $range_size." >&2
     return 1
   fi
 
@@ -30,16 +30,17 @@ run_test() {
     wc -l < out.txt
     return 0
   else
-    echo -e "\n--- FAILED ---"
-    echo "Input: ${numbers[*]}"
-    echo "Checker Result: $result"
-    # echo "Instructions Generated:"
-    # cat out.txt
+    echo -e "\n--- FAILED ---" >&2
+    echo "Input: ${numbers[*]}" >&2
+    echo "Checker Result: $result" >&2
+    # echo "Instructions Generated:" >&2
+    # cat out.txt >&2
     return 1
   fi
 }
 
 highest_lines=0
+lowest_lines=100000000000000000000
 lines=0
 total_runs=100
 range=500
@@ -53,9 +54,13 @@ do
     if (( lines > highest_lines )); then
       highest_lines=$lines
     fi
+    if (( lines < lowest_lines )); then
+      lowest_lines=$lines
+    fi
   fi
 done
 
 echo "-------------------------------------------------------"
 echo "Highest number of operations found: $highest_lines"
+echo "Lowest number of operations found: $lowest_lines"
 echo "-------------------------------------------------------"

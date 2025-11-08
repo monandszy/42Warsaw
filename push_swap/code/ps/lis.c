@@ -1,13 +1,13 @@
 
 #include "ps.h"
 
+  // print_int_arr(schema, a -> e_count);
+  // print_lis_from_stack(a, schema);
 t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b)
 {
   size_t i;
   size_t total;
 
-  // print_int_arr(schema, a -> e_count);
-  // print_lis_from_stack(a, schema);
   i = 0;
   total = a -> e_count;
   while (i < total)
