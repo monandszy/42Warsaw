@@ -1,5 +1,17 @@
 #include "ps.h"
 
+void free_int_matrix(int **matrix, int rows) 
+{
+  if (matrix) {
+    while (rows >= 0)
+    {
+      free(matrix[rows]);
+      rows--;
+    }
+    free(matrix);
+  }
+}
+
 void	f_st(t_stack *st)
 {
   if (st)

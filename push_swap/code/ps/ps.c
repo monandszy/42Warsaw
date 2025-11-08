@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	if (to_int_arr(args, &int_args, argc) || initialize_stack(&int_args, &a, &b, argc))
 		return (free(int_args), free(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
 	if (plan(lis(int_args, argc), &steps, a, b))
-  // if (biradix(&steps, a, b))
+  // if (radix(&steps, a, b))
 		return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);
 	return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), 0);

@@ -42,7 +42,7 @@ run_test() {
 highest_lines=0
 lowest_lines=100000000000000000000
 lines=0
-total_runs=100
+total_runs=1000
 range=500
 
 for i in $(seq 1 $total_runs)

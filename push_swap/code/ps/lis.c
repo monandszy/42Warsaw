@@ -3,7 +3,7 @@
 
   // print_int_arr(schema, a -> e_count);
   // print_lis_from_stack(a, schema);
-t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b)
+int execute_lis(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 {
   size_t i;
   size_t total;
@@ -13,14 +13,14 @@ t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b)
   while (i < total)
   {
     if (schema[i] == 1)
-      steps = ra(steps, a);
+      *steps = ra(*steps, a);
     else
-      steps = pb(steps, a, b);
-    if (!steps)
-      return (NULL);
+      *steps = pb(*steps, a, b);
+    if (!*steps)
+      return (-1);
     i++;
   }
-  return (steps);
+  return (i);
 }
 
 int *lis(int **int_args, int argc)

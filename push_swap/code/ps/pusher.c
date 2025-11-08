@@ -44,10 +44,3 @@ t_dlist	*pb(t_dlist *steps, t_stack *a, t_stack *b)
   steps->next->prev = steps;
 	return (steps->next);
 }
-
-t_dlist *transfer(t_dlist *steps, t_stack *a, t_stack *b)
-{
-  while(a -> e_count > 0)
-    steps = pb(steps, a, b);
-  return (steps);
-}

@@ -21,6 +21,10 @@ int	initialize_stack(int ***args, t_stack **a, t_stack **b, int argc)
 {
 	*a = (t_stack *) malloc(sizeof(t_stack));
 	*b = (t_stack *) malloc(sizeof(t_stack));
+  (*a)->start = NULL;
+  (*a)->end = NULL;
+  (*b)->start = NULL;
+  (*b)->end = NULL;
 	if (indexify(args, argc) || !a || !b || initialize_dlist(*args, *a))
 		return (1);
 	(*a)->e_count = argc;
@@ -62,7 +66,7 @@ int indexify(int ***args, int argc)
     (args)[0][min_i][0] = 2147483647;
     i++;
   }
-  free(*args);
+  free_int_matrix(*args, argc);
   *args = indexes;
   return (0);
 }

@@ -1,6 +1,32 @@
 
 #include "ps.h"
 
+t_dlist *calculate_all_rr_moves(t_stack *from, t_stack *to)
+{
+	int		to_index;
+	int		from_index;
+	t_dlist	*moves_list;
+	t_dlist	*current_node;
+	t_move	*cost;
+
+	if (!from || !from->start)
+		return (NULL);
+	moves_list = NULL;
+	current_node = from->start;
+	from_index = 0;
+	while (current_node)
+	{
+		to_index = calculate_r_move(*((int *)(current_node->content)), to);
+		cost = calculate_cost(from_index, to_index);
+		if (!cost)
+			return (NULL);
+		ft_dlstadd_back(&moves_list, ft_dlstnew(cost));
+		from_index++;
+		current_node = current_node->next;
+	}
+	return (moves_list);
+}
+
 t_move *calculate_optimal_rr_cost(t_stack *from, t_stack *to)
 {
   int to_index;

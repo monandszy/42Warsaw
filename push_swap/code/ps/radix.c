@@ -3,13 +3,14 @@
 
 int get_max_bits(t_stack *stack)
 {
-  int max_num = stack->e_count - 1;
-  int max_bits = 0;
-  while ((max_num >> max_bits) != 0)
-  {
-  max_bits++;
-  }
-  return max_bits;
+    int max_num;
+    int max_bits;
+
+    max_num = stack->e_count - 1;
+    max_bits = 0;
+    while ((max_num >> max_bits) != 0)
+        max_bits++;
+    return (max_bits);
 }
 
 int radix(t_dlist **steps, t_stack *a, t_stack *b)
