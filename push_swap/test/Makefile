@@ -57,6 +57,7 @@ PROGRAM_SRC = \
 	ft_lstiter.c \
 	ft_lstmap.c \
 	\
+	radix.c \
 	lis.c \
 	to_string.c \
 	executor.c \

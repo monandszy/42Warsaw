@@ -18,8 +18,9 @@ int	main(int argc, char **argv)
   args = argv_split(++argv, --argc);
   if (!args || validate_argv(args))
     return (free(args), ft_printf("Error\n"), 1);
-	if (to_int_arr(args, &int_args, argc) || initialize_stack(int_args, &a, &b, argc))
+	if (to_int_arr(args, &int_args, argc) || initialize_stack(&int_args, &a, &b, argc))
 		return (free(int_args), free(args), f_st(a), f_st(b), ft_printf("Error\n"), 1);
+  // if (radix(&steps, a, b))
 	if (plan(lis(int_args, argc), &steps, a, b))
 		return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), ft_printf("Error\n"), 1);
   print_steps(steps);

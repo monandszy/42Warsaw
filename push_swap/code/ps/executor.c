@@ -11,8 +11,6 @@ int execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
   rrr_move = calculate_optimal_rrr_cost(b, a);
   if (!rr_move || !rrr_move)
     return (free(rr_move), free(rrr_move), 1);
-  print_move(rrr_move);
-  print_move(rr_move);
   if (rrr_move -> cost > rr_move->cost)
   {
     if (execute_optimal_rr_move(steps, a, b, rr_move))

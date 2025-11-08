@@ -6,8 +6,8 @@ t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b)
   size_t i;
   size_t total;
 
-  print_int_arr(schema, a -> e_count);
-  print_lis_from_stack(a, schema);
+  // print_int_arr(schema, a -> e_count);
+  // print_lis_from_stack(a, schema);
   i = 0;
   total = a -> e_count;
   while (i < total)
@@ -56,7 +56,7 @@ void calc_lis(int **int_args, int argc, int *counters, int *predecessors)
     j = 0;
 		while (j < i)
 		{		
-			if (*int_args[j] < *int_args[i] && counters[j] + 1 > counters[i])
+			if (int_args[j][0] < int_args[i][0] && counters[j] + 1 > counters[i])
 			{
 				counters[i] = counters[j] + 1;
 				predecessors[i] = j;

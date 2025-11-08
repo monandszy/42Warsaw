@@ -11,23 +11,11 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
   start = *steps;
   if (!*steps)
     return (1);
-  print_stack(a);
-  print_stack(b);
   *steps = execute_lis(schema, *steps, a, b);
   free(schema);
-  print_stack(a);
-  print_stack(b);
   while (b -> e_count > 0)
-  {
     execute_optimal_move(steps, a, b);
-    print_dlist(&start);
-    print_stack(a);
-    print_stack(b);
-  }
   adjust_order(steps, a);
-  // transfer(*steps, a, b);
-  print_stack(a);
-  print_stack(b);
   *steps = start;
 	return (0);
 }

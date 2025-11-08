@@ -45,9 +45,9 @@ t_dlist	*pb(t_dlist *steps, t_stack *a, t_stack *b)
 	return (steps->next);
 }
 
-t_dlist *transfer(t_dlist *steps, t_stack *to, t_stack *from)
+t_dlist *transfer(t_dlist *steps, t_stack *a, t_stack *b)
 {
-  while(from -> e_count > 0)
-    steps = pa(steps, to, from);
+  while(a -> e_count > 0)
+    steps = pb(steps, a, b);
   return (steps);
 }

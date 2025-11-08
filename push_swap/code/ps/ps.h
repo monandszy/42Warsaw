@@ -32,10 +32,12 @@ void print_move(t_move *move);
 void print_stack(t_stack *stack);
 void print_dlist(t_dlist **dl);
 void print_int_arr(int *arr, int size);
+void print_int_matrice(int **arr, int size);
 void print_lis_from_stack(t_stack *stack, int *lis_schema);
 
-int	        initialize_stack(int **args, t_stack **a, t_stack **b, int argc);  
+int	        initialize_stack(int ***args, t_stack **a, t_stack **b, int argc);  
 int					initialize_dlist(int **args, t_stack *a);
+int        indexify(int ***args, int argc);
 int					to_int_arr(char **args, int ***int_args, int a_size);
 char	      **argv_split(char **argv, int argc);
 
@@ -49,6 +51,8 @@ int					check_numonly(char **args, int i);
 int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
+
+int radix(t_dlist **steps, t_stack *a, t_stack *b);
 
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b);
