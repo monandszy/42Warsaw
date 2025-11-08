@@ -1,21 +1,21 @@
 
 #include "ps.h"
 
-t_move *calculate_optimal_rrr_cost(t_stack *a, t_stack *b)
+t_move *calculate_optimal_rrr_cost(t_stack *from, t_stack *to)
 {
-  int a_index;
-  int b_index;
+  int to_index;
+  int from_index;
   t_dlist *i;
   t_move *min_cost;
   t_move *cost;
 
   min_cost = NULL;
-  i = a -> end;
-  a_index = 1;
+  i = from -> end;
+  from_index = 1;
   while (i)
   {
-    b_index = calculate_rrb_move(*((int *) (i -> content)), b);
-    cost = calculate_cost(a_index, b_index);
+    to_index = calculate_rr_move(*((int *) (i -> content)), to);
+    cost = calculate_cost(from_index, to_index);
     if (!min_cost || cost->cost < min_cost->cost)
     {
       free(min_cost);
@@ -23,36 +23,36 @@ t_move *calculate_optimal_rrr_cost(t_stack *a, t_stack *b)
     }
     else
       free(cost);
-    a_index++;
+    from_index++;
     i = i -> prev;
   }
   return (min_cost);
 }
 
-int calculate_rrb_move(int target, t_stack *b)
+int calculate_rr_move(int target, t_stack *s)
 {
   t_dlist *i;
   int closest_target;
   int diff;
-  int ctb_index;
-  int b_index;
+  int ctfrom_index;
+  int index;
 
-  b_index = 1;
+  index = 1;
   closest_target = 0;
-  ctb_index = 0;
-  i = b -> end;
+  ctfrom_index = 0;
+  i = s -> end;
   while (i)
   {
     diff = target - *((int*) (i -> content));
     if (ft_abs(diff) <= closest_target || closest_target == 0)
     {
-      ctb_index = b_index;
-      if (diff < 0)
-        ctb_index--;
+      ctfrom_index = index;
+      if (diff > 0)
+        ctfrom_index--;
       closest_target = ft_abs(diff);
     }
-    b_index++;
+    index++;
     i = i -> prev;
   }
-  return (ctb_index);
+  return (ctfrom_index);
 }

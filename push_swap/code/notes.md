@@ -1,18 +1,18 @@
 /* int calculate_b_move_rrr(int target, t_stack *b)
 {
   t_dlist *i;
-  int b_index;
+  int from_index;
 
-  b_index = b -> size;
+  from_index = b -> size;
   i -> b -> end;
   while (i)
   {
     if (i -> target > target)
-      return (b_index);
-    b_index++;
+      return (from_index);
+    from_index++;
     i = i -> prev;
   }
-  return (b_index);
+  return (from_index);
 } */
 
 /* // 1 2 3 4 5

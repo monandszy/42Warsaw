@@ -23,8 +23,8 @@ typedef struct s_stack
 typedef struct s_move
 {
   int shared;
-  int a_index;
-  int b_index;
+  int to_index;
+  int from_index;
   int cost;
 } t_move;
 
@@ -50,7 +50,6 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
-
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b);
 void calc_lis(int **int_args, int argc, int *counters, int *predecessors);
@@ -58,10 +57,10 @@ void extract_max(int argc, int *schema, int *counters, int *predecessors);
 int *lis(int **int_args, int argc);
 
 t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b);
-int calculate_rb_move(int target, t_stack *b);
+int calculate_r_move(int target, t_stack *s);
 
 t_move *calculate_optimal_rrr_cost(t_stack *a, t_stack *b);
-int calculate_rrb_move(int target, t_stack *b);
+int calculate_rr_move(int target, t_stack *b);
 
 int execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b);
 int execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
@@ -71,7 +70,7 @@ void adjust_order(t_dlist **steps, t_stack *b);
 
 int ft_abs(int i);
 int ft_greater(int i1, int i2);
-t_move *calculate_cost(int a_index, int b_index);
+t_move *calculate_cost(int to_index, int from_index);
 
 void	push(t_stack *to, t_stack *from);
 void	rrotate(t_stack *s);

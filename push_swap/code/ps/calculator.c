@@ -1,26 +1,26 @@
 
 #include "ps.h"
 
-t_move *calculate_cost(int b_index, int a_index)
+t_move *calculate_cost(int from_index, int to_index)
 {
   t_move *new;
 
   new = (t_move *) malloc(sizeof(t_move));
   if (!new)
     return (NULL);
-  if (b_index >= a_index)
+  if (from_index >= to_index)
   {
-    new -> shared = a_index;
-    new -> a_index = 0;
-    new -> b_index = b_index - a_index;
-    new -> cost = new -> shared + new -> b_index;
+    new -> shared = to_index;
+    new -> to_index = 0;
+    new -> from_index = from_index - to_index;
+    new -> cost = new -> shared + new -> from_index;
   }
   else
   {
-    new -> shared = b_index;
-    new -> b_index = 0;
-    new -> a_index = a_index - b_index;
-    new -> cost = new -> shared + new -> a_index;
+    new -> shared = from_index;
+    new -> from_index = 0;
+    new -> to_index = to_index - from_index;
+    new -> cost = new -> shared + new -> to_index;
   }
   return (new);
 }

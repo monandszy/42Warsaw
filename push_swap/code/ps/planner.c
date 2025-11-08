@@ -19,7 +19,7 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
   print_stack(b);
   while (b -> e_count > 0)
   {
-    execute_optimal_move(steps, b, a);
+    execute_optimal_move(steps, a, b);
     print_dlist(&start);
     print_stack(a);
     print_stack(b);
@@ -41,22 +41,22 @@ void adjust_order(t_dlist **steps, t_stack *a)
   i = a -> start;
   cs = 0;
   ce = 0;
-  while (cs <= (a -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> next -> content)))
+  while (cs <= (a -> e_count / 2) && *((int*) (i -> content)) > *((int*) (i -> next -> content)))
   {
     cs++;
     i = i -> next;
   }
   i = a -> end;
-  while (ce <= (a -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> prev -> content)))
+  while (ce <= (a -> e_count / 2) && *((int*) (i -> content)) > *((int*) (i -> prev -> content)))
   {
     ce++;
     i = i -> prev;
   }
   if (cs > ce)
-    while (*((int*) (a -> start -> content)) < *((int*) (a -> end -> content)))
+    while (*((int*) (a -> start -> content)) > *((int*) (a -> end -> content)))
       *steps = ra(*steps, a);
   else
-    while (*((int*) (a -> start -> content)) < *((int*) (a -> end -> content)))
+    while (*((int*) (a -> start -> content)) > *((int*) (a -> end -> content)))
       *steps = rra(*steps, a);
 }
 
