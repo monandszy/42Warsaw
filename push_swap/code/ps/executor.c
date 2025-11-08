@@ -63,7 +63,8 @@ int adjust_order_move(t_dlist **steps, t_stack *a, size_t total_cost)
   res = ft_lower(ce, cs);
   // printf("c[%ld, %ld, %ld, %ld]\n", total_cost, res, cs, ce);
   // print_stack(a);
-  if (((total_cost + res) < (a->e_count * (7 + (a->e_count)/100 - 1) - 1)))
+  // if (((total_cost + res) < (a->e_count * (7 + (a->e_count)/100 - 1 ))))
+  if (((total_cost + res) < (6400)))
   {
     if (cs > ce)
       while (*((int*) (a -> start -> content)) > *((int*) (a -> end -> content)))
