@@ -58,6 +58,7 @@ PRINTF_SRC = \
 	ft_lstmap.c
 
 SRC =  \
+	lis.c \
 	to_string.c \
 	executor.c \
 	calculator.c \

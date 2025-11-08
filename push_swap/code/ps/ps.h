@@ -23,16 +23,18 @@ typedef struct s_stack
 typedef struct s_move
 {
   int shared;
-  int b_index;
   int a_index;
+  int b_index;
   int cost;
 } t_move;
 
 void print_move(t_move *move);
 void print_stack(t_stack *stack);
 void print_dlist(t_dlist **dl);
+void print_int_arr(int *arr, int size);
+void print_lis_from_stack(t_stack *stack, int *lis_schema);
 
-int	        initialize_stack(char **args, t_stack **a, t_stack **b, int argc);  
+int	        initialize_stack(int **args, t_stack **a, t_stack **b, int argc);  
 int					initialize_dlist(int **args, t_stack *a);
 int					to_int_arr(char **args, int ***int_args, int a_size);
 char	      **argv_split(char **argv, int argc);
@@ -48,7 +50,12 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
-int					plan(t_dlist **steps, t_stack *a, t_stack *b);
+
+int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
+t_dlist *execute_lis(int *schema, t_dlist *steps, t_stack *a, t_stack *b);
+void calc_lis(int **int_args, int argc, int *counters, int *predecessors);
+void extract_max(int argc, int *schema, int *counters, int *predecessors);
+int *lis(int **int_args, int argc);
 
 t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b);
 int calculate_rb_move(int target, t_stack *b);
@@ -59,7 +66,6 @@ int calculate_rrb_move(int target, t_stack *b);
 int execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b);
 int execute_optimal_rr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
 int execute_optimal_rrr_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move);
-
 
 void adjust_order(t_dlist **steps, t_stack *b);
 

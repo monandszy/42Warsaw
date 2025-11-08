@@ -15,7 +15,7 @@ t_move *calculate_optimal_rrr_cost(t_stack *a, t_stack *b)
   while (i)
   {
     b_index = calculate_rrb_move(*((int *) (i -> content)), b);
-    cost = calculate_cost(a_index, b_index); // TODO
+    cost = calculate_cost(a_index, b_index);
     if (!min_cost || cost->cost < min_cost->cost)
     {
       free(min_cost);

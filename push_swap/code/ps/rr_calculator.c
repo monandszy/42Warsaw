@@ -3,19 +3,16 @@
 
 t_move *calculate_optimal_rr_cost(t_stack *a, t_stack *b)
 {
-  int a_index;
   int b_index;
+  int a_index;
   t_dlist *i;
-
   t_move *min_cost;
   t_move *cost;
 
   min_cost = NULL;
   i = a -> start;
   a_index = 0;
-  while (i 
-  // && a_index <= (a -> e_count / 2)
-  )
+  while (i)
   {
     b_index = calculate_rb_move(*((int *) (i -> content)), b);
     cost = calculate_cost(a_index, b_index);
@@ -46,11 +43,7 @@ int calculate_rb_move(int target, t_stack *b)
   i = b -> start;
   while (i)
   {
-    // diff = ft_abs(target - (i -> target));
-    diff = target - *((int*) (i -> content));
-    // printf("diff:[%d] ct:[%d]\n", diff, closest_target);
-    // if element in b > than element of a
-    // means that a is to be on top of b
+    diff = target - *((int *) (i -> content));
     if (ft_abs(diff) <= closest_target || closest_target == 0)
     {
       ctb_index = b_index;

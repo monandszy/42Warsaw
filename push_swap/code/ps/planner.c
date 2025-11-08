@@ -1,8 +1,7 @@
 
 #include "ps.h"
 
-// TODO impl LIS
-int	plan(t_dlist **steps, t_stack *a, t_stack *b)
+int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 {
   t_dlist *start;
 
@@ -14,46 +13,50 @@ int	plan(t_dlist **steps, t_stack *a, t_stack *b)
     return (1);
   print_stack(a);
   print_stack(b);
-  while (a -> e_count > 0)
+  *steps = execute_lis(schema, *steps, a, b);
+  free(schema);
+  print_stack(a);
+  print_stack(b);
+  while (b -> e_count > 0)
   {
-    execute_optimal_move(steps, a, b);
+    execute_optimal_move(steps, b, a);
     print_dlist(&start);
     print_stack(a);
     print_stack(b);
   }
-  adjust_order(steps, b);
-  transfer(*steps, a, b);
+  adjust_order(steps, a);
+  // transfer(*steps, a, b);
   print_stack(a);
   print_stack(b);
   *steps = start;
 	return (0);
 }
 
-void adjust_order(t_dlist **steps, t_stack *b)
+void adjust_order(t_dlist **steps, t_stack *a)
 {
   size_t cs;
   size_t ce;
   t_dlist *i;
 
-  i = b -> start;
+  i = a -> start;
   cs = 0;
   ce = 0;
-  while (cs <= (b -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> next -> content)))
+  while (cs <= (a -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> next -> content)))
   {
     cs++;
     i = i -> next;
   }
-  i = b -> end;
-  while (ce <= (b -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> prev -> content)))
+  i = a -> end;
+  while (ce <= (a -> e_count / 2) && *((int*) (i -> content)) < *((int*) (i -> prev -> content)))
   {
     ce++;
     i = i -> prev;
   }
   if (cs > ce)
-    while (*((int*) (b -> start -> content)) < *((int*) (b -> end -> content)))
-      *steps = rb(*steps, b);
+    while (*((int*) (a -> start -> content)) < *((int*) (a -> end -> content)))
+      *steps = ra(*steps, a);
   else
-    while (*((int*) (b -> start -> content)) < *((int*) (b -> end -> content)))
-      *steps = rrb(*steps, b);
+    while (*((int*) (a -> start -> content)) < *((int*) (a -> end -> content)))
+      *steps = rra(*steps, a);
 }
 
