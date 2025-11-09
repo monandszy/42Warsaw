@@ -1,7 +1,6 @@
 
 #include "ps.h"
 
-// TODO process duplicates and higher than int max
 int	validate_argv(char **args)
 {
 	if (check_numonly(args, 0) || check_maxint(args, 0)
@@ -27,7 +26,8 @@ int	check_duplicates(char **args, int i, int j)
 	{
 		while (args[j])
 		{
-			if (i != j && ft_strncmp(args[i], args[j], ft_strlen(args[i]) + 1) == 0)
+			if (i != j && ft_strncmp(args[i], args[j], ft_strlen(args[i])
+					+ 1) == 0)
 				return (1);
 			j++;
 		}
@@ -59,7 +59,7 @@ int	check_maxint(char **args, int i)
 					return (1);
 			}
 		}
-    i++;
+		i++;
 	}
 	return (0);
 }

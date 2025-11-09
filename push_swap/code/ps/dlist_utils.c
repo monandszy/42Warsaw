@@ -5,7 +5,7 @@ t_dlist	*ft_dlstnew(void *content)
 {
 	t_dlist	*new;
 
-	new = (t_dlist *) malloc(sizeof(t_dlist));
+	new = (t_dlist *)malloc(sizeof(t_dlist));
 	if (new == NULL)
 		return (NULL);
 	new->content = content;
@@ -14,41 +14,39 @@ t_dlist	*ft_dlstnew(void *content)
 	return (new);
 }
 
-t_dlist *pop(t_dlist *steps) 
+t_dlist	*pop(t_dlist *steps)
 {
-  t_dlist *tmp;
+	t_dlist	*tmp;
 
-  if (steps)
-  {
-    tmp = steps;
-    if (steps -> prev)
-    {
-      steps = steps -> prev;
-      steps -> next = NULL;
-    }
-    f_dl(tmp);
-  }
-  return (steps);
+	if (steps)
+	{
+		tmp = steps;
+		if (steps->prev)
+		{
+			steps = steps->prev;
+			steps->next = NULL;
+		}
+		f_dl(tmp);
+	}
+	return (steps);
 }
 
 void	ft_dlstadd_back(t_dlist **lst, t_dlist *new_node)
 {
 	t_dlist	*current;
-	if (!lst || !new_node)
-		return;
 
+	if (!lst || !new_node)
+		return ;
 	if (*lst == NULL)
 	{
 		*lst = new_node;
-		return;
+		return ;
 	}
-
 	current = *lst;
 	while (current->next != NULL)
 	{
 		current = current->next;
 	}
-
 	current->next = new_node;
 	new_node->prev = current;
 }
@@ -57,29 +55,22 @@ void	merge_move_lists(t_dlist **main_list, t_dlist *second_list)
 {
 	t_dlist	*tail;
 
-
 	if (!second_list)
-		return;
-
-
+		return ;
 	if (!main_list || !*main_list)
 	{
 		if (main_list)
 			*main_list = second_list;
-		return;
+		return ;
 	}
-
-
 	tail = *main_list;
 	while (tail->next)
 	{
 		tail = tail->next;
 	}
-
-
 	tail->next = second_list;
 	second_list->prev = tail;
-} 
+}
 
 static t_dlist	*sorted_merge(t_dlist *a, t_dlist *b)
 {
@@ -87,16 +78,12 @@ static t_dlist	*sorted_merge(t_dlist *a, t_dlist *b)
 	t_move	*move_a;
 	t_move	*move_b;
 
-
 	if (!a)
 		return (b);
 	if (!b)
 		return (a);
-
 	move_a = (t_move *)a->content;
 	move_b = (t_move *)b->content;
-
-
 	if (move_a->cost <= move_b->cost)
 	{
 		result = a;
@@ -118,11 +105,12 @@ static void	split_list(t_dlist *head, t_dlist **front_half, t_dlist **back_half)
 {
 	t_dlist	*fast;
 	t_dlist	*slow;
+
 	if (!head || !head->next)
 	{
 		*front_half = head;
 		*back_half = NULL;
-		return;
+		return ;
 	}
 	slow = head;
 	fast = head->next;
@@ -144,13 +132,13 @@ static void	split_list(t_dlist *head, t_dlist **front_half, t_dlist **back_half)
 
 void	sort_moves_list(t_dlist **moves_list)
 {
-	t_dlist	*head;
-	t_dlist	*a;
-	t_dlist	*b;
+	t_dlist *head;
+	t_dlist *a;
+	t_dlist *b;
 
 	head = *moves_list;
 	if (!head || !head->next)
-		return;
+		return ;
 
 	split_list(head, &a, &b);
 
