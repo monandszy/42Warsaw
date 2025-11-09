@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:36 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 16:52:22 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:54:46 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	initialize_stack(int ***args, t_stack **a, t_stack **b, int argc)
 	(*b)->end = NULL;
 	if (indexify(args, argc) || !a || !b || initialize_dlist(*args, *a))
 		return (1);
-	(*a)->end->next=NULL;
+	(*a)->end->next = NULL;
 	(*a)->e_count = argc;
 	(*b)->e_count = 0;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:05:10 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 16:51:47 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:54:39 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,16 @@ int	main(int argc, char **argv)
 		return (0);
 	args = argv_split(++argv, --argc);
 	if (!args || validate_argv(args))
-		return (free(args), ft_printf("Error\n"), 1);
+		return (free(args), write(2, "Error\n", 6), 1);
 	if (to_int_arr(args, &int_args, argc) || initialize_stack(&int_args, &a, &b,
 			argc))
 		return (free(int_args), free(args), f_st(a), f_st(b),
-			ft_printf("Error\n"), 1);
+			write(2, "Error\n", 6), 1);
 	if (plan(lis(int_args, argc), &steps, a, b))
 		return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps),
-			ft_printf("Error\n"), 1);
+			write(2, "Error\n", 6), 1);
 	print_steps(steps);
-	return (free(int_args), 
-	free(args), 
-	f_st(a), 
-	f_st(b), 
-	f_dl(steps), 0);
+	return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), 0);
 }
 
 void	print_steps(t_dlist *steps)
