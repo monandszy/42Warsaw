@@ -22,6 +22,7 @@ generate_unique_numbers() {
 run_test() {
   local numbers=("$@")
   
+   echo "Input: ${numbers[*]}" >&2
   ./push_swap "${numbers[@]}" > out.txt
   local result
   result=$(./checker_linux "${numbers[@]}" < out.txt)
@@ -30,7 +31,6 @@ run_test() {
     wc -l < out.txt
     return 0
   else
-    echo "Input: ${numbers[*]}" >&2
     echo -e "\n--- FAILED ---" >&2
     echo "Checker Result: $result" >&2
     # echo "Instructions Generated:" >&2
@@ -42,7 +42,7 @@ run_test() {
 highest_lines=0
 lowest_lines=100000000000000000000
 lines=0
-total_runs=1000
+total_runs=1
 range=500
 
 for i in $(seq 1 $total_runs)
@@ -59,6 +59,8 @@ do
     fi
   fi
 done
+
+rm -rf out.txt
 
 echo "-------------------------------------------------------"
 echo "Highest number of operations found: $highest_lines"

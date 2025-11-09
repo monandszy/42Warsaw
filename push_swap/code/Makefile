@@ -59,6 +59,7 @@ PRINTF_SRC = \
 
 SRC =  \
 	move_executor.c \
+	move_reverser.c \
 	int_arr_utils.c \
 	dlist_sort.c \
 	lis.c \

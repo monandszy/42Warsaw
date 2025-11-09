@@ -57,7 +57,10 @@ PROGRAM_SRC = \
 	ft_lstiter.c \
 	ft_lstmap.c \
 	\
-	radix.c \
+	move_reverser.c \
+	move_executor.c \
+	int_arr_utils.c \
+	dlist_sort.c \
 	lis.c \
 	to_string.c \
 	executor.c \
@@ -67,9 +70,7 @@ PROGRAM_SRC = \
 	initialize_utils.c \
 	memory_utils.c \
 	dlist_utils.c \
-	sorter.c \
 	validator.c \
-	sorter.c \
 	planner.c \
 	swapper.c \
 	pusher.c \
