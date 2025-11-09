@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:45 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 14:12:34 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:47:14 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
 
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 
-int					find_solution_recursive(t_dlist **steps, t_stack *a,
+int					fsr(t_dlist **steps, t_stack *a,
 						t_stack *b, size_t total_cost);
 
 t_dlist				*calculate_all_rr_moves(t_stack *from, t_stack *to);
