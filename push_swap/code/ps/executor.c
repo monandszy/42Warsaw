@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 16:07:53 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:26:44 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fsr(t_dlist **steps, t_stack *a, t_stack *b, size_t total_cost)
 	t_move	*current_move;
 	int		res;
 
-	if (((total_cost) > ((a->e_count + b->e_count) * (6 + (a->e_count
+	if (((total_cost) > ((a->e_count + b->e_count) * (6 + 4 + (a->e_count
 						+ b->e_count) / 100) - 1)))
 		return (1);
 	if (b->e_count == 0)
@@ -64,7 +64,7 @@ int	adjust_order_move(t_dlist **steps, t_stack *a, size_t total_cost)
 	size_t	res;
 
 	res = get_direction(a);
-	if (((total_cost + ft_abs(res)) < (a->e_count * (6 + (a->e_count) / 100)
+	if (((total_cost + ft_abs(res)) < (a->e_count * (6 + 4 + (a->e_count) / 100)
 				- 1)))
 	{
 		if (res > 0)
