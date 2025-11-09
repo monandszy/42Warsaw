@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:05:10 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 14:10:58 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:51:47 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int	main(int argc, char **argv)
 		return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps),
 			ft_printf("Error\n"), 1);
 	print_steps(steps);
-	return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), 0);
+	return (free(int_args), 
+	free(args), 
+	f_st(a), 
+	f_st(b), 
+	f_dl(steps), 0);
 }
 
 void	print_steps(t_dlist *steps)

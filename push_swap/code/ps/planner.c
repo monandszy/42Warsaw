@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:16 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 16:24:48 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:45:33 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 	int		cost;
 	int		res;
 
-	if (a->e_count <= 1)
-		return (0);
 	*steps = ft_dlstnew(ft_strdup("INIT"));
 	start = *steps;
 	if (!*steps)
 		return (1);
 	cost = execute_lis(schema, steps, a, b);
 	free(schema);
+	if (a->e_count <= 1 && b->e_count == 0)
+		return (0);
 	res = fsr(steps, a, b, cost);
 	if (res == 1)
 	{

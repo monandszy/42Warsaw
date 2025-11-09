@@ -131,6 +131,8 @@ libmake:
 	cp $(LIB_DIR)/$(OBJ_DIR)/* $(OBJ_DIR)
 
 clean:
+	make -C $(LIB_DIR)/libft fclean
+	make -C $(LIB_DIR) fclean
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
