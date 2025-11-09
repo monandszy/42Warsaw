@@ -6,13 +6,14 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 14:54:42 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:00:23 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
 static t_dlist	*calculate_sorted_moves(t_stack *a, t_stack *b);
+static int		get_direction(t_stack *a);
 
 int	fsr(t_dlist **steps, t_stack *a, t_stack *b, size_t total_cost)
 {
@@ -47,7 +48,7 @@ static t_dlist	*calculate_sorted_moves(t_stack *a, t_stack *b)
 {
 	t_dlist	*rr_moves;
 	t_dlist	*rrr_moves;
-	t_dlist *all;
+	t_dlist	*all;
 
 	rr_moves = calculate_all_rr_moves(b, a);
 	rrr_moves = calculate_all_rrr_moves(b, a);
@@ -60,14 +61,33 @@ static t_dlist	*calculate_sorted_moves(t_stack *a, t_stack *b)
 
 int	adjust_order_move(t_dlist **steps, t_stack *a, size_t total_cost)
 {
+	size_t	res;
+
+	res = get_direction(a);
+	if (((total_cost + ft_abs(res)) < (a->e_count * (6 + 4 + (a->e_count) / 100)
+				- 1)))
+	{
+		if (res > 0)
+			while (*((int *)(a->start->content)) > *((int *)(a->end->content)))
+				*steps = rra(*steps, a);
+		else
+			while (*((int *)(a->start->content)) > *((int *)(a->end->content)))
+				*steps = ra(*steps, a);
+		return (0);
+	}
+	else
+		return (1);
+}
+
+static int	get_direction(t_stack *a)
+{
 	size_t	cs;
 	size_t	ce;
-	size_t	res;
 	t_dlist	*i;
 
-	i = a->start;
 	cs = 0;
 	ce = 0;
+	i = a->start;
 	while (i && i->next
 		&& *((int *)(i->content)) < *((int *)(i->next->content)))
 	{
@@ -81,19 +101,7 @@ int	adjust_order_move(t_dlist **steps, t_stack *a, size_t total_cost)
 		ce++;
 		i = i->prev;
 	}
-	res = ft_lower(ce, cs);
-	if (((total_cost + res) < (a->e_count * (6 + 4 + (a->e_count) / 100) - 1)))
-	{
-		if (cs > ce)
-			while (*((int *)(a->start->content)) > *((int *)(a->end->content)))
-				*steps = rra(*steps, a);
-		else
-			while (*((int *)(a->start->content)) > *((int *)(a->end->content)))
-				*steps = ra(*steps, a);
-		return (0);
-	}
-	else
-		return (1);
+	return (cs - ce);
 }
 
 int	execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
