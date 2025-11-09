@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dlist_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:04:06 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/09 13:10:08 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
@@ -132,18 +143,15 @@ static void	split_list(t_dlist *head, t_dlist **front_half, t_dlist **back_half)
 
 void	sort_moves_list(t_dlist **moves_list)
 {
-	t_dlist *head;
-	t_dlist *a;
-	t_dlist *b;
+	t_dlist	*head;
+	t_dlist	*a;
+	t_dlist	*b;
 
 	head = *moves_list;
 	if (!head || !head->next)
 		return ;
-
 	split_list(head, &a, &b);
-
 	sort_moves_list(&a);
 	sort_moves_list(&b);
-
 	*moves_list = sorted_merge(a, b);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   planner.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:04:16 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/09 13:04:18 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
@@ -12,13 +23,12 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 	start = *steps;
 	if (!*steps)
 		return (1);
-
 	cost = execute_lis(schema, steps, a, b);
 	free(schema);
 	if (find_solution_recursive(steps, a, b, cost) == 1)
 	{
-		while (b -> e_count > 0)
-		  cost += execute_optimal_move(steps, a, b);
+		while (b->e_count > 0)
+			cost += execute_optimal_move(steps, a, b);
 		adjust_order_move(steps, a, 0);
 	}
 	*steps = start;

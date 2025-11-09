@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:04:54 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/09 13:04:56 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
@@ -14,7 +25,7 @@ int	find_solution_recursive(t_dlist **steps, t_stack *a, t_stack *b,
 	i = 0;
 	if (((total_cost) > ((a->e_count + b->e_count) * (6 + 4 + (a->e_count
 						+ b->e_count) / 100) - 1)))
-    return (1);
+		return (1);
 	if (b->e_count == 0)
 		return (adjust_order_move(steps, a, total_cost));
 	rr_moves = calculate_all_rr_moves(b, a);
@@ -179,13 +190,12 @@ int	execute_move(t_dlist **steps, t_stack *a, t_stack *b, t_move *move)
 
 int	execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	int cost;
-	t_move *rr_move;
-	t_move *rrr_move;
+	int		cost;
+	t_move	*rr_move;
+	t_move	*rrr_move;
 
 	rr_move = calculate_optimal_rr_cost(b, a);
 	rrr_move = calculate_optimal_rrr_cost(b, a);
-
 	if (!rr_move || !rrr_move)
 		return (free(rr_move), free(rrr_move), 1);
 	if (rrr_move->cost > rr_move->cost)

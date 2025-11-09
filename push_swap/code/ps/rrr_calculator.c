@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rrr_calculator.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:03:51 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/09 13:03:53 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
@@ -59,11 +70,11 @@ t_move	*calculate_optimal_rrr_cost(t_stack *from, t_stack *to)
 
 int	calculate_rr_move(int target, t_stack *s)
 {
-	t_dlist *i;
-	int closest_target;
-	int diff;
-	int ctfrom_index;
-	int index;
+	t_dlist	*i;
+	int		closest_target;
+	int		diff;
+	int		ctfrom_index;
+	int		index;
 
 	index = 1;
 	closest_target = 0;

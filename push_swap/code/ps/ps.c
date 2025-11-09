@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ps.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:05:10 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/09 13:05:12 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
-  // if (radix(&steps, a, b))
+// if (radix(&steps, a, b))
 int	main(int argc, char **argv)
 {
 	char	**args;
@@ -32,7 +43,7 @@ int	main(int argc, char **argv)
 
 void	print_steps(t_dlist *steps)
 {
-	t_dlist *i;
+	t_dlist	*i;
 
 	i = steps;
 	if (!i)
