@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:05:21 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:05:23 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:23:44 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 t_dlist	*calculate_all_rr_moves(t_stack *from, t_stack *to)
 {
-	int		to_index;
-	int		from_index;
+	size_t	to_index;
+	size_t	from_index;
 	t_dlist	*moves_list;
-	t_dlist	*current_node;
+	t_dlist	*i;
 	t_move	*cost;
 
 	if (!from || !from->start)
 		return (NULL);
 	moves_list = NULL;
-	current_node = from->start;
+	i = from->start;
 	from_index = 0;
-	while (current_node)
+	while (i && from_index <= (from->e_count + to->e_count) / 2)
 	{
-		to_index = calculate_r_move(*((int *)(current_node->content)), to);
+		to_index = calculate_r_move(*((int *)(i->content)), to);
 		cost = calculate_cost(from_index, to_index);
 		if (!cost)
 			return (NULL);
 		ft_dlstadd_back(&moves_list, ft_dlstnew(cost));
 		from_index++;
-		current_node = current_node->next;
+		i = i->next;
 	}
 	return (moves_list);
 }
 
 t_move	*calculate_optimal_rr_cost(t_stack *from, t_stack *to)
 {
-	int		to_index;
-	int		from_index;
+	size_t	to_index;
+	size_t	from_index;
 	t_dlist	*i;
 	t_move	*min_cost;
 	t_move	*cost;
@@ -49,7 +49,7 @@ t_move	*calculate_optimal_rr_cost(t_stack *from, t_stack *to)
 	min_cost = NULL;
 	i = from->start;
 	from_index = 0;
-	while (i)
+	while (i && from_index <= (from->e_count + to->e_count) / 2)
 	{
 		to_index = calculate_r_move(*((int *)(i->content)), to);
 		cost = calculate_cost(from_index, to_index);

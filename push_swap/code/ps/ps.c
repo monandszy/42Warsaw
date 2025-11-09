@@ -6,13 +6,12 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:05:10 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:05:12 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:10:58 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-// if (radix(&steps, a, b))
 int	main(int argc, char **argv)
 {
 	char	**args;

@@ -6,18 +6,18 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:03:58 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:04:00 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:13:56 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-// void	print_move(t_move *move)
-// {
-// 	printf("move:[shared: %d, to_i: %d, from_i: %d, cost: %d]\n", move->shared,
-// 		move->to_index, move->from_index, move->cost);
-// 	fflush(stdout);
-// }
+void	print_move(t_move *move)
+{
+	printf("move:[shared: %d, to_i: %d, from_i: %d, cost: %d]\n", move->shared,
+		move->to_index, move->from_index, move->cost);
+	fflush(stdout);
+}
 
 // void	print_stack(t_stack *stack)
 // {
@@ -88,3 +88,18 @@
 // 	}
 // 	printf("\n");
 // }
+
+void	print_dlist_moves(t_dlist **dl)
+{
+	t_dlist	*i;
+
+	printf("%s", "dlist:[");
+	i = *dl;
+	while (i)
+	{
+		print_move((t_move *)i->content);
+		i = i->next;
+	}
+	printf("%s", "]\n");
+	fflush(stdout);
+}

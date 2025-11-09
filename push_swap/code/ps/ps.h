@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:45 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:03:15 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:12:34 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,13 @@ void				print_dlist(t_dlist **dl);
 void				print_int_arr(int *arr, int size);
 void				print_int_matrice(int **arr, int size);
 void				print_lis_from_stack(t_stack *stack, int *lis_schema);
-
-int					initialize_stack(int ***args, t_stack **a, t_stack **b,
-						int argc);
-int					initialize_dlist(int **args, t_stack *a);
-int					indexify(int ***args, int argc);
-int					to_int_arr(char **args, int ***int_args, int a_size);
-char				**argv_split(char **argv, int argc);
+void				print_dlist_moves(t_dlist **dl);
 
 void				print_steps(t_dlist *steps);
-void				f_st(t_stack *st);
-void				f_dl(t_dlist *dl);
-void				free_int_matrix(int **matrix, int rows);
-t_dlist				*ft_dlstnew(void *content);
-t_dlist				*pop(t_dlist *steps);
-void				merge_move_lists(t_dlist **main_list, t_dlist *second_list);
-void				sort_moves_list(t_dlist **moves_list);
-void				ft_dlstadd_back(t_dlist **lst, t_dlist *new_node);
+
+char				**argv_split(char **argv, int argc);
+int					initialize_stack(int ***args, t_stack **a, t_stack **b,
+						int argc);
 
 int					validate_argv(char **args);
 int					check_numonly(char **args, int i);
@@ -69,31 +59,36 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
-int					radix(t_dlist **steps, t_stack *a, t_stack *b);
+int					to_int_arr(char **args, int ***int_args, int a_size);
+int					indexify(int ***args, int argc);
 
-int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
+void				f_st(t_stack *st);
+void				f_dl(t_dlist *dl);
+void				free_int_matrix(int **matrix, int rows);
+
+t_dlist				*ft_dlstnew(void *content);
+t_dlist				*pop(t_dlist *steps);
+void				ft_dlstadd_back(t_dlist **lst, t_dlist *new_node);
+t_dlist				*dlst_merge(t_dlist *first, t_dlist *second);
+
+void				dlst_sort(t_dlist **moves_list);
+
+// int					radix(t_dlist **steps, t_stack *a, t_stack *b);
+
+int					*lis(int **int_args, int argc);
 int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
 						t_stack *b);
-void				calc_lis(int **int_args, int argc, int *counters,
-						int *predecessors);
-void				extract_max(int argc, int *schema, int *counters,
-						int *predecessors);
-int					*lis(int **int_args, int argc);
+
+int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 
 int					find_solution_recursive(t_dlist **steps, t_stack *a,
 						t_stack *b, size_t total_cost);
 
-t_move				*calculate_optimal_rr_cost(t_stack *a, t_stack *b);
-int					calculate_r_move(int target, t_stack *s);
-
-t_move				*calculate_optimal_rrr_cost(t_stack *a, t_stack *b);
-int					calculate_rr_move(int target, t_stack *b);
-
 t_dlist				*calculate_all_rr_moves(t_stack *from, t_stack *to);
 t_dlist				*calculate_all_rrr_moves(t_stack *from, t_stack *to);
-int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
-						t_move *move);
 int					execute_move(t_dlist **steps, t_stack *a, t_stack *b,
+						t_move *move);
+int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 
 int					execute_optimal_move(t_dlist **steps, t_stack *a,
@@ -105,6 +100,12 @@ int					execute_rrr_move(t_dlist **steps, t_stack *a, t_stack *b,
 
 int					adjust_order_move(t_dlist **steps, t_stack *a,
 						size_t total_cost);
+
+t_move				*calculate_optimal_rr_cost(t_stack *a, t_stack *b);
+int					calculate_r_move(int target, t_stack *s);
+
+t_move				*calculate_optimal_rrr_cost(t_stack *a, t_stack *b);
+int					calculate_rr_move(int target, t_stack *b);
 
 int					ft_abs(int i);
 int					ft_greater(int i1, int i2);

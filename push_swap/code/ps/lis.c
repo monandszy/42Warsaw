@@ -6,11 +6,16 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:11 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:04:13 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 13:37:39 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
+
+static void	calc_lis(int **int_args, int argc, int *counters,
+				int *predecessors);
+static void	extract_max(int argc, int *schema, int *counters,
+				int *predecessors);
 
 int	execute_lis(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 {
@@ -50,7 +55,7 @@ int	*lis(int **int_args, int argc)
 	return (schema);
 }
 
-void	calc_lis(int **int_args, int argc, int *counters, int *predecessors)
+static void	calc_lis(int **int_args, int argc, int *counters, int *predecessors)
 {
 	int	i;
 	int	j;
@@ -75,7 +80,7 @@ void	calc_lis(int **int_args, int argc, int *counters, int *predecessors)
 	}
 }
 
-void	extract_max(int argc, int *schema, int *counters, int *predecessors)
+static void	extract_max(int argc, int *schema, int *counters, int *predecessors)
 {
 	int	max_c;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:04:56 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:15:57 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 int	find_solution_recursive(t_dlist **steps, t_stack *a, t_stack *b,
 		size_t total_cost)
 {
-	size_t	i;
-	t_dlist	*all_moves;
 	t_dlist	*rr_moves;
 	t_dlist	*rrr_moves;
-	t_dlist	*current_move_node;
+	t_dlist	*i;
+	t_dlist	*all;
 	t_move	*current_move;
 
-	i = 0;
 	if (((total_cost) > ((a->e_count + b->e_count) * (6 + 4 + (a->e_count
 						+ b->e_count) / 100) - 1)))
 		return (1);
@@ -30,26 +28,23 @@ int	find_solution_recursive(t_dlist **steps, t_stack *a, t_stack *b,
 		return (adjust_order_move(steps, a, total_cost));
 	rr_moves = calculate_all_rr_moves(b, a);
 	rrr_moves = calculate_all_rrr_moves(b, a);
-	all_moves = rr_moves;
-	merge_move_lists(&all_moves, rrr_moves);
-	sort_moves_list(&all_moves);
-	current_move_node = all_moves;
-	while (current_move_node && i < (a->e_count + b->e_count) / ((a->e_count
-				+ b->e_count) / 2))
+	i = dlst_merge(rr_moves, rrr_moves);
+	all = i;
+	dlst_sort(&i);
+	while (i)
 	{
-		current_move = (t_move *)current_move_node->content;
+		current_move = (t_move *)i->content;
 		execute_move(steps, a, b, current_move);
 		if (find_solution_recursive(steps, a, b, total_cost + current_move->cost
 				+ 1) == 0)
 		{
-			f_dl(all_moves);
+			f_dl(all);
 			return (0);
 		}
-		i++;
 		reverse_move(steps, a, b, current_move);
-		current_move_node = current_move_node->next;
+		i = i->next;
 	}
-	f_dl(all_moves);
+	f_dl(all);
 	return (1);
 }
 

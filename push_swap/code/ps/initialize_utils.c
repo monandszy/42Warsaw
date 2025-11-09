@@ -6,11 +6,13 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:36 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 13:10:59 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/09 13:32:27 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
+
+static int	initialize_dlist(int **args, t_stack *a);
 
 char	**argv_split(char **argv, int argc)
 {
@@ -44,7 +46,7 @@ int	initialize_stack(int ***args, t_stack **a, t_stack **b, int argc)
 	return (0);
 }
 
-int	initialize_dlist(int **args, t_stack *a)
+static int	initialize_dlist(int **args, t_stack *a)
 {
 	t_dlist	*prev;
 	t_dlist	*new;
