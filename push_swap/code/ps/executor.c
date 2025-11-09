@@ -11,6 +11,8 @@ int find_solution_recursive(t_dlist **steps, t_stack *a, t_stack *b, size_t tota
 
   // printf("c[%ld]\n", total_cost);
   // fflush(stdout);
+  if (((total_cost) > ((a->e_count + b->e_count) * (6 + (a->e_count + b->e_count)/100) - 1)))
+    return (printf("f"), 1);
   if (b -> e_count == 0)
     return (adjust_order_move(steps, a, total_cost));
 	rr_moves = calculate_all_rr_moves(b, a);
@@ -61,10 +63,9 @@ int adjust_order_move(t_dlist **steps, t_stack *a, size_t total_cost)
     i = i -> prev;
   }
   res = ft_lower(ce, cs);
-  // printf("c[%ld, %ld, %ld, %ld]\n", total_cost, res, cs, ce);
+  printf("c[%ld, %ld, %ld, %ld]\n", total_cost, res, cs, ce);
   // print_stack(a);
-  // if (((total_cost + res) < (a->e_count * (7 + (a->e_count)/100 - 1 ))))
-  if (((total_cost + res) < (6400)))
+  if (((total_cost + res) < (a->e_count * (6 + (a->e_count)/100) - 1)))
   {
     if (cs > ce)
       while (*((int*) (a -> start -> content)) > *((int*) (a -> end -> content)))

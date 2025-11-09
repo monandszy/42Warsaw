@@ -19,11 +19,11 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
   free(schema);
   if (find_solution_recursive(steps, a, b, cost) == 1)
   {
-    while (b -> e_count > 0)
-    {
-      cost += execute_optimal_move(steps, a, b);
-    }
-    adjust_order_move(steps, a, 0);
+    // while (b -> e_count > 0)
+    // {
+    //   cost += execute_optimal_move(steps, a, b);
+    // }
+    // adjust_order_move(steps, a, 0);
   }
   // print_stack(a);
   // print_stack(b);
