@@ -43,7 +43,7 @@ highest_lines=0
 lowest_lines=100000000000000000000
 lines=0
 total_runs=100
-range=3
+range=4
 
 for i in $(seq 1 $total_runs)
 do

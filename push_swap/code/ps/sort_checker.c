@@ -6,25 +6,54 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:38:00 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/10 18:34:53 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/10 19:44:22 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
+int is_sorted(t_stack *a);
+
 int sorted(t_dlist **steps, t_stack *a)
+{
+	t_dlist *start;
+
+	if (!is_sorted(a))
+		return (0);
+    *steps = ft_dlstnew(ft_strdup("INIT"));
+    start = *steps;
+	if (!*steps || adjust_order(steps, a))
+		return (f_dl(start), 0);
+	*steps = start;
+	return (1);
+}
+
+int is_sorted(t_stack *a)
 {
 	t_dlist *i;
 	t_dlist *prev;
-	t_dlist *start;
+	int target;
 
 	prev = a -> start;
-	while (*(int *) prev -> content != 0)
-		prev = prev -> next;
 	i = prev -> next;
 	if (!i)
 		i = a -> start;
-	while (*(int *) i -> content != 0)
+    target = *(int *) prev;
+    while (1==1)
+    {
+        if (*(int *) i -> content == target)
+            return (1);
+        if (*(int *) prev -> content > *(int *) i -> content)
+        {
+            target = *(int *) prev;
+            break ;
+        }
+        prev = i;
+        i = i -> next;
+        if (!i)
+            i = a -> start;
+    }
+	while (*(int *) i -> content != target)
 	{
 		if (*(int *) prev -> content > *(int *) i -> content)
 			return (0);
@@ -33,11 +62,6 @@ int sorted(t_dlist **steps, t_stack *a)
 		if (!i)
 			i = a -> start;
 	}
-    *steps = ft_dlstnew(ft_strdup("INIT"));
-    start = *steps;
-	if (!*steps || adjust_order(steps, a))
-		return (f_dl(start), 0);
-	*steps = start;
 	return (1);
 }
 
@@ -76,15 +100,23 @@ int sort_3(t_dlist **steps, t_stack *a)
 	nd = st -> next;
 	rd = nd -> next;
 	if (*(int *) st -> content > *(int *) nd -> content)
+	{
 		*steps = sa(*steps, a);
+		if (!*steps)
+			return (1);
+	}
 	if (*(int *) nd -> content > *(int *) rd -> content)
 	{
 		*steps = rra(*steps, a);
+		if (!*steps)
+			return (1);
 	    if (*(int *) rd -> content > *(int *) st -> content)
-		    *steps = sa(*steps, a);
+		{
+			*steps = sa(*steps, a);
+			if (!*steps)
+				return (1);
+		}
 	}
-//	print_stack(a);
-//	(void) steps;
 	return (0);
 }
 
@@ -99,8 +131,17 @@ int sort_4(t_dlist **steps, t_stack *a, t_stack *b)
 	nd = st -> next;
 	rd = nd -> next;
 	th = rd -> next;
-	print_stack(b);
-	(void) steps;
+
+	adjust_order(steps, a);
+    *steps = pb(*steps, a, b);
+	print_stack(a);
+	if (is_sorted(a))
+		 adjust_order(steps, a);
+	else
+		sort_3(steps, a);
+	print_stack(a);
+	execute_optimal_move(steps, a, b);
+	print_stack(a);
 	return (0);
 }
 
