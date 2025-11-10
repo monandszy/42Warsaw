@@ -12,69 +12,53 @@
 
 #include "ps.h"
 
-t_move	*calculate_cost(int from_index, int to_index)
+t_move	*calculate_cost(t_stack *a, t_stack *b, int a_index, int b_index)
 {
-	t_move	*new;
+  t_move	*new;
+	int		cost_a;
+	int		cost_b;
 
 	new = (t_move *)malloc(sizeof(t_move));
 	if (!new)
 		return (NULL);
-	if (from_index >= to_index)
+	cost_a = (a_index <= a->e_count / 2) ? a_index : (a->e_count - a_index) * -1;
+	cost_b = (b_index <= b->e_count / 2) ? b_index : (b->e_count - b_index) * -1;
+
+	if ((cost_a >= 0 && cost_b >= 0) || (cost_a <= 0 && cost_b <= 0))
 	{
-		new->shared = to_index;
-		new->to_index = 0;
-		new->from_index = from_index - to_index;
-		new->cost = new->shared + new->from_index;
+		if (cost_a >= 0) 
+			new->shared = min(cost_a, cost_b);
+		else
+			new->shared = max(cost_a, cost_b);
+		new->to_index = cost_a - new->shared;
+		new->from_index = cost_b - new->shared;
+		new->cost = abs(new->shared) + abs(new->to_index) + abs(new->from_index);
 	}
 	else
 	{
-		new->shared = from_index;
-		new->from_index = 0;
-		new->to_index = to_index - from_index;
-		new->cost = new->shared + new->to_index;
+		new->shared = 0;
+		new->to_index = cost_a;
+		new->from_index = cost_b;
+		new->cost = abs(new->to_index) + abs(new->from_index);
 	}
 	return (new);
 }
 
-t_move	*calculate_negative_cost(int from_index, int to_index)
-{
-	t_move	*new;
-
-	new = (t_move *)malloc(sizeof(t_move));
-	if (!new)
-		return (NULL);
-	if (from_index >= to_index)
-	{
-		new->shared = -to_index;
-		new->to_index = 0;
-		new->from_index = -(from_index - to_index);
-		new->cost = ft_abs(new->shared) + ft_abs(new->from_index);
-	}
-	else
-	{
-		new->shared = -from_index;
-		new->from_index = 0;
-		new->to_index = -(to_index - from_index);
-		new->cost = ft_abs(new->shared) + ft_abs(new->to_index);
-	}
-	return (new);
-}
-
-int	ft_abs(int i)
+int	abs(int i)
 {
 	if (i < 0)
 		i = -i;
 	return (i);
 }
 
-int	ft_greater(int i1, int i2)
+int	max(int i1, int i2)
 {
 	if (i1 < i2)
 		return (i2);
 	return (i1);
 }
 
-int	ft_lower(int i1, int i2)
+int	min(int i1, int i2)
 {
 	if (i1 > i2)
 		return (i2);

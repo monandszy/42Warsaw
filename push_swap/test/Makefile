@@ -57,19 +57,16 @@ PROGRAM_SRC = \
 	ft_lstiter.c \
 	ft_lstmap.c \
 	\
-	chunker.c \
 	sort_utils.c \
 	mini_sorter.c \
-	move_reverser.c \
-	move_executor.c \
-	int_arr_utils.c \
-	dlist_sort.c \
 	lis.c \
+	chunker.c \
+	move_executor.c \
+	move_reverser.c \
+	int_arr_utils.c \
 	to_string.c \
 	executor.c \
 	calculator.c \
-	rr_calculator.c \
-	rrr_calculator.c \
 	initialize_utils.c \
 	memory_utils.c \
 	dlist_utils.c \

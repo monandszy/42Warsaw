@@ -59,22 +59,67 @@ int find_origin(t_stack *stack, int min)
 
 int	execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	t_move	*rr_move;
-	t_move	*rrr_move;
+  t_move *best;
+  best = get_optimal_move(a, b);
+  if (!best)
+    return (1);
+  if (execute_move(steps, a, b, best))
+    return (free(best), 1);
+	return (free(best), 0);
+}
 
-	rr_move = calculate_optimal_rr_cost(b, a);
-	rrr_move = calculate_optimal_rrr_cost(b, a);
-	if (!rr_move || !rrr_move)
-		return (free(rr_move), free(rrr_move), 1);
-	if (rrr_move->cost > rr_move->cost)
+t_move	*get_optimal_move(t_stack *to, t_stack *from)
+{
+	int	to_index;
+	int	from_index;
+	t_dlist	*i;
+	t_move	*best;
+	t_move	*move;
+
+	best = NULL;
+	i = from->start;
+	from_index = 0;
+	while (i)
 	{
-		if (execute_move(steps, a, b, rr_move))
-			return (free(rr_move), free(rrr_move), 1);
+		to_index = get_a_index(*(int *)i->content, to);
+		move = calculate_cost(to, from, to_index, from_index);
+		if (!best || move->cost < best->cost)
+		{
+			free(best);
+			best = move;
+		}
+		else
+			free(move);
+		from_index++;
+		i = i->next;
 	}
-	else
+	return (best);
+}
+
+int	get_a_index(int target, t_stack *s)
+{
+	t_dlist	*i;
+	int		closest_target;
+	int		diff;
+	int		ctfrom_index;
+	int		index;
+
+	index = 0;
+	closest_target = 0;
+	ctfrom_index = 0;
+	i = s->start;
+	while (i)
 	{
-		if (execute_move(steps, a, b, rrr_move))
-			return (free(rr_move), free(rrr_move), 1);
+		diff = target - *((int *)(i->content));
+		if (abs(diff) <= closest_target || closest_target == 0)
+		{
+			ctfrom_index = index;
+			if (diff > 0)
+				ctfrom_index++;
+			closest_target = abs(diff);
+		}
+		index++;
+		i = i->next;
 	}
-	return (free(rr_move), free(rrr_move), 0);
+	return (ctfrom_index);
 }

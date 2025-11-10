@@ -68,8 +68,6 @@ SRC =  \
 	to_string.c \
 	executor.c \
 	calculator.c \
-	rr_calculator.c \
-	rrr_calculator.c \
 	initialize_utils.c \
 	memory_utils.c \
 	dlist_utils.c \

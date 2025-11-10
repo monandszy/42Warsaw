@@ -87,31 +87,22 @@ int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
 
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 
+int					execute_optimal_move(t_dlist **steps, t_stack *a,
+						t_stack *b);
+t_move	*get_optimal_move(t_stack *to, t_stack *from);
+int	get_a_index(int target, t_stack *s);
+t_move				*calculate_cost(t_stack *a, t_stack *b, int a_index, int b_index);
+
 int					execute_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 
-int					execute_optimal_move(t_dlist **steps, t_stack *a,
-						t_stack *b);
-int					execute_rr_move(t_dlist **steps, t_stack *a, t_stack *b,
-						t_move *move);
-int					execute_rrr_move(t_dlist **steps, t_stack *a, t_stack *b,
-						t_move *move);
-
 int					adjust_order(t_dlist **steps, t_stack *a, int min);
 
-t_move				*calculate_optimal_rr_cost(t_stack *a, t_stack *b);
-int					calculate_r_move(int target, t_stack *s);
-
-t_move				*calculate_optimal_rrr_cost(t_stack *a, t_stack *b);
-int					calculate_rr_move(int target, t_stack *b);
-
-int					ft_abs(int i);
-int					ft_greater(int i1, int i2);
-int					ft_lower(int i1, int i2);
-t_move				*calculate_cost(int to_index, int from_index);
-t_move				*calculate_negative_cost(int from_index, int to_index);
+int					abs(int i);
+int					min(int i1, int i2);
+int					max(int i1, int i2);
 
 void				push(t_stack *to, t_stack *from);
 void				rrotate(t_stack *s);
