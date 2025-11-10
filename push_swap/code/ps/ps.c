@@ -28,14 +28,14 @@ int	main(int argc, char **argv)
 		return (0);
 	args = argv_split(++argv, --argc);
 	if (!args || validate_argv(args))
-		return (free(args), write(2, "Error\n", 6), 1);
+		return (free(args), write(STDERR_FILENO, "Error\n", 6), 1);
 	if (to_int_arr(args, &int_args, argc) || initialize_stack(&int_args, &a, &b,
 			argc))
 		return (free(int_args), free(args), f_st(a), f_st(b),
-			write(2, "Error\n", 6), 1);
+			write(STDERR_FILENO, "Error\n", 6), 1);
 	if (plan(lis(int_args, argc), &steps, a, b))
 		return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps),
-			write(2, "Error\n", 6), 1);
+			write(STDERR_FILENO, "Error\n", 6), 1);
 	print_steps(steps);
 	return (free(int_args), free(args), f_st(a), f_st(b), f_dl(steps), 0);
 }

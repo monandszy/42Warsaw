@@ -23,15 +23,16 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 	start = *steps;
 	if (!*steps)
 		return (1);
-  // push_chunks(steps, a, b);
+  (void) schema;
+  push_chunks(steps, a, b);
+  push_back(steps, a, b);
   // if (transfer(steps, a, b))
     // return (1);
 
-	execute_lis(schema, steps, a, b);
-  // push_back(steps, a, b);
-	while ((int) b->e_count > 0)
-	  if (execute_optimal_move(steps, a, b))
-      return (1);
+	// execute_lis(schema, steps, a, b);
+	// while ((int) b->e_count > 0)
+	//   if (execute_optimal_move(steps, a, b))
+  //     return (1);
 	if (adjust_order(steps, a))
     return (1);
 	*steps = start;

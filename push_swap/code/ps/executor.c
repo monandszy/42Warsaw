@@ -49,7 +49,7 @@ static int find_origin(t_stack *stack)
     index = 0;
     while (i)
     {
-        if ( *(int *) i->content == 0)
+        if (*(int *) i->content == 0)
             return (index);
         i = i->next;
         index++;
