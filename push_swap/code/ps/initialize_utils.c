@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:36 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 18:54:46 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:48:24 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**argv_split(char **argv, int argc)
 	return (spl);
 }
 
-int	initialize_stack(int ***args, t_stack **a, t_stack **b, int argc)
+int	i_stack(int ***args, t_stack **a, t_stack **b, int argc)
 {
 	*a = (t_stack *)malloc(sizeof(t_stack));
 	*b = (t_stack *)malloc(sizeof(t_stack));
