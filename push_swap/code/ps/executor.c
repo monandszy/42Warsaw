@@ -12,13 +12,13 @@
 
 #include "ps.h"
 
-int		find_origin(t_stack *a);
+int		find_origin(t_stack *a, int min);
 
-int	adjust_order(t_dlist **steps, t_stack *a)
+int	adjust_order(t_dlist **steps, t_stack *a, int min)
 {
   int target;
   
-  target = find_origin(a);
+  target = find_origin(a, min);
   if (target <= a->e_count / 2)
   {
     while (target-- > 0)
@@ -40,7 +40,7 @@ int	adjust_order(t_dlist **steps, t_stack *a)
   return (0);
 }
 
-int find_origin(t_stack *stack)
+int find_origin(t_stack *stack, int min)
 {
     t_dlist *i;
     int index;
@@ -49,7 +49,7 @@ int find_origin(t_stack *stack)
     index = 0;
     while (i)
     {
-        if (*(int *) i->content == 0)
+        if (*(int *) i->content == min)
             return (index);
         i = i->next;
         index++;

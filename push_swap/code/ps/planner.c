@@ -12,9 +12,6 @@
 
 #include "ps.h"
 
-int    push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
-int    push_back(t_dlist **steps, t_stack *a, t_stack *b);
-
 int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 {
 	t_dlist	*start;
@@ -24,16 +21,16 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 	if (!*steps)
 		return (1);
   (void) schema;
-  push_chunks(steps, a, b);
-  push_back(steps, a, b);
+  // push_chunks(steps, a, b);
+	execute_lis(schema, steps, a, b);
   // if (transfer(steps, a, b))
     // return (1);
 
-	// execute_lis(schema, steps, a, b);
+  push_back(steps, a, b);
 	// while ((int) b->e_count > 0)
 	//   if (execute_optimal_move(steps, a, b))
   //     return (1);
-	if (adjust_order(steps, a))
+	if (adjust_order(steps, a, 0))
     return (1);
 	*steps = start;
 	return (0);

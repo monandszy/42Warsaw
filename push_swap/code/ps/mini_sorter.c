@@ -12,59 +12,6 @@
 
 #include "ps.h"
 
-int is_sorted(t_stack *a);
-
-int sorted(t_dlist **steps, t_stack *a)
-{
-	t_dlist *start;
-
-	if (!is_sorted(a))
-		return (0);
-    *steps = ft_dlstnew(ft_strdup("INIT"));
-    start = *steps;
-	if (!*steps || adjust_order(steps, a))
-		return (f_dl(start), 0);
-	*steps = start;
-	return (1);
-}
-
-int is_sorted(t_stack *a)
-{
-	t_dlist *i;
-	t_dlist *prev;
-	int target;
-
-	prev = a -> start;
-	i = prev -> next;
-	if (!i)
-		i = a -> start;
-    target = *(int *) prev;
-    while (1==1)
-    {
-        if (*(int *) i -> content == target)
-            return (1);
-        if (*(int *) prev -> content > *(int *) i -> content)
-        {
-            target = *(int *) prev;
-            break ;
-        }
-        prev = i;
-        i = i -> next;
-        if (!i)
-            i = a -> start;
-    }
-	while (*(int *) i -> content != target)
-	{
-		if (*(int *) prev -> content > *(int *) i -> content)
-			return (0);
-		prev = i;
-		i = i -> next;
-		if (!i)
-			i = a -> start;
-	}
-	return (1);
-}
-
 int optimal_sort(t_dlist **steps, t_stack *a, t_stack *b)
 {
 	t_dlist *start;
@@ -110,7 +57,7 @@ int sort_3(t_dlist **steps, t_stack *a)
 		*steps = rra(*steps, a);
 		if (!*steps)
 			return (1);
-	    if (*(int *) rd -> content > *(int *) st -> content)
+	  if (*(int *) rd -> content > *(int *) st -> content)
 		{
 			*steps = sa(*steps, a);
 			if (!*steps)
@@ -122,43 +69,48 @@ int sort_3(t_dlist **steps, t_stack *a)
 
 int sort_4(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	t_dlist *st;
-	t_dlist *nd;
-	t_dlist *rd;
-	t_dlist *th;
-
-	st = a -> start;
-	nd = st -> next;
-	rd = nd -> next;
-	th = rd -> next;
-
-	adjust_order(steps, a);
-    *steps = pb(*steps, a, b);
-	print_stack(a);
-	if (is_sorted(a))
-		 adjust_order(steps, a);
-	else
-		sort_3(steps, a);
-	print_stack(a);
-	execute_optimal_move(steps, a, b);
-	print_stack(a);
+	if (adjust_order(steps, a, 0))
+		return (1);
+	*steps = pb(*steps, a, b);
+	if (!*steps)
+		return (1);
+  if (is_sorted(a, 1))
+  {
+    if (adjust_order(steps, a, 1))
+      return (1);
+  }
+	else if (sort_3(steps, a))
+		return (1);
+	*steps = pa(*steps, a, b);
+	if (!*steps)
+		return (1);
 	return (0);
 }
 
 int sort_5(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	t_dlist *st;
-	t_dlist *nd;
-	t_dlist *rd;
-	t_dlist *th;
-	t_dlist *fth;
-
-	st = a -> start;
-	nd = st -> next;
-	rd = nd -> next;
-	th = rd -> next;
-	fth = th -> next;
-	print_stack(b);
-	(void) steps;
+	if (adjust_order(steps, a, 0))
+		return (1);
+  *steps = pb(*steps, a, b);
+	if (!*steps)
+		return (1);
+	if (adjust_order(steps, a, 1))
+		return (1);
+  *steps = pb(*steps, a, b);
+	if (!*steps)
+		return (1);
+	if (is_sorted(a, 2))
+  {
+    if (adjust_order(steps, a, 2))
+      return (1);
+  }
+	else if (sort_3(steps, a))
+		return (1);
+	*steps = pa(*steps, a, b);
+	if (!*steps)
+		return (1);
+	*steps = pa(*steps, a, b);
+	if (!*steps)
+		return (1);
 	return (0);
 }

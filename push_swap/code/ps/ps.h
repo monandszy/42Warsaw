@@ -39,7 +39,8 @@ typedef struct s_move
 	int				cost;
 }					t_move;
 
-int     find_origin(t_stack *a);
+int    push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
+void  push_back(t_dlist **steps, t_stack *a, t_stack *b);
 
 void				print_move(t_move *move);
 void				print_stack(t_stack *stack);
@@ -66,6 +67,7 @@ int					to_int_arr(char **args, int ***int_args, int a_size);
 int					indexify(int ***args, int argc);
 
 int sorted(t_dlist **steps, t_stack *a);
+int is_sorted(t_stack *a, int min);
 
 int optimal_sort(t_dlist **steps, t_stack *a, t_stack *b);
 int sort_3(t_dlist **steps, t_stack *a);
@@ -97,7 +99,7 @@ int					execute_rr_move(t_dlist **steps, t_stack *a, t_stack *b,
 int					execute_rrr_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 
-int					adjust_order(t_dlist **steps, t_stack *a);
+int					adjust_order(t_dlist **steps, t_stack *a, int min);
 
 t_move				*calculate_optimal_rr_cost(t_stack *a, t_stack *b);
 int					calculate_r_move(int target, t_stack *s);

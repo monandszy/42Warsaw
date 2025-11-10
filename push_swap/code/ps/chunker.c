@@ -112,7 +112,7 @@ int    push_chunks(t_dlist **steps, t_stack *a, t_stack *b)
   int chunk_end_index;
   int elements_pushed_in_chunk;
 
-  num_chunks = 3;
+  num_chunks = 1 + a -> e_count / 200;
 
   chunk_size = (int) a->e_count / num_chunks;
   i = 0;

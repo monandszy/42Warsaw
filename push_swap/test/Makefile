@@ -57,6 +57,9 @@ PROGRAM_SRC = \
 	ft_lstiter.c \
 	ft_lstmap.c \
 	\
+	chunker.c \
+	sort_utils.c \
+	mini_sorter.c \
 	move_reverser.c \
 	move_executor.c \
 	int_arr_utils.c \
