@@ -58,11 +58,11 @@ PRINTF_SRC = \
 	ft_lstmap.c
 
 SRC =  \
+	lis.c \
+	chunker.c \
 	move_executor.c \
 	move_reverser.c \
 	int_arr_utils.c \
-	dlist_sort.c \
-	lis.c \
 	to_string.c \
 	executor.c \
 	calculator.c \

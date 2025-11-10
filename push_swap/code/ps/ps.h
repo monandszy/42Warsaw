@@ -28,7 +28,7 @@ typedef struct s_stack
 {
 	struct s_dlist	*start;
 	struct s_dlist	*end;
-	size_t			e_count;
+	int			e_count;
 }					t_stack;
 
 typedef struct s_move
@@ -68,12 +68,6 @@ void				free_int_matrix(int **matrix, int rows);
 
 t_dlist				*ft_dlstnew(void *content);
 t_dlist				*pop(t_dlist *steps);
-void				ft_dlstadd_back(t_dlist **lst, t_dlist *new_node);
-t_dlist				*dlst_merge(t_dlist *first, t_dlist *second);
-
-void				dlst_sort(t_dlist **moves_list);
-
-// int					radix(t_dlist **steps, t_stack *a, t_stack *b);
 
 int					*lis(int **int_args, int argc);
 int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
@@ -81,11 +75,6 @@ int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
 
 int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 
-int					fsr(t_dlist **steps, t_stack *a,
-						t_stack *b, size_t total_cost);
-
-t_dlist				*calculate_all_rr_moves(t_stack *from, t_stack *to);
-t_dlist				*calculate_all_rrr_moves(t_stack *from, t_stack *to);
 int					execute_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
@@ -98,8 +87,7 @@ int					execute_rr_move(t_dlist **steps, t_stack *a, t_stack *b,
 int					execute_rrr_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
 
-int					adjust_order_move(t_dlist **steps, t_stack *a,
-						size_t total_cost);
+int					adjust_order(t_dlist **steps, t_stack *a);
 
 t_move				*calculate_optimal_rr_cost(t_stack *a, t_stack *b);
 int					calculate_r_move(int target, t_stack *s);

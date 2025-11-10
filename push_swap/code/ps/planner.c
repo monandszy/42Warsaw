@@ -12,39 +12,39 @@
 
 #include "ps.h"
 
+int    push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
+int    push_back(t_dlist **steps, t_stack *a, t_stack *b);
+
 int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 {
 	t_dlist	*start;
-	int		cost;
-	int		res;
 
 	*steps = ft_dlstnew(ft_strdup("INIT"));
 	start = *steps;
 	if (!*steps)
 		return (1);
-	cost = execute_lis(schema, steps, a, b);
-	free(schema);
-	if (a->e_count <= 1 && b->e_count == 0)
-		return (0);
-	res = fsr(steps, a, b, cost);
-	if (res == 1)
-	{
-		while (b->e_count > 0)
-			execute_optimal_move(steps, a, b);
-		adjust_order_move(steps, a, 0);
-	}
-	if (res == -1)
-		return (1);
+  // push_chunks(steps, a, b);
+  // if (transfer(steps, a, b))
+    // return (1);
+
+	execute_lis(schema, steps, a, b);
+  // push_back(steps, a, b);
+	while ((int) b->e_count > 0)
+	  if (execute_optimal_move(steps, a, b))
+      return (1);
+	if (adjust_order(steps, a))
+    return (1);
 	*steps = start;
 	return (0);
 }
 
 int	transfer(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	int	cost;
-
-	cost = a->e_count;
-	while (a->e_count > 0)
+	while ((int) a->e_count > 0)
+  {
 		*steps = pb(*steps, a, b);
-	return (cost);
+    if (!*steps)
+      return (1);
+  }
+	return (0);
 }

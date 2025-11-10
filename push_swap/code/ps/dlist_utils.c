@@ -41,38 +41,3 @@ t_dlist	*pop(t_dlist *steps)
 	}
 	return (steps);
 }
-
-void	ft_dlstadd_back(t_dlist **lst, t_dlist *new)
-{
-	t_dlist	*i;
-
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	i = *lst;
-	while (i->next != NULL)
-		i = i->next;
-	i->next = new;
-	new->prev = i;
-}
-
-t_dlist	*dlst_merge(t_dlist *first, t_dlist *second)
-{
-	t_dlist	*main;
-
-	if (!first)
-	{
-		main = second;
-		return (main);
-	}
-	main = first;
-	while (first->next)
-		first = first->next;
-	first->next = second;
-	second->prev = first;
-	return (main);
-}

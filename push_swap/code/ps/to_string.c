@@ -12,7 +12,7 @@
 
 #include "ps.h"
 
-/* void	print_move(t_move *move)
+ void	print_move(t_move *move)
 {
 	printf("move:[shared: %d, to_i: %d, from_i: %d, cost: %d]\n", move->shared,
 		move->to_index, move->from_index, move->cost);
@@ -52,7 +52,7 @@ void	print_dlist(t_dlist **dl)
 void	print_lis_from_stack(t_stack *stack, int *lis_schema)
 {
 	t_dlist	*n_i;
-	size_t	i;
+	int	i;
 	int		value;
 
 	n_i = stack->start;
@@ -102,4 +102,4 @@ void	print_dlist_moves(t_dlist **dl)
 	}
 	printf("%s", "]\n");
 	fflush(stdout);
-} */
+}
