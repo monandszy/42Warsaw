@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:02:45 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 14:47:14 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:13:02 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_move
 	int				cost;
 }					t_move;
 
+int     find_origin(t_stack *a);
+
 void				print_move(t_move *move);
 void				print_stack(t_stack *stack);
 void				print_dlist(t_dlist **dl);
@@ -50,7 +52,7 @@ void				print_dlist_moves(t_dlist **dl);
 void				print_steps(t_dlist *steps);
 
 char				**argv_split(char **argv, int argc);
-int					initialize_stack(int ***args, t_stack **a, t_stack **b,
+int					i_stack(int ***args, t_stack **a, t_stack **b,
 						int argc);
 
 int					validate_argv(char **args);
@@ -59,8 +61,16 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
+
 int					to_int_arr(char **args, int ***int_args, int a_size);
 int					indexify(int ***args, int argc);
+
+int sorted(t_dlist **steps, t_stack *a);
+
+int optimal_sort(t_dlist **steps, t_stack *a, t_stack *b);
+int sort_3(t_dlist **steps, t_stack *a);
+int sort_4(t_dlist **steps, t_stack *a, t_stack *b);
+int sort_5(t_dlist **steps, t_stack *a, t_stack *b);
 
 void				f_st(t_stack *st);
 void				f_dl(t_dlist *dl);

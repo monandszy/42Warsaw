@@ -6,13 +6,13 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 13:04:54 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/09 16:26:44 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/10 19:04:55 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-static int		find_origin(t_stack *a);
+int		find_origin(t_stack *a);
 
 int	adjust_order(t_dlist **steps, t_stack *a)
 {
@@ -40,7 +40,7 @@ int	adjust_order(t_dlist **steps, t_stack *a)
   return (0);
 }
 
-static int find_origin(t_stack *stack)
+int find_origin(t_stack *stack)
 {
     t_dlist *i;
     int index;

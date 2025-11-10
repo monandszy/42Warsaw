@@ -58,6 +58,7 @@ PRINTF_SRC = \
 	ft_lstmap.c
 
 SRC =  \
+	sort_checker.c \
 	lis.c \
 	chunker.c \
 	move_executor.c \
