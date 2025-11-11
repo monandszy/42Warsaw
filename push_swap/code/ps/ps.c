@@ -12,8 +12,8 @@
 
 #include "ps.h"
 
-static int pass(int **int_args, char **args, t_stack *a, t_stack *b);
-static int error(int **int_args, char **args, t_stack *a, t_stack *b);
+static int	pass(int **int_args, char **args, t_stack *a, t_stack *b);
+static int	error(int **int_args, char **args, t_stack *a, t_stack *b);
 
 int	main(int argc, char **argv)
 {
@@ -40,10 +40,10 @@ int	main(int argc, char **argv)
 		return (f_dl(steps), error(int_args, args, a, b));
 	else if (a->e_count > 5 && plan(lis(int_args, argc), &steps, a, b))
 		return (f_dl(steps), error(int_args, args, a, b));
-	return (print_steps(steps), f_dl(steps), pass(int_args, args, a ,b));	
+	return (print_steps(steps), f_dl(steps), pass(int_args, args, a, b));
 }
 
-static int pass(int **int_args, char **args, t_stack *a, t_stack *b)
+static int	pass(int **int_args, char **args, t_stack *a, t_stack *b)
 {
 	free(int_args);
 	free(args);
@@ -52,7 +52,7 @@ static int pass(int **int_args, char **args, t_stack *a, t_stack *b)
 	return (0);
 }
 
-static int error(int **int_args, char **args, t_stack *a, t_stack *b)
+static int	error(int **int_args, char **args, t_stack *a, t_stack *b)
 {
 	free(int_args);
 	free(args);

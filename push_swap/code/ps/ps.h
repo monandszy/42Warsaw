@@ -28,7 +28,7 @@ typedef struct s_stack
 {
 	struct s_dlist	*start;
 	struct s_dlist	*end;
-	int			e_count;
+	int				e_count;
 }					t_stack;
 
 typedef struct s_move
@@ -39,8 +39,8 @@ typedef struct s_move
 	int				cost;
 }					t_move;
 
-int    push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
-void  push_back(t_dlist **steps, t_stack *a, t_stack *b);
+int					push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
+void				push_back(t_dlist **steps, t_stack *a, t_stack *b);
 
 void				print_move(t_move *move);
 void				print_stack(t_stack *stack);
@@ -53,8 +53,7 @@ void				print_dlist_moves(t_dlist **dl);
 void				print_steps(t_dlist *steps);
 
 char				**argv_split(char **argv, int argc);
-int					i_stack(int ***args, t_stack **a, t_stack **b,
-						int argc);
+int					i_stack(int ***args, t_stack **a, t_stack **b, int argc);
 
 int					validate_argv(char **args);
 int					check_numonly(char **args, int i);
@@ -62,17 +61,16 @@ int					check_duplicates(char **args, int i, int j);
 int					check_maxint(char **args, int i);
 int					ft_isnumber(char *str);
 
-
 int					to_int_arr(char **args, int ***int_args, int a_size);
 int					indexify(int ***args, int argc);
 
-int sorted(t_dlist **steps, t_stack *a);
-int is_sorted(t_stack *a, int min);
+int					sorted(t_dlist **steps, t_stack *a);
+int					is_sorted(t_stack *a, int min);
 
-int optimal_sort(t_dlist **steps, t_stack *a, t_stack *b);
-int sort_3(t_dlist **steps, t_stack *a);
-int sort_4(t_dlist **steps, t_stack *a, t_stack *b);
-int sort_5(t_dlist **steps, t_stack *a, t_stack *b);
+int					optimal_sort(t_dlist **steps, t_stack *a, t_stack *b);
+int					sort_3(t_dlist **steps, t_stack *a);
+int					sort_4(t_dlist **steps, t_stack *a, t_stack *b);
+int					sort_5(t_dlist **steps, t_stack *a, t_stack *b);
 
 void				f_st(t_stack *st);
 void				f_dl(t_dlist *dl);
@@ -89,9 +87,10 @@ int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
 
 int					execute_optimal_move(t_dlist **steps, t_stack *a,
 						t_stack *b);
-t_move	*get_optimal_move(t_stack *to, t_stack *from);
-int	get_a_index(int target, t_stack *s);
-t_move				*calculate_cost(t_stack *a, t_stack *b, int a_index, int b_index);
+t_move				*get_optimal_move(t_stack *to, t_stack *from);
+int					get_a_index(int target, t_stack *s);
+t_move				*calculate_cost(t_stack *a, t_stack *b, int a_index,
+						int b_index);
 
 int					execute_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);

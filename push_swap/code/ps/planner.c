@@ -20,28 +20,27 @@ int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
 	start = *steps;
 	if (!*steps)
 		return (1);
-  (void) schema;
-  push_chunks(steps, a, b);
+	free(schema);
+	push_chunks(steps, a, b);
 	// execute_lis(schema, steps, a, b);
-  // if (transfer(steps, a, b))
-    // return (1);
-
-	while ((int) b->e_count > 0)
-	  if (execute_optimal_move(steps, a, b))
-      return (1);
+	// if (transfer(steps, a, b))
+	// return (1);
+	while ((int)b->e_count > 0)
+		if (execute_optimal_move(steps, a, b))
+			return (1);
 	if (adjust_order(steps, a, 0))
-    return (1);
+		return (1);
 	*steps = start;
 	return (0);
 }
 
 int	transfer(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	while ((int) a->e_count > 0)
-  {
+	while ((int)a->e_count > 0)
+	{
 		*steps = pb(*steps, a, b);
-    if (!*steps)
-      return (1);
-  }
+		if (!*steps)
+			return (1);
+	}
 	return (0);
 }

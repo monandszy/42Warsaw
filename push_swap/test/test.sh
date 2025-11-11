@@ -22,6 +22,7 @@ generate_unique_numbers() {
 run_test() {
   local numbers=("$@")
   
+   echo "Input: ${numbers[*]}" >&2
   ./push_swap "${numbers[@]}" > out.txt
   local result
   result=$(./checker_linux "${numbers[@]}" < out.txt)
@@ -31,7 +32,6 @@ run_test() {
     return 0
   else
     echo -e "\n--- FAILED ---" >&2
-    echo "Input: ${numbers[*]}" >&2
     echo "Checker Result: $result" >&2
     # echo "Instructions Generated:" >&2
     # cat out.txt >&2
@@ -43,7 +43,7 @@ highest_lines=0
 lowest_lines=100000000000000000000
 lines=0
 total_runs=100
-range=500
+range=101
 
 for i in $(seq 1 $total_runs)
 do

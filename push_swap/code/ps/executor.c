@@ -16,62 +16,63 @@ int		find_origin(t_stack *a, int min);
 
 int	adjust_order(t_dlist **steps, t_stack *a, int min)
 {
-  int target;
-  
-  target = find_origin(a, min);
-  if (target <= a->e_count / 2)
-  {
-    while (target-- > 0)
-    {
-      *steps = ra(*steps, a);
-      if (!*steps)
-        return (1);
-    }
-  }
-  else
-  {
-    while (target++ < a->e_count) 
-    {
-        *steps = rra(*steps, a);
-        if (!*steps)
-          return (1);
-    }
-  }
-  return (0);
+	int	target;
+
+	target = find_origin(a, min);
+	if (target <= a->e_count / 2)
+	{
+		while (target-- > 0)
+		{
+			*steps = ra(*steps, a);
+			if (!*steps)
+				return (1);
+		}
+	}
+	else
+	{
+		while (target++ < a->e_count)
+		{
+			*steps = rra(*steps, a);
+			if (!*steps)
+				return (1);
+		}
+	}
+	return (0);
 }
 
-int find_origin(t_stack *stack, int min)
+int	find_origin(t_stack *stack, int min)
 {
-    t_dlist *i;
-    int index;
+	t_dlist	*i;
+	int		index;
 
-    i = stack->start;
-    index = 0;
-    while (i)
-    {
-        if (*(int *) i->content == min)
-            return (index);
-        i = i->next;
-        index++;
-    }
-    return (-1);
+	i = stack->start;
+	index = 0;
+	while (i)
+	{
+		if (*(int *)i->content == min)
+			return (index);
+		i = i->next;
+		index++;
+	}
+	return (-1);
 }
 
 int	execute_optimal_move(t_dlist **steps, t_stack *a, t_stack *b)
 {
-  t_move *best;
-  best = get_optimal_move(a, b);
-  if (!best)
-    return (1);
-  if (execute_move(steps, a, b, best))
-    return (free(best), 1);
+	t_move	*best;
+
+	best = get_optimal_move(a, b);
+	if (!best)
+		return (1);
+	if (execute_move(steps, a, b, best))
+		return (free(best), 1);
 	return (free(best), 0);
 }
 
 t_move	*get_optimal_move(t_stack *to, t_stack *from)
 {
-	int	to_index;
-	int	from_index;
+	int		to_index;
+	int		from_index;
 	t_dlist	*i;
 	t_move	*best;
 	t_move	*move;

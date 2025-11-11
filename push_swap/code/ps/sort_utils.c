@@ -12,7 +12,7 @@
 
 #include "ps.h"
 
-int is_sorted(t_stack *a, int min)
+int	is_sorted(t_stack *a, int min)
 {
 	t_dlist	*prev;
 	t_dlist	*i;
@@ -35,18 +35,18 @@ int is_sorted(t_stack *a, int min)
 	return (1);
 }
 
-int sorted(t_dlist **steps, t_stack *a)
+int	sorted(t_dlist **steps, t_stack *a)
 {
-	t_dlist	*start;
+	t_dlist *start;
 
-  if (!is_sorted(a, 0))
-    return (0);
+	if (!is_sorted(a, 0))
+		return (0);
 	*steps = ft_dlstnew(ft_strdup("INIT"));
 	if (!*steps)
 		return (0);
 	start = *steps;
 	if (adjust_order(steps, a, 0))
-      return (f_dl(start), 0);
+		return (f_dl(start), 0);
 	*steps = start;
 	return (1);
 }
