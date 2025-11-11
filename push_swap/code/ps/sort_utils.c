@@ -37,7 +37,7 @@ int	is_sorted(t_stack *a, int min)
 
 int	sorted(t_dlist **steps, t_stack *a)
 {
-	t_dlist *start;
+	t_dlist	*start;
 
 	if (!is_sorted(a, 0))
 		return (0);

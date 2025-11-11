@@ -1,85 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chunker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/09 13:02:36 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/11/10 15:48:24 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
-
-int get_target(t_stack *a, int start, int end)
+int	get_target_from_chunk(t_stack *a, int start, int end, int best_cost)
 {
-  t_dlist	*current_a;
-	int		best_move_cost;
-	int		target_pos;
-  int		current_pos;
-  int		s_idx;
-  int		cost;
+	t_dlist	*i;
+	int		best_target;
+	int		a_index;
+	int		cost;
 
-  current_a = a->start;
-  best_move_cost = -1;
-  target_pos = -1;
-  current_pos = 0;
-  while (current_a)
-  {
-    s_idx = *(int *)current_a->content;
-    if (s_idx >= start && s_idx < end)
-    {
-      if (current_pos <= a->e_count / 2)
-        cost = current_pos;
-      else
-        cost = a->e_count - current_pos;
-      if (target_pos == -1 || cost < best_move_cost)
-      {
-        best_move_cost = cost;
-        target_pos = current_pos;
-      }
-    }
-    current_a = current_a->next;
-    current_pos++;
-  }
-  return (target_pos);
-}
-
-int	push_chunks(t_dlist **steps, t_stack *a, t_stack *b)
-{
-	int		num_chunks;
-	int		chunk_size;
-	int		i;
-  int target_pos;
-	int		e_pushed;
-
-	num_chunks = 1 + a->e_count / 200;
-	chunk_size = a->e_count / num_chunks;
-	i = 0;
-
-	while (i < num_chunks)
+	i = a->start;
+	best_target = -1;
+	a_index = 0;
+	while (a_index < a->e_count)
 	{
-		e_pushed = 0;
-
-		while (e_pushed < (chunk_size) && a->e_count > 0)
+		cost = a_index++;
+		if (*(int *)i->content >= start && *(int *)i->content < end)
 		{
-      target_pos = get_target(a, i * chunk_size, (i + 1) * chunk_size);
-      // adjust_order(a, target_pos);
-			if (target_pos != -1)
+			if (a_index > a->e_count / 2)
+				cost = a->e_count - a_index;
+			if (best_target == -1 || cost < best_cost)
 			{
-				if (target_pos <= a->e_count / 2)
-				{
-					while (target_pos-- > 0)
-					{
-						*steps = ra(*steps, a);
-					}
-				}
-				else
-				{
-					while (target_pos++ < a->e_count)
-					{
-						*steps = rra(*steps, a);
-					}
-				}
-				*steps = pb(*steps, a, b);
-				e_pushed++;
-				if (b->e_count > 1 && *(int *)b->start->content < (i * chunk_size + (chunk_size / 2)))
-				{
-					*steps = rb(*steps, b);
-				}
+				best_cost = cost;
+				best_target = *(int *)i->content;
 			}
 		}
+		i = i->next;
+	}
+	return (best_target);
+}
+
+int	push_chunk(t_data *data, int start, int end, int chunk_size)
+{
+	int		e_pushed;
+	t_dlist	**steps;
+	t_stack	*a;
+	t_stack	*b;
+
+	steps = data->steps;
+	a = data->a;
+	b = data->b;
+	e_pushed = 0;
+	while (e_pushed < (chunk_size) && a->e_count > 0)
+	{
+		adjust_order(steps, a, get_target_from_chunk(a, start, end, -1));
+		*steps = pb(*steps, a, b);
+		if (!*steps)
+			return (1);
+		if (b->e_count > 1 && *(int *)b->start->content < (start + (chunk_size
+					/ 2)))
+			*steps = rb(*steps, b);
+		if (!*steps)
+			return (1);
+		e_pushed++;
+	}
+	return (0);
+}
+
+int	push_chunks(t_data *data)
+{
+	int	num_chunks;
+	int	chunk_size;
+	int	i;
+	int	start;
+	int	end;
+
+	num_chunks = 1 + data->a->e_count / 200;
+	chunk_size = data->a->e_count / num_chunks;
+	i = 0;
+	while (i < num_chunks)
+	{
+		start = i * chunk_size;
+		end = (i + 1) * chunk_size;
+		if (push_chunk(data, start, end, chunk_size))
+			return (1);
 		i++;
 	}
 	return (0);

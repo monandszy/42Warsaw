@@ -39,16 +39,22 @@ typedef struct s_move
 	int				cost;
 }					t_move;
 
-int					push_chunks(t_dlist **steps, t_stack *a, t_stack *b);
-void				push_back(t_dlist **steps, t_stack *a, t_stack *b);
+typedef struct s_data
+{
+	t_dlist			**steps;
+	t_stack			*a;
+	t_stack			*b;
+}					t_data;
 
-void				print_move(t_move *move);
-void				print_stack(t_stack *stack);
-void				print_dlist(t_dlist **dl);
-void				print_int_arr(int *arr, int size);
-void				print_int_matrice(int **arr, int size);
-void				print_lis_from_stack(t_stack *stack, int *lis_schema);
-void				print_dlist_moves(t_dlist **dl);
+// void				print_move(t_move *move);
+// void				print_stack(t_stack *stack);
+// void				print_dlist(t_dlist **dl);
+// void				print_int_arr(int *arr, int size);
+// void				print_int_matrice(int **arr, int size);
+// void				print_lis_from_stack(t_stack *stack, int *lis_schema);
+// void				print_dlist_moves(t_dlist **dl);
+
+int					push_chunks(t_data *data);
 
 void				print_steps(t_dlist *steps);
 
@@ -79,11 +85,11 @@ void				free_int_matrix(int **matrix, int rows);
 t_dlist				*ft_dlstnew(void *content);
 t_dlist				*pop(t_dlist *steps);
 
-int					*lis(int **int_args, int argc);
-int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
-						t_stack *b);
+// int					*lis(int **int_args, int argc);
+// int					execute_lis(int *schema, t_dlist **steps, t_stack *a,
+// 						t_stack *b);
 
-int					plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b);
+int					plan(t_dlist **steps, t_stack *a, t_stack *b);
 
 int					execute_optimal_move(t_dlist **steps, t_stack *a,
 						t_stack *b);
@@ -94,8 +100,8 @@ t_move				*calculate_cost(t_stack *a, t_stack *b, int a_index,
 
 int					execute_move(t_dlist **steps, t_stack *a, t_stack *b,
 						t_move *move);
-int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
-						t_move *move);
+// int					reverse_move(t_dlist **steps, t_stack *a, t_stack *b,
+// 						t_move *move);
 
 int					adjust_order(t_dlist **steps, t_stack *a, int min);
 

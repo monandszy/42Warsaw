@@ -12,31 +12,36 @@
 
 #include "ps.h"
 
-int	plan(int *schema, t_dlist **steps, t_stack *a, t_stack *b)
+// execute_lis(schema, steps, a, b);
+// if (transfer(steps, a, b))
+//   return (1);
+int	plan(t_dlist **steps, t_stack *a, t_stack *b)
 {
+	t_data	*data;
 	t_dlist	*start;
 
 	*steps = ft_dlstnew(ft_strdup("INIT"));
 	start = *steps;
 	if (!*steps)
 		return (1);
-	free(schema);
-	push_chunks(steps, a, b);
-	// execute_lis(schema, steps, a, b);
-	// if (transfer(steps, a, b))
-	// return (1);
-	while ((int)b->e_count > 0)
+	data = (t_data *)malloc(sizeof(t_data));
+	data->steps = steps;
+	data->a = a;
+	data->b = b;
+	if (push_chunks(data))
+		return (free(data), 1);
+	while (b->e_count > 0)
 		if (execute_optimal_move(steps, a, b))
-			return (1);
+			return (free(data), 1);
 	if (adjust_order(steps, a, 0))
-		return (1);
+		return (free(data), 1);
 	*steps = start;
-	return (0);
+	return (free(data), 0);
 }
 
 int	transfer(t_dlist **steps, t_stack *a, t_stack *b)
 {
-	while ((int)a->e_count > 0)
+	while (a->e_count > 0)
 	{
 		*steps = pb(*steps, a, b);
 		if (!*steps)

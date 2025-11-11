@@ -27,7 +27,7 @@ t_dlist	*ft_dlstnew(void *content)
 
 t_dlist	*pop(t_dlist *steps)
 {
-	t_dlist *tmp;
+	t_dlist	*tmp;
 
 	if (steps)
 	{

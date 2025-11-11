@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		;
 	else if (a->e_count <= 5 && optimal_sort(&steps, a, b))
 		return (f_dl(steps), error(int_args, args, a, b));
-	else if (a->e_count > 5 && plan(lis(int_args, argc), &steps, a, b))
+	else if (a->e_count > 5 && plan(&steps, a, b))
 		return (f_dl(steps), error(int_args, args, a, b));
 	return (print_steps(steps), f_dl(steps), pass(int_args, args, a, b));
 }

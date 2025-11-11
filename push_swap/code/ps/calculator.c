@@ -28,6 +28,7 @@ t_move	*calculate_cost(t_stack *a, t_stack *b, int a_index, int b_index)
 	assign_move(new, a_index, b_index);
 	return (new);
 }
+
 void	assign_move(t_move *new, int a_index, int b_index)
 {
 	if ((a_index >= 0 && b_index >= 0) || (a_index <= 0 && b_index <= 0))
