@@ -3,7 +3,8 @@ CC = cc
 CFLAGS = -g  -Wall -Wextra -Werror
 SRC = \
 	fract_ol.c \
-	renderer.c
+	renderer.c \
+	calculator.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
