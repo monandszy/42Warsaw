@@ -14,82 +14,60 @@
 
 void zoom_in(int x, int y, t_data *data)
 {
-
+  (void) x;
+  (void) y;
+  (void) data;
 }
 void zoom_out(int x, int y, t_data *data)
 {
+  (void) x;
+  (void) y;
+  (void) data;
 }
 
-int get_color(int r, int g, int b)
-{
-    int rgb;
+void render(t_data *d) {
+  t_pixel *p;
+  int depth;
+  int ix;
+  int iy;
 
-    rgb = r;
-    rgb = (rgb << 8) + g;
-    rgb = (rgb << 8) + b;
-    return (rgb);
-}
-
-int get_pixel_color()
-{
-
-}
-
-#ifndef MAX_DEPTH
-# define MAX_DEPTH 255
-#endif
-
-#ifndef ESCAPE_TRESHOLD
-# define ESCAPE_TRESHOLD 2
-#endif
-
-int calculate_mandelbrot_depth(t_pixel *pixel)
-{
-  int n;
-  double tmp;
-  t_complex *z;
-  t_complex *c;
-
-  c = (t_complex *) malloc(sizeof(t_complex));
-  c -> r = pixel -> tx;
-  c -> i = pixel -> ty;
-
-  z = (t_complex *) malloc(sizeof(t_complex));
-  z -> r = 0;
-  z -> i = 0;
-  while (n < MAX_DEPTH)
+  ix = 0;
+  while (ix < d->x)
   {
-    tmp = (z->r * z->r) + ((z->i * z->i) * -1) + c->r;
-    z->i = 2 * (z->r) * (z->i) + c->i;
-    z->r = tmp;
-    if ((z->r * z->r) + (z->i * z->i) > (ESCAPE_TRESHOLD * ESCAPE_TRESHOLD))
-      return (n);
-    n++;
+    iy = 0;
+    
+    while (iy < d->y)
+    {
+      p = initialize_pixel(ix, iy, d);
+      depth = calculate_mandelbrot_depth(p, d);
+      mlx_pixel_put(d->id, d->win_id, ix, iy, get_color(depth, depth,depth));
+      free (p);
+      iy++;
+    }
+    ix++;
   }
-  return (n);
 }
 
 void pre_render(t_data *d)
 {
-    int c = 0;
-    int color;
-    int ix;
-    int iy;
+  int c = 0;
+  int color;
+  int ix;
+  int iy;
 
-    ix = 0;
-    while (ix < d->x)
+  ix = 0;
+  while (ix < d->x)
+  {
+    iy = 0;
+    color = get_color(c, c, c);
+    while (iy < d->y)
     {
-        iy = 0;
-        color = get_color(c, c, c);
-        while (iy < d->y)
-        {
-            mlx_pixel_put(d->id, d->win_id, ix, iy, color);
-            iy++;
-        }
-        c++;
-        if (c > 255)
-            c = 0;
-        ix++;
+      mlx_pixel_put(d->id, d->win_id, ix, iy, color);
+      iy++;
     }
+    c++;
+    if (c > 255)
+      c = 0;
+    ix++;
+  }
 }
-
