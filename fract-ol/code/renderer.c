@@ -12,6 +12,14 @@
 
 #include "fract_ol.h"
 
+void zoom_in(int x, int y, t_data *data)
+{
+
+}
+void zoom_out(int x, int y, t_data *data)
+{
+}
+
 int get_color(int r, int g, int b)
 {
     int rgb;
@@ -20,6 +28,45 @@ int get_color(int r, int g, int b)
     rgb = (rgb << 8) + g;
     rgb = (rgb << 8) + b;
     return (rgb);
+}
+
+int get_pixel_color()
+{
+
+}
+
+#ifndef MAX_DEPTH
+# define MAX_DEPTH 255
+#endif
+
+#ifndef ESCAPE_TRESHOLD
+# define ESCAPE_TRESHOLD 2
+#endif
+
+int calculate_mandelbrot_depth(t_pixel *pixel)
+{
+  int n;
+  double tmp;
+  t_complex *z;
+  t_complex *c;
+
+  c = (t_complex *) malloc(sizeof(t_complex));
+  c -> r = pixel -> tx;
+  c -> i = pixel -> ty;
+
+  z = (t_complex *) malloc(sizeof(t_complex));
+  z -> r = 0;
+  z -> i = 0;
+  while (n < MAX_DEPTH)
+  {
+    tmp = (z->r * z->r) + ((z->i * z->i) * -1) + c->r;
+    z->i = 2 * (z->r) * (z->i) + c->i;
+    z->r = tmp;
+    if ((z->r * z->r) + (z->i * z->i) > (ESCAPE_TRESHOLD * ESCAPE_TRESHOLD))
+      return (n);
+    n++;
+  }
+  return (n);
 }
 
 void pre_render(t_data *d)

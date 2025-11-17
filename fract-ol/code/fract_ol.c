@@ -12,9 +12,7 @@
 
 
 #include "fract_ol.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+
 
 int end(void *param)
 {
@@ -30,10 +28,28 @@ int key_hook(int keycode, void *param)
 	return (0);
 }
 
-
+// 4 Mouse Forward
+// 5 Mouse Backward
 int mouse_hook(int button, int x, int y, void *param)
 {
-	printf("[%d, %d, %d, %p]", button, x, y, param);
+  static int lock;
+
+  if (button == 4)
+  {
+    while (lock == 1)
+      ;
+    lock = 1;
+    zoom_in(x, y, param);
+    lock = 0;
+  }
+  else if (button == 5)
+  {
+    while (lock == 1)
+      ;
+    lock = 1;
+    zoom_out(x, y, param);
+    lock = 0;
+  }
 	fflush(stdout);
 	return (0);
 }
@@ -47,8 +63,8 @@ static t_data *initialize_graphics()
 	new = (t_data *) malloc(sizeof(t_data));
 	if (!new)
 		return (NULL);
-	new -> x = 1000;
-	new -> y = 1000;
+	new -> x = 200;
+	new -> y = 200;
 	id = mlx_init();
 	if (!id)
 		return (free(new), NULL);

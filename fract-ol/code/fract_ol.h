@@ -15,6 +15,15 @@
 
 # include "./minilibx/mlx.h"
 # include <X11/X.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+typedef struct s_complex
+{
+  double r; // real
+  double i; // imaginary
+} t_complex;
 
 typedef struct s_data
 {
@@ -22,8 +31,21 @@ typedef struct s_data
 	void *win_id;
 	int x;
 	int y;
+  int tx;
+  int ty; 
 } t_data;
 
+typedef struct s_pixel
+{
+	int x;
+	int y;
+  double tx;
+  double ty;
+} t_pixel;
+
+
 void pre_render(t_data *d);
+void zoom_in(int x, int y, t_data *data);
+void zoom_out(int x, int y, t_data *data);
 
 #endif
