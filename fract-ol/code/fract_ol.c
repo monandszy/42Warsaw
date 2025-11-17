@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:17:11 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/17 17:28:39 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:30:08 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int mouse_hook(int button, int x, int y, void *param)
     zoom_out(x, y, param);
     lock = 0;
   }
->>>>>>> refs/remotes/origin/master
 	return (0);
 }
 
