@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:17:11 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/14 18:27:48 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/14 18:40:03 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int end(void *param)
 	return (0);
 }
 
-// XK_Escape
+// 65307 Escape
 int key_hook(int keycode, void *param)
 {
 	if (keycode == 65307)
@@ -30,11 +30,26 @@ int key_hook(int keycode, void *param)
 	return (0);
 }
 
-
+// 4 Wheel forward
+// 5 Wheel backward
 int mouse_hook(int button, int x, int y, void *param)
 {
-	printf("[%d, %d, %d, %p]", button, x, y, param);
-	fflush(stdout);
+	static int zoom;
+
+	(void) x;
+	(void) y;
+	(void) param;
+
+	if (button == 4)
+	{
+		zoom++;
+//		render_zoom_in(x, y, param);
+	}
+	else if (zoom > 0 && button == 5)
+	{
+		zoom--;
+//		render_zoom_in(x, y, param);
+	}
 	return (0);
 }
 
