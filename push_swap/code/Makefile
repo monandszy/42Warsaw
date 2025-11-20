@@ -60,7 +60,6 @@ PRINTF_SRC = \
 SRC =  \
 	sort_utils.c \
 	mini_sorter.c \
-	lis.c \
 	chunker.c \
 	move_executor.c \
 	move_reverser.c \
