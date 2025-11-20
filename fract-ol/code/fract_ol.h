@@ -20,6 +20,15 @@
 # include <stdlib.h>
 # include <math.h> 
 
+typedef struct s_pixel
+{
+	double x;
+	double y;
+  double tx;
+  double ty;
+  int depth;
+} t_pixel;
+
 typedef struct s_complex
 {
   double r; // real
@@ -32,29 +41,21 @@ typedef struct s_data
 	void *win_id;
 	int x;
 	int y;
-  double tx;
-  double ty;
   int max_depth;
   int escape_treshold;
+  int etsq;
+  t_pixel **screen;
 } t_data;
 
-typedef struct s_pixel
-{
-	double x;
-	double y;
-  double otx;
-  double oty;
-  double tx;
-  double ty;
-} t_pixel;
 
-
+int initialize_graphics(t_data *d);
+int initialize_defaults(t_data *d);
 void zoom_in(int x, int y, t_data *data);
 void zoom_out(int x, int y, t_data *data);
 int calculate_mandelbrot_depth(t_pixel *pixel, t_data *d);
-t_pixel *initialize_pixel(int x, int y, t_data *data);
 
 int get_color(int r, int g, int b);
+int get_grayscale_color(int c);
 void render(t_data *data);
 void pre_render(t_data *d);
 

@@ -4,7 +4,8 @@ CFLAGS = -g  -Wall -Wextra -Werror
 SRC = \
 	fract_ol.c \
 	renderer.c \
-	calculator.c
+	calculator.c \
+	initializer.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
@@ -27,6 +28,7 @@ run: all
 
 libmake:
 	make bonus -C printf > /dev/null 2>&1
+	make -C ./minilibx > /dev/null 2>&1
 
 clean:
 	make fclean -C printf > /dev/null 2>&1
