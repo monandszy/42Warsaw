@@ -18,15 +18,14 @@
 static int mouse_hook(int button, int x, int y, void *param)
 {
   t_data *d;
-  static t_dlist zoom;
 
   d = (t_data *) param;
   if (button == 1)
     return(open_julia(d, x, y), 0);
   else if (button == 4)
-    return(zoom_in(d, x, y, &zoom), 0);
+    return(zoom_in(d, x, y), 0);
   else if (button == 5)
-    return(zoom_out(d, x, y, &zoom), 0);
+    return(zoom_out(d, x, y), 0);
 	return (0);
 }
 

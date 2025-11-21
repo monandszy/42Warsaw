@@ -19,20 +19,29 @@ int end(void *param)
 	return (0);
 }
 
-void free_screen(t_data *data)
+void free_screen(t_data *d)
 {
   t_pixel   **s;
+  t_zoom *zoom;
+  t_zoom *tmp;
   int i;
 
+  zoom = d->zoom;
   i = 0;
-  s = data -> screen;
-  if (s)
+  while (zoom)
   {
-    while (s[i])
+    tmp = zoom;
+    s = zoom -> screen;
+    zoom = zoom ->prev;
+    if (s)
     {
-      free(s[i]);
-      i++;
+      while (s[i])
+      {
+        free(s[i]);
+        i++;
+      }
+      free(s);
     }
-    free(s);
+    free(tmp);
   }
 }

@@ -44,6 +44,16 @@ typedef struct s_complex
   double i; // imaginary
 } t_complex;
 
+typedef struct s_zoom
+{
+	int x;
+  int y;
+  t_pixel *target;
+  t_pixel **screen;
+	struct s_zoom	*next;
+	struct s_zoom	*prev;
+}					t_zoom;
+
 typedef struct s_data
 {
 	void *id;
@@ -55,21 +65,15 @@ typedef struct s_data
   double resolution;
   int etsq;
   t_pixel *origin;
-  t_pixel **screen;
+  t_zoom *zoom;
 } t_data;
 
 
-typedef struct s_dlist
-{
-	void			*content;
-	struct s_dlist	*next;
-	struct s_dlist	*prev;
-}					t_dlist;
 
 int initialize_graphics(t_data *d);
 int initialize_defaults(t_data *d);
-void zoom_in(t_data *data, int x, int y, t_dlist *zoom);
-void zoom_out(t_data *data, int x, int y, t_dlist *zoom);
+void zoom_in(t_data *data, int x, int y);
+void zoom_out(t_data *data, int x, int y);
 int calculate_mandelbrot_depth(t_data *d, t_pixel *pixel);
 int calculate_julia_depth(t_data *d, t_pixel *pixel);
 void render(t_data *d, int(*calculate)(t_data *d, t_pixel *p));
