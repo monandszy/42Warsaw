@@ -20,6 +20,15 @@
 # include <stdlib.h>
 # include <math.h> 
 
+typedef struct s_img
+{
+  void *id;
+  int bpp;
+  int ls;
+  int e;
+  char *start;
+} t_img;
+
 typedef struct s_pixel
 {
 	double x;
@@ -42,21 +51,36 @@ typedef struct s_data
 	int x;
 	int y;
   int max_depth;
-  int escape_treshold;
+  double escape_treshold;
+  double resolution;
   int etsq;
+  t_pixel *origin;
   t_pixel **screen;
 } t_data;
 
 
+typedef struct s_dlist
+{
+	void			*content;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}					t_dlist;
+
 int initialize_graphics(t_data *d);
 int initialize_defaults(t_data *d);
-void zoom_in(int x, int y, t_data *data);
-void zoom_out(int x, int y, t_data *data);
-int calculate_mandelbrot_depth(t_pixel *pixel, t_data *d);
+void zoom_in(t_data *data, int x, int y, t_dlist *zoom);
+void zoom_out(t_data *data, int x, int y, t_dlist *zoom);
+int calculate_mandelbrot_depth(t_data *d, t_pixel *pixel);
+int calculate_julia_depth(t_data *d, t_pixel *pixel);
+void render(t_data *d, int(*calculate)(t_data *d, t_pixel *p));
 
 int get_color(int r, int g, int b);
 int get_grayscale_color(int c);
-void render(t_data *data);
-void pre_render(t_data *d);
+char *store_color(t_data *d, t_img *img, void *dst, int depth);
+
+int key_hook(int keycode, void *param);
+int end(void *param);
+void free_screen(t_data *data);
+int open_julia(t_data *m_d, int x, int y);
 
 #endif

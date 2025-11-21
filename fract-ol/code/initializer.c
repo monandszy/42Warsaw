@@ -1,11 +1,15 @@
 #include "fract_ol.h"
 
 #ifndef ESCAPE_TRESHOLD
-# define ESCAPE_TRESHOLD 2
+# define ESCAPE_TRESHOLD 2.5
 #endif
 
 #ifndef MAX_DEPTH
 # define MAX_DEPTH 255
+#endif
+
+#ifndef RESOLUTION
+# define RESOLUTION 0.125
 #endif
 
 #ifndef EDGE
@@ -66,7 +70,8 @@ int initialize_defaults(t_data *d)
   screen[d -> x] = NULL;
   d -> escape_treshold = ESCAPE_TRESHOLD;
   d -> etsq = ESCAPE_TRESHOLD*ESCAPE_TRESHOLD;
-  d -> max_depth = MAX_DEPTH;
+  d -> max_depth = MAX_DEPTH*RESOLUTION;
+  d -> resolution = RESOLUTION;
   i = 0;
   while (i < d -> x)
   {

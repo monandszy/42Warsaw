@@ -12,60 +12,22 @@
 
 #include "fract_ol.h"
 
-int end(void *param)
-{
-	mlx_loop_end(((t_data *)param)->id);
-	return (0);
-}
-
-// XK_Escape
-// S
-// M
-int key_hook(int keycode, void *param)
-{
-  t_data *d;
-
-  d = (t_data *) param;
-	if (keycode == 65307)
-		return(end(d));
-  else if (keycode == 115)
-    return(mlx_clear_window(d->id, d->win_id), render(d), 0);
-  return(0);
-}
-
 // 1 Left Click
 // 4 Mouse Forward
 // 5 Mouse Backward
-int mouse_hook(int button, int x, int y, void *param)
+static int mouse_hook(int button, int x, int y, void *param)
 {
   t_data *d;
+  static t_dlist zoom;
 
   d = (t_data *) param;
-  // if (button == 1)
-  //   return(mlx_clear_window(d->id, d->win_id), pre_render(d), 0);
-  if (button == 4)
-    return(mlx_clear_window(d->id, d->win_id), zoom_in(x, y, d), 0);
+  if (button == 1)
+    return(open_julia(d, x, y), 0);
+  else if (button == 4)
+    return(zoom_in(d, x, y, &zoom), 0);
   else if (button == 5)
-    return(mlx_clear_window(d->id, d->win_id), zoom_out(x, y, d), 0);
+    return(zoom_out(d, x, y, &zoom), 0);
 	return (0);
-}
-
-void free_screen(t_data *data)
-{
-  t_pixel   **s;
-  int i;
-
-  i = 0;
-  s = data -> screen;
-  if (s)
-  {
-    while (s[i])
-    {
-      free(s[i]);
-      i++;
-    }
-    free(s);
-  }
 }
 
 int main(void)
@@ -80,7 +42,8 @@ int main(void)
 	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
 	mlx_key_hook(d->win_id, &key_hook, d);
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
-  mlx_string_put(d->id,d->win_id,0,d->y/2,get_color(255,255,255), "Press s to start rendering. Click to view Julia");
+  render(d, &calculate_mandelbrot_depth);
+  mlx_string_put(d->id,d->win_id,0,50,get_color(255,0,0), "Zoom into Mandelbrot or Left click to view Julia");
 	mlx_loop(d->id);
 	mlx_destroy_window(d->id, d->win_id);
 	mlx_destroy_display(d->id);

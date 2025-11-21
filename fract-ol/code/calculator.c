@@ -1,7 +1,7 @@
 
 #include "fract_ol.h"
 
-int calculate_mandelbrot_depth(t_pixel *pixel, t_data *d)
+int calculate_mandelbrot_depth(t_data *d, t_pixel *pixel)
 {
   int n;
   double tmp;
@@ -20,6 +20,34 @@ int calculate_mandelbrot_depth(t_pixel *pixel, t_data *d)
     zrsq = z.r*z.r;
     zisq = z.i*z.i;
     tmp = zrsq + (zisq * -1) + c.r;
+    z.i = (2 * (z.r) * (z.i)) + c.i;
+    z.r = tmp;
+    if (zrsq + zisq > d->etsq)
+      return (n);
+    n++;
+  } 
+  return (n);
+}
+
+int calculate_julia_depth(t_data *d, t_pixel *pixel)
+{
+  int n;
+  double tmp;
+  double zrsq;
+  double zisq;
+  static t_complex z;
+  static t_complex c;
+
+  c.r = d->origin->tx;
+  c.i = d->origin->ty;
+  z.r = pixel->tx;
+  z.i = pixel->ty;
+  n = 0;
+  while (n < d->max_depth)
+  {
+    zrsq = z.r*z.r;
+    zisq = z.i*z.i;
+    tmp = zrsq + (zisq * - 1) + c.r;
     z.i = (2 * (z.r) * (z.i)) + c.i;
     z.r = tmp;
     if (zrsq + zisq > d->etsq)

@@ -5,7 +5,10 @@ SRC = \
 	fract_ol.c \
 	renderer.c \
 	calculator.c \
-	initializer.c
+	initializer.c \
+	zoom_manager.c \
+	window_utils.c \
+	julia.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
