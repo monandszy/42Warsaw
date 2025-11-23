@@ -8,7 +8,9 @@ SRC = \
 	initializer.c \
 	zoom_manager.c \
 	window_utils.c \
-	julia.c
+	julia.c \
+	mandelbrot.c \
+	color_manager.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

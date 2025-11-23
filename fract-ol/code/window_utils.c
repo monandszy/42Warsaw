@@ -19,29 +19,38 @@ int end(void *param)
 	return (0);
 }
 
-void free_screen(t_data *d)
+void free_screen(t_pixel **s)
+{
+  int i;
+
+  i = 0;
+  if (s)
+  {
+    while (s[i])
+    {
+      free(s[i]);
+      i++;
+    }
+    free(s);
+  }
+}
+
+void free_zoom_stack(t_data *d)
 {
   t_pixel   **s;
   t_zoom *zoom;
   t_zoom *tmp;
-  int i;
 
   zoom = d->zoom;
-  i = 0;
+  while(zoom->next)
+    zoom = zoom->next;
   while (zoom)
   {
     tmp = zoom;
     s = zoom -> screen;
-    zoom = zoom ->prev;
-    if (s)
-    {
-      while (s[i])
-      {
-        free(s[i]);
-        i++;
-      }
-      free(s);
-    }
+    zoom = zoom -> prev;
+    free_screen(s);
+    mlx_destroy_image(d->id, tmp->img.id);
     free(tmp);
   }
 }

@@ -12,39 +12,84 @@
 
 #include "fract_ol.h"
 
-// 1 Left Click
-// 4 Mouse Forward
-// 5 Mouse Backward
-static int mouse_hook(int button, int x, int y, void *param)
+double ft_atof(char *str)
 {
-  t_data *d;
+  int  i;
+  double  sign;
+  double  result;
+  double  power;
 
-  d = (t_data *) param;
-  if (button == 1)
-    return(open_julia(d, x, y), 0);
-  else if (button == 4)
-    return(zoom_in(d, x, y), 0);
-  else if (button == 5)
-    return(zoom_out(d, x, y), 0);
-	return (0);
+  i = 0;
+  sign = 1.0;
+  result = 0.0;
+  power = 1.0;
+  if (str[i] == '-' || str[i] == '+')
+    if (str[i++] == '-')
+      sign = -1.0;
+  while (str[i] >= '0' && str[i] <= '9')
+    result = result * 10.0 + (str[i++] - '0');
+  if (str[i] == '.')
+    i++;
+  while (str[i] >= '0' && str[i] <= '9')
+  {
+    result = result * 10.0 + (str[i++] - '0');
+    power *= 10.0;
+  }
+  return (sign * result / power);
 }
 
-int main(void)
+int ft_is_double(char *str)
 {
-	t_data *d;
+  int i = 0;
+  int dot_count = 0;
 
-	d = (t_data *) malloc(sizeof(t_data));
-	if (!d || initialize_graphics(d))
-		return (free(d), write(2, "Error\n", 6), 1);
-  if (initialize_defaults(d))
-    return (free_screen(d), free(d), write(2, "Error\n", 6), 1);
-	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
-	mlx_key_hook(d->win_id, &key_hook, d);
-	mlx_mouse_hook(d->win_id, &mouse_hook, d);
-  render(d, &calculate_mandelbrot_depth);
-  mlx_string_put(d->id,d->win_id,0,50,get_color(255,0,0), "Zoom into Mandelbrot or Left click to view Julia");
-	mlx_loop(d->id);
-	mlx_destroy_window(d->id, d->win_id);
-	mlx_destroy_display(d->id);
-	return (free_screen(d), free(d->id), free(d), 0);
+  if (!str)
+    return (0);
+  if (str[i] == '-' || str[i] == '+')
+    i++;
+  if (!str[i])
+    return (0);
+  while (str[i])
+  {
+    if (str[i] == '.')
+    {
+      dot_count++;
+      if (dot_count > 1)
+        return (0);
+    }
+    else if (str[i] < '0' || str[i] > '9')
+      return (0);
+    i++;
+  }
+  return (1);
+}
+
+int main(int argc, char **argv)
+{
+    t_pixel *origin;
+    
+    if (argc == 1)
+    {
+        ft_printf("---ARGS---\n");
+        ft_printf("[0] for Mandelbrot, [double] [double] for Julia\n");
+    }
+    else if (argc == 2 && argv[1][0] == '0' && argv[1][1] == '\0')
+    {
+      if(open_mandelbrot())
+        return (write(2, "Error\n", 6), 1);
+    }
+    else if (argc == 3 && ft_is_double(argv[1]) && ft_is_double(argv[2]))
+    {
+        origin = (t_pixel *) malloc(sizeof(t_pixel));
+        if (!origin)
+            return (write(2, "Error\n", 6), 1);
+        origin->tx = ft_atof(argv[1]);
+        origin->ty = ft_atof(argv[2]);
+        if (open_julia(origin))
+            return (write(2, "Error\n", 6), 1);
+        free(origin);
+    }
+    else
+      return (write(2, "Input Error\n", 12), 1);
+    return (0);
 }

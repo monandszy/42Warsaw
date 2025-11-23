@@ -15,28 +15,18 @@
 
 // mlx_pixel_put(d->id, d->win_id, ix, iy, get_grayscale_color((-(p->depth-255))));
 
-char *store_color(t_data *d, t_img *img, void *dst, int depth)
-{
-  unsigned int color;
-
-  // if (i->e)
-  color = mlx_get_color_value(d->id, get_grayscale_color(depth));
-  *(unsigned int *)dst = color;
-  return (dst + img->bpp/8);
-}
-
 void render(t_data *d, int(*calculate)(t_data *d, t_pixel *p))
 {
-  static t_img img;
   t_pixel *p;
+  char *i;
   int ix;
   int iy;
 
   ix = 0;
-  img.id = mlx_new_image(d->id, d->x, d->y);
-  // if (!img->id)
-  img.start = mlx_get_data_addr(img.id, &img.bpp, &img.ls, &img.e);
-  char *i = img.start;
+  // printf("Calculating [%ld]\n", clock());
+  d->zoom->img.id = mlx_new_image(d->id, d->x, d->y);
+  i = mlx_get_data_addr(d->zoom->img.id, &d->zoom->img.bpp, &d->zoom->img.ls, &d->zoom->img.e);
+  d->zoom->img.start = i;
   while (ix < d->x)
   {
     iy = 0;
@@ -44,11 +34,12 @@ void render(t_data *d, int(*calculate)(t_data *d, t_pixel *p))
     {
       p = &((d->zoom)->screen)[ix][iy];
       p->depth = calculate(d, p);
-      i = store_color(d, &img, i, (p->depth / d->resolution));
+      i = convert_color(d, &d->zoom->img, i, (p->depth));
       iy++;
     }
     ix++;
   }
-  mlx_put_image_to_window(d->id,d->win_id, img.id, 0, 0);
-  mlx_destroy_image(d->id, img.id);
+  // printf("Calculated [%ld]\n", clock());
+  // fflush(stdout);
+  mlx_put_image_to_window(d->id,d->win_id, d->zoom->img.id, 0, 0);
 }

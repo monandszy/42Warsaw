@@ -38,8 +38,8 @@ int calculate_julia_depth(t_data *d, t_pixel *pixel)
   static t_complex z;
   static t_complex c;
 
-  c.r = d->origin->tx;
-  c.i = d->origin->ty;
+  c.r = d->origin.tx;
+  c.i = d->origin.ty;
   z.r = pixel->tx;
   z.i = pixel->ty;
   n = 0;
@@ -55,19 +55,4 @@ int calculate_julia_depth(t_data *d, t_pixel *pixel)
     n++;
   } 
   return (n);
-}
-
-int get_color(int r, int g, int b)
-{
-  int rgb;
-
-  rgb = r;
-  rgb = (rgb << 8) + g;
-  rgb = (rgb << 8) + b;
-  return (rgb);
-}
-
-int get_grayscale_color(int c)
-{
-  return(get_color(c, c, c));
 }
