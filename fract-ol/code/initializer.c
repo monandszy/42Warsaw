@@ -93,8 +93,8 @@ t_zoom	*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen)
 
 int	initialize_defaults(t_data *d)
 {
-	t_pixel **screen;
-	t_zoom *zoom;
+	t_pixel	**screen;
+	t_zoom	*zoom;
 
 	d->escape_treshold = ESCAPE_TRESHOLD;
 	d->etsq = ESCAPE_TRESHOLD * ESCAPE_TRESHOLD;

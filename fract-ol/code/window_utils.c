@@ -49,9 +49,9 @@ void	free_screen(t_pixel **s)
 
 void	free_zoom_stack(t_data *d)
 {
-	t_pixel **s;
-	t_zoom *zoom;
-	t_zoom *tmp;
+	t_pixel	**s;
+	t_zoom	*zoom;
+	t_zoom	*tmp;
 
 	zoom = d->zoom;
 	while (zoom->next)

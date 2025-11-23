@@ -29,7 +29,7 @@ static int	mouse_hook(int button, int x, int y, void *param)
 
 int	open_julia(t_pixel *origin)
 {
-	t_data *d;
+	t_data	*d;
 
 	d = (t_data *)malloc(sizeof(t_data));
 	if (!d || initialize_graphics(d))

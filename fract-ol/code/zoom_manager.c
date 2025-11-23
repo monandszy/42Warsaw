@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zoom_manager.c                                      :+:      :+:    :+:   */
+/*   zoom_manager.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,6 @@
 
 #include "fract_ol.h"
 
-// scaling
-// 1 -> 4
-// or a flat value
-
-// zoom target shift
-
-// based on the screen in d->screen and the values in d->zoom initialize the zoomed in pixels
 void	transform_pixel_row(t_data *d, t_pixel *row, int x)
 {
 	int		y;
@@ -60,7 +53,7 @@ void	zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
 
 void	zoom_out(t_data *d)
 {
-	t_zoom *tmp;
+	t_zoom	*tmp;
 
 	tmp = d->zoom;
 	if (!tmp->prev)

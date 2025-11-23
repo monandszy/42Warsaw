@@ -74,8 +74,8 @@ typedef struct s_pixel
 
 typedef struct s_complex
 {
-	double r; // real
-	double i; // imaginary
+	double	r;
+	double	i;
 }					t_complex;
 
 typedef struct s_zoom
@@ -97,22 +97,23 @@ typedef struct s_data
 	int				max_depth;
 	double			escape_treshold;
 	double			resolution;
-	double etsq; // escape_treshold squared
+	double			etsq;
 	t_pixel			origin;
 	t_zoom			*zoom;
 }					t_data;
 
 int					initialize_graphics(t_data *d);
 int					initialize_defaults(t_data *d);
-t_pixel				**initialize_screen(t_data *d, void (*initialize)(t_data *d,
-							t_pixel *row, int x));
+t_pixel				**initialize_screen(t_data *d,
+						void (*initialize)(t_data *d, t_pixel *row, int x));
 t_zoom				*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen);
-int					calculate_mandelbrot_depth(t_data *d, t_pixel *pixel, int n);
+int					calculate_mandelbrot_depth(t_data *d,
+						t_pixel *pixel, int n);
 int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
-void				render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n));
+void				render(t_data *d,
+						int (*calculate)(t_data *d, t_pixel *p, int n));
 
 int					get_color(int r, int g, int b);
-int					get_grayscale_color(int c);
 char				*convert_color(t_data *d, t_img *img, void *dst, int depth);
 
 int					key_hook(int keycode, void *param);
@@ -122,7 +123,8 @@ void				free_zoom_stack(t_data *data);
 int					open_mandelbrot(void);
 int					open_julia(t_pixel *origin);
 
-void				zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
+void				zoom_in(t_data *d,
+						int (*calculate)(t_data *d, t_pixel *p, int n),
 						int x, int y);
 void				zoom_out(t_data *d);
 

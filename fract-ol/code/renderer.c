@@ -14,10 +14,10 @@
 
 void	render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n))
 {
-	t_pixel *p;
-	char *i;
-	int ix;
-	int iy;
+	t_pixel	*p;
+	char	*i;
+	int		ix;
+	int		iy;
 
 	ix = 0;
 	d->zoom->img.id = mlx_new_image(d->id, d->x, d->y);
