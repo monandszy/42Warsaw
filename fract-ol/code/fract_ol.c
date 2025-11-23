@@ -12,84 +12,86 @@
 
 #include "fract_ol.h"
 
-double ft_atof(char *str)
+double	ft_atof(char *str)
 {
-  int  i;
-  double  sign;
-  double  result;
-  double  power;
+	int		i;
+	double	sign;
+	double	result;
+	double	power;
 
-  i = 0;
-  sign = 1.0;
-  result = 0.0;
-  power = 1.0;
-  if (str[i] == '-' || str[i] == '+')
-    if (str[i++] == '-')
-      sign = -1.0;
-  while (str[i] >= '0' && str[i] <= '9')
-    result = result * 10.0 + (str[i++] - '0');
-  if (str[i] == '.')
-    i++;
-  while (str[i] >= '0' && str[i] <= '9')
-  {
-    result = result * 10.0 + (str[i++] - '0');
-    power *= 10.0;
-  }
-  return (sign * result / power);
+	i = 0;
+	sign = 1.0;
+	result = 0.0;
+	power = 1.0;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign = -1.0;
+	while (str[i] >= '0' && str[i] <= '9')
+		result = result * 10.0 + (str[i++] - '0');
+	if (str[i] == '.')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10.0 + (str[i++] - '0');
+		power *= 10.0;
+	}
+	return (sign * result / power);
 }
 
-int ft_is_double(char *str)
+int	ft_is_double(char *str)
 {
-  int i = 0;
-  int dot_count = 0;
+	int	i;
+	int	dot_count;
 
-  if (!str)
-    return (0);
-  if (str[i] == '-' || str[i] == '+')
-    i++;
-  if (!str[i])
-    return (0);
-  while (str[i])
-  {
-    if (str[i] == '.')
-    {
-      dot_count++;
-      if (dot_count > 1)
-        return (0);
-    }
-    else if (str[i] < '0' || str[i] > '9')
-      return (0);
-    i++;
-  }
-  return (1);
+	i = 0;
+	dot_count = 0;
+	if (!str)
+		return (0);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			dot_count++;
+			if (dot_count > 1)
+				return (0);
+		}
+		else if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_pixel *origin;
-    
-    if (argc == 1)
-    {
-        ft_printf("---ARGS---\n");
-        ft_printf("[0] for Mandelbrot, [double] [double] for Julia\n");
-    }
-    else if (argc == 2 && argv[1][0] == '0' && argv[1][1] == '\0')
-    {
-      if(open_mandelbrot())
-        return (write(2, "Error\n", 6), 1);
-    }
-    else if (argc == 3 && ft_is_double(argv[1]) && ft_is_double(argv[2]))
-    {
-        origin = (t_pixel *) malloc(sizeof(t_pixel));
-        if (!origin)
-            return (write(2, "Error\n", 6), 1);
-        origin->tx = ft_atof(argv[1]);
-        origin->ty = ft_atof(argv[2]);
-        if (open_julia(origin))
-            return (write(2, "Error\n", 6), 1);
-        free(origin);
-    }
-    else
-      return (write(2, "Input Error\n", 12), 1);
-    return (0);
+	t_pixel	*origin;
+
+	if (argc == 1)
+	{
+		ft_printf("---ARGS---\n");
+		ft_printf("[0] for Mandelbrot, [double] [double] for Julia\n");
+	}
+	else if (argc == 2 && argv[1][0] == '0' && argv[1][1] == '\0')
+	{
+		if (open_mandelbrot())
+			return (write(2, "Error\n", 6), 1);
+	}
+	else if (argc == 3 && ft_is_double(argv[1]) && ft_is_double(argv[2]))
+	{
+		origin = (t_pixel *)malloc(sizeof(t_pixel));
+		if (!origin)
+			return (write(2, "Error\n", 6), 1);
+		origin->tx = ft_atof(argv[1]);
+		origin->ty = ft_atof(argv[2]);
+		if (open_julia(origin))
+			return (write(2, "Error\n", 6), 1);
+		free(origin);
+	}
+	else
+		return (write(2, "Input Error\n", 12), 1);
+	return (0);
 }

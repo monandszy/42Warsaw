@@ -16,113 +16,114 @@
 # include "./minilibx/mlx.h"
 # include "./printf/ft_printf.h"
 # include <X11/X.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <math.h>
-#include <time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+# include <unistd.h>
 
-#ifndef ESCAPE_TRESHOLD
-# define ESCAPE_TRESHOLD 3
-#endif
+# ifndef ESCAPE_TRESHOLD
+#  define ESCAPE_TRESHOLD 3
+# endif
 
-#ifndef MAX_DEPTH
-# define MAX_DEPTH 255
-#endif
+# ifndef MAX_DEPTH
+#  define MAX_DEPTH 255
+# endif
 
-#ifndef RESOLUTION
-# define RESOLUTION 3
-#endif
+# ifndef RESOLUTION
+#  define RESOLUTION 3
+# endif
 
-#ifndef X_EDGE
-# define X_EDGE 1000
-#endif
+# ifndef X_EDGE
+#  define X_EDGE 1000
+# endif
 
-#ifndef Y_EDGE
-# define Y_EDGE 1000
-#endif
+# ifndef Y_EDGE
+#  define Y_EDGE 1000
+# endif
 
-#ifndef COLOR_STEP
-# define COLOR_STEP 10
-#endif
+# ifndef COLOR_STEP
+#  define COLOR_STEP 10
+# endif
 
-#ifndef DEPTH_STEP
-# define DEPTH_STEP 1
-#endif
+# ifndef DEPTH_STEP
+#  define DEPTH_STEP 1
+# endif
 
-#ifndef ZOOM_STEP
-# define ZOOM_STEP 1.25
-#endif
+# ifndef ZOOM_STEP
+#  define ZOOM_STEP 1.25
+# endif
 
 typedef struct s_img
 {
-  void *id;
-  int bpp;
-  int ls;
-  int e;
-  char *start;
-} t_img;
+	void			*id;
+	int				bpp;
+	int				ls;
+	int				e;
+	char			*start;
+}					t_img;
 
 typedef struct s_pixel
 {
-	double x;
-	double y;
-  double tx;
-  double ty;
-  int depth;
-} t_pixel;
+	double			x;
+	double			y;
+	double			tx;
+	double			ty;
+	int				depth;
+}					t_pixel;
 
 typedef struct s_complex
 {
-  double r; // real
-  double i; // imaginary
-} t_complex;
+	double r; // real
+	double i; // imaginary
+}					t_complex;
 
 typedef struct s_zoom
 {
-	int x;
-  int y;
-  t_pixel **screen;
-  t_img img;
+	int				x;
+	int				y;
+	t_pixel			**screen;
+	t_img			img;
 	struct s_zoom	*next;
 	struct s_zoom	*prev;
 }					t_zoom;
 
 typedef struct s_data
 {
-	void *id;
-	void *win_id;
-	int x;
-	int y;
-  int max_depth;
-  double escape_treshold;
-  double resolution;
-  double etsq; // escape_treshold squared
-  t_pixel origin;
-  t_zoom *zoom;
-} t_data;
+	void			*id;
+	void			*win_id;
+	int				x;
+	int				y;
+	int				max_depth;
+	double			escape_treshold;
+	double			resolution;
+	double etsq; // escape_treshold squared
+	t_pixel			origin;
+	t_zoom			*zoom;
+}					t_data;
 
+int					initialize_graphics(t_data *d);
+int					initialize_defaults(t_data *d);
+t_pixel				**initialize_screen(t_data *d, void (*initialize)(t_data *d,
+							t_pixel *row, int x));
+t_zoom				*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen);
+int					calculate_mandelbrot_depth(t_data *d, t_pixel *pixel, int n);
+int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
+void				render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n));
 
-int initialize_graphics(t_data *d);
-int initialize_defaults(t_data *d);
-t_pixel **initialize_screen(t_data *d, void(*initialize)(t_data *d,  t_pixel *row, int x));
-t_zoom *new_zoom(t_zoom *prev, int x, int y, t_pixel **screen);
-int calculate_mandelbrot_depth(t_data *d, t_pixel *pixel);
-int calculate_julia_depth(t_data *d, t_pixel *pixel);
-void render(t_data *d, int(*calculate)(t_data *d, t_pixel *p));
+int					get_color(int r, int g, int b);
+int					get_grayscale_color(int c);
+char				*convert_color(t_data *d, t_img *img, void *dst, int depth);
 
-int get_color(int r, int g, int b);
-int get_grayscale_color(int c);
-char *convert_color(t_data *d, t_img *img, void *dst, int depth);
+int					key_hook(int keycode, void *param);
+int					end(void *param);
+void				free_screen(t_pixel **s);
+void				free_zoom_stack(t_data *data);
+int					open_mandelbrot(void);
+int					open_julia(t_pixel *origin);
 
-int key_hook(int keycode, void *param);
-int end(void *param);
-void free_screen(t_pixel **s);
-void free_zoom_stack(t_data *data);
-int open_mandelbrot();
-int open_julia(t_pixel *origin);
-
-void zoom_in(t_data *d, int(*calculate)(t_data *d, t_pixel *p), int x, int y);
-void zoom_out(t_data *d);
+void				zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
+						int x, int y);
+void				zoom_out(t_data *d);
 
 #endif
