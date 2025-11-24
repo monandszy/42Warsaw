@@ -73,7 +73,7 @@ int calculate_burning_depth(t_data *d, t_pixel *pixel, int n)
 	static t_complex	c;
 
 	c.r = d->julia_origin.tx;
-	c.i = d->julia_origin.ty;
+	c.i = -d->julia_origin.ty;
 	z.r = pixel->tx;
 	z.i = pixel->ty;
 	while (n < d->max_depth)
@@ -101,7 +101,7 @@ int calculate_ship_depth(t_data *d, t_pixel *pixel, int n)
 	static t_complex	c;
 
 	c.r = pixel->tx;
-	c.i = pixel->ty;
+	c.i = -pixel->ty;
 	z.r = 0;
 	z.i = 0;
 	while (n < d->max_depth)
