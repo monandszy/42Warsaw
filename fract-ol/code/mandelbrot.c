@@ -13,6 +13,7 @@
 #include "fract_ol.h"
 
 // 1 Left Click
+// 2 Right Click
 // 4 Mouse Forward
 // 5 Mouse Backward
 static int	mouse_hook(int button, int x, int y, void *param)
@@ -21,7 +22,12 @@ static int	mouse_hook(int button, int x, int y, void *param)
 
 	d = (t_data *)param;
 	if (button == 1)
-		return (open_julia(&d->zoom->screen[y][x]), 0);
+  {
+    if (d->calculate == &calculate_ship_depth)
+      return (open_julia(&d->zoom->screen[y][x], &calculate_burning_depth), 0);
+    else if (d->calculate == &calculate_mandelbrot_depth)
+      return (open_julia(&d->zoom->screen[y][x], &calculate_julia_depth), 0);
+  }
 	else if (button == 4)
 		return (zoom_in(d, &calculate_mandelbrot_depth, x, y), 0);
 	else if (button == 5)
@@ -29,7 +35,7 @@ static int	mouse_hook(int button, int x, int y, void *param)
 	return (0);
 }
 
-int	open_mandelbrot(void)
+int	open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p, int n))
 {
 	t_data	*d;
 
@@ -41,7 +47,8 @@ int	open_mandelbrot(void)
 	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
 	mlx_key_hook(d->win_id, &key_hook, d);
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
-	render(d, &calculate_mandelbrot_depth);
+  d->calculate = calculate;
+	render(d, calculate);
 	mlx_string_put(d->id, d->win_id, 0, 50, get_color(255, 0, 0),
 		"Zoom into Mandelbrot or Left click to view Julia");
 	mlx_loop(d->id);

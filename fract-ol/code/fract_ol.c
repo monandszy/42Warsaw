@@ -69,10 +69,11 @@ int	ft_is_double(char *str)
 static void	print_usage(void)
 {
 	ft_printf("---ARGS---\n");
-	ft_printf("[0] for Mandelbrot, [double] [double] for Julia\n");
+	ft_printf("[0] for Mandelbrot [1] for Burning Ship\n");
+  ft_printf("[x] [double] [double] for Julia or Burning Julia\n");
 }
 
-static int	handle_julia(char *s1, char *s2)
+static int	handle_julia(char *s1, char *s2, int (*calculate)(t_data *d, t_pixel *p, int n))
 {
 	t_pixel	*origin;
 
@@ -81,7 +82,7 @@ static int	handle_julia(char *s1, char *s2)
 		return (write(2, "Error\n", 6), 1);
 	origin->tx = ft_atof(s1);
 	origin->ty = ft_atof(s2);
-	if (open_julia(origin))
+	if (open_julia(origin, calculate))
 		return (free(origin), write(2, "Error\n", 6), 1);
 	return (free(origin), 0);
 }
@@ -90,13 +91,20 @@ int	main(int argc, char **argv)
 {
 	if (argc == 1)
 		print_usage();
-	else if (argc == 2 && argv[1][0] == '0' && argv[1][1] == '\0')
+	else if (argc == 2 && ft_is_double(argv[1]))
 	{
-		if (open_mandelbrot())
+    if(argv[1][0] == '0' && argv[1][1] == '\0' && open_mandelbrot(&calculate_mandelbrot_depth))
+			return (write(2, "Error\n", 6), 1);
+    else if(argv[1][0] == '1' && argv[1][1] == '\0' && open_mandelbrot(&calculate_ship_depth))
 			return (write(2, "Error\n", 6), 1);
 	}
-	else if (argc == 3 && ft_is_double(argv[1]) && ft_is_double(argv[2]))
-		return (handle_julia(argv[1], argv[2]));
+	else if (argc == 4 && ft_is_double(argv[1]) && ft_is_double(argv[2]) && ft_is_double(argv[3]))
+  {
+    if(argv[1][0] == '0' && argv[1][1] == '\0' && handle_julia(argv[2], argv[3], &calculate_julia_depth))
+			return (write(2, "Error\n", 6), 1);
+    else if(argv[1][0] == '1' && argv[1][1] == '\0' && handle_julia(argv[2], argv[3], &calculate_burning_depth))
+			return (write(2, "Error\n", 6), 1);
+  }
 	else
 		return (write(2, "Input Error\n", 12), 1);
 	return (0);

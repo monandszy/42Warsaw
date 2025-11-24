@@ -31,8 +31,7 @@ int	initialize_graphics(t_data *d)
 }
 
 
-// otx oty distances from the center
-static void	initialize_pixel_row(t_data *d, t_pixel *col_pos, int y, t_pixel *target)
+static void	initialize_pixel_row(t_data *d, t_pixel *row_pos, int y, t_pixel *target)
 {
 	int		x;
 	double	otx;
@@ -52,9 +51,9 @@ static void	initialize_pixel_row(t_data *d, t_pixel *col_pos, int y, t_pixel *ta
 	while (x < d->x)
 	{
 		otx = (x - hx);
-		col_pos->ty = (oty / h) * d->escape_treshold + target->ty;
-		col_pos->tx = (otx / h) * d->escape_treshold + target->tx;
-		col_pos++;
+		row_pos->ty = (oty / h) * d->escape_treshold + target->ty;
+		row_pos->tx = (otx / h) * d->escape_treshold + target->tx;
+		row_pos++;
 		x++;
 	}
 }

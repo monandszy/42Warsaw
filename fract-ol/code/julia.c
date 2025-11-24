@@ -21,13 +21,13 @@ static int	mouse_hook(int button, int x, int y, void *param)
 
 	d = (t_data *)param;
 	if (button == 4)
-		return (zoom_in(d, &calculate_julia_depth, x, y), 0);
+		return (zoom_in(d, d->calculate, x, y), 0);
 	else if (button == 5)
 		return (zoom_out(d), 0);
 	return (0);
 }
 
-int	open_julia(t_pixel *origin)
+int	open_julia(t_pixel *origin, int (*calculate)(t_data *d, t_pixel *p, int n))
 {
 	t_data	*d;
 
@@ -39,9 +39,10 @@ int	open_julia(t_pixel *origin)
 	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
 	mlx_key_hook(d->win_id, &key_hook, d);
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
-	d->origin.tx = origin->tx;
-	d->origin.ty =  origin->ty;
-	render(d, &calculate_julia_depth);
+	d->julia_origin.tx = origin->tx;
+	d->julia_origin.ty = origin->ty;
+  d->calculate = calculate;
+	render(d, calculate);
 	mlx_loop(d->id);
 	free_zoom_stack(d);
 	mlx_destroy_window(d->id, d->win_id);

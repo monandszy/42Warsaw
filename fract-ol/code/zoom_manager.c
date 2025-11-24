@@ -38,5 +38,9 @@ void	zoom_out(t_data *d)
 		return ;
 	d->escape_treshold = d->escape_treshold * ZOOM_STEP;
 	d->zoom = d->zoom->prev;
+  free_screen(tmp->screen);
+  mlx_destroy_image(d->id, tmp->img.id);
+  free(tmp);
+  d->zoom->next=NULL;
 	mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
 }
