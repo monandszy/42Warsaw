@@ -90,8 +90,8 @@ t_zoom	*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen)
 	if (!zoom)
 		return (NULL);
 	zoom->screen = screen;
-	zoom->x = x;
-	zoom->y = y;
+	zoom->tx = x;
+	zoom->ty = y;
 	zoom->next = NULL;
 	zoom->prev = prev;
 	if (prev)

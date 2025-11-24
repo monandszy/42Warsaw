@@ -78,8 +78,8 @@ typedef struct s_complex
 
 typedef struct s_zoom
 {
-	int				x;
-	int				y;
+	int				tx;
+	int				ty;
 	t_pixel			**screen;
 	t_img			img;
 	struct s_zoom	*next;
@@ -123,9 +123,8 @@ void				free_zoom_stack(t_data *data);
 int					open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p, int n));
 int					open_julia(t_pixel *origin, int (*calculate)(t_data *d, t_pixel *p, int n));
 
-void				zoom_in(t_data *d,
-						int (*calculate)(t_data *d, t_pixel *p, int n),
-						int x, int y);
+int offset(t_data *d, double tx, double ty);
+void				zoom_in(t_data *d, int x, int y);
 void				zoom_out(t_data *d);
 
 #endif

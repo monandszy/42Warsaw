@@ -12,8 +12,17 @@
 
 #include "fract_ol.h"
 
-void	zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
-		int x, int y)
+int offset(t_data *d, double tx, double ty)
+{
+  t_pixel	**new;
+
+  new = initialize_screen(d, tx, ty);
+  d->zoom = new_zoom(d->zoom, tx, ty, new);
+  render(d, d->calculate);
+  return (0);
+}
+
+void	zoom_in(t_data *d, int x, int y)
 {
 	t_pixel	**new;
   t_pixel target;
@@ -26,7 +35,7 @@ void	zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
   tx = target.tx;
 	new = initialize_screen(d, tx, ty);
 	d->zoom = new_zoom(d->zoom, tx, ty, new);
-	render(d, calculate);
+	render(d, d->calculate);
 }
 
 void	zoom_out(t_data *d)

@@ -29,7 +29,7 @@ static int	mouse_hook(int button, int x, int y, void *param)
       return (open_julia(&d->zoom->screen[y][x], &calculate_julia_depth), 0);
   }
 	else if (button == 4)
-		return (zoom_in(d, d->calculate, x, y), 0);
+		return (zoom_in(d, x, y), 0);
 	else if (button == 5)
 		return (zoom_out(d), 0);
 	return (0);
