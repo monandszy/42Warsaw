@@ -30,25 +30,32 @@ int	initialize_graphics(t_data *d)
 	return (0);
 }
 
-static void	initialize_pixel_row(t_data *d, t_pixel *row, int x)
+
+// otx oty distances from the center
+void	initialize_pixel_row(t_data *d, t_pixel *col_pos, int y)
 {
-	int		y;
+	int		x;
 	double	otx;
 	double	oty;
 	double	hy;
 	double	hx;
+  double h;
 
-	y = 0;
+	x = 0;
 	hx = d->x / 2.0;
 	hy = d->y / 2.0;
-	otx = (x - hx);
-	while (y < d->y)
+  if (hx > hy)
+    h = hy;
+  else
+    h = hx;
+	oty = (hy - y);
+	while (x < d->x)
 	{
-		oty = (hy - y);
-		row->ty = (oty / hy) * d->escape_treshold;
-		row->tx = (otx / hx) * d->escape_treshold;
-		row++;
-		y++;
+		otx = (x - hx);
+		col_pos->ty = (oty / h) * d->escape_treshold;
+		col_pos->tx = (otx / h) * d->escape_treshold;
+		col_pos++;
+		x++;
 	}
 }
 
@@ -58,14 +65,14 @@ t_pixel	**initialize_screen(t_data *d, void (*initialize)(t_data *d,
 	t_pixel	**screen;
 	int		i;
 
-	screen = (t_pixel **)malloc(sizeof(t_pixel *) * (d->x + 1));
+	screen = (t_pixel **)malloc(sizeof(t_pixel *) * (d->y + 1));
 	if (!screen)
 		return (NULL);
-	screen[d->x] = NULL;
+	screen[d->y] = NULL;
 	i = 0;
-	while (i < d->x)
+	while (i < d->y)
 	{
-		screen[i] = (t_pixel *)malloc(sizeof(t_pixel) * (d->y + 1));
+		screen[i] = (t_pixel *)malloc(sizeof(t_pixel) * (d->x + 1));
 		if (!screen[i])
 			return (NULL);
 		initialize(d, screen[i], i);

@@ -19,22 +19,24 @@ void	render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n))
 	int		ix;
 	int		iy;
 
-	ix = 0;
+	iy = 0;
 	d->zoom->img.id = mlx_new_image(d->id, d->x, d->y);
 	i = mlx_get_data_addr(d->zoom->img.id, &d->zoom->img.bpp, &d->zoom->img.ls,
 			&d->zoom->img.e);
 	d->zoom->img.start = i;
-	while (ix < d->x)
+	while (iy < d->y)
 	{
-		iy = 0;
-		while (iy < d->y)
+		ix = 0;
+		while (ix < d->x)
 		{
-			p = &((d->zoom)->screen)[ix][iy];
+			p = &((d->zoom)->screen)[iy][ix];
 			p->depth = calculate(d, p, 0);
 			i = convert_color(d, &d->zoom->img, i, (p->depth));
-			iy++;
+			ix++;
 		}
-		ix++;
+		iy++;
+    if (iy % 100 == 0)
+      mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
 	}
-	mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
+  mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
 }

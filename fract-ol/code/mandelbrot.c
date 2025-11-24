@@ -21,7 +21,7 @@ static int	mouse_hook(int button, int x, int y, void *param)
 
 	d = (t_data *)param;
 	if (button == 1)
-		return (open_julia(&d->zoom->screen[x][y]), 0);
+		return (open_julia(&d->zoom->screen[y][x]), 0);
 	else if (button == 4)
 		return (zoom_in(d, &calculate_mandelbrot_depth, x, y), 0);
 	else if (button == 5)

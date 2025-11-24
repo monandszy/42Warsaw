@@ -39,8 +39,8 @@ int	open_julia(t_pixel *origin)
 	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
 	mlx_key_hook(d->win_id, &key_hook, d);
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
-	d->origin.tx = -(origin->ty);
-	d->origin.ty = -(origin->tx);
+	d->origin.tx = origin->tx;
+	d->origin.ty =  origin->ty;
 	render(d, &calculate_julia_depth);
 	mlx_loop(d->id);
 	free_zoom_stack(d);

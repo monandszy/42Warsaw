@@ -112,6 +112,7 @@ int					calculate_mandelbrot_depth(t_data *d,
 int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
 void				render(t_data *d,
 						int (*calculate)(t_data *d, t_pixel *p, int n));
+void	initialize_pixel_row(t_data *d, t_pixel *row, int x);
 
 int					get_color(int r, int g, int b);
 char				*convert_color(t_data *d, t_img *img, void *dst, int depth);
