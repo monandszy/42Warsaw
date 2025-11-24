@@ -16,16 +16,16 @@ void	zoom_in(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n),
 		int x, int y)
 {
 	t_pixel	**new;
+  t_pixel target;
+  double tx;
+  double ty;
 
 	d->escape_treshold = d->escape_treshold / ZOOM_STEP;
-	if (d->zoom->next)
-	{
-		d->zoom = d->zoom->next;
-		mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
-		return ;
-	}
-	new = initialize_screen(d, &initialize_pixel_row);
-	d->zoom = new_zoom(d->zoom, x, y, new);
+  target = d->zoom->screen[y][x];
+  ty = target.ty;
+  tx = target.tx;
+	new = initialize_screen(d, tx, ty);
+	d->zoom = new_zoom(d->zoom, tx, ty, new);
 	render(d, calculate);
 }
 

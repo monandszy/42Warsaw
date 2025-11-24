@@ -104,15 +104,13 @@ typedef struct s_data
 
 int					initialize_graphics(t_data *d);
 int					initialize_defaults(t_data *d);
-t_pixel				**initialize_screen(t_data *d,
-						void (*initialize)(t_data *d, t_pixel *row, int x));
+t_pixel				**initialize_screen(t_data *d, double ofx, double ofy);
 t_zoom				*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen);
 int					calculate_mandelbrot_depth(t_data *d,
 						t_pixel *pixel, int n);
 int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
 void				render(t_data *d,
 						int (*calculate)(t_data *d, t_pixel *p, int n));
-void	initialize_pixel_row(t_data *d, t_pixel *row, int x);
 
 int					get_color(int r, int g, int b);
 char				*convert_color(t_data *d, t_img *img, void *dst, int depth);
