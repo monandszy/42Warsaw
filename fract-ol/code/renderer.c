@@ -30,13 +30,13 @@ void	render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n))
 		while (ix < d->x)
 		{
 			p = &((d->zoom)->screen)[iy][ix];
-			p->depth = calculate(d, p, 0);
+			p->depth = calculate(d, p, 0) / d->shift;
 			i = convert_color(d, &d->zoom->img, i, (p->depth));
 			ix++;
 		}
 		iy++;
-    if (iy % 100 == 0)
-      mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
+    if (iy % 20 == 0)
+      mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0); 
 	}
-  mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);
+  // mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);  
 }

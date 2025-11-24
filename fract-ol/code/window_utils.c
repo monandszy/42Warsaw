@@ -31,13 +31,13 @@ int	key_hook(int keycode, void *param)
 	if (keycode == 65307)
 		return (end(d));
   else if (keycode == 65362)
-    return(offset(d, tx, ty + 1.0));
+    return(offset(d, tx, ty + (d->escape_treshold * MOVE_STEP)));
   else if (keycode == 65364)
-    return(offset(d, tx, ty + -1.0));
+    return(offset(d, tx, ty - (d->escape_treshold * MOVE_STEP)));
   else if (keycode == 65361)
-    return(offset(d, tx + -1.0, ty));
+    return(offset(d, tx - (d->escape_treshold * MOVE_STEP), ty));
   else if (keycode == 65363)
-    return(offset(d, tx + 1.0, ty));
+    return(offset(d, tx + (d->escape_treshold * MOVE_STEP), ty));
 	return (0);
 }
 

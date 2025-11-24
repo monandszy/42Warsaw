@@ -43,15 +43,24 @@
 # endif
 
 # ifndef COLOR_STEP
-#  define COLOR_STEP 10
+#  define COLOR_STEP 4
 # endif
 
 # ifndef DEPTH_STEP
 #  define DEPTH_STEP 1
 # endif
 
+# ifndef SHIFT_STEP
+#  define SHIFT_STEP 0.96
+//  #  define SHIFT_STEP 1
+# endif
+
 # ifndef ZOOM_STEP
 #  define ZOOM_STEP 1.25
+# endif
+
+# ifndef MOVE_STEP
+#  define MOVE_STEP 0.5
 # endif
 
 typedef struct s_img
@@ -96,6 +105,7 @@ typedef struct s_data
 	double			escape_treshold;
 	double			resolution;
 	double			etsq;
+  double shift;
   int (*calculate)(struct s_data *d, t_pixel *p, int n);
 	t_pixel			julia_origin;
 	t_zoom			*zoom;

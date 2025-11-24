@@ -108,6 +108,7 @@ int	initialize_defaults(t_data *d)
 	d->etsq = ESCAPE_TRESHOLD * ESCAPE_TRESHOLD;
 	d->max_depth = MAX_DEPTH * RESOLUTION;
 	d->resolution = RESOLUTION;
+  d->shift = 1;
 	screen = initialize_screen(d, 0, 0);
 	if (!screen)
 		return (1);
