@@ -82,7 +82,7 @@ t_pixel	**initialize_screen(t_data *d, double ofx, double ofy)
 	return (screen);
 }
 
-t_zoom	*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen)
+t_zoom	*new_zoom(t_zoom *prev, double tx, double ty, t_pixel **screen)
 {
 	t_zoom	*zoom;
 
@@ -90,8 +90,8 @@ t_zoom	*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen)
 	if (!zoom)
 		return (NULL);
 	zoom->screen = screen;
-	zoom->tx = x;
-	zoom->ty = y;
+	zoom->tx = tx;
+	zoom->ty = ty;
 	zoom->next = NULL;
 	zoom->prev = prev;
 	if (prev)

@@ -82,9 +82,7 @@ int calculate_burning_depth(t_data *d, t_pixel *pixel, int n)
 		zisq = z.i * z.i;
 		tmp = zrsq - zisq + c.r;
 		z.i = (2 * fabs(z.r * z.i)) + c.i;
-		
 		z.r = tmp;
-		
 		if (zrsq + zisq > d->etsq)
 			return (n);
 		n++;

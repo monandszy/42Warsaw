@@ -54,11 +54,11 @@ static unsigned int	get_pixel_color(t_data *d, int depth)
 	r = 0;
 	g = 0;
 	b = 0;
-	if (depth < MAX_DEPTH * 3)
-	{
-		total = ((long)(depth) * COLOR_STEP) / DEPTH_STEP;
-		calculate_rgb_components(total, &r, &g, &b);
-	}
+  total = ((long)(depth) * COLOR_STEP) / DEPTH_STEP;
+	if (!IS_WHITE && depth >= MAX_DEPTH * 3)
+    ;
+  else
+    calculate_rgb_components(total, &r, &g, &b);
 	return (mlx_get_color_value(d->id, get_color(r, g, b)));
 }
 

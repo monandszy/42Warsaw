@@ -18,6 +18,7 @@ void	render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n))
 	char	*i;
 	int		ix;
 	int		iy;
+  int depth;
 
 	iy = 0;
 	d->zoom->img.id = mlx_new_image(d->id, d->x, d->y);
@@ -30,13 +31,13 @@ void	render(t_data *d, int (*calculate)(t_data *d, t_pixel *p, int n))
 		while (ix < d->x)
 		{
 			p = &((d->zoom)->screen)[iy][ix];
-			p->depth = calculate(d, p, 0) / d->shift;
-			i = convert_color(d, &d->zoom->img, i, (p->depth));
+			depth = calculate(d, p, 0);
+			i = convert_color(d, &d->zoom->img, i, depth);
 			ix++;
 		}
 		iy++;
-    if (iy % 20 == 0)
-      mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0); 
+    // if (iy % 20 == 0)
+    //   mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0); 
 	}
-  // mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);  
+  mlx_put_image_to_window(d->id, d->win_id, d->zoom->img.id, 0, 0);  
 }

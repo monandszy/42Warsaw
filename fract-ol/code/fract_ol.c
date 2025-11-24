@@ -70,7 +70,7 @@ static void	print_usage(void)
 {
 	ft_printf("---ARGS---\n");
 	ft_printf("[0] for Mandelbrot [1] for Burning Ship\n");
-  ft_printf("[x] [double] [double] for Julia or Burning Julia\n");
+  ft_printf("[0 or 1] [double] [double] for Julia or Burning Julia\n");
 }
 
 static int	handle_julia(char *s1, char *s2, int (*calculate)(t_data *d, t_pixel *p, int n))
@@ -106,6 +106,6 @@ int	main(int argc, char **argv)
 			return (write(2, "Error\n", 6), 1);
   }
 	else
-		return (write(2, "Input Error\n", 12), 1);
+		return (write(2, "Input Error\n", 12), print_usage(), 1);
 	return (0);
 }

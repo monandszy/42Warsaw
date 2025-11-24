@@ -22,8 +22,13 @@
 # include <time.h>
 # include <unistd.h>
 
+# ifndef IS_WHITE
+#  define IS_WHITE 0
+# endif
+
 # ifndef ESCAPE_TRESHOLD
 #  define ESCAPE_TRESHOLD 3
+// #  define ESCAPE_TRESHOLD 2
 # endif
 
 # ifndef MAX_DEPTH
@@ -32,18 +37,26 @@
 
 # ifndef RESOLUTION
 #  define RESOLUTION 3
+// #  define RESOLUTION 1.5
+// #  define RESOLUTION 0.25
+// #  define RESOLUTION 0.125
 # endif
 
 # ifndef X_EDGE
-#  define X_EDGE 1000
+// #  define X_EDGE 1000
+#  define X_EDGE 1800
 # endif
 
 # ifndef Y_EDGE
-#  define Y_EDGE 1000
+// #  define X_EDGE 1000
+#  define Y_EDGE 1100
 # endif
 
 # ifndef COLOR_STEP
+// #  define COLOR_STEP 1
 #  define COLOR_STEP 4
+// #  define COLOR_STEP 15
+// #  define COLOR_STEP 30
 # endif
 
 # ifndef DEPTH_STEP
@@ -56,7 +69,8 @@
 # endif
 
 # ifndef ZOOM_STEP
-#  define ZOOM_STEP 1.25
+#  define ZOOM_STEP 2
+// #  define ZOOM_STEP 1.25
 # endif
 
 # ifndef MOVE_STEP
@@ -76,7 +90,6 @@ typedef struct s_pixel
 {
 	double			tx;
 	double			ty;
-	int				depth;
 }					t_pixel;
 
 typedef struct s_complex
@@ -87,8 +100,8 @@ typedef struct s_complex
 
 typedef struct s_zoom
 {
-	int				tx;
-	int				ty;
+	double				tx;
+	double				ty;
 	t_pixel			**screen;
 	t_img			img;
 	struct s_zoom	*next;
@@ -114,7 +127,7 @@ typedef struct s_data
 int					initialize_graphics(t_data *d);
 int					initialize_defaults(t_data *d);
 t_pixel				**initialize_screen(t_data *d, double ofx, double ofy);
-t_zoom				*new_zoom(t_zoom *prev, int x, int y, t_pixel **screen);
+t_zoom				*new_zoom(t_zoom *prev, double tx, double ty, t_pixel **screen);
 int					calculate_mandelbrot_depth(t_data *d,
 						t_pixel *pixel, int n);
 int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
@@ -130,6 +143,7 @@ int					key_hook(int keycode, void *param);
 int					end(void *param);
 void				free_screen(t_pixel **s);
 void				free_zoom_stack(t_data *data);
+
 int					open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p, int n));
 int					open_julia(t_pixel *origin, int (*calculate)(t_data *d, t_pixel *p, int n));
 

@@ -49,7 +49,7 @@ int	open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p, int n))
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
   d->calculate = calculate;
 	render(d, calculate);
-	mlx_string_put(d->id, d->win_id, 0, 50, get_color(255, 0, 0),
+	mlx_string_put(d->id, d->win_id, 0, 50, get_color(255, 255, 255),
 		"Zoom into Mandelbrot or Left click to view Julia");
 	mlx_loop(d->id);
 	free_zoom_stack(d);

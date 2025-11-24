@@ -32,8 +32,8 @@ void	zoom_in(t_data *d, int x, int y)
 	d->escape_treshold = d->escape_treshold / ZOOM_STEP;
   d->shift = d->shift / SHIFT_STEP;
   target = d->zoom->screen[y][x];
-  ty = target.ty;
   tx = target.tx;
+  ty = target.ty;
 	new = initialize_screen(d, tx, ty);
 	d->zoom = new_zoom(d->zoom, tx, ty, new);
 	render(d, d->calculate);
