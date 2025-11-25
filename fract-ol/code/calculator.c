@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 14:43:17 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/25 12:23:10 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:40:15 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	calculate_ship_depth(t_data *d, t_pixel *pixel, int n)
 	static t_complex	c;
 
 	c.r = pixel->tx;
-	c.i = -pixel->ty;
+	c.i = pixel->ty;
 	z.r = 0;
 	z.i = 0;
 	while (n < d->max_depth)
@@ -99,7 +99,7 @@ int	calculate_burning_depth(t_data *d, t_pixel *pixel, int n)
 	static t_complex	c;
 
 	c.r = d->julia_origin.tx;
-	c.i = -d->julia_origin.ty;
+	c.i = d->julia_origin.ty;
 	z.r = pixel->tx;
 	z.i = pixel->ty;
 	while (n < d->max_depth)

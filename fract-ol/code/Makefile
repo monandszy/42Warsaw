@@ -33,7 +33,6 @@ run: all
 
 libmake:
 	make bonus -C printf > /dev/null 2>&1
-	make -C ./minilibx > /dev/null 2>&1
 
 clean:
 	make fclean -C printf > /dev/null 2>&1

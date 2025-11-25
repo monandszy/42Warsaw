@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:16:13 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/25 12:27:19 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:38:31 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static void	initialize_pixel_row(t_data *d, t_pixel *row_pos, int y,
 		id.h = id.hy;
 	else
 		id.h = id.hx;
-	id.oty = (id.hy - id.hy);
+	id.oty = (id.y - id.hy);
 	while (id.x < d->x)
 	{
 		id.otx = (id.x - id.hx);
 		row_pos->ty = (id.oty / id.h) * d->escape_treshold + target->ty;
 		row_pos->tx = (id.otx / id.h) * d->escape_treshold + target->tx;
 		row_pos++;
-		id.x++;
+		id.x += 1;
 	}
 }
 

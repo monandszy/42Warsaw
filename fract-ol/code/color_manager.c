@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_management.c                                 :+:      :+:    :+:   */
+/*   color_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 18:23:23 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/14 18:35:04 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:45:32 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static unsigned int	get_pixel_color(t_data *d, long depth)
 	g = 0;
 	b = 0;
 	total = ((depth * COLOR_STEP) / DEPTH_STEP);
-	if (!IS_WHITE && depth == d->max_depth)
+	if (!(IS_WHITE == 1) && depth == d->max_depth)
 		;
 	else if (!IS_SHIFT || d->shift == 1)
 		calculate_rgb_components(total % d->max_depth, &r, &g, &b);

@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:16:10 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/25 12:27:30 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:43:51 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include <unistd.h>
 
 # ifndef IS_WHITE
-#  define IS_WHITE 0
+#  define IS_WHITE 1
 # endif
 
 # ifndef IS_SHIFT
-#  define IS_SHIFT 1
+#  define IS_SHIFT 0
 # endif
 
 # ifndef ESCAPE_TRESHOLD
