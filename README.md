@@ -13,7 +13,10 @@ This repository projects I made from the C Core at 42Warsaw. I started the curri
 
 ### push_swap
 
-### Circle
-Contains some notes about the hidden CC Treasure hunt puzzle. No concrete progress has been made on it.
+### fract-ol
+
+### minitalk
+
+### pipex
 
 ## Reflections on the 42 Program
