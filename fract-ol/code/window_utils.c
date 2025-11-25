@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 18:23:23 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/14 18:35:04 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:29:27 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@
 int	key_hook(int keycode, void *param)
 {
 	t_data	*d;
-  double tx;
-  double ty;
+	double	tx;
+	double	ty;
 
 	d = (t_data *)param;
-  tx = d->zoom->tx;
-  ty = d->zoom->ty;
+	tx = d->zoom->tx;
+	ty = d->zoom->ty;
 	if (keycode == 65307)
 		return (end(d));
-  else if (keycode == 65362)
-    return(offset(d, tx, ty + d->escape_treshold));
-  else if (keycode == 65364)
-    return(offset(d, tx, ty - d->escape_treshold));
-  else if (keycode == 65361)
-    return(offset(d, tx - d->escape_treshold, ty));
-  else if (keycode == 65363)
-    return(offset(d, tx + d->escape_treshold, ty));
+	else if (keycode == 65362)
+		return (offset(d, tx, ty + d->escape_treshold));
+	else if (keycode == 65364)
+		return (offset(d, tx, ty - d->escape_treshold));
+	else if (keycode == 65361)
+		return (offset(d, tx - d->escape_treshold, ty));
+	else if (keycode == 65363)
+		return (offset(d, tx + d->escape_treshold, ty));
 	return (0);
 }
 

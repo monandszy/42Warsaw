@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:16:10 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/14 18:35:08 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:27:30 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,14 @@ typedef struct s_pixel
 
 typedef struct s_complex
 {
-	double	r;
-	double	i;
+	double			r;
+	double			i;
 }					t_complex;
 
 typedef struct s_zoom
 {
-	double				tx;
-	double				ty;
+	double			tx;
+	double			ty;
 	t_pixel			**screen;
 	t_img			img;
 	struct s_zoom	*next;
@@ -127,23 +127,35 @@ typedef struct s_data
 	double			escape_treshold;
 	double			resolution;
 	double			etsq;
-  double shift;
-  int (*calculate)(struct s_data *d, t_pixel *p, int n);
+	double			shift;
+	int				(*calculate)(struct s_data *d, t_pixel *p, int n);
 	t_pixel			julia_origin;
 	t_zoom			*zoom;
 }					t_data;
 
+typedef struct s_p_data
+{
+	int				x;
+	int				y;
+	double			otx;
+	double			oty;
+	double			hy;
+	double			hx;
+	double			h;
+}					t_p_data;
+
 int					initialize_graphics(t_data *d);
 int					initialize_defaults(t_data *d);
 t_pixel				**initialize_screen(t_data *d, double ofx, double ofy);
-t_zoom				*new_zoom(t_zoom *prev, double tx, double ty, t_pixel **screen);
-int					calculate_mandelbrot_depth(t_data *d,
-						t_pixel *pixel, int n);
+t_zoom				*new_zoom(t_zoom *prev, double tx, double ty,
+						t_pixel **screen);
+int					calculate_mandelbrot_depth(t_data *d, t_pixel *pixel,
+						int n);
 int					calculate_julia_depth(t_data *d, t_pixel *pixel, int n);
-int calculate_burning_depth(t_data *d, t_pixel *pixel, int n);
-int calculate_ship_depth(t_data *d, t_pixel *pixel, int n);
-void				render(t_data *d,
-						int (*calculate)(t_data *d, t_pixel *p, int n));
+int					calculate_burning_depth(t_data *d, t_pixel *pixel, int n);
+int					calculate_ship_depth(t_data *d, t_pixel *pixel, int n);
+void				render(t_data *d, int (*calculate)(t_data *d, t_pixel *p,
+							int n));
 
 int					get_color(int r, int g, int b);
 char				*convert_color(t_data *d, t_img *img, void *dst, int depth);
@@ -153,10 +165,12 @@ int					end(void *param);
 void				free_screen(t_pixel **s);
 void				free_zoom_stack(t_data *data);
 
-int					open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p, int n));
-int					open_julia(t_pixel *origin, int (*calculate)(t_data *d, t_pixel *p, int n));
+int					open_mandelbrot(int (*calculate)(t_data *d, t_pixel *p,
+							int n));
+int					open_julia(t_pixel *origin, int (*calculate)(t_data *d,
+							t_pixel *p, int n));
 
-int offset(t_data *d, double tx, double ty);
+int					offset(t_data *d, double tx, double ty);
 void				zoom_in(t_data *d, int x, int y);
 void				zoom_out(t_data *d);
 

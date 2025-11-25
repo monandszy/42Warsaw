@@ -41,7 +41,7 @@ int	open_julia(t_pixel *origin, int (*calculate)(t_data *d, t_pixel *p, int n))
 	mlx_mouse_hook(d->win_id, &mouse_hook, d);
 	d->julia_origin.tx = origin->tx;
 	d->julia_origin.ty = origin->ty;
-  d->calculate = calculate;
+	d->calculate = calculate;
 	render(d, calculate);
 	mlx_loop(d->id);
 	free_zoom_stack(d);

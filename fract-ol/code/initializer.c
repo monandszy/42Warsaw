@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:16:13 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/14 18:35:08 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:27:19 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,47 +30,43 @@ int	initialize_graphics(t_data *d)
 	return (0);
 }
 
-
-static void	initialize_pixel_row(t_data *d, t_pixel *row_pos, int y, t_pixel *target)
+static void	initialize_pixel_row(t_data *d, t_pixel *row_pos, int y,
+		t_pixel *target)
 {
-	int		x;
-	double	otx;
-	double	oty;
-	double	hy;
-	double	hx;
-  double h;
+	static t_p_data	id;
 
-	x = 0;
-	hx = d->x / 2.0;
-	hy = d->y / 2.0;
-  if (hx > hy)
-    h = hy;
-  else
-    h = hx;
-	oty = (hy - y);
-	while (x < d->x)
+	id.y = y;
+	id.x = 0;
+	id.hx = d->x / 2.0;
+	id.hy = d->y / 2.0;
+	if (id.hx > id.hy)
+		id.h = id.hy;
+	else
+		id.h = id.hx;
+	id.oty = (id.hy - id.hy);
+	while (id.x < d->x)
 	{
-		otx = (x - hx);
-		row_pos->ty = (oty / h) * d->escape_treshold + target->ty;
-		row_pos->tx = (otx / h) * d->escape_treshold + target->tx;
+		id.otx = (id.x - id.hx);
+		row_pos->ty = (id.oty / id.h) * d->escape_treshold + target->ty;
+		row_pos->tx = (id.otx / id.h) * d->escape_treshold + target->tx;
 		row_pos++;
-		x++;
+		id.x++;
 	}
 }
 
 t_pixel	**initialize_screen(t_data *d, double ofx, double ofy)
 {
-  static t_pixel target;
-	t_pixel	**screen;
-	int		i;
+	static t_pixel	target;
+	t_pixel			**screen;
+	int				i;
 
 	screen = (t_pixel **)malloc(sizeof(t_pixel *) * (d->y + 1));
 	if (!screen)
 		return (NULL);
 	screen[d->y] = NULL;
 	i = 0;
-  target.tx = ofx;
-  target.ty = ofy;
+	target.tx = ofx;
+	target.ty = ofy;
 	while (i < d->y)
 	{
 		screen[i] = (t_pixel *)malloc(sizeof(t_pixel) * (d->x + 1));
@@ -108,7 +104,7 @@ int	initialize_defaults(t_data *d)
 	d->etsq = ESCAPE_TRESHOLD * ESCAPE_TRESHOLD;
 	d->max_depth = MAX_DEPTH * RESOLUTION;
 	d->resolution = RESOLUTION;
-  d->shift = 1;
+	d->shift = 1;
 	screen = initialize_screen(d, 0, 0);
 	if (!screen)
 		return (1);
