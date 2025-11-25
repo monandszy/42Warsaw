@@ -26,6 +26,10 @@
 #  define IS_WHITE 0
 # endif
 
+# ifndef IS_SHIFT
+#  define IS_SHIFT 1
+# endif
+
 # ifndef ESCAPE_TRESHOLD
 #  define ESCAPE_TRESHOLD 3
 // #  define ESCAPE_TRESHOLD 2
@@ -54,7 +58,8 @@
 
 # ifndef COLOR_STEP
 // #  define COLOR_STEP 1
-#  define COLOR_STEP 4
+#  define COLOR_STEP 3
+// #  define COLOR_STEP 4
 // #  define COLOR_STEP 15
 // #  define COLOR_STEP 30
 # endif
@@ -63,14 +68,18 @@
 #  define DEPTH_STEP 1
 # endif
 
-# ifndef SHIFT_STEP
-#  define SHIFT_STEP 0.96
-//  #  define SHIFT_STEP 1
-# endif
+// # ifndef SHIFT_STEP
+// #  define SHIFT_STEP 0.96
+// //  #  define SHIFT_STEP 1
+// # endif
 
 # ifndef ZOOM_STEP
 #  define ZOOM_STEP 2
 // #  define ZOOM_STEP 1.25
+# endif
+
+# ifndef SHIFT_MAX
+#  define SHIFT_MAX 3
 # endif
 
 # ifndef MOVE_STEP

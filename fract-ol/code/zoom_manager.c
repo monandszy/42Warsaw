@@ -30,7 +30,9 @@ void	zoom_in(t_data *d, int x, int y)
   double ty;
 
 	d->escape_treshold = d->escape_treshold / ZOOM_STEP;
-  d->shift = d->shift / SHIFT_STEP;
+  d->shift++;
+  if (d->shift == SHIFT_MAX)
+    d->shift = 0;
   target = d->zoom->screen[y][x];
   tx = target.tx;
   ty = target.ty;
@@ -47,7 +49,6 @@ void	zoom_out(t_data *d)
 	if (!tmp->prev)
 		return ;
 	d->escape_treshold = d->escape_treshold * ZOOM_STEP;
-  d->shift = d->shift * SHIFT_STEP;
 	d->zoom = d->zoom->prev;
   free_screen(tmp->screen);
   mlx_destroy_image(d->id, tmp->img.id);
