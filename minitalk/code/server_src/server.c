@@ -1,33 +1,38 @@
 
 #include "server.h"
 
-void handler(int signo)
+void signal_handler(int signum, siginfo_t *info, void *context)
 {
-  if (signo == SIGUSR1)
+  static unsigned char c = 0;
+  static int i = 0;
+  (void)context;
+
+  if (signum == SIGUSR1)
+    c |= (1 << i);
+  i++;
+  if (i == 8)
   {
-    ft_printf("true\n");
+    ft_printf("%c", c);
+    i = 0;
+    c = 0;
   }
-  else if (signo == SIGUSR2)
-  {
-    ft_printf("false\n");
-  }
+  if (info->si_pid)
+    kill(info->si_pid, SIGUSR1);
 }
 
 int main(void)
 {
-  pid_t pid;
-  struct sigaction action;
-  sigset_t set;
+  struct sigaction sa;
 
-  sigemptyset(&set);
-  sigaddset(&set, SIGUSR1);
-  sigaddset(&set, SIGUSR2);
-
-  action.sa_handler = handler;
-  action.sa_mask = set;
-  pid = getpid();
-  ft_printf("%d\n", pid);
-  sigaction(SIGUSR1, &action, NULL);
-  sigaction(SIGUSR2, &action, NULL);
-  read(STDIN_FILENO, "  ", 1);
+  ft_printf("PID: %d\n", getpid());
+  sa.sa_sigaction = signal_handler;
+  sa.sa_flags = SA_SIGINFO;
+  sigemptyset(&sa.sa_mask);
+  sigaddset(&sa.sa_mask, SIGUSR1);
+  sigaddset(&sa.sa_mask, SIGUSR2);
+  sigaction(SIGUSR1, &sa, NULL);
+  sigaction(SIGUSR2, &sa, NULL);
+  while (1)
+    pause();
+  return (0);
 }
