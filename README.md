@@ -23,12 +23,9 @@ This was a systems architechture project, which revolved around setting up and c
 
 ### push_swap
 The premise to create an optimal sorting algorithm was interesting at first. Initiall implementation resolved around calculating the most optimal move the program could make at the current moment. The move was the seqence of operations on both stacks to push the number to the correct spot in the target stack. However this implementation was not enough to pass the benchmarks, so I added backtracking logic to recursively check other paths.
-Since that was not enough, I started to experiment with other approaches to improve the operation count, mainly presorting. I implemented LIS (Largest increasing seqence) detection, but that was not enough, so I in the end I decided on the divide and conquer algorithm.7+
+Since that was not enough, I started to experiment with other approaches to improve the operation count, mainly presorting. I implemented LIS (Largest increasing seqence) detection, but that was not enough, so I in the end I decided on the divide and conquer algorithm.
     
-<video controls width="640" height="360">
-  <source src="docs/msrdc_qBhPwRhIAy.mp4" type="video/mp4">
-  No visualization for you
-</video>
+![Well. At least this looks cool](docs/msrdc_qBhPwRhIAy.gif)
 
 ### fract-ol
 My favourite C project that I made. First, the topic itself was intriguing, allowing me to learn new math concepts. Second, it was a graphical project, so naturally I picked my favourite warm-fire color pattern. Third, less input validation, I was getting sick of it. The implementation proceeded smoothly, although the limitations of the minilibx library and not being able to use multithreading constrained the performance. I manged to implement a cool way to explore the Julia fractal variations, all you need to do is to just click on the corresponding mandelbrot pixel. This opens a new window for the given complex number coordinates. Lastly I added the Buring ship and julia fractals.
