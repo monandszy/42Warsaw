@@ -12,80 +12,93 @@
 
 #include "pipex.h"
 
-void end(t_data *data, char *str)
+// read from infile
+// pass content to cmd1
+// redirect cmd1 to pipe
+// pass content to cmdx
+// write to outfile
+
+/* 
+int p[2]; // p[0] read p[1] write
+*/
+
+void write_all(t_data *data, int fd, char *content)
 {
-  int i;
-  if (data->argv_split)
-    free(data->argv_split);
-  if (data->paths)
-    f_sp(data->paths);
-  if (data->cmd)
-  {
-    i = 0;
-    while(i < data->cmd_count)
-    {
-      free(data->cmd[i].name);
-      free(data->cmd[i].path);
-      i++;
-    }
-    free(data->cmd);
-  }
-  if (str)
-  {
-    write(STDERR_FILENO, str, ft_strlen(str));
-    exit(1);
-  }
-  exit(0);
+  if (fd < 0)
+    end(data, "invalid fd\n");
+  write(fd, content, ft_strlen(content));
+  close(fd);
 }
 
-void	f_sp(char **sp)
+char *read_all(t_data *data, int fd)
 {
-	int	i;
+  int bread;
+  char buffer[101];
+  char *content;
+  char *tmp;
 
-	i = 0;
-	if (sp)
-	{
-		while (sp[i])
-		{
-			free(sp[i]);
-			i++;
-		}
-		free(sp);
-	}
+  if (fd < 0)
+    end(data, "invalid fd\n");
+  bread = 1;
+  content = NULL;
+  while(bread > 0)
+  {
+    bread = read(fd, buffer, 100);
+    buffer[bread] = '\0';
+    tmp = content;
+    content = ft_strjoin(content, buffer);
+    if(!content)
+        end(data, "malloc error\n");
+    free(tmp);
+  }
+  close(fd);
+  return (content);
 }
 
-
-void validate_data(t_data *data)
+void pipex(t_data *data, char **envp)
 {
-  int flag;
-  char *path;
   int i;
-  int j;
-
-  if (access(data->infile, R_OK))
-    end(data, "infile not found\n");
-  if (access(data->outfile, W_OK))
-    end(data, "outfile not found\n");
+  int pid;
+  int fd[2];
+  int fd2[2];
+  char *content;
 
   i = 0;
+  content = read_all(data, open(data->infile, O_RDONLY));
   while (i < data->cmd_count)
   {
-    j = 0;
-    flag = 0;
-    while (data->paths[j])
+    if (pipe(fd) == -1)
+      end(data, "pipe fail");
+    if (pipe(fd2) == -1)
+      end(data, "pipe fail");
+    pid = fork();
+    if (pid < 0)
+      end(data, "fork failed\n");
+    else if (pid == 0)
     {
-      path = ft_strjoin(data->paths[j], data->cmd[i].name);
-      if (access(path, X_OK) == 0)
-        break;
-      free(path);
-      j++;
+      close(fd2[1]);
+      close(fd[0]);
+      if (dup2(fd[1], STDOUT_FILENO) == -1)
+        end(data, "dup2 fail"); // output
+      close(fd[1]);
+      if (dup2(fd2[0], STDIN_FILENO) == -1)
+        end(data, "dup2 fail"); // input
+      close(fd2[0]);
+      execve(data->cmd[i].path, data->cmd[i].params, envp);
     }
-    if (!data->paths[j])
-      end(data, "command not found on path\n");
-    printf("%s\n", path);
-    data->cmd[i].path = path;
+    else {
+      close(fd[1]);
+      close(fd2[0]);
+      write_all(data, fd2[1], content);
+      close(fd2[1]);
+      wait(NULL);
+      free(content);
+      content = read_all(data, fd[0]);
+    }
     i++;
   }
+  write_all(data, open(data->outfile, O_WRONLY), content);
+  free(content);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -96,5 +109,6 @@ int main(int argc, char **argv, char **envp)
     end(&data, "argc error\n");
   initalize(&data, argc, argv, envp);
   validate_data(&data);
+  pipex(&data, envp);
   end(&data, NULL);
 }

@@ -23,9 +23,9 @@
 typedef struct s_command
 {
   char *command;
+  char **params;
   char *path;
   char *name;
-  char *args;
 } t_command;
 
 typedef struct s_data
@@ -33,6 +33,7 @@ typedef struct s_data
 char **argv_split;
 char **paths;
 char *infile;
+char *incontent;  
 char *outfile;
 t_command *cmd;
 int cmd_count;
@@ -46,26 +47,16 @@ char	**argv_split(char **argv, int argc);
 void	f_sp(char **sp);
 void initalize(t_data *data, int argc, char **argv, char **envp);
 void end(t_data *data, char *str);
+void validate_data(t_data *data);
 
 // strerror - returns a string describing the error message
 // char *strerror(int errnum);
-
-// access - path accessability check
-// int access(const char *path, int amode);
 
 // dup dup2 - already open file description duplication
 // int dup(int oldfd);
 // int dup2(int oldfd, int newfd); - specific number
 
-// executes the program referred to by path
-//  int execve(const char *path, char *const _Nullable argv[],
-//                  char *const _Nullable envp[]);
-// envp is an array of pointers to strings, conventionally of the
-//  form key=value, which are passed as the environment of the new
-//  program.  The envp array must be terminated by a null pointer.
-
-// fork -  creates a new process by duplicating the calling process.
-
+// fork - creates a new process by duplicating the calling process.
 /* •  The child inherits copies of the parent's set of open file
 descriptors.  Each file descriptor in the child refers to the
 same open file description (see open(2)) as the corresponding

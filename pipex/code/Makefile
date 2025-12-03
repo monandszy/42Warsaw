@@ -3,7 +3,9 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
 SRC = \
     pipex.c \
-	init_utils.c
+	init_utils.c \
+	validator.c \
+	mem_utils.c
 
 OBJ = $(SRC:.c=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
