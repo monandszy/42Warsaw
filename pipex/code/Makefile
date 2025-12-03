@@ -2,7 +2,8 @@ NAME = pipex
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
 SRC = \
-    pipex.c
+    pipex.c \
+	init_utils.c
 
 OBJ = $(SRC:.c=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

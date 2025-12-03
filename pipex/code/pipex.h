@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 11:30:24 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/11/28 11:30:58 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/12/03 12:39:53 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,35 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
+# include "printf/ft_printf.h"
+
+typedef struct s_command
+{
+  char *command;
+  char *path;
+  char *name;
+  char *args;
+} t_command;
+
+typedef struct s_data
+{
+char **argv_split;
+char **paths;
+char *infile;
+char *outfile;
+t_command *cmd;
+int cmd_count;
+} t_data;
+
+
 // perror - prints a message to stderror
 // void perror(const char *string);
+
+char	**argv_split(char **argv, int argc);
+void	f_sp(char **sp);
+void initalize(t_data *data, int argc, char **argv, char **envp);
+void end(t_data *data, char *str);
 
 // strerror - returns a string describing the error message
 // char *strerror(int errnum);
