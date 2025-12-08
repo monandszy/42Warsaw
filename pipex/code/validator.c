@@ -2,7 +2,7 @@
 
 void validate_data(t_data *data)
 {
-  int flag;
+
   char *path;
   int i;
   int j;
@@ -16,7 +16,6 @@ void validate_data(t_data *data)
   while (i < data->cmd_count)
   {
     j = 0;
-    flag = 0;
     while (data->paths[j])
     {
       path = ft_strjoin(data->paths[j], data->cmd[i].name);
