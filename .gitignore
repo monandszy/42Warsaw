@@ -3,5 +3,5 @@
 *.a
 *.swp
 libft/
+printf/
 .idea/
-printf/code/ft_printf_tester
