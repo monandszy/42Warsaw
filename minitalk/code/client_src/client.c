@@ -1,7 +1,7 @@
 
 #include "client.h"
 
-static volatile sig_atomic_t g_flag = 0;
+volatile sig_atomic_t g_flag = 0;
 
 void confirmation_handler(int signum)
 {

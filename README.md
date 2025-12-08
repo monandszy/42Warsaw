@@ -1,7 +1,7 @@
 # 42Warsaw Core C Projects
 
 ## Description
-This repository contains projects I made from the C Common Core at 42Warsaw. I started the curriculum at 22.09.2025, currently ongoing.
+This repository contains projects I made from the C Common Core at 42Warsaw. I started the curriculum at 22.09.2025, end at 07.12.2025
 
 ### Libft
 This project was about reimplementing core C functions, and writing other utilities. The scope contained pointer manipulations, string comparison and searching, data type conversion, file operations, and linked lists. It served as a base for future projects. Many things can go wrong when null is the input to your function.
