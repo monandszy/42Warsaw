@@ -36,6 +36,8 @@ void *handler(void *arg)
       return(0);
     if(philo->eat_count == philo->data->total_eat_count)
       return(0);
+    if(philo->data->end)
+      return (0);
     philo->last_eaten=getMiliTime();
     print_state(philo, "is sleeping");
     milisleep(philo->data->time_to_sleep);

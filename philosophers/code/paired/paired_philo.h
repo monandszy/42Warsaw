@@ -61,6 +61,7 @@ typedef struct s_data
   long long time_to_eat;
   long long time_to_sleep;
   int total_eat_count;
+  volatile int end;
 } t_data;
 
 typedef struct s_philo
@@ -68,7 +69,7 @@ typedef struct s_philo
   t_data *data;
   int id;
   int pid;
-  long long last_eaten;
+  volatile long long last_eaten;
   int eat_count;
   pthread_t buffer;
   t_fork fork;
@@ -81,8 +82,8 @@ t_philo *create_philo(int id, t_data *data);
 void init(t_data *data);
 void end(t_data *data, t_philo *philo);
 void resurrect(t_philo *philo);
-void check_state(t_philo *philo);
 void print_state(t_philo *philo, char *state);
+void print_end_state(t_philo *philo, char *state);
 long long getMiliTime(void);
 long long ft_altoi(char *i);
 void milisleep(long long mili);

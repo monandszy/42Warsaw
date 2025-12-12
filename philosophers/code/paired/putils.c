@@ -48,10 +48,15 @@ void resurrect(t_philo *philo)
   buffer = &philo->buffer;
   pid = pthread_create(buffer, NULL, &handler, philo);
   philo->pid = pid;
-  pthread_detach(*buffer);
 }
 
 void print_state(t_philo *philo, char *state)
+{
+  if(!philo->data->end)
+    printf("%lld %d %s\n", getMiliTime(), philo->id, state);
+}
+
+void print_end_state(t_philo *philo, char *state)
 {
   printf("%lld %d %s\n", getMiliTime(), philo->id, state);
 }

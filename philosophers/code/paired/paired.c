@@ -23,6 +23,7 @@ static int parse(t_data *data, int argc, char **argv)
     data->time_to_sleep < 0 ||
     data->time_to_die < 0)
     return (1);
+  data->end=0;
   return (0);
 }
 
@@ -92,7 +93,8 @@ static void monitor(t_data *data, t_philo *curr)
         expiration_time = curr->last_eaten + data->time_to_die - getMiliTime();
         if (expiration_time < 0)
         {
-          print_state(curr, "has died");
+          data->end = 1;
+          print_end_state(curr, "has died");
           return ;
         }
       }
@@ -100,6 +102,19 @@ static void monitor(t_data *data, t_philo *curr)
     }
     if (!flag)
       return ;
+  }
+}
+
+void waitforend(t_data *data, t_philo *curr)
+{
+  int i;
+
+  i = 0;
+  while (i < data->philo_count)
+  {
+    pthread_join(curr->buffer, NULL);
+    curr=curr->next;
+    i++;
   }
 }
 
@@ -117,6 +132,7 @@ int main(int argc, char **argv)
   (void) monitor;
   start(&data, head);
   monitor(&data, head);
+  waitforend(&data, head);
   end(&data, head);
   return (0);
 }
