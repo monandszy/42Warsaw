@@ -1,5 +1,5 @@
-NAME = pipex
-BNAME = semaphore_pipex
+NAME = philo
+BNAME = semaphore_philo
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
 SEMAPHORE =  \
@@ -28,10 +28,10 @@ $(OBJ_DIR)/%.o: $(P_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 compile_p:
-	$(CC) $(CFLAGS) $(SOBJ) $(SSOBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(POBJ) $(PPOBJ) -o $(NAME)
 
 compile_s:
-	$(CC) $(CFLAGS) $(POBJ) $(PPOBJ) -o $(BNAME)
+	$(CC) $(CFLAGS) $(SOBJ) $(SSOBJ) -o $(BNAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
