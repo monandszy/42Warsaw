@@ -5,7 +5,8 @@ CFLAGS = -g -Wall -Wextra -Werror
 SEMAPHORE =  \
 	sutils.c
 PAIRED = \
-	putils.c
+	putils.c \
+	executor.c
 
 SMAIN = semaphore.c
 PMAIN = paired.c

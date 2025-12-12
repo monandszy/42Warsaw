@@ -1,62 +1,10 @@
 #include "paired_philo.h"
 
-void fork_takeover(t_philo *philo)
-{
-  pthread_mutex_t *mutex;
-  t_fork *fork;
-
-  mutex = philo->data->mutex;
-  pthread_mutex_lock(mutex);
-  fork = &philo->next->fork;
-  while (1)
-  {
-    if (!fork->is_taken)
-    {
-      fork->is_taken = 1;
-      break;
-    }
-  }
-  pthread_mutex_unlock(mutex);
-}
-
-void fork_return(t_philo *philo)
-{
-  // pthread_mutex_t *mutex;
-  t_fork *fork;
-
-  // mutex = philo->data->mutex;
-  // pthread_mutex_lock(mutex);
-  fork = &philo->fork;
-  while (1)
-  {
-    if (fork->is_taken)
-    {
-      fork->is_taken = 0;
-      break;
-    }
-  }
-  // pthread_mutex_unlock(mutex);
-}
-
-void *handler(void *arg)
-{
-  t_philo *philo;
-
-  philo = (t_philo *) arg;
-  while(1)
-  {
-    fork_takeover(philo);
-    usleep(1000000);
-    fork_return(philo);
-    printf("threadium runnnin[%d]\n", philo->id);
-    check_state(philo);
-  }
-  return (0);
-}
-
 t_philo *create_philo(int id, t_data *data)
 {
+  pthread_mutex_t *mutex;
   t_philo *new;
+  t_fork *fork;
 
   new = (t_philo *) malloc(sizeof(t_philo));
   if (!new)
@@ -65,27 +13,31 @@ t_philo *create_philo(int id, t_data *data)
   new->id=id;
   new->pid=0;
   new->buffer=0;
-  new->fork.is_taken=0;
+  fork = &new->fork;
+  mutex = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t));
+  if (!new)
+    return (free(new), NULL);
+  fork->mutex = mutex;
+  pthread_mutex_init(fork->mutex, NULL);
   return (new);
-}
-
-void init(t_data *data)
-{
-  static pthread_mutex_t mutex;
-
-  pthread_mutex_init(&mutex, NULL);
-  data->philo_count = 3;
-  data->mutex=&mutex;
 }
 
 void end(t_data *data, t_philo *philo)
 {
-  pthread_mutex_t *mutex;
+  int i;
+  t_philo *tmp;
 
-  mutex = data->mutex;
-  pthread_mutex_destroy(mutex);
-  free(data); // TODO - free philo
-  free(philo);
+  i = 0;
+  while (philo && i < data->philo_count)
+  {
+    tmp = philo;
+    philo=philo->next;
+    pthread_mutex_destroy(tmp->fork.mutex);
+    free(tmp->fork.mutex);
+    free(tmp);
+    i++;
+  }
+  free(data);
 }
 
 void resurrect(t_philo *philo)
@@ -99,7 +51,15 @@ void resurrect(t_philo *philo)
   pthread_detach(*buffer);
 }
 
-void check_state(t_philo *philo)
+void print_state(t_philo *philo, char *state)
 {
-  printf("[%d, %d, %ld, %d]\n", philo->id, philo->pid, philo->buffer, philo->fork.is_taken);
+  printf("%lld %d %s\n", getMiliTime(), philo->id, state);
+}
+
+long long getMiliTime(void)
+{
+  struct timeval tv;
+
+  gettimeofday(&tv, NULL);
+  return((long long)(tv.tv_sec) * 1000 + (tv.tv_usec / 1000));
 }

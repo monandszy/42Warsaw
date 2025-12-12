@@ -7,9 +7,51 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
+/* 
+- number_of_philosophers: The number of philosophers and also the number of forks.
+- time_to_die (in milliseconds): If a philosopher has not started eating within time_to_die milliseconds since the start of their last meal or the start of the simulation, they die.
+- time_to_eat (in milliseconds): The time it takes for a philosopher to end eat.
+During that time, they will need to hold two forks.
+- time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
+- number_of_times_each_philosopher_must_eat (optional argument): If all philosophers have eaten at least number_of_times_each_philosopher_must_eat times, the simulation stops. If not specified, the simulation stops when a philosopher dies.
+*/
+// eat -> sleep -> eat ...
+// eating queue or if free takeover - communicate with peers;
+
+/*
+pthread_create,
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+  void *(*start_routine) (void *), void *arg);
+
+pthread_detach, 
+int pthread_detach(pthread_t thread);
+
+pthread_join, 
+// get return value of the thread
+int pthread_join(pthread_t thread, void **retval);
+
+pthread_mutex_init,
+pthread_mutex_destroy, 
+
+int pthread_mutex_init(pthread_mutex_t *mutex, 
+    const pthread_mutexattr_t *attr);
+int pthread_mutex_destroy(pthread_mutex_t *mutex)
+
+pthread_mutex_lock,
+pthread_mutex_unlock
+
+int pthread_mutex_lock(pthread_mutex_t *mutex);;
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+*/
+
+/*
+int gettimeofday(struct timeval *tv, struct timezone *tz);
+*/
+
+
 typedef struct s_fork
 {
-  int is_taken;
+  pthread_mutex_t *mutex;
 } t_fork;
 
 typedef struct s_data
@@ -19,7 +61,6 @@ typedef struct s_data
   int time_to_eat;
   int time_to_sleep;
   int total_eat_count;
-  pthread_mutex_t *mutex;
 } t_data;
 
 typedef struct s_philo
@@ -41,5 +82,7 @@ void init(t_data *data);
 void end(t_data *data, t_philo *philo);
 void resurrect(t_philo *philo);
 void check_state(t_philo *philo);
+void print_state(t_philo *philo, char *state);
+long long getMiliTime(void);
 
 #endif
