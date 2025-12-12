@@ -32,14 +32,14 @@ void *handler(void *arg)
   {
     eat(philo);
     expiration_time = philo->last_eaten + philo->data->time_to_die - getMiliTime();
-    while(expiration_time < 0)
-      ;
+    if (expiration_time < 0)
+      return(0);
+    if(philo->eat_count == philo->data->total_eat_count)
+      return(0);
     philo->last_eaten=getMiliTime();
     print_state(philo, "is sleeping");
     milisleep(philo->data->time_to_sleep);
     fflush(stdout);
-    if(philo->eat_count == philo->data->total_eat_count)
-      return(0);
     print_state(philo, "is thinking");
   }
   return (0);

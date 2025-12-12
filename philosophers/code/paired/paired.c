@@ -66,7 +66,7 @@ static void start(t_data *data, t_philo *curr)
   {
     curr->last_eaten = start;
     resurrect(curr);
-    usleep(1);
+    usleep(10);
     curr=curr->next;
     i++;
   }
@@ -80,6 +80,7 @@ static void monitor(t_data *data, t_philo *curr)
   long long expiration_time;
   while (1)
   {
+    milisleep(1);
     i = 0;
     flag = 0;
     while (i < data->philo_count)
@@ -98,7 +99,7 @@ static void monitor(t_data *data, t_philo *curr)
       i++;
     }
     if (!flag)
-      return;
+      return ;
   }
 }
 
@@ -112,6 +113,8 @@ int main(int argc, char **argv)
   head = initialize(&data);
   if (!head)
     return(end(&data, head), 1);
+  (void) start;
+  (void) monitor;
   start(&data, head);
   monitor(&data, head);
   end(&data, head);
