@@ -57,9 +57,9 @@ typedef struct s_fork
 typedef struct s_data
 {
   int philo_count;
-  int time_to_die;
-  int time_to_eat;
-  int time_to_sleep;
+  long long time_to_die;
+  long long time_to_eat;
+  long long time_to_sleep;
   int total_eat_count;
 } t_data;
 
@@ -68,7 +68,7 @@ typedef struct s_philo
   t_data *data;
   int id;
   int pid;
-  int last_eaten;
+  long long last_eaten;
   int eat_count;
   pthread_t buffer;
   t_fork fork;
@@ -84,5 +84,7 @@ void resurrect(t_philo *philo);
 void check_state(t_philo *philo);
 void print_state(t_philo *philo, char *state);
 long long getMiliTime(void);
+long long ft_altoi(char *i);
+void milisleep(long long mili);
 
 #endif

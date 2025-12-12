@@ -6,7 +6,8 @@ SEMAPHORE =  \
 	sutils.c
 PAIRED = \
 	putils.c \
-	executor.c
+	executor.c \
+	parsing_utils.c
 
 SMAIN = semaphore.c
 PMAIN = paired.c

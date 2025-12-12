@@ -1,16 +1,32 @@
 
 #include "paired_philo.h"
 
-void parse(t_data *data)
+static int parse(t_data *data, int argc, char **argv)
 {
-  data->philo_count = 3;
-  data->time_to_eat = 100000;
-  data->time_to_sleep = 300000;
-  data->time_to_die = 10000;
-  data->total_eat_count = -1;
+  if (!(argc == 5 || argc == 6))
+    return (1);
+
+  data->philo_count = ft_altoi(argv[1]);
+  data->time_to_die = ft_altoi(argv[2]);
+  data->time_to_eat = ft_altoi(argv[3]);
+  data->time_to_sleep = ft_altoi(argv[4]);
+  if (argc == 6)
+  {
+    data->total_eat_count = ft_altoi(argv[5]);
+    if (data->total_eat_count < 0)
+      return (1);
+  }
+  else 
+    data->total_eat_count = -1;
+  if (data->philo_count < 0 ||
+    data->time_to_eat < 0 ||
+    data->time_to_sleep < 0 ||
+    data->time_to_die < 0)
+    return (1);
+  return (0);
 }
 
-t_philo *initialize(t_data *data)
+static t_philo *initialize(t_data *data)
 {
   int i;
   t_philo *head;
@@ -38,7 +54,7 @@ t_philo *initialize(t_data *data)
   return(head);
 }
 
-void start(t_data *data, t_philo *curr)
+static void start(t_data *data, t_philo *curr)
 {
   int i;
   long long start;
@@ -55,26 +71,34 @@ void start(t_data *data, t_philo *curr)
   }
 }
 
-void monitor(t_data *data, t_philo *curr)
+static void monitor(t_data *data, t_philo *curr)
 {
   (void) data;
-  while(1)
+  long long expiration_time;
+  while (1)
   {
-    usleep(100000);
     curr=curr->next;
+    expiration_time = curr->last_eaten + data->time_to_die - getMiliTime();
+    if (expiration_time < 0)
+    {
+      print_state(curr, "has died");
+      return ;
+    }
   }
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
   static t_data data;
   t_philo *head;
 
-  parse(&data);
+  if (parse(&data, argc, argv))
+    return (1);
   head = initialize(&data);
-  // if (!head)
-  //   ;
+  if (!head)
+    return(end(&data, head), 1);
   start(&data, head);
   monitor(&data, head);
   end(&data, head);
+  return (0);
 }

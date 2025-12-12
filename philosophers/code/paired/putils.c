@@ -13,9 +13,10 @@ t_philo *create_philo(int id, t_data *data)
   new->id=id;
   new->pid=0;
   new->buffer=0;
+  new->eat_count=0;
   fork = &new->fork;
   mutex = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t));
-  if (!new)
+  if (!mutex)
     return (free(new), NULL);
   fork->mutex = mutex;
   pthread_mutex_init(fork->mutex, NULL);
@@ -37,7 +38,6 @@ void end(t_data *data, t_philo *philo)
     free(tmp);
     i++;
   }
-  free(data);
 }
 
 void resurrect(t_philo *philo)
@@ -62,4 +62,9 @@ long long getMiliTime(void)
 
   gettimeofday(&tv, NULL);
   return((long long)(tv.tv_sec) * 1000 + (tv.tv_usec / 1000));
+}
+
+void milisleep(long long mili)
+{
+  usleep(mili * 1000);
 }
