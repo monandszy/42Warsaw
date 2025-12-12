@@ -59,41 +59,42 @@ void pipex(t_data *data, char **envp)
 {
   int i;
   int pid;
-  int fd[2];
-  int fd2[2];
+  int out[2];
+  int in[2];
   char *content;
 
   i = 0;
   content = read_all(data, open(data->infile, O_RDONLY));
   while (i < data->cmd_count)
   {
-    if (pipe(fd) == -1)
+    if (pipe(out) == -1)
       end(data, "pipe fail");
-    if (pipe(fd2) == -1)
+    if (pipe(in) == -1)
       end(data, "pipe fail");
+    write_all(data, in[1], content);
     pid = fork();
     if (pid < 0)
       end(data, "fork failed\n");
     else if (pid == 0)
     {
-      close(fd2[1]);
-      close(fd[0]);
-      if (dup2(fd[1], STDOUT_FILENO) == -1)
+      close(in[1]);
+      close(out[0]);
+      if (dup2(out[1], STDOUT_FILENO) == -1)
         end(data, "dup2 fail"); // output
-      close(fd[1]);
-      if (dup2(fd2[0], STDIN_FILENO) == -1)
+      close(out[1]);
+      if (dup2(in[0], STDIN_FILENO) == -1)
         end(data, "dup2 fail"); // input
-      close(fd2[0]);
+      close(in[0]);
       execve(data->cmd[i].path, data->cmd[i].params, envp);
     }
-    else {
-      close(fd[1]);
-      close(fd2[0]);
-      write_all(data, fd2[1], content);
-      close(fd2[1]);
+    else 
+    {
+      close(in[0]);
+      close(in[1]);
+      close(out[1]);
       wait(NULL);
       free(content);
-      content = read_all(data, fd[0]);
+      content = read_all(data, out[0]);
     }
     i++;
   }
