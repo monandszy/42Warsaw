@@ -18,7 +18,7 @@ static int parse(t_data *data, int argc, char **argv)
   }
   else 
     data->total_eat_count = -1;
-  if (data->philo_count < 0 ||
+  if (data->philo_count < 1 ||
     data->time_to_eat < 0 ||
     data->time_to_sleep < 0 ||
     data->time_to_die < 0)
@@ -54,6 +54,7 @@ static t_philo *initialize(t_data *data)
   return(head);
 }
 
+// printf("start: %lld\n", start);
 static void start(t_data *data, t_philo *curr)
 {
   int i;
@@ -73,17 +74,31 @@ static void start(t_data *data, t_philo *curr)
 
 static void monitor(t_data *data, t_philo *curr)
 {
-  (void) data;
+  int i;
+  int flag;
+
   long long expiration_time;
   while (1)
   {
-    curr=curr->next;
-    expiration_time = curr->last_eaten + data->time_to_die - getMiliTime();
-    if (expiration_time < 0)
+    i = 0;
+    flag = 0;
+    while (i < data->philo_count)
     {
-      print_state(curr, "has died");
-      return ;
+      curr=curr->next;
+      if (curr->eat_count != data->total_eat_count)
+      {
+        flag = 1;
+        expiration_time = curr->last_eaten + data->time_to_die - getMiliTime();
+        if (expiration_time < 0)
+        {
+          print_state(curr, "has died");
+          return ;
+        }
+      }
+      i++;
     }
+    if (!flag)
+      return;
   }
 }
 
