@@ -3,6 +3,8 @@
 
 static int parse(t_data *data, int argc, char **argv)
 {
+  static pthread_mutex_t mutex;
+
   if (!(argc == 5 || argc == 6))
     return (1);
 
@@ -24,6 +26,8 @@ static int parse(t_data *data, int argc, char **argv)
     data->time_to_die < 0)
     return (1);
   data->end=0;
+  pthread_mutex_init(&mutex, NULL);
+  data->mutex=&mutex;
   return (0);
 }
 

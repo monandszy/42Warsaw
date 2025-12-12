@@ -29,6 +29,7 @@ void end(t_data *data, t_philo *philo)
   t_philo *tmp;
 
   i = 0;
+  pthread_mutex_destroy(data->mutex);
   while (philo && i < data->philo_count)
   {
     tmp = philo;
@@ -53,7 +54,11 @@ void resurrect(t_philo *philo)
 void print_state(t_philo *philo, char *state)
 {
   if(!philo->data->end)
+  {
+    pthread_mutex_lock(philo->data->mutex);
     printf("%lld %d %s\n", getMiliTime(), philo->id, state);
+    pthread_mutex_unlock(philo->data->mutex);
+  }
 }
 
 void print_end_state(t_philo *philo, char *state)

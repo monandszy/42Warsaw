@@ -62,6 +62,7 @@ typedef struct s_data
   long long time_to_sleep;
   int total_eat_count;
   volatile int end;
+  pthread_mutex_t *mutex;
 } t_data;
 
 typedef struct s_philo
