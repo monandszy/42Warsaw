@@ -7,7 +7,9 @@ SEMAPHORE =  \
 PAIRED = \
 	putils.c \
 	executor.c \
-	parsing_utils.c
+	parsing_utils.c \
+	initializer.c \
+	state_manager.c
 
 SMAIN = semaphore.c
 PMAIN = paired.c
@@ -20,6 +22,8 @@ SOBJ = $(OBJ_DIR)/$(SMAIN:.c=.o)
 POBJ = $(OBJ_DIR)/$(PMAIN:.c=.o)
 SSOBJ = $(addprefix $(OBJ_DIR)/, $(SEMAPHORE:.c=.o))
 PPOBJ = $(addprefix $(OBJ_DIR)/, $(PAIRED:.c=.o))
+
+bonus: all
 
 all: $(SOBJ) $(POBJ) $(SSOBJ) $(PPOBJ) compile_s compile_p
 

@@ -6,33 +6,23 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 13:09:52 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/13 13:09:54 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:58:19 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "paired_philo.h"
 
-t_philo	*create_philo(int id, t_data *data)
+void	waitforend(t_data *data, t_philo *curr)
 {
-	pthread_mutex_t	*mutex;
-	t_philo			*new;
-	t_fork			*fork;
+	int	i;
 
-	new = (t_philo *)malloc(sizeof(t_philo));
-	if (!new)
-		return (NULL);
-	new->data = data;
-	new->id = id;
-	new->pid = 0;
-	new->buffer = 0;
-	new->eat_count = 0;
-	fork = &new->fork;
-	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!mutex)
-		return (free(new), NULL);
-	fork->mutex = mutex;
-	pthread_mutex_init(fork->mutex, NULL);
-	return (new);
+	i = 0;
+	while (i < data->philo_count)
+	{
+		pthread_join(curr->buffer, NULL);
+		curr = curr->next;
+		i++;
+	}
 }
 
 void	end(t_data *data, t_philo *philo)
@@ -53,37 +43,17 @@ void	end(t_data *data, t_philo *philo)
 	}
 }
 
-void	resurrect(t_philo *philo)
-{
-	pthread_t	*buffer;
-	int			pid;
-
-	buffer = &philo->buffer;
-	pid = pthread_create(buffer, NULL, &handler, philo);
-	philo->pid = pid;
-}
-
-void	print_state(t_philo *philo, char *state)
-{
-	if (!philo->data->end)
-	{
-		pthread_mutex_lock(philo->data->mutex);
-		printf("%lld %d %s\n", getMiliTime(), philo->id, state);
-		pthread_mutex_unlock(philo->data->mutex);
-	}
-}
-
-void	print_end_state(t_philo *philo, char *state)
-{
-	printf("%lld %d %s\n", getMiliTime(), philo->id, state);
-}
-
-long long	getMiliTime(void)
+// https://stackoverflow.com/questions/10192903/time-in-milliseconds-in-c
+long long	get_mili_time(void)
 {
 	struct timeval	tv;
+	long long		sec;
+	long long		usec;
 
 	gettimeofday(&tv, NULL);
-	return ((long long)(tv.tv_sec) * 1000 + (tv.tv_usec / 1000));
+	sec = ((long long)(tv.tv_sec)) * (1000);
+	usec = (tv.tv_usec / 1000);
+	return (sec + usec);
 }
 
 void	milisleep(long long mili)

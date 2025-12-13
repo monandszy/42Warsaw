@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 13:09:40 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/13 13:09:43 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/12/13 14:15:38 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@
 # include <unistd.h>
 
 /*
-- number_of_philosophers: The number of philosophers and also the number of forks.
-- time_to_die (in milliseconds): If a philosopher has not started eating within time_to_die milliseconds since the start of their last meal or the start of the simulation,
-	they die.
-- time_to_eat (in milliseconds): The time it takes for a philosopher to end eat.
+- number_of_philosophers: The number of philosophers and also
+	the number of forks.
+- time_to_die (in milliseconds): If a philosopher has not started eating
+	within time_to_die milliseconds since the start of their last meal or
+	the start of the simulation, they die.
+- time_to_eat (in milliseconds): The time it takes for a philosopher
+	to end eat.
 During that time, they will need to hold two forks.
 - time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
-- number_of_times_each_philosopher_must_eat (optional argument): If all philosophers have eaten at least number_of_times_each_philosopher_must_eat times,
+- number_of_times_each_philosopher_must_eat (optional argument):
+	If all philosophers have eaten at least
+	number_of_times_each_philosopher_must_eat times,
 	the simulation stops. If not specified,
 	the simulation stops when a philosopher dies.
 */
@@ -85,7 +90,7 @@ typedef struct s_philo
 	int					id;
 	int					pid;
 	volatile long long	last_eaten;
-	int					eat_count;
+	volatile int		eat_count;
 	pthread_t			buffer;
 	t_fork				fork;
 	struct s_philo		*next;
@@ -93,14 +98,17 @@ typedef struct s_philo
 }						t_philo;
 
 void					*handler(void *arg);
-t_philo					*create_philo(int id, t_data *data);
-void					init(t_data *data);
+
+int						parse(t_data *data, int argc, char **argv);
+t_philo					*initialize(t_data *data);
+void					start(t_data *data, t_philo *curr);
+void					monitor(t_data *data, t_philo *curr);
+void					waitforend(t_data *data, t_philo *curr);
 void					end(t_data *data, t_philo *philo);
-void					resurrect(t_philo *philo);
+
 void					print_state(t_philo *philo, char *state);
 void					print_end_state(t_philo *philo, char *state);
-long long				getMiliTime(void);
-long long				ft_altoi(char *i);
+long long				get_mili_time(void);
 void					milisleep(long long mili);
 
 #endif
