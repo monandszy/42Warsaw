@@ -1,6 +1,10 @@
 #include "./../minishell.h"
 
+<<<<<<< HEAD
 int	export(t_shell *shell, t_cmd *cmd)
+=======
+void	export(t_shell *shell, t_cmd *cmd)
+>>>>>>> refs/remotes/origin/master
 {
 	t_env	*new_node;
 
@@ -8,12 +12,18 @@ int	export(t_shell *shell, t_cmd *cmd)
 	if (!new_node)
 		end(shell, "envp new node malloc error\n");
 	env_add_back(&shell->env_list, new_node);
+<<<<<<< HEAD
   if (cmd->fdin != STDIN_FILENO)
     close(cmd->fdin);
   return (0);
 }
 
 int	unset(t_shell *shell, t_cmd *cmd)
+=======
+}
+
+void	unset(t_shell *shell, t_cmd *cmd)
+>>>>>>> refs/remotes/origin/master
 {
 	if (ft_strncmp("PATH", cmd->args[1], 5) == 0)
 	{
@@ -21,6 +31,7 @@ int	unset(t_shell *shell, t_cmd *cmd)
 		shell->paths = NULL;
 	}
 	env_del(&shell->env_list, cmd->args[1]);
+<<<<<<< HEAD
   if (cmd->fdin != STDIN_FILENO)
     close(cmd->fdin);
   return (0);
@@ -53,12 +64,21 @@ static void run_child(t_shell *shell, t_cmd *cmd)
 int	print_env(t_shell *shell, t_cmd *cmd)
 {
 	int		pid;
+=======
+}
+
+void	print_env(t_shell *shell, t_env **head)
+{
+	int		pid;
+	t_env	*curr;
+>>>>>>> refs/remotes/origin/master
 
 	pid = fork();
 	if (pid < 0)
 		end(shell, "fork failed\n");
 	else if (pid == 0)
 	{
+<<<<<<< HEAD
     run_child(shell, cmd);
 	}
 	else
@@ -68,4 +88,16 @@ int	print_env(t_shell *shell, t_cmd *cmd)
       close(cmd->fdin);
   }
   return (0);
+=======
+		curr = *head;
+		while (curr)
+		{
+			printf("%s=%s\n", curr->key, curr->value);
+			curr = curr->next;
+		}
+		end(shell, NULL);
+	}
+	else
+		wait(0);
+>>>>>>> refs/remotes/origin/master
 }

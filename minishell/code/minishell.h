@@ -2,6 +2,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+<<<<<<< HEAD
+=======
+# include "libft.h"
+>>>>>>> refs/remotes/origin/master
 # include "libft/libft.h"
 # include <curses.h>
 # include <dirent.h>
@@ -57,14 +61,24 @@ typedef struct s_cmd
 {
 	char			**args;
 	char			*path;
+<<<<<<< HEAD
   int fdin;
   int fdout;
 	t_redir		*redirs;
+=======
+  int fdredir[2];
+	t_redir			*redirs;
+>>>>>>> refs/remotes/origin/master
 	struct s_cmd	*next;
 }					t_cmd;
 
 typedef struct s_shell
 {
+<<<<<<< HEAD
+=======
+	int				argc;
+	char			**argv;
+>>>>>>> refs/remotes/origin/master
 	char			**envp;
 	t_env			*env_list;
 	char			**paths;
@@ -77,25 +91,39 @@ void				init_path(t_shell *shell);
 void				setup_signals(void);
 
 /* Cmd processing */
+<<<<<<< HEAD
 int execute_cmd_chain(t_shell *shell, t_cmd *cmd);
 void				validate_command(t_shell *shell, t_cmd *cmd);
 int	process_native_command(t_shell *shell, t_cmd *cmd);
+=======
+void				execute_command(t_shell *shell, t_cmd *cmd);
+void				validate_command(t_shell *shell, t_cmd *cmd);
+void				process_native_command(t_shell *shell, t_cmd *cmd);
+>>>>>>> refs/remotes/origin/master
 
 /* Piping */
 void				write_all(t_shell *shell, int fd, char *content);
 char				*read_all(t_shell *shell, int fd);
 
 /* Built-ins */
+<<<<<<< HEAD
 int				change_directory(t_shell *shell, t_cmd *cmd);
 int				export(t_shell *shell, t_cmd *cmd);
 int				unset(t_shell *shell, t_cmd *cmd);
 int	      print_env(t_shell *shell, t_cmd *cmd);
+=======
+void				change_directory(t_shell *shell, t_cmd *cmd);
+void				export(t_shell *shell, t_cmd *cmd);
+void				unset(t_shell *shell, t_cmd *cmd);
+void				print_env(t_shell *shell, t_env **head);
+>>>>>>> refs/remotes/origin/master
 
 /* Utils */
 char				*getcwdir(t_shell *shell);
 void				end(t_shell *shell, char *msg);
 void				free_split(char **sp);
 void free_env(t_env *node);
+<<<<<<< HEAD
 void close_pipe(t_cmd *cmd);
 
 /* Env variable manager */
@@ -103,5 +131,16 @@ t_env				*new_env_node(char *str);
 int				env_add_back(t_env **head, t_env *new_node);
 int				env_del(t_env **head, char *key);
 char				*env_get(t_env **head, char *key);
+=======
+
+/* Env variable manager */
+t_env				*new_env_node(char *str);
+int				env_add_back(t_env **head, t_env *new_node);
+int				env_del(t_env **head, char *key);
+char				*env_get(t_env **head, char *key);
+
+/*TESTING*/
+t_cmd				*init_single_cmd(t_shell *shell, char *line);
+>>>>>>> refs/remotes/origin/master
 
 #endif

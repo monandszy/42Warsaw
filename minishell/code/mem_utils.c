@@ -12,6 +12,10 @@ void	end(t_shell *shell, char *msg)
 	t_env	*lst;
 	t_env	*tmp;
 
+<<<<<<< HEAD
+=======
+	// FREE ENV LIST
+>>>>>>> refs/remotes/origin/master
 	rl_clear_history();
 	lst = shell->env_list;
 	while (lst)
