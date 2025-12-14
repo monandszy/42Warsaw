@@ -1,6 +1,5 @@
 #include "./../minishell.h"
 
-<<<<<<< HEAD
 extern int g_SHLVL;
 
 static void	run_child(t_shell *shell, t_cmd *cmd)
@@ -17,12 +16,6 @@ static void	run_child(t_shell *shell, t_cmd *cmd)
       end(shell, "dup2 output fail");
     close(cmd->fdout);
   }
-=======
-extern int	g_SHLVL;
-
-static void	run_child(t_shell *shell, t_cmd *cmd)
-{
->>>>>>> refs/remotes/origin/master
 	execve(cmd->path, cmd->args, shell->envp);
 	perror("Comand Failed:");
 	printf("Path: %s\n", cmd->path);
@@ -39,7 +32,6 @@ void	execute_native_command(t_shell *shell, t_cmd *cmd)
 	else if (pid == 0)
 		run_child(shell, cmd);
 	else
-<<<<<<< HEAD
   {
     wait(0);
     if (cmd->fdin != STDIN_FILENO)
@@ -48,12 +40,6 @@ void	execute_native_command(t_shell *shell, t_cmd *cmd)
 }
 
 int	process_native_command(t_shell *shell, t_cmd *cmd)
-=======
-		wait(0);
-}
-
-void	process_native_command(t_shell *shell, t_cmd *cmd)
->>>>>>> refs/remotes/origin/master
 {
 	if (!shell->paths)
 		init_path(shell);
@@ -67,10 +53,6 @@ void	process_native_command(t_shell *shell, t_cmd *cmd)
 		free(cmd->path);
 	}
 	else
-<<<<<<< HEAD
 		return (perror("Command not found\n"), 1);
   return (0);
-=======
-		write_all(shell, STDOUT_FILENO, "Command not found\n");
->>>>>>> refs/remotes/origin/master
 }
