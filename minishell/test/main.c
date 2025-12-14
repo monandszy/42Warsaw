@@ -108,9 +108,6 @@ void test_multiple(t_shell *shell)
   // (Note: C requires double backslash for newline escape)
   // test_m(shell, "echo 1 2 3", "tr ' ' '\\n'", "grep 2");
 
-  // cat | cat | ls
-  // (Your example: creates a chain where the final command ignores the previous output)
-  // test_m(shell, "cat", "cat", "ls");
 }
 
 void test_two(t_shell *shell)
@@ -144,10 +141,17 @@ int main(int argc, char **argv, char **envp)
 
   init_shell(&shell, envp);
 
-  test_single(&shell);
-  test_two(&shell);
-  test_multiple(&shell);
+  // test_single(&shell);
+  // test_two(&shell);
+  // test_multiple(&shell);
+
+  // cat | cat | ls
+  // (creates a chain where the final command ignores the previous output)
+  test_m(&shell, "cat", "cat", "ls");
  
+  
+  read(0, " ", 1);
+
   test(&shell, "exit random arsgument stuff");
   end(&shell, NULL);
 }
