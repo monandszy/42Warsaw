@@ -1,6 +1,6 @@
 NAME = test_runner.out
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 SRCS = \
 	main.c \
 
@@ -27,7 +27,7 @@ lib_make:
 	make compile archive -C $(LIB_DIR)
 
 test: 
-	./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all ./test_runner.out
 
 run: re test
 
