@@ -107,7 +107,6 @@ void test_multiple(t_shell *shell)
     // echo "1 2 3" | tr ' ' '\n' | grep 2
   // (Note: C requires double backslash for newline escape)
   // test_m(shell, "echo 1 2 3", "tr ' ' '\\n'", "grep 2");
-
 }
 
 void test_two(t_shell *shell)
@@ -132,6 +131,70 @@ void test_two(t_shell *shell)
   test_t(shell, "sleep 1", "ls");
 }
 
+t_redir *init_redir(t_shell *shell, char *file, t_token_type t)
+{
+  t_redir *new;
+
+	new = (t_redir *)malloc(sizeof(t_redir));
+	if (!new)
+		end(shell, "redir init error\n");
+	new->file = file;
+  new->type=t;
+  new->next=NULL;
+  return (new);
+}
+
+void test_r(t_shell *shell, char *s1, char *s2, t_token_type t1, t_token_type t2)
+{
+  char *infile = "testinput";
+  char *outfile = "testoutput";
+
+  t_cmd *c1 = init_single_cmd(shell, s1);
+  t_cmd *c2 = init_single_cmd(shell, s2);
+  c1->next = c2;
+  t_redir *r1 = init_redir(shell, infile, t1);
+  t_redir *r2 = init_redir(shell, outfile, t2);
+  c1->redirs=r1;
+  c2->redirs=r2;
+  shell->cmds=c1;
+  printf("START: [%s][%s]\n", s1, s2);
+  execute_cmd_chain(shell, c1);
+  free_cmd(c1);
+  free_cmd(c2);
+  free(r1);
+  free(r2);
+  printf("END: [%s][%s]\n", s1, s2);
+}
+
+void test_redir(t_shell *shell)
+{
+  // SCENARIO 1: Standard Input -> Standard Output
+  // Shell equivalent: < testinput cat | cat > testoutput
+  // Description: Reads content from 'testinput', pipes it, and overwrites 'testoutput'.
+  // test_r(shell, "cat", "cat", TOKEN_REDIR_IN, TOKEN_REDIR_OUT);
+
+  // SCENARIO 2: Standard Input -> Append Output
+  // Shell equivalent: < testinput grep "a" | cat >> testoutput
+  // Description: Filters lines from 'testinput' containing "a", and appends them to 'testoutput'.
+  // test_r(shell, "grep a", "cat", TOKEN_REDIR_IN, TOKEN_REDIR_APPEND);
+
+  // SCENARIO 3: Heredoc -> Standard Output
+  // Shell equivalent: << delimiter cat | wc -l > testoutput
+  // Description: Reads from heredoc (delimiter defined in your redir logic), counts lines, writes result to 'testoutput'.
+  // test_r(shell, "cat", "wc -l", TOKEN_REDIR_HEREDOC, TOKEN_REDIR_OUT);
+
+  // SCENARIO 4: Outputting to 'testinput' (Reverse logic)
+  // Shell equivalent: ls > testinput | wc > testoutput
+  // Description: c1 overwrites 'testinput' (acting as a log file here) while sending output down the pipe to c2.
+  // Note: Depending on your pipe logic, 'wc' might see nothing if 'ls' redirects stdout to file.
+  // test_r(shell, "ls", "wc", TOKEN_REDIR_OUT, TOKEN_REDIR_OUT);
+
+  // SCENARIO 5: Append to 'testinput' -> Append to 'testoutput'
+  // Shell equivalent: echo "log" >> testinput | echo "done" >> testoutput
+  // Description: Both commands append to their respective files. Pipe might convey empty data if stdout is redirected.
+  test_r(shell, "echo log", "echo done", TOKEN_REDIR_APPEND, TOKEN_REDIR_APPEND);
+}
+
 int main(int argc, char **argv, char **envp)
 {
   t_shell shell;
@@ -147,10 +210,15 @@ int main(int argc, char **argv, char **envp)
 
   // cat | cat | ls
   // (creates a chain where the final command ignores the previous output)
-  test_m(&shell, "cat", "cat", "ls");
+  // test_m(&shell, "cat", "cat", "ls");
+
+  test_redir(&shell);
  
-  
-  read(0, " ", 1);
+  // printf("END");
+  // fflush(stdout);
+  // while(1)
+  //   ;
+  // read(0, " ", 1);
 
   test(&shell, "exit random arsgument stuff");
   end(&shell, NULL);

@@ -1,0 +1,8 @@
+main.c
+Makefile
+objs
+testexe
+testinput
+testoutput
+test_runner.out
+log
