@@ -1,0 +1,21 @@
+#include <iostream>
+#include <string>
+
+// void printUpper(std::string s)
+// {
+//   std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+//   std::cout << s;
+// }
+
+int main(int argc, char *argv[])
+{
+  for (int i = 1; i < argc; i++)
+  {
+    std::string s = argv[i];
+    for (std::size_t j = 0; j < s.length(); j++)
+      s[j] = toupper(s[j]);
+    std::cout << s;
+  }
+  std::cout << std::endl;
+  return (0);
+}
