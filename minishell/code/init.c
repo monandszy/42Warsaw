@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 12:34:01 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/12/17 12:34:03 by sandrzej         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -10,10 +21,10 @@ void	init_path(t_shell *shell)
 
 	raw = env_get(&shell->env_list, "PATH");
 	if (!raw)
-  {
-    shell->paths=NULL;
+	{
+		shell->paths = NULL;
 		return ;
-  }
+	}
 	paths = ft_split(raw, ':');
 	if (!paths)
 		end(shell, "paths malloc error\n");
@@ -53,7 +64,6 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->exit_code = 0;
 	shell->cmds = NULL;
 	shell->paths = NULL;
-
 	init_env_list(shell, envp);
 	init_path(shell);
 }

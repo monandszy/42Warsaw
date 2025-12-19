@@ -1,56 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   directory_manager.c                                :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/17 12:40:14 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/17 12:40:16 by sandrzej         ###   ########.fr       */
+/*   Created: 2025/12/17 12:40:04 by sandrzej          #+#    #+#             */
+/*   Updated: 2025/12/17 12:40:05 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../minishell.h"
 
-/* bufered wrapper for getcwd */
-static char	*getcwdir(t_shell *shell)
+static void	printarr(char **args)
 {
-	static char	buffer[PATH_MAX] = "";
+	int	i;
 
-	getcwd(buffer, sizeof(buffer));
-	if (!*buffer)
-		end(shell, "error getting cwd\n");
-	return (buffer);
-}
-
-int	change_directory(t_shell *shell, t_cmd *cmd)
-{
-	char	*to;
-	t_env	*new_node;
-	char	*key;
-
-	to = cmd->args[1];
-	if (!to)
+	i = 0;
+	if (!args || !*args)
+		return ;
+	while (args[i + 1])
 	{
-		to = env_get(&shell->env_list, "HOME");
-		if (!to)
-			to = "";
-	} else
-  {
-    if (cmd->args[2])
-      return (shperror(cmd->args[0], " too many arguments"), 1);
-  }
-	if (chdir(to) == -1)
-		return (perror(cmd->args[0]), 1);
-	key = ft_strjoin("PWD=", getcwdir(shell));
-	new_node = new_env_node(key);
-	free(key);
-	if (!new_node)
-		end(shell, "chdir new node malloc error\n");
-	return (env_add_back(&shell->env_list, new_node));
+		printf("%s ", *args);
+		args++;
+	}
+	printf("%s", *args);
 }
 
-static void	run_child(t_shell *shell, t_cmd *cmd)
+static int	run_child(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->fdin != STDIN_FILENO)
 	{
@@ -64,11 +41,13 @@ static void	run_child(t_shell *shell, t_cmd *cmd)
 			end(shell, "dup2 output fail");
 		close(cmd->fdout);
 	}
-	printf("%s\n", getcwdir(shell));
-	end(shell, NULL);
+	if (cmd->args[1] && ft_strncmp(cmd->args[1], "-n", 3) == 0)
+		return (printarr(&cmd->args[2]), 0);
+	else
+		return (printarr(&cmd->args[1]), printf("\n"), 0);
 }
 
-int	pwd(t_shell *shell, t_cmd *cmd)
+int	recho(t_shell *shell, t_cmd *cmd)
 {
 	int	pid;
 
@@ -76,11 +55,34 @@ int	pwd(t_shell *shell, t_cmd *cmd)
 	if (pid < 0)
 		end(shell, "fork failed\n");
 	else if (pid == 0)
+	{
 		run_child(shell, cmd);
+		end(shell, NULL);
+	}
 	else
 	{
 		if (cmd->fdout != STDOUT_FILENO)
 			close(cmd->fdout);
 	}
+	return (0);
+}
+
+int	process_end(t_shell *shell, t_cmd *cmd)
+{
+	char	*exit_code;
+  
+
+	exit_code = cmd->args[1];
+	if (exit_code)
+	{
+    if (cmd->args[2])
+      return (shperror(cmd->args[0], " too many arguments"), 1);
+		if (ft_isnumber(exit_code))
+		{
+			shell->exit_code = ft_atoi(exit_code);
+		} else
+      return (shperror(cmd->args[0], " numeric argument required"), 1);
+	}
+	end(shell, NULL);
 	return (0);
 }
