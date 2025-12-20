@@ -22,7 +22,14 @@ class Contact
     std::string getDarkestSecret() const;
     int getOrder() const;
 		Contact(void);
-    Contact(std::string _number, int order);
+    Contact(
+      int order,
+      std::string _number,
+      std::string _firstName,
+      std::string _lastName,
+      std::string _nickname,
+      std::string _darkestSecret
+    );
 		Contact(const Contact& other);
 		Contact &operator=(const Contact &other);
 		~Contact();
