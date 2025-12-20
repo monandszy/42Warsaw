@@ -184,31 +184,21 @@ void test_r(t_shell *shell, char *s1, char *s2, t_token_type t1, t_token_type t2
 
 void test_redir(t_shell *shell)
 {
-  // SCENARIO 1: Standard Input -> Standard Output
-  // Shell equivalent: < testinput cat | cat > testoutput
-  // Description: Reads content from 'testinput', pipes it, and overwrites 'testoutput'.
+  // < testinput cat | cat > testoutput
   // test_r(shell, "cat", "cat", TOKEN_REDIR_IN, TOKEN_REDIR_OUT);
 
-  // SCENARIO 2: Standard Input -> Append Output
-  // Shell equivalent: < testinput grep "a" | cat >> testoutput
-  // Description: Filters lines from 'testinput' containing "a", and appends them to 'testoutput'.
+  // < testinput grep "a" | cat >> testoutput
   // test_r(shell, "grep a", "cat", TOKEN_REDIR_IN, TOKEN_REDIR_APPEND);
 
-  // SCENARIO 3: Heredoc -> Standard Output
-  // Shell equivalent: << delimiter cat | wc -l > testoutput
-  // Description: Reads from heredoc (delimiter defined in your redir logic), counts lines, writes result to 'testoutput'.
-  // test_r(shell, "cat", "wc -l", TOKEN_REDIR_HEREDOC, TOKEN_REDIR_OUT);
+  // << delimiter cat | wc -l >> testoutput
+  test_r(shell, "cat", "wc -l", TOKEN_REDIR_HEREDOC, TOKEN_REDIR_APPEND);
 
-  // SCENARIO 4: Outputting to 'testinput' (Reverse logic)
-  // Shell equivalent: ls > testinput | wc > testoutput
-  // Description: c1 overwrites 'testinput' (acting as a log file here) while sending output down the pipe to c2.
+  // ls > testinput | wc > testoutput
   // Note: Depending on your pipe logic, 'wc' might see nothing if 'ls' redirects stdout to file.
   // test_r(shell, "ls", "wc", TOKEN_REDIR_OUT, TOKEN_REDIR_OUT);
 
-  // SCENARIO 5: Append to 'testinput' -> Append to 'testoutput'
-  // Shell equivalent: echo "log" >> testinput | echo "done" >> testoutput
-  // Description: Both commands append to their respective files. Pipe might convey empty data if stdout is redirected.
-  test_r(shell, "echo log", "echo done", TOKEN_REDIR_APPEND, TOKEN_REDIR_APPEND);
+  // echo "log" >> testinput | echo "done" >> testoutput
+  // test_r(shell, "echo log", "echo done", TOKEN_REDIR_APPEND, TOKEN_REDIR_APPEND);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -226,16 +216,16 @@ int main(int argc, char **argv, char **envp)
 
   // cat | cat | ls
   // (creates a chain where the final command ignores the previous output)
-  // test_m(&shell, "cat", "cat", "ls");
+  test_m(&shell, "cat", "cat", "ls");
 
-  test_redir(&shell);
+  // test_redir(&shell);
  
   // printf("END");
   // fflush(stdout);
   // while(1)
   //   ;
   // read(0, " ", 1);
-
+    
   test(&shell, "exit random arsgument stuff");
   end(&shell, NULL);
 }
