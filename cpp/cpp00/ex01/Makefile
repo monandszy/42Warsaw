@@ -2,7 +2,9 @@ NAME = phonebook
 CC = g++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
-	main.cpp
+	Main.cpp \
+	Contact.cpp \
+	Phonebook.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

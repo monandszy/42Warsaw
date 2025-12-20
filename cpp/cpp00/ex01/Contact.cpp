@@ -10,26 +10,62 @@ Orthodox Canonical Form
 - Destructor
 */
 
-#include "Phonebook.hpp"
+#include "Contact.hpp"
 
-class Contact {
-  private:
-    std::string _contact;
+int Contact::getOrder() const
+{
+  return _order;
+}
 
-  public:
-    const std::string &getContact() const {
-      return (_contact);
-    }
-    Contact() : _contact("Default contact") {
-      std::cout << "Contact Default Constructor Called!" << std::endl;
-    }
-    Contact(const std::string &contact) : _contact(contact) {
-      std::cout << "Contact Parameterized Constructor Called!" << std::endl;
-    }
-    Contact(const Contact &other) : _contact(other._contact) {
-      std::cout << "Contact Copy Constructor Called!" << std::endl;
-    }
-    ~Contact() {
-      std::cout << "Contact Destructor Called!" << std::endl;
-    }
-};
+std::string Contact::getNumber() const
+{
+  return _number;
+}
+
+std::string Contact::getFirstName() const
+{
+  return _firstName;
+}
+std::string Contact::getLastName() const
+{
+  return _lastName;
+}
+std::string Contact::getNickname() const
+{
+  return _nickname;
+}
+std::string Contact::getDarkestSecret() const
+{
+  return _darkestSecret;
+}
+
+Contact::Contact(void)
+{
+  _number = "[empty]";
+  _order = 0;
+}
+
+Contact::Contact(std::string number, int order)
+{
+  _number = number;
+  _order = order;
+}
+
+Contact::Contact(const Contact &other) 
+{
+  _number = other._number;
+  _order = other._order;
+}
+
+Contact &Contact::operator=(const Contact &other) 
+{
+  if (this != &other) { 
+    _number = other._number;
+    _order = other._order;
+  }
+  return *this;
+}
+
+Contact::~Contact(void)
+{
+}
