@@ -3,7 +3,8 @@ CC = g++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
 	tests.cpp \
-	Account.cpp 
+	Account.cpp \
+	Utils.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
