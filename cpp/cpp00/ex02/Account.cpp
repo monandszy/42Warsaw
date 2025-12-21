@@ -1,5 +1,4 @@
 #include "Account.hpp"
-#include "Utils.hpp"
 #include <iostream>
 #include <ctime>
 
@@ -16,7 +15,7 @@ Account::Account(int initial_deposit)
 	_amount = initial_deposit;
 	_nbDeposits = 0;
 	_nbWithdrawals = 0;
-  printCurrentDateTime();
+  _displayTimestamp();
   std::cout << "index:" << _accountIndex;
   std::cout << ";ammount:" << _amount;
   std::cout << ";created" << std::endl;
@@ -24,12 +23,17 @@ Account::Account(int initial_deposit)
 }
 
 Account::~Account(void)
-{}
+{
+  _displayTimestamp();
+  std::cout << "index:" << _accountIndex;
+  std::cout << ";ammount:" << _amount;
+  std::cout << ";closed" << std::endl;
+}
 
 // [19920104_091532] accounts:8;total:20049;deposits:0;withdrawals:0
 void Account::displayAccountsInfos(void)
 {
-  printCurrentDateTime();
+  _displayTimestamp();
   std::cout << "accounts:" << _nbAccounts;
   std::cout << ";total:" << _totalAmount;
   std::cout << ";deposits:" << _totalNbDeposits;
@@ -41,7 +45,7 @@ void Account::displayAccountsInfos(void)
 // index:0;p_amount:42;deposit:5;amount:47;nb_deposits:1
 void Account::makeDeposit(int deposit)
 {
-  printCurrentDateTime();
+  _displayTimestamp();
   std::cout << "index:" << _accountIndex;
   std::cout << ";p_ammount:" << _amount;
   std::cout << ";deposit:" << deposit;
@@ -56,7 +60,20 @@ void Account::makeDeposit(int deposit)
 // [19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
 bool Account::makeWithdrawal(int withdrawal)
 {
-  (void) withdrawal;
+  _displayTimestamp();
+  std::cout << "index:" << _accountIndex;
+  std::cout << ";p_ammount:" << _amount;
+  if (withdrawal > _amount)
+    std::cout << ";withdrawal:refused";
+  else
+  {
+    std::cout << ";withdrawal:" << withdrawal;
+    _amount -= withdrawal;
+    _nbWithdrawals++;
+    std::cout << ";ammount:" << _amount;
+    std::cout << ";nb_withdrawal:" << _nbWithdrawals;
+  }
+  std::cout << std::endl;
   return (true);
 }
 
@@ -68,7 +85,7 @@ int Account::checkAmount(void) const
 // index:0;amount:42;deposits:0;withdrawals:0
 void Account::displayStatus(void) const
 {
-  printCurrentDateTime();
+  _displayTimestamp();
   std::cout << "index:" << _accountIndex;
   std::cout << ";ammount:" << _amount;
   std::cout << ";deposits:" << _nbDeposits;
@@ -76,9 +93,17 @@ void Account::displayStatus(void) const
   std::cout << std::endl;
 }
 
+/* https://stackoverflow.com/questions/997946/how-can-i-get-current-time-and-date-in-c 
+
+1992 01 04 _ 09 15 32
+*/
 void Account::_displayTimestamp(void)
 {
-  std::cout << "TIME";
+  time_t t = std::time(0);
+  std::tm now = *std::localtime(&t);
+  char buf[80];
+  strftime(buf, sizeof(buf), "[%Y%m%d_%H%M%S] ", &now);
+  std::cout << buf;
 }
 
 // Static Getters
