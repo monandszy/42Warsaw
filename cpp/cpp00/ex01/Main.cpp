@@ -45,9 +45,9 @@ void search(Phonebook& phonebook)
   phonebook.print();
   std::cout << "Index:";
   int in;
-  while (!(std::cin >> in) || in < 0 || in > 8) {
+  while (!(std::cin >> in) || in < 0 || in > 7) {
     std::cin.clear(); 
-    std::cout << "Invalid input.";
+    std::cout << "Invalid input." << std::endl;
     std::cout << "Index:";
   }
   print_details(phonebook, in);
@@ -65,8 +65,6 @@ int main(void)
       add(phonebook);
     else if (input == "SEARCH")
       search(phonebook);
-    else if (!input.empty())
-      std::cout << "Invalid command" << std::endl;
     std::cin>>input;
   }
   return (0);
