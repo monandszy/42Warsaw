@@ -15,10 +15,11 @@ class HumanB {
     HumanB(std::string name);
     void attack(void);
     void setWeapon(Weapon& weapon);
+    
     HumanB(std::string name, Weapon* weapon);
     ~HumanB(void);
     HumanB& operator=(const HumanB& other);
-    HumanB(HumanB& other);
+    HumanB(const HumanB& other);
 };
 
 #endif

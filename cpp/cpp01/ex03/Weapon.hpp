@@ -12,6 +12,7 @@ class Weapon {
   public:
     std::string getType(void) const;
     void setType(std::string type);
+    
     Weapon(std::string type);
     ~Weapon(void);
     Weapon& operator=(const Weapon& other);
