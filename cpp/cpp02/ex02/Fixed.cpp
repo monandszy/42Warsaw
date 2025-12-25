@@ -27,11 +27,11 @@ Fixed::Fixed(const int fpnumval) {
 }
 
 Fixed::Fixed(const float fpnumval) {
-  _fpnumval = fpnumval * _powstep;
+  _fpnumval = roundf(fpnumval * _powstep);
 }
 
 float Fixed::toFloat(void) const {
-  return  ((float) _fpnumval) /_powstep;
+  return  ((float) _fpnumval) / _powstep;
 }
 
 int Fixed::toInt(void) const {
