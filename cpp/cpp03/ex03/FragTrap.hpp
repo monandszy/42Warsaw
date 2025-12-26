@@ -1,16 +1,14 @@
-#ifndef SCAV_TRAP_HPP
-#define SCAV_TRAP_HPP
+#ifndef FRAG_TRAP_HPP
+#define FRAG_TRAP_HPP
 
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap {
+class FragTrap : virtual public ClapTrap {
   private:
     FragTrap(void);
 
   public:
-    // FragTrap& operator=(const FragTrap& other);
-    // FragTrap(const FragTrap& other);
     ~FragTrap(void);
 
     FragTrap(std::string name);

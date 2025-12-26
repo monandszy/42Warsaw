@@ -4,13 +4,11 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : virtual public ClapTrap {
   private:
     ScavTrap(void);
 
   public:
-    // ScavTrap& operator=(const ScavTrap& other);
-    // ScavTrap(const ScavTrap& other);
     ~ScavTrap(void);
 
     ScavTrap(std::string name);

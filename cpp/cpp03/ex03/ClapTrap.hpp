@@ -17,6 +17,7 @@ class ClapTrap {
     ~ClapTrap(void);
 
     ClapTrap(std::string name, unsigned int hp, unsigned int mana, unsigned int dmg);
+    ClapTrap(std::string name);
 
     void attack(const std::string& target);
     void takeDamage(unsigned int amount);
@@ -31,6 +32,10 @@ class ClapTrap {
     bool processAttack(const std::string& target);
     bool processTakeDamage(unsigned int amount);
     bool processBeRepaired(unsigned int amount);
+
+    void setHp(unsigned int hp);
+    void setMana(unsigned int mana);
+    void setDmg(unsigned int dmg);
 };
 
 #endif

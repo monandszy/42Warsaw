@@ -29,6 +29,6 @@ void FragTrap::beRepaired(unsigned int amount) {
     std::cout << "[" << getName() << "]: I'm basically dead now, can't beRepaired" << std::endl;
 }
 
-void highFivesGuys(void); {
+void FragTrap::highFivesGuys(void) {
   std::cout << "[" << getName() << "]: High Five?" << std::endl;
 }

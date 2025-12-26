@@ -22,6 +22,14 @@ ClapTrap::~ClapTrap(void) {
   std::cout << "Bye. I was ClapTrap ["<< _name <<"]" << std::endl;
 }
 
+ClapTrap::ClapTrap(std::string name) {
+  _name = name;
+  _hp = 10;
+  _mana = 10;
+  _dmg = 0;
+  std::cout << "Hi. I'm ["<< _name <<"]" << std::endl;
+}
+
 ClapTrap::ClapTrap(std::string name, unsigned int hp, unsigned int mana, unsigned int dmg) {
   _name = name;
   _hp = hp;

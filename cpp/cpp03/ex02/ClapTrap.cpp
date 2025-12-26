@@ -30,6 +30,14 @@ ClapTrap::ClapTrap(std::string name, unsigned int hp, unsigned int mana, unsigne
   std::cout << "Hi. I'm ClapTrap ["<< _name <<"]" << std::endl;
 }
 
+ClapTrap::ClapTrap(std::string name) {
+  _name = name;
+  _hp = 10;
+  _mana = 10;
+  _dmg = 0;
+  std::cout << "Hi. I'm ["<< _name <<"]" << std::endl;
+}
+
 void ClapTrap::attack(const std::string& target) {
   if (processAttack(target))
     std::cout << "ClapTrap [" << getName() << "] attacks [" << target << "] causing [" << getDmg() << "] points of damage!" << std::endl;
