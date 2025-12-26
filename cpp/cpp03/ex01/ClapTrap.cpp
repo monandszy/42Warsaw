@@ -30,7 +30,28 @@ ClapTrap::ClapTrap(std::string name, unsigned int hp, unsigned int mana, unsigne
   std::cout << "Hi. I'm ClapTrap ["<< _name <<"]" << std::endl;
 }
 
-bool ClapTrap::attack(const std::string& target) {
+void ClapTrap::attack(const std::string& target) {
+  if (processAttack(target))
+    std::cout << "ClapTrap [" << getName() << "] attacks [" << target << "] causing [" << getDmg() << "] points of damage!" << std::endl;
+  else 
+    std::cout << "[" << getName() << "]: I'm basically dead now, can't attack" << std::endl;
+}
+
+void ClapTrap::takeDamage(unsigned int amount) {
+  if (processTakeDamage(amount))
+    std::cout << "ClapTrap [" << getName() << "] takes [" << amount << "] points of damage!" << std::endl;
+  else
+    std::cout << "[" << getName() << "]: I'm basically dead now, can't takeDamage" << std::endl;
+}
+
+void ClapTrap::beRepaired(unsigned int amount) {
+  if (processBeRepaired(amount))
+    std::cout << "ClapTrap [" << getName() << "] heals for [" << amount << "] points!" << std::endl;
+  else
+    std::cout << "[" << getName() << "]: I'm basically dead now, can't beRepaired" << std::endl;
+}
+
+bool ClapTrap::processAttack(const std::string& target) {
   (void) target;
   if (_hp > 0 && _mana > 0)
   {
@@ -40,7 +61,7 @@ bool ClapTrap::attack(const std::string& target) {
   return false;
 }
 
-bool ClapTrap::takeDamage(unsigned int amount) {
+bool ClapTrap::processTakeDamage(unsigned int amount) {
   if (_hp > 0)
   {
     if (_hp < amount)
@@ -52,7 +73,7 @@ bool ClapTrap::takeDamage(unsigned int amount) {
   return false;
 }
 
-bool ClapTrap::beRepaired(unsigned int amount) {
+bool ClapTrap::processBeRepaired(unsigned int amount) {
   if (_hp > 0 && _mana > 0)
   {
     _mana--;

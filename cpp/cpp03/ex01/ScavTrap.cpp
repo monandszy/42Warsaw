@@ -9,21 +9,21 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20) {
 }
 
 void ScavTrap::attack(const std::string& target) {
-  if (ClapTrap::attack(target))
+  if (ClapTrap::processAttack(target))
     std::cout << "ScavTrap [" << getName() << "] attacks [" << target << "] causing [" << getDmg() << "] points of damage!" << std::endl;
   else 
     std::cout << "[" << getName() << "]: I'm basically dead now, can't attack" << std::endl;
 }
 
 void ScavTrap::takeDamage(unsigned int amount) {
-  if (ClapTrap::takeDamage(amount))
+  if (ClapTrap::processTakeDamage(amount))
     std::cout << "ScavTrap [" << getName() << "] takes [" << amount << "] points of damage!" << std::endl;
   else
     std::cout << "[" << getName() << "]: I'm basically dead now, can't takeDamage" << std::endl;
 }
 
 void ScavTrap::beRepaired(unsigned int amount) {
-  if (ClapTrap::beRepaired(amount))
+  if (ClapTrap::processBeRepaired(amount))
     std::cout << "ScavTrap [" << getName() << "] heals for [" << amount << "] points!" << std::endl;
   else
     std::cout << "[" << getName() << "]: I'm basically dead now, can't beRepaired" << std::endl;
