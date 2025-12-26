@@ -9,6 +9,8 @@ class FragTrap : public ClapTrap {
     FragTrap(void);
 
   public:
+    // FragTrap& operator=(const FragTrap& other);
+    // FragTrap(const FragTrap& other);
     ~FragTrap(void);
 
     FragTrap(std::string name);

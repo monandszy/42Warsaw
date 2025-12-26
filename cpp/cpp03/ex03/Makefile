@@ -4,8 +4,7 @@ CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
 	main.cpp \
 	ClapTrap.cpp \
-	ScavTrap.cpp \
-	FragTrap.cpp
+	ScavTrap.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

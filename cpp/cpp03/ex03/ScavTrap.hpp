@@ -4,20 +4,22 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap {
+class ScavTrap : public ClapTrap {
   private:
-    FragTrap(void);
+    ScavTrap(void);
 
   public:
-    ~FragTrap(void);
+    // ScavTrap& operator=(const ScavTrap& other);
+    // ScavTrap(const ScavTrap& other);
+    ~ScavTrap(void);
 
-    FragTrap(std::string name);
+    ScavTrap(std::string name);
 
     void attack(const std::string& target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
 
-    void highFivesGuys(void);
+    void guardGate();
 };
 
 #endif
