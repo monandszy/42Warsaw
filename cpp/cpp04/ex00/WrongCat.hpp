@@ -2,11 +2,11 @@
 #define CAT_HPP
 
 #include <iostream>
-#include "Animal.hpp"
+#include "WrongAnimal.hpp"
 
-class Cat : public Animal {
+class WrongCat : public WrongAnimal {
   public:
-    Cat(void);
+    WrongCat(void);
     void makeSound(void) const;
 };
 #endif

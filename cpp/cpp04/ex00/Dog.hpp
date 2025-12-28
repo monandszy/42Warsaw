@@ -7,5 +7,6 @@
 class Dog : public Animal {
   public:
     Dog(void);
+    void makeSound(void) const;
 };
 #endif

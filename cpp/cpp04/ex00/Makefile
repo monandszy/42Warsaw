@@ -4,8 +4,8 @@ CFLAGS = -g -Wall -Wextra -Werror -std=c++11
 SRC = \
 	main.cpp \
 	Animal.cpp \
-	Dog.cpp \
-	Cat.cpp
+	Cat.cpp \
+	Dog.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
