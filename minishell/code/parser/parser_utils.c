@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:34:47 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/17 12:34:48 by sandrzej         ###   ########.fr       */
+/*   Updated: 2025/12/30 14:01:52 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cmd_add_back(t_cmd **head, t_cmd *new_cmd)
 	curr->next = new_cmd;
 }
 
-int	add_arg(t_cmd *cmd, char *arg)
+int	add_cmd_arg(t_cmd *cmd, char *arg)
 {
 	int		i;
 	int		count;
@@ -67,30 +67,26 @@ int	add_arg(t_cmd *cmd, char *arg)
 	return (1);
 }
 
-t_redir	*new_redir(t_token_type type, char *filename)
+char	*join_char(char *str, char c)
 {
-	t_redir	*new;
+	char *new_str;
+	int len;
 
-	new = malloc(sizeof(t_redir));
-	if (!new)
-		return (NULL);
-	new->type = type;
-	new->file = ft_strdup(filename);
-	new->next = NULL;
-	return (new);
-}
-
-void	redir_add_back(t_redir **head, t_redir *new)
-{
-	t_redir	*curr;
-
-	if (!*head)
+	if (!str)
 	{
-		*head = new;
-		return ;
+		new_str = malloc(2);
+		if (!new_str)
+			return (NULL);
+		new_str[0] = c;
+		new_str[1] = '\0';
+		return (new_str);
 	}
-	curr = *head;
-	while (curr->next)
-		curr = curr->next;
-	curr->next = new;
+	len = ft_strlen(str);
+	new_str = malloc(len + 2);
+	if (!new_str)
+		return (free(str), NULL);
+	ft_strlcpy(new_str, str, len + 1);
+	new_str[len] = c;
+	new_str[len + 1] = '\0';
+	return (free(str), new_str);
 }

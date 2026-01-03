@@ -84,9 +84,10 @@ typedef struct s_shell
 	char			**paths;
 	int				exit_code;
 	t_cmd			*cmds;
+	t_token			*tokens;
 }					t_shell;
 
-void				init_shell(t_shell *shell, char **envp);
+void	      init_shell(t_shell *shell, char **envp, int argc, char **argv);
 void				init_path(t_shell *shell);
 void				setup_signals(t_shell *shell);
 
@@ -98,7 +99,7 @@ void				free_cmds(t_cmd *head);
 void				free_tokens(t_token *head);
 /* Cmd processing */
 int					execute_cmd_chain(t_shell *shell, t_cmd *cmd);
-int	validate_command(t_shell *shell, t_cmd *cmd);
+int					validate_command(t_shell *shell, t_cmd *cmd);
 int					process_native_command(t_shell *shell, t_cmd *cmd);
 
 /* Piping */
@@ -116,8 +117,9 @@ int					pwd(t_shell *shell, t_cmd *cmd);
 int					recho(t_shell *shell, t_cmd *cmd);
 
 /* Utils */
-void shperror(char *a, char *msg);
+void				shperror(char *a, char *msg);
 int					ft_isnumber(char *str);
+char				*ft_strjoin_free(char *s1, char *s2);
 void				end(t_shell *shell, char *msg);
 void				free_split(char **sp);
 void				free_env(t_env *node);
@@ -125,13 +127,34 @@ void				close_pipe(t_cmd *cmd);
 t_cmd				*init_single_cmd(t_shell *shell, char *line);
 
 /* lexer and parser functions */
+char				check_unclosed_quote(char *line);
 t_token				*tokenizer(char *line);
 t_cmd				*init_cmd(void);
 void				cmd_add_back(t_cmd **head, t_cmd *new_cmd);
-t_cmd				*parse_tokens(t_token *tokens);
+t_cmd				*parse_tokens(t_token *tokens, t_shell *shell);
 void				redir_add_back(t_redir **head, t_redir *new);
 t_redir				*new_redir(t_token_type type, char *filename);
-int					add_arg(t_cmd *cmd, char *arg);
+int					add_cmd_arg(t_cmd *cmd, char *arg);
+
+/* Parser helpers */
+char				*join_char(char *str, char c);
+char				*expand_str(char *str, t_shell *shell);
+char				*remove_quotes(char *str);
+char				*read_heredoc(char *delimiter);
+
+/* Lexer helpers */
+void				handle_separator(char *line, int *i, t_token **head);
+t_token				*new_token(char *value, t_token_type type);
+void				token_add_back(t_token **head, t_token *new_token);
+
+/* Parser actions */
+void				process_redir(t_cmd *curr, t_token *token, t_shell *shell);
+void				process_word(t_cmd *curr, t_token *token, t_shell *shell);
+
+/* Expander helpers */
+void				update_quote(char c, char *quote);
+char				*process_dollar(char *res, char *str, int *i, t_shell *shell);
+char				*get_env_val(t_shell *shell, char *key);
 
 /* Env variable manager */
 void				print_sorted_declare_env(t_shell *shell, t_cmd *cmd);

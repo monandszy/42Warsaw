@@ -18,9 +18,16 @@ SRCS = \
 	init.c \
 	signals.c \
 	utils.c \
-	lexer.c \
-	parser.c \
-	parser_utils.c
+	parser/lexer.c \
+	parser/lexer_handlers.c \
+	parser/parser.c \
+	parser/parser_actions.c \
+	parser/parser_utils.c \
+	parser/redir_utils.c \
+	parser/expander.c \
+	parser/expander_utils.c \
+	parser/heredoc_processor.c \
+	parser/quotes_processor.c
 
 MOBJ = $(MAIN:.c=.o)
 OBJS = $(SRCS:.c=.o)
@@ -37,9 +44,10 @@ compile: mkdirs $(OBJS) $(MOBJ)
 mkdirs:
 	mkdir -p $(OBJS_DIR)
 	mkdir -p $(OBJS_DIR)/executor
+	mkdir -p $(OBJS_DIR)/parser
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I./$(LIB_DIR) -c $< -o $(OBJS_DIR)/$@ 
+	$(CC) $(CFLAGS) -I. -I./$(LIB_DIR) -c $< -o $(OBJS_DIR)/$@ 
 
 $(NAME): lib_make
 	$(CC) $(CFLAGS) $(OBJ_PATHS) $(MOBJ_PATH) $(LIB_DIR)/libft.a -o $(NAME) -lbsd -lreadline

@@ -14,6 +14,30 @@
 
 volatile int	g_shlvl = 0;
 
+static char	*read_input(t_shell *shell)
+{
+	char	*line;
+	char	*next_line;
+
+	line = readline("mini(s)hell> ");
+	if (!line)
+		end(shell, NULL);
+	while (check_unclosed_quote(line))
+	{
+		next_line = readline("> ");
+		if (!next_line)
+		{
+      shperror("minishell", "while looking for matching quote");
+			free(line);
+			return (NULL);
+		}
+		line = ft_strjoin_free(line, "\n");
+		line = ft_strjoin_free(line, next_line);
+		free(next_line);
+	}
+	return (line);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
@@ -21,35 +45,30 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*tokens;
 	t_cmd	*cmds;
 
-	(void)argc;
-	(void)argv;
-	init_shell(&shell, envp);
+	init_shell(&shell, envp, argc, argv);
 	setup_signals(&shell);
-	errno = 0;
 	while (1)
 	{
-		line = readline("mini(s)hell> ");
-		if (!line)
-			end(&shell, NULL);
-		if (*line)
+		line = read_input(&shell);
+		if (line && *line)
 		{
 			add_history(line);
 			tokens = tokenizer(line);
-			cmds = parse_tokens(tokens);
-			if (ft_strncmp(line, "echo $?", 7) == 0 || ft_strncmp(line, "$?",
-					2) == 0)
+			if (tokens)
 			{
-				printf("%d\n", shell.exit_code);
-			}
-			else
-			{
-        shell.exit_code = 0;
-				execute_cmd_chain(&shell, cmds);
-				// printf("[%d]\n", shell.exit_code);
-				free_cmds(cmds);
+				shell.tokens = tokens;
+				cmds = parse_tokens(tokens, &shell);
+				if (cmds)
+				{
+					shell.cmds = cmds;
+					execute_cmd_chain(&shell, cmds);
+					free_cmds(cmds);
+					shell.cmds = NULL;
+				}
 				free_tokens(tokens);
-				free(line);
+				shell.tokens = NULL;
 			}
+			free(line);
 		}
 	}
 }

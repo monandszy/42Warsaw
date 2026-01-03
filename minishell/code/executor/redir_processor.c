@@ -12,14 +12,25 @@
 
 #include "./../minishell.h"
 
+static int	print_error(char *file)
+{
+	int	saved_errno;
+
+	saved_errno = errno;
+	ft_putstr_fd("minishell: ", 2);
+	errno = saved_errno;
+	perror(file);
+	return (1);
+}
+
 static int	process_in(t_shell *shell, t_cmd *cmd, char *file)
 {
 	int	fd;
 
-  (void) shell;
+	(void)shell;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-    return (perror(file), 1);
+		return (print_error(file));
 	if (cmd->fdin != STDIN_FILENO)
 		close(cmd->fdin);
 	cmd->fdin = fd;
@@ -44,10 +55,10 @@ static int	process_out(t_shell *shell, t_cmd *cmd, char *file)
 {
 	int	fd;
 
-  (void) shell;
+	(void)shell;
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-  if (fd == -1)
-    return (perror(file), 1);
+	if (fd == -1)
+		return (print_error(file));
 	if (cmd->fdout != STDOUT_FILENO)
 		close(cmd->fdout);
 	cmd->fdout = fd;
@@ -58,10 +69,10 @@ static int	process_append(t_shell *shell, t_cmd *cmd, char *file)
 {
 	int	fd;
 
-  (void) shell;
+	(void)shell;
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-  if (fd == -1)
-    return (perror(file), 1);
+	if (fd == -1)
+		return (print_error(file));
 	if (cmd->fdout != STDOUT_FILENO)
 		close(cmd->fdout);
 	cmd->fdout = fd;
@@ -71,10 +82,8 @@ static int	process_append(t_shell *shell, t_cmd *cmd, char *file)
 int	open_redir(t_shell *shell, t_cmd *cmd)
 {
 	t_redir	*redir;
-	int		r_code;
 	int		code;
 
-	r_code = 0;
 	code = 0;
 	redir = cmd->redirs;
 	while (redir)
@@ -87,9 +96,9 @@ int	open_redir(t_shell *shell, t_cmd *cmd)
 			code = process_out(shell, cmd, redir->file);
 		else if (redir->type == TOKEN_REDIR_APPEND)
 			code = process_append(shell, cmd, redir->file);
-		redir = redir->next;
 		if (code)
-			r_code = 1;
+			return (1);
+		redir = redir->next;
 	}
-	return (r_code);
+	return (0);
 }

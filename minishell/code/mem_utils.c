@@ -36,6 +36,7 @@ void	end(t_shell *shell, char *msg)
 	tcsetattr(STDIN_FILENO, TCSANOW, &shell->t);
 	rl_clear_history();
 	free_cmds(shell->cmds);
+	free_tokens(shell->tokens);
 	free_env_lst(shell->env_list);
 	free_split(shell->paths);
 	if (msg)

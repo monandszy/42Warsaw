@@ -58,12 +58,15 @@ void	init_env_list(t_shell *shell, char **envp)
 	}
 }
 
-void	init_shell(t_shell *shell, char **envp)
+void	init_shell(t_shell *shell, char **envp, int argc, char **argv)
 {
 	shell->envp = envp;
 	shell->exit_code = 0;
 	shell->cmds = NULL;
+	shell->tokens = NULL;
 	shell->paths = NULL;
+	(void)argc;
+	(void)argv;
 	init_env_list(shell, envp);
 	init_path(shell);
 }

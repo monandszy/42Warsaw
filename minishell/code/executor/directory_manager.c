@@ -35,11 +35,12 @@ int	change_directory(t_shell *shell, t_cmd *cmd)
 		to = env_get(&shell->env_list, "HOME");
 		if (!to)
 			to = "";
-	} else
-  {
-    if (cmd->args[2])
-      return (shperror(cmd->args[0], " too many arguments"), 1);
-  }
+	}
+	else
+	{
+		if (cmd->args[2])
+			return (shperror(cmd->args[0], " too many arguments"), 1);
+	}
 	if (chdir(to) == -1)
 		return (perror(cmd->args[0]), 1);
 	key = ft_strjoin("PWD=", getcwdir(shell));
@@ -65,6 +66,7 @@ static void	run_child(t_shell *shell, t_cmd *cmd)
 		close(cmd->fdout);
 	}
 	printf("%s\n", getcwdir(shell));
+	shell->exit_code = 0;
 	end(shell, NULL);
 }
 

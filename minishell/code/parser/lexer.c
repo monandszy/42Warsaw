@@ -69,43 +69,6 @@ void	handle_word(char *line, int *i, t_token **head)
 	token_add_back(head, new_token(word, TOKEN_WORD));
 }
 
-void	handle_separator(char *line, int *i, t_token **head)
-{
-	if (line[*i] == '|')
-	{
-		token_add_back(head, new_token(ft_strdup("|"), TOKEN_PIPE));
-		(*i)++;
-	}
-	else if (line[*i] == '<')
-	{
-		if (line[*i + 1] == '<')
-		{
-			token_add_back(head, new_token(ft_strdup("<<"),
-					TOKEN_REDIR_HEREDOC));
-			(*i) += 2;
-		}
-		else
-		{
-			token_add_back(head, new_token(ft_strdup("<"), TOKEN_REDIR_IN));
-			(*i)++;
-		}
-	}
-	else if (line[*i] == '>')
-	{
-		if (line[*i + 1] == '>')
-		{
-			token_add_back(head, new_token(ft_strdup(">>"),
-					TOKEN_REDIR_APPEND));
-			(*i) += 2;
-		}
-		else
-		{
-			token_add_back(head, new_token(ft_strdup(">"), TOKEN_REDIR_OUT));
-			(*i)++;
-		}
-	}
-}
-
 t_token	*tokenizer(char *line)
 {
 	t_token	*head;

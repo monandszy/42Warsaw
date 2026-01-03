@@ -41,6 +41,7 @@ void	disable_control(t_shell *shell)
 {
 	struct termios	t;
 
+	ft_bzero(&t, sizeof(t));
 	tcgetattr(STDIN_FILENO, &t);
 	shell->t = t;
 	t.c_lflag &= ~ECHOCTL;

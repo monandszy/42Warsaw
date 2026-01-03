@@ -53,7 +53,7 @@ int	execute_command(t_shell *shell, t_cmd *cmd)
 		return (recho(shell, cmd));
 	else
 		return (process_native_command(shell, cmd));
-} 
+}
 
 int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 {
@@ -66,9 +66,11 @@ int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 		cmd->fdout = STDOUT_FILENO;
 		if (cmd->next)
 			open_pipe(shell, cmd);
-		if (open_redir(shell, cmd) && !shell->exit_code)
+		if (open_redir(shell, cmd))
+		{
 			shell->exit_code = 1;
-		if ((!cmd->args || execute_command(shell, cmd)) && !shell->exit_code)
+		}
+		else if ((!cmd->args || execute_command(shell, cmd)) && !shell->exit_code)
 			shell->exit_code = 1;
 		if (cmd->fdin != STDIN_FILENO)
 			close(cmd->fdin);
@@ -79,8 +81,12 @@ int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 		cmd = cmd->next;
 	}
 	while (wait(&status) > 0)
-    if (status > 0 && status < 256)
-		  shell->exit_code = status;
+	{
+		if (WIFEXITED(status))
+			shell->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exit_code = 128 + WTERMSIG(status);
+	}
 	g_shlvl--;
 	return (0);
 }

@@ -80,16 +80,17 @@ static char	*validate_as_user(t_shell *shell, t_cmd *cmd)
 	return (path);
 }
 
-int validate_access(t_cmd *cmd, char *path)
+int	validate_access(t_cmd *cmd, char *path)
 {
-  struct stat path_stat;
+	struct stat	path_stat;
 
-  stat(path, &path_stat);
-  if (S_ISDIR(path_stat.st_mode))
-    return (free(cmd->path), shperror(cmd->args[0], "Is a directory"), 1);
-  if (access(cmd->path, X_OK) == -1)
-    return (free(cmd->path), shperror(cmd->args[0], "Permission denied"), 1);
-  return (0);
+	stat(path, &path_stat);
+	if (S_ISDIR(path_stat.st_mode))
+		return (free(cmd->path), shperror(cmd->args[0], "Is a directory"), 1);
+	if (access(cmd->path, X_OK) == -1)
+		return (free(cmd->path), shperror(cmd->args[0], "Permission denied"),
+			1);
+	return (0);
 }
 
 int	validate_command(t_shell *shell, t_cmd *cmd)
@@ -108,9 +109,10 @@ int	validate_command(t_shell *shell, t_cmd *cmd)
 	else
 		path = validate_in_paths(shell, name);
 	cmd->path = path;
-  if (!path)
-    return (shperror(cmd->args[0], "command not found"), shell->exit_code=127, 1);
-  if(validate_access(cmd, path))
-    return (shell->exit_code=126, 1);
-  return (0);
+	if (!path)
+		return (shperror(cmd->args[0], "command not found"),
+			shell->exit_code = 127, 1);
+	if (validate_access(cmd, path))
+		return (shell->exit_code = 126, 1);
+	return (0);
 }
