@@ -20,7 +20,7 @@ char	*expand_str(char *str, t_shell *shell)
 
 	res = NULL;
 	i = 0;
-	quote = 0;
+	quote = '\0';
 	while (str[i])
 	{
 		update_quote(str[i], &quote);

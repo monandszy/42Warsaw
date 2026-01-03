@@ -36,7 +36,7 @@ char	*append_exit_code(char *res, t_shell *shell, int *i)
 {
 	char	*val;
 
-	val = get_env_val(shell, "?");
+  val = ft_itoa(shell->exit_code);
 	res = ft_strjoin_free(res, val);
 	free(val);
 	(*i)++;

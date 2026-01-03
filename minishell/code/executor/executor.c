@@ -83,9 +83,9 @@ int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 	while (wait(&status) > 0)
 	{
 		if (WIFEXITED(status))
-			shell->exit_code = WEXITSTATUS(status);
+			shell->exit_code = WEXITSTATUS(status) % 256;
 		else if (WIFSIGNALED(status))
-			shell->exit_code = 128 + WTERMSIG(status);
+			shell->exit_code = (128 + WTERMSIG(status)) % 256;
 	}
 	g_shlvl--;
 	return (0);

@@ -29,17 +29,19 @@ static t_cmd	*new_cmd(t_cmd **head, t_shell *shell)
 	return (curr);
 }
 
+static void parser_error(t_shell *shell)
+{
+  shperror("minishell", "syntax error near unexpected token");
+  shell->exit_code = 2;
+}
+
 t_cmd	*parse_tokens(t_token *token, t_shell *shell)
 {
 	t_cmd	*head;
 	t_cmd	*curr;
 
 	if (token && token->type == TOKEN_PIPE)
-	{
-		shperror("minishell", "syntax error near unexpected token");
-		shell->exit_code = 258;
-		return (NULL);
-	}
+    return (parser_error(shell), NULL);
 	head = NULL;
 	curr = new_cmd(&head, shell);
 	while (token)
@@ -47,22 +49,14 @@ t_cmd	*parse_tokens(t_token *token, t_shell *shell)
 		if (token->type == TOKEN_PIPE)
 		{
 			if (!curr->args && !curr->redirs)
-			{
-				shperror("minishell", "syntax error near unexpected token");
-				shell->exit_code = 258;
-				free_cmds(head);
-				return (NULL);
-			}
+        return (parser_error(shell), free_cmds(head), NULL);
 			curr = new_cmd(&head, shell);
 		}
 		else if (is_redir_token(token->type))
 		{
 			process_redir(curr, token, shell);
-			if (shell->exit_code == 258)
-			{
-				free_cmds(head);
-				return (NULL);
-			}
+			if (shell->exit_code == 2)
+				return (free_cmds(head), NULL);
 			if (token->next)
 				token = token->next;
 		}
@@ -72,11 +66,6 @@ t_cmd	*parse_tokens(t_token *token, t_shell *shell)
 			token = token->next;
 	}
 	if (!curr->args && !curr->redirs && head->next)
-	{
-		shperror("minishell", "syntax error near unexpected token");
-		shell->exit_code = 258;
-		free_cmds(head);
-		return (NULL);
-	}
+    return (parser_error(shell), free_cmds(head), NULL);
 	return (head);
 }
