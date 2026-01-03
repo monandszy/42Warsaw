@@ -5,6 +5,7 @@ MAIN = main.c
 SRCS = \
 	executor/echo.c \
 	executor/cmd_validator.c \
+	executor/cmd_validator_utils.c \
 	executor/env_executor.c \
 	executor/file_manager.c \
 	executor/directory_manager.c \

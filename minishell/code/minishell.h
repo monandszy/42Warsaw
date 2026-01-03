@@ -87,7 +87,8 @@ typedef struct s_shell
 	t_token			*tokens;
 }					t_shell;
 
-void	      init_shell(t_shell *shell, char **envp, int argc, char **argv);
+void				init_shell(t_shell *shell, char **envp, int argc,
+						char **argv);
 void				init_path(t_shell *shell);
 void				setup_signals(t_shell *shell);
 
@@ -118,6 +119,7 @@ int					recho(t_shell *shell, t_cmd *cmd);
 
 /* Utils */
 void				shperror(char *a, char *msg);
+int					redir_error(char *file);
 int					ft_isnumber(char *str);
 char				*ft_strjoin_free(char *s1, char *s2);
 void				end(t_shell *shell, char *msg);
@@ -153,7 +155,8 @@ void				process_word(t_cmd *curr, t_token *token, t_shell *shell);
 
 /* Expander helpers */
 void				update_quote(char c, char *quote);
-char				*process_dollar(char *res, char *str, int *i, t_shell *shell);
+char				*process_dollar(char *res, char *str, int *i,
+						t_shell *shell);
 char				*get_env_val(t_shell *shell, char *key);
 
 /* Env variable manager */
@@ -162,5 +165,12 @@ t_env				*new_env_node(char *str);
 int					env_add_back(t_env **head, t_env *new_node);
 int					env_del(t_env **head, char *key);
 char				*env_get(t_env **head, char *key);
+
+/* Cmd validation */
+char				*validate_as_is(t_shell *shell, char *name);
+char				*validate_as_rel(t_shell *shell, t_cmd *cmd);
+char				*validate_in_paths(t_shell *shell, char *name);
+char				*validate_as_user(t_shell *shell, t_cmd *cmd);
+int					validate_access(t_cmd *cmd, char *path);
 
 #endif

@@ -43,6 +43,17 @@ void	shperror(char *a, char *msg)
 	}
 }
 
+int	redir_error(char *file)
+{
+	int	saved_errno;
+
+	saved_errno = errno;
+	ft_putstr_fd("minishell: ", 2);
+	errno = saved_errno;
+	perror(file);
+	return (1);
+}
+
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*new_str;

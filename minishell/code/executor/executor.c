@@ -55,10 +55,21 @@ int	execute_command(t_shell *shell, t_cmd *cmd)
 		return (process_native_command(shell, cmd));
 }
 
-int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
+static void	wait_child_exit(t_shell *shell)
 {
 	int	status;
 
+	while (wait(&status) > 0)
+	{
+		if (WIFEXITED(status))
+			shell->exit_code = WEXITSTATUS(status) % 256;
+		else if (WIFSIGNALED(status))
+			shell->exit_code = (128 + WTERMSIG(status)) % 256;
+	}
+}
+
+int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
+{
 	cmd->fdin = STDIN_FILENO;
 	g_shlvl++;
 	while (1)
@@ -67,10 +78,9 @@ int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 		if (cmd->next)
 			open_pipe(shell, cmd);
 		if (open_redir(shell, cmd))
-		{
 			shell->exit_code = 1;
-		}
-		else if ((!cmd->args || execute_command(shell, cmd)) && !shell->exit_code)
+		else if ((!cmd->args || execute_command(shell, cmd))
+			&& !shell->exit_code)
 			shell->exit_code = 1;
 		if (cmd->fdin != STDIN_FILENO)
 			close(cmd->fdin);
@@ -80,13 +90,7 @@ int	execute_cmd_chain(t_shell *shell, t_cmd *cmd)
 			break ;
 		cmd = cmd->next;
 	}
-	while (wait(&status) > 0)
-	{
-		if (WIFEXITED(status))
-			shell->exit_code = WEXITSTATUS(status) % 256;
-		else if (WIFSIGNALED(status))
-			shell->exit_code = (128 + WTERMSIG(status)) % 256;
-	}
+	wait_child_exit(shell);
 	g_shlvl--;
 	return (0);
 }

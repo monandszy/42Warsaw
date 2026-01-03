@@ -16,21 +16,19 @@ void	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 {
 	char	*cleaned;
 	char	*expanded;
-  char *tmp;
-  char *delimiter;
+	char	*tmp;
+	char	*delimiter;
 
-  delimiter = token->next->value;
-
-  printf("[%s %s]\n", token->value, token->next->value);
-
+	delimiter = token->next->value;
+	printf("[%s %s]\n", token->value, token->next->value);
 	cleaned = remove_quotes(delimiter);
 	expanded = read_heredoc(cleaned);
-  if (delimiter && *delimiter != '\'')
-  {
-    tmp = expanded;
-    expanded = expand_str(expanded, shell);
-    free(tmp);
-  }
+	if (delimiter && *delimiter != '\'')
+	{
+		tmp = expanded;
+		expanded = expand_str(expanded, shell);
+		free(tmp);
+	}
 	redir_add_back(&curr->redirs, new_redir(token->type, expanded));
 	free(cleaned);
 	free(expanded);
@@ -59,7 +57,7 @@ void	process_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	}
 	else
 	{
-    shperror("minishell", "syntax error near unexpected token");
+		shperror("minishell", "syntax error near unexpected token");
 		shell->exit_code = 2;
 	}
 }

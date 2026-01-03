@@ -19,7 +19,7 @@ static char	*read_input(t_shell *shell)
 	char	*line;
 	char	*next_line;
 
-	line = readline("mini(s)hell> ");
+	line = readline("mini(sand)hell> ");
 	if (!line)
 		end(shell, NULL);
 	while (check_unclosed_quote(line))
@@ -27,7 +27,7 @@ static char	*read_input(t_shell *shell)
 		next_line = readline("> ");
 		if (!next_line)
 		{
-      shperror("minishell", "while looking for matching quote");
+			shperror("minishell", "while looking for matching quote");
 			free(line);
 			return (NULL);
 		}
@@ -38,12 +38,33 @@ static char	*read_input(t_shell *shell)
 	return (line);
 }
 
+void	process_line(char *line, t_shell *shell)
+{
+	t_token	*tokens;
+	t_cmd	*cmds;
+
+	add_history(line);
+	tokens = tokenizer(line);
+	if (tokens)
+	{
+		shell->tokens = tokens;
+		cmds = parse_tokens(tokens, shell);
+		if (cmds)
+		{
+			shell->cmds = cmds;
+			execute_cmd_chain(shell, cmds);
+			free_cmds(cmds);
+			shell->cmds = NULL;
+		}
+		free_tokens(tokens);
+		shell->tokens = NULL;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	char	*line;
-	t_token	*tokens;
-	t_cmd	*cmds;
 
 	init_shell(&shell, envp, argc, argv);
 	setup_signals(&shell);
@@ -52,22 +73,7 @@ int	main(int argc, char **argv, char **envp)
 		line = read_input(&shell);
 		if (line && *line)
 		{
-			add_history(line);
-			tokens = tokenizer(line);
-			if (tokens)
-			{
-				shell.tokens = tokens;
-				cmds = parse_tokens(tokens, &shell);
-				if (cmds)
-				{
-					shell.cmds = cmds;
-					execute_cmd_chain(&shell, cmds);
-					free_cmds(cmds);
-					shell.cmds = NULL;
-				}
-				free_tokens(tokens);
-				shell.tokens = NULL;
-			}
+			process_line(line, &shell);
 			free(line);
 		}
 	}

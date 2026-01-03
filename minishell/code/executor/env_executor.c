@@ -16,8 +16,16 @@ int	export(t_shell *shell, t_cmd *cmd)
 {
 	t_env	*new_node;
 	char	*key;
+  int i;
 
 	key = cmd->args[1];
+  i = 0;
+  while(key && key[i] && key[i] != '=')
+  {
+    if (!ft_isalnum(key[i]) && key[i] != '_')
+      return (1);
+    i++;
+  }
 	if (key)
 	{
 		new_node = new_env_node(key);

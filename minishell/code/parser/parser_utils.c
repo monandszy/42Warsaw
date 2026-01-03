@@ -74,7 +74,7 @@ char	*join_char(char *str, char c)
 
 	if (!str)
 	{
-		new_str = (char *) malloc(sizeof(char) * 2);
+		new_str = (char *)malloc(sizeof(char) * 2);
 		if (!new_str)
 			return (NULL);
 		new_str[0] = c;
@@ -82,7 +82,7 @@ char	*join_char(char *str, char c)
 		return (new_str);
 	}
 	len = ft_strlen(str);
-	new_str = (char *) malloc(sizeof(char ) * (len + 2));
+	new_str = (char *)malloc(sizeof(char) * (len + 2));
 	if (!new_str)
 		return (free(str), str = NULL, NULL);
 	ft_strlcpy(new_str, str, len + 1);
