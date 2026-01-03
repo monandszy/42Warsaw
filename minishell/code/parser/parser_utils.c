@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:34:47 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/30 14:01:52 by sandrzej         ###   ########.fr       */
+/*   Updated: 2026/01/03 13:49:31 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	add_cmd_arg(t_cmd *cmd, char *arg)
 
 char	*join_char(char *str, char c)
 {
-	char *new_str;
-	int len;
+	char	*new_str;
+	int		len;
 
 	if (!str)
 	{
