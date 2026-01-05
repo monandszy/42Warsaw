@@ -24,6 +24,7 @@ typedef struct s_data
 	void			*win_id;
 	int				x;
 	int				y;
+  
 }					t_data;
 
 typedef struct s_img
@@ -88,9 +89,14 @@ typedef struct s_cylinder
 
 int					key_hook(int keycode, void *param);
 int					end(void *param);
-int	initialize_graphics(t_data *d);
+int	initialize_graphics(t_data *d, char *win_name);
 
 char	*convert_color(t_data *d, t_img *img, void *dst);
 int	get_color(int r, int g, int b);
+
+int initialize_file(t_data *d, char *name);
+int parse_file(t_data *d, int fd);
+
+int render(t_data *d);
 
 #endif

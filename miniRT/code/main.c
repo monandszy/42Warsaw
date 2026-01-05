@@ -1,17 +1,23 @@
 #include "miniRT.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
-  t_data	*d;
+  static t_data	d;
+  int fd;
 
-	d = (t_data *)malloc(sizeof(t_data));
-
-	if (!d || initialize_graphics(d))
-		return (free(d), 1);
-	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
-	mlx_key_hook(d->win_id, &key_hook, d);
-	mlx_loop(d->id);
-	mlx_destroy_window(d->id, d->win_id);
-	mlx_destroy_display(d->id);
-	return (free(d->id), free(d), 0);
+  if (argc != 2)
+    return (write(2, "Error\n", 6), 1);
+	if (initialize_graphics(&d, argv[1]))
+		return (write(2, "Error\n", 6), 1);
+  fd = initialize_file(&d, argv[1]);
+  if (fd < 0)
+		return (write(2, "Error\n", 6), end(&d), 1);
+  if (parse_file(&d, fd))
+		return (write(2, "Error\n", 6), end(&d), 1);
+  if (render(&d))
+		return (write(2, "Error\n", 6), end(&d), 1);
+	mlx_hook((&d)->win_id, DestroyNotify, StructureNotifyMask, &end, &d);
+	mlx_key_hook((&d)->win_id, &key_hook, &d);
+	mlx_loop((&d)->id);
+	return (write(2, "Error\n", 6), 1);
 }

@@ -13,12 +13,6 @@
 #include "miniRT.h"
 
 // XK_Escape
-// 65362 UP
-// 65364 DOWN
-// 65361 LEFT
-// 65363 RIGHT
-// S
-// M
 int	key_hook(int keycode, void *param)
 {
 	t_data	*d;
@@ -29,7 +23,7 @@ int	key_hook(int keycode, void *param)
 	return (0);
 }
 
-int	initialize_graphics(t_data *d)
+int	initialize_graphics(t_data *d, char *win_name)
 {
 	void	*id;
 	void	*win_id;
@@ -40,7 +34,7 @@ int	initialize_graphics(t_data *d)
 	if (!id)
 		return (1);
 	d->id = id;
-	win_id = mlx_new_window(id, d->x, d->y, "fract-ol");
+	win_id = mlx_new_window(id, d->x, d->y, win_name);
 	if (!win_id)
 		return (mlx_destroy_display(id), free(id), 1);
 	d->win_id = win_id;
@@ -50,11 +44,10 @@ int	initialize_graphics(t_data *d)
 int	end(void *param)
 {
   t_data *d = (t_data *) param;
-	mlx_loop_end(d->id);
+	// mlx_loop_end(d->id);
   mlx_destroy_window(d->id, d->win_id);
 	mlx_destroy_display(d->id);
   free(d->id);
-  free(d);
   exit(0);
   return (0);
 }
