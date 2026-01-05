@@ -3,7 +3,8 @@ CC = cc
 CFLAGS = -g  -Wall -Wextra -Werror
 SRC = \
 	main.c \
-	window_utils.c
+	window_utils.c \
+	color_manager.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

@@ -10,7 +10,6 @@ int main(void)
 		return (free(d), 1);
 	mlx_hook(d->win_id, DestroyNotify, StructureNotifyMask, &end, d);
 	mlx_key_hook(d->win_id, &key_hook, d);
-	
 	mlx_loop(d->id);
 	mlx_destroy_window(d->id, d->win_id);
 	mlx_destroy_display(d->id);
