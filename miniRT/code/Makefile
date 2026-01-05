@@ -1,51 +1,39 @@
-NAME = minishell
+NAME = miniRT
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-MAIN = main.c
-SRCS = \
-	utils.c
+CFLAGS = -g  -Wall -Wextra -Werror
+SRC = \
+	main.c \
+	window_utils.c
+OBJ = $(SRC:.c=.o)
+OBJ_DIR = objs
+OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
 
-MOBJ = $(MAIN:.c=.o)
-OBJS = $(SRCS:.c=.o)
-OBJ_PATHS = $(addprefix $(OBJS_DIR)/, $(OBJS))
-MOBJ_PATH = $(addprefix $(OBJS_DIR)/, $(MOBJ))
-OBJS_DIR = ./objs
+all: $(OBJ) libmake $(NAME)
 
-LIB_DIR = libft
+bonus: all
 
-all: compile $(NAME)
+%.o: %.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@
 
-compile: mkdirs $(OBJS) $(MOBJ)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-mkdirs:
-	mkdir -p $(OBJS_DIR)
-	mkdir -p $(OBJS_DIR)/executor
-	mkdir -p $(OBJS_DIR)/parser
+$(NAME):
+	$(CC) $(CFLAGS) $(OBJ_PATH) libft/libft.a minilibx/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -I. -I./$(LIB_DIR) -c $< -o $(OBJS_DIR)/$@ 
-
-$(NAME): lib_make
-	$(CC) $(CFLAGS) $(OBJ_PATHS) $(MOBJ_PATH) $(LIB_DIR)/libft.a -o $(NAME) -lbsd -lreadline
-
-archive:
-	cp $(LIB_DIR)/libft.a $(NAME).a
-	ar rcs $(NAME).a $(OBJ_PATHS)
-
-test: 
+run: all
 	./$(NAME)
 
-run: re test
+libmake:
+	make bonus -C libft > /dev/null 2>&1
 
 clean:
-	rm -rf $(OBJS_DIR)
+	make fclean -C libft > /dev/null 2>&1
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf $(NAME) $(NAME).a
+	rm -rf $(NAME)
 
 re: fclean all
 
-lib_make:
-	make bonus -C $(LIB_DIR) > /dev/null 2>&1
-
-.PHONY: all clean fclean re test lib_make
+.PHONY: all comile archive fclean clean re bonus libmake $(NAME) run
