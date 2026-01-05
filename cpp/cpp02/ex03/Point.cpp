@@ -15,3 +15,10 @@ Point& Point::operator=(const Point& other) {
 
 Point::~Point(void) {
 }
+
+const Fixed& Point::getY() const {
+  return _y;
+}
+const Fixed& Point::getX() const {
+  return _x;
+}
