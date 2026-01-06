@@ -26,46 +26,29 @@ float	ft_atof(char *str)
 	return (sign * result / power);
 }
 
-int	ft_is_decimal(char *str)
+size_t split_len(char **spl)
 {
-	int	i;
-	int	dot_count;
+  size_t len;
 
-	i = 0;
-	dot_count = 0;
-	if (!str)
-		return (0);
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
-		return (0);
-	while (str[i])
-	{
-		if (str[i] == '.')
-		{
-			dot_count++;
-			if (dot_count > 1)
-				return (0);
-		}
-		else if (str[i] < '0' || str[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
+  len = 0;
+  while (spl[len])
+    len++;
+  return (len);
 }
 
 float extract_decimal(char *str)
 {
-  if (ft_is_decimal(str))
-    return (ft_atof(str));
-  return (0.0f);
+  float res;
+
+  res = ft_atof(str);
+  return (res);
 }
 
-// "r,g,b" -> "123,123,123"
+// "r,g,b"
 int extract_rgb(char *str)
 {
   char **parts;
-  int rgb[3] = {0};
+  int rgb[3];
   int i;
   size_t len;
 
@@ -85,7 +68,25 @@ int extract_rgb(char *str)
   return (get_color(rgb[0], rgb[1], rgb[2]));
 }
 
-void print_error(char *msg)
+// "r,g,b"
+void extract_coord(char *str, t_coord *coord)
 {
-  write(2, msg, ft_strlen(msg));
+  char **parts;
+  int xyz[3];
+  size_t len;
+  int i;
+  
+  xyz[0] = 0;
+  xyz[1] = 0;
+  xyz[2] = 0;
+  parts = ft_split(str, ',');
+  if (!parts)
+    return ;
+  len = split_len(parts);
+  i = 0;
+  while (len--)
+  {
+    xyz[i] = ft_atof((parts[i]));
+    i++;
+  }
 }

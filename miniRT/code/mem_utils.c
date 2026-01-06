@@ -16,12 +16,12 @@ void	free_split(char **sp)
 	}
 }
 
-size_t split_len(char **spl)
+void error()
 {
-  size_t len;
+  exit(1);
+}
 
-  len = 0;
-  while (spl[len])
-    len++;
-  return (len);
+void print_error(char *msg)
+{
+  write(2, msg, ft_strlen(msg));
 }

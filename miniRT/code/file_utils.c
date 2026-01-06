@@ -53,31 +53,32 @@ char *initialize_file(t_data *d, char *name)
   return (file);
 }
 
-void process_object(char *obj, t_entry *entry)
+int process_object(char *obj, t_entry *entry)
 {
   char **parts;
   char *specifier;
-  size_t len;
+  int code;
 
+  code = 1;
   parts = ft_split(obj, ' ');
   if (!parts || !*parts)
-    return ;
-  len = split_len(parts);
+    return (code);
 
   specifier = parts[0];
   if (ft_strncmp(specifier, "A", 2))
-    process_Ambient(parts, entry, len);
+    code = process_Ambient(parts, entry);
   else if (ft_strncmp(specifier, "C", 2))
-    process_Camera(parts, entry, len);
+    code = process_Camera(parts, entry);
   else if (ft_strncmp(specifier, "L", 2))
-    process_Light(parts, entry, len);
+    code = process_Light(parts, entry);
   else if (ft_strncmp(specifier, "sp", 3))
-    process_sphere(parts, entry, len);
+    code = process_sphere(parts, entry);
   else if (ft_strncmp(specifier, "pl", 3))
-    process_plane(parts, entry, len);
+    code = process_plane(parts, entry);
   else if (ft_strncmp(specifier, "cy", 3))
-    process_cylinder(parts, entry, len);
+    code = process_cylinder(parts, entry);
   free_split(parts);
+  return (code);
 }
 
 int parse_file(t_data *d, char *file)
@@ -99,7 +100,8 @@ int parse_file(t_data *d, char *file)
   i = 0;
   while(i < len)
   {
-    process_object(objects[i], &entries[i]);
+    if (process_object(objects[i], &entries[i]))
+      return (free_split(objects), free_split(entries), 1);
     i++;
   }
   free_split(objects);

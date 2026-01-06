@@ -119,18 +119,19 @@ int render(t_data *d);
 
 void	free_split(char **sp);
 size_t split_len(char **spl);
+void print_error(char *msg);
+void error();
 
 float	ft_atof(char *str);
 int	ft_is_decimal(char *str);
 float extract_decimal(char *str);
 int extract_rgb(char *str);
-void print_error(char *msg);
 
-void process_Ambient(char **parts, t_entry *entry, size_t len);
-void process_Camera(char **parts, t_entry *entry, size_t len);
-void process_Light(char **parts, t_entry *entry, size_t len);
-void process_sphere(char **parts, t_entry *entry, size_t len);
-void process_plane(char **parts, t_entry *entry, size_t len);
-void process_cylinder(char **parts, t_entry *entry, size_t len);
+int process_Ambient(char **parts, t_entry *entry);
+int process_Camera(char **parts, t_entry *entry);
+int process_Light(char **parts, t_entry *entry);
+int process_sphere(char **parts, t_entry *entry);
+int process_plane(char **parts, t_entry *entry);
+int process_cylinder(char **parts, t_entry *entry);
 
 #endif
