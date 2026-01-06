@@ -20,15 +20,6 @@
 #  define Y_EDGE 1000
 # endif
 
-typedef struct s_data
-{
-	void			*id;
-	void			*win_id;
-	int				x;
-	int				y;
-  
-}					t_data;
-
 typedef struct s_img
 {
 	void			*id;
@@ -105,6 +96,15 @@ typedef struct s_entry
   t_type type;
 } t_entry;
 
+typedef struct s_data
+{
+	void			*id;
+	void			*win_id;
+	int				x;
+	int				y;
+  t_entry *objects;
+}					t_data;
+
 int					key_hook(int keycode, void *param);
 int					end(void *param);
 int	initialize_graphics(t_data *d, char *win_name);
@@ -118,5 +118,19 @@ int parse_file(t_data *d, char *file);
 int render(t_data *d);
 
 void	free_split(char **sp);
+size_t split_len(char **spl);
+
+float	ft_atof(char *str);
+int	ft_is_decimal(char *str);
+float extract_decimal(char *str);
+int extract_rgb(char *str);
+void print_error(char *msg);
+
+void process_Ambient(char **parts, t_entry *entry, size_t len);
+void process_Camera(char **parts, t_entry *entry, size_t len);
+void process_Light(char **parts, t_entry *entry, size_t len);
+void process_sphere(char **parts, t_entry *entry, size_t len);
+void process_plane(char **parts, t_entry *entry, size_t len);
+void process_cylinder(char **parts, t_entry *entry, size_t len);
 
 #endif

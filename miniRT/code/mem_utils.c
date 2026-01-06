@@ -15,3 +15,13 @@ void	free_split(char **sp)
 		free(sp);
 	}
 }
+
+size_t split_len(char **spl)
+{
+  size_t len;
+
+  len = 0;
+  while (spl[len])
+    len++;
+  return (len);
+}
