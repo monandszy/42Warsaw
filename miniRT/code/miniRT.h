@@ -9,6 +9,8 @@
 # include <stdlib.h>
 # include <time.h>
 # include <unistd.h>
+# include <string.h>
+# include <fcntl.h>
 
 # ifndef X_EDGE
 #  define X_EDGE 1000
@@ -36,12 +38,6 @@ typedef struct s_img
 	char			*start;
 }					t_img;
 
-typedef struct s_ambient
-{
-  float range; // 0.0 - 1.0
-  int rgb;
-} t_ambient;
-
 typedef struct s_coord
 {
   int x;
@@ -49,6 +45,11 @@ typedef struct s_coord
   int z;
 } t_coord;
 
+typedef struct s_ambient
+{
+  float range; // 0.0 - 1.0
+  int rgb;
+} t_ambient;
 
 typedef struct s_camera
 {
@@ -87,6 +88,23 @@ typedef struct s_cylinder
   int color;
 } t_cylinder;
 
+
+typedef enum s_type
+{
+  AMBIENT,
+  CAMERA,
+  LIGHT,
+  SPHERE,
+  PLANE,
+  CYLINDER
+} t_type;
+
+typedef struct s_entry
+{
+  void *obj;
+  t_type type;
+} t_entry;
+
 int					key_hook(int keycode, void *param);
 int					end(void *param);
 int	initialize_graphics(t_data *d, char *win_name);
@@ -94,9 +112,11 @@ int	initialize_graphics(t_data *d, char *win_name);
 char	*convert_color(t_data *d, t_img *img, void *dst);
 int	get_color(int r, int g, int b);
 
-int initialize_file(t_data *d, char *name);
-int parse_file(t_data *d, int fd);
+char *initialize_file(t_data *d, char *name);
+int parse_file(t_data *d, char *file);
 
 int render(t_data *d);
+
+void	free_split(char **sp);
 
 #endif

@@ -3,17 +3,18 @@
 int main(int argc, char **argv)
 {
   static t_data	d;
-  int fd;
+  char * file;
 
   if (argc != 2)
     return (write(2, "Error\n", 6), 1);
-	if (initialize_graphics(&d, argv[1]))
+  file = initialize_file(&d, argv[1]);
+  if (!file)
+		return (free(file), write(2, "Error\n", 6), 1);
+  if (parse_file(&d, file))
 		return (write(2, "Error\n", 6), 1);
-  fd = initialize_file(&d, argv[1]);
-  if (fd < 0)
-		return (write(2, "Error\n", 6), end(&d), 1);
-  if (parse_file(&d, fd))
-		return (write(2, "Error\n", 6), end(&d), 1);
+  free(file);
+  if (initialize_graphics(&d, argv[1]))
+		return (write(2, "Error\n", 6), 1);
   if (render(&d))
 		return (write(2, "Error\n", 6), end(&d), 1);
 	mlx_hook((&d)->win_id, DestroyNotify, StructureNotifyMask, &end, &d);

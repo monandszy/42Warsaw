@@ -6,7 +6,8 @@ SRC = \
 	window_utils.c \
 	color_manager.c \
 	file_utils.c \
-	renderer.c
+	renderer.c \
+	mem_utils.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
@@ -25,7 +26,7 @@ $(NAME):
 	$(CC) $(CFLAGS) $(OBJ_PATH) libft/libft.a minilibx/libmlx.a -lXext -lX11 -lm -o $(NAME)
 
 run: all
-	./$(NAME)
+	./$(NAME) ./../test/test-1.rt
 
 libmake:
 	make bonus -C libft > /dev/null 2>&1
