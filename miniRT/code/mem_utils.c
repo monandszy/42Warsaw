@@ -16,9 +16,36 @@ void	free_split(char **sp)
 	}
 }
 
-void error()
+int error(t_parser_data *pd)
 {
+  size_t i;
+  size_t len;
+
+  if (pd->parts)
+    free_split(pd->parts);
+  if (pd->objects)
+  {
+    len = split_len(pd->objects);
+    if (pd->entries)
+    {
+      i = 0;
+      while (i < len)
+      {
+         if (pd->entries[i].obj)
+           free(pd->entries[i].obj);
+         i++;
+      }
+      free(pd->entries);
+    }
+    free_split(pd->objects);
+  }
+  else if (pd->entries)
+    free(pd->entries);
+  if (pd->file_content)
+    free(pd->file_content);
+  print_error("Error\n");
   exit(1);
+  return (1);
 }
 
 void print_error(char *msg)

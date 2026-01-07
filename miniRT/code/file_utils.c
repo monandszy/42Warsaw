@@ -53,55 +53,60 @@ char *initialize_file(t_data *d, char *name)
   return (file);
 }
 
-int process_object(char *obj, t_entry *entry)
+int process_object(t_parser_data *pd, char *obj, t_entry *entry)
 {
   char **parts;
   char *specifier;
-  int code;
 
-  code = 1;
   parts = ft_split(obj, ' ');
-  if (!parts || !*parts)
-    return (code);
+  if (!parts || !parts[0])
+    return (error(pd));
 
+  pd->parts = parts;
   specifier = parts[0];
   if (ft_strncmp(specifier, "A", 2))
-    code = process_Ambient(parts, entry);
+    process_Ambient(pd, parts, entry);
   else if (ft_strncmp(specifier, "C", 2))
-    code = process_Camera(parts, entry);
+    process_Camera(pd, parts, entry);
   else if (ft_strncmp(specifier, "L", 2))
-    code = process_Light(parts, entry);
+    process_Light(pd, parts, entry);
   else if (ft_strncmp(specifier, "sp", 3))
-    code = process_sphere(parts, entry);
+    process_sphere(pd, parts, entry);
   else if (ft_strncmp(specifier, "pl", 3))
-    code = process_plane(parts, entry);
+    process_plane(pd, parts, entry);
   else if (ft_strncmp(specifier, "cy", 3))
-    code = process_cylinder(parts, entry);
+    process_cylinder(pd, parts, entry);
   free_split(parts);
-  return (code);
+  pd->parts = NULL;
+  return (0);
 }
 
 int parse_file(t_data *d, char *file)
 {
+  static t_parser_data pd;
   char **objects;
   t_entry *entries;
   size_t len;
   size_t i;
 
+  pd.file_content = file;
   objects = ft_split(file, '\n');
   if (!objects)
-    return (1);
-    
+    return (error(&pd));
+  pd.objects = objects;
+
   len = split_len(objects);
   entries = (t_entry *) malloc(sizeof(t_entry) * len);
   if (!entries)
-    return (free_split(objects), 1);
+    return (error(&pd));
+  ft_bzero(entries, sizeof(t_entry) * len);
+  pd.entries = entries;
 
   i = 0;
   while(i < len)
   {
-    if (process_object(objects[i], &entries[i]))
-      return (free_split(objects), free_split(entries), 1);
+    if (process_object(&pd, objects[i], &entries[i]))
+      return (error(&pd));
     i++;
   }
   free_split(objects);

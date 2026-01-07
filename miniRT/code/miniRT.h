@@ -31,9 +31,9 @@ typedef struct s_img
 
 typedef struct s_coord
 {
-  int x;
-  int y;
-  int z;
+  float x;
+  float y;
+  float z;
 } t_coord;
 
 typedef struct s_ambient
@@ -105,6 +105,15 @@ typedef struct s_data
   t_entry *objects;
 }					t_data;
 
+typedef struct s_parser_data
+{
+  char **objects;
+  t_entry *entries;
+  char **parts;
+  char *file_content;
+} t_parser_data;
+
+
 int					key_hook(int keycode, void *param);
 int					end(void *param);
 int	initialize_graphics(t_data *d, char *win_name);
@@ -120,18 +129,21 @@ int render(t_data *d);
 void	free_split(char **sp);
 size_t split_len(char **spl);
 void print_error(char *msg);
-void error();
+int error(t_parser_data *pd);
 
 float	ft_atof(char *str);
 int	ft_is_decimal(char *str);
-float extract_decimal(char *str);
-int extract_rgb(char *str);
+int	ft_isnumber(char *str);
 
-int process_Ambient(char **parts, t_entry *entry);
-int process_Camera(char **parts, t_entry *entry);
-int process_Light(char **parts, t_entry *entry);
-int process_sphere(char **parts, t_entry *entry);
-int process_plane(char **parts, t_entry *entry);
-int process_cylinder(char **parts, t_entry *entry);
+float extract_decimal(t_parser_data *pd, char *str);
+int extract_rgb(t_parser_data *pd, char *str);
+void extract_coord(t_parser_data *pd, char *str, t_coord *coord);
+
+int process_Ambient(t_parser_data *pd, char **parts, t_entry *entry);
+int process_Camera(t_parser_data *pd, char **parts, t_entry *entry);
+int process_Light(t_parser_data *pd, char **parts, t_entry *entry);
+int process_sphere(t_parser_data *pd, char **parts, t_entry *entry);
+int process_plane(t_parser_data *pd, char **parts, t_entry *entry);
+int process_cylinder(t_parser_data *pd, char **parts, t_entry *entry);
 
 #endif

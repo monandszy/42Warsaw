@@ -1,5 +1,33 @@
 #include "miniRT.h"
 
+int	ft_is_decimal(char *str)
+{
+	int	i;
+	int	dot_count;
+
+	i = 0;
+	dot_count = 0;
+	if (!str)
+		return (0);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			dot_count++;
+			if (dot_count > 1)
+				return (0);
+		}
+		else if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 float	ft_atof(char *str)
 {
 	int		i;
@@ -26,6 +54,26 @@ float	ft_atof(char *str)
 	return (sign * result / power);
 }
 
+int	ft_isnumber(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	if (!*str)
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 size_t split_len(char **spl)
 {
   size_t len;
@@ -34,59 +82,4 @@ size_t split_len(char **spl)
   while (spl[len])
     len++;
   return (len);
-}
-
-float extract_decimal(char *str)
-{
-  float res;
-
-  res = ft_atof(str);
-  return (res);
-}
-
-// "r,g,b"
-int extract_rgb(char *str)
-{
-  char **parts;
-  int rgb[3];
-  int i;
-  size_t len;
-
-  rgb[0] = 0;
-  rgb[1] = 0;
-  rgb[2] = 0;
-  parts = ft_split(str, ',');
-  if (!parts)
-    return (get_color(rgb[0], rgb[1], rgb[2]));
-  len = split_len(parts);
-  i = 0;
-  while (len--)
-  {
-    rgb[i] = ft_atoi((parts[i]));
-    i++;
-  }
-  return (get_color(rgb[0], rgb[1], rgb[2]));
-}
-
-// "r,g,b"
-void extract_coord(char *str, t_coord *coord)
-{
-  char **parts;
-  int xyz[3];
-  size_t len;
-  int i;
-  
-  xyz[0] = 0;
-  xyz[1] = 0;
-  xyz[2] = 0;
-  parts = ft_split(str, ',');
-  if (!parts)
-    return ;
-  len = split_len(parts);
-  i = 0;
-  while (len--)
-  {
-    xyz[i] = ft_atof((parts[i]));
-    i++;
-  }
 }

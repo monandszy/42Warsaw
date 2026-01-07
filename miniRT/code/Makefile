@@ -9,7 +9,8 @@ SRC = \
 	renderer.c \
 	mem_utils.c \
 	object_processor.c \
-	parser_utils.c
+	parser_utils.c \
+	extractor.c
 OBJ = $(SRC:.c=.o)
 OBJ_DIR = objs
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
