@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	g_shlvl;
+
 char	*read_heredoc(char *delimiter)
 {
 	char	*line;
@@ -19,11 +21,17 @@ char	*read_heredoc(char *delimiter)
 	char	*tmp;
 
 	content = ft_strdup("");
+  g_shlvl = -1;
 	while (1)
 	{
 		line = readline("> ");
+    if (g_shlvl == 0)
+      return (free(content), NULL);
 		if (!line)
-			break ;
+    {
+      shperror("minishell", "while looking for delimiter");
+      break ;
+    }
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) == 0)
 		{
 			free(line);
@@ -37,5 +45,6 @@ char	*read_heredoc(char *delimiter)
 		free(tmp);
 		free(line);
 	}
+  g_shlvl = 0;
 	return (content);
 }

@@ -22,19 +22,22 @@ static char	*read_input(t_shell *shell)
 	line = readline("mini(sand)hell> ");
 	if (!line)
 		end(shell, NULL);
+  g_shlvl = -1;
 	while (check_unclosed_quote(line))
 	{
 		next_line = readline("> ");
+    if (g_shlvl == 0)
+      return (NULL);
 		if (!next_line)
 		{
 			shperror("minishell", "while looking for matching quote");
-			free(line);
-			return (NULL);
+			return (free(line), NULL);
 		}
 		line = ft_strjoin_free(line, "\n");
 		line = ft_strjoin_free(line, next_line);
 		free(next_line);
 	}
+  g_shlvl = 0;
 	return (line);
 }
 

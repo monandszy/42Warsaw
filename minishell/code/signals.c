@@ -18,12 +18,19 @@ void	handle_sigint(int sig)
 {
 	(void)sig;
 	if (g_shlvl == 0)
-	{
+	{ 
 		write(1, "^C\n", 4);
-		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_replace_line("", 1);
 		rl_redisplay();
 	}
+  else if (g_shlvl == -1)
+  {
+    g_shlvl = 0;
+    rl_replace_line("", 0); 
+    rl_done = 1;
+    ioctl(STDIN_FILENO, TIOCSTI, "\n");
+  }
 	else
 		write(1, "\n", 1);
 }
@@ -31,27 +38,24 @@ void	handle_sigint(int sig)
 void	handle_sigquit(int sig)
 {
 	(void)sig;
-	if (g_shlvl == 0)
-	{
-		rl_redisplay();
-	}
 }
 
-void	disable_control(t_shell *shell)
-{
-	struct termios	t;
+// void	disable_control(t_shell *shell)
+// {
+// 	struct termios	t;
 
-	ft_bzero(&t, sizeof(t));
-	tcgetattr(STDIN_FILENO, &t);
-	shell->t = t;
-	t.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
+// 	ft_bzero(&t, sizeof(t));
+// 	tcgetattr(STDIN_FILENO, &t);
+// 	shell->t = t;
+// 	t.c_lflag &= ~ECHOCTL;
+// 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+// }
 
+// disable_control(shell);
 void	setup_signals(t_shell *shell)
 {
+  (void) shell;
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint);
-	disable_control(shell);
 	signal(SIGQUIT, handle_sigquit);
 }

@@ -46,8 +46,7 @@ static int	handle_token(t_token **token, t_cmd **curr, t_cmd **head,
 	}
 	else if (is_redir_token((*token)->type))
 	{
-		process_redir(*curr, *token, shell);
-		if (shell->exit_code == 2)
+		if (process_redir(*curr, *token, shell) || shell->exit_code == 2)
 			return (0);
 		if ((*token)->next)
 			*token = (*token)->next;

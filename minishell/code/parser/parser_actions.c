@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
+int	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 {
 	char	*cleaned;
 	char	*expanded;
@@ -20,9 +20,10 @@ void	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	char	*delimiter;
 
 	delimiter = token->next->value;
-	printf("[%s %s]\n", token->value, token->next->value);
 	cleaned = remove_quotes(delimiter);
 	expanded = read_heredoc(cleaned);
+  if (!expanded)
+    return (free(cleaned), 1);
 	if (delimiter && *delimiter != '\'')
 	{
 		tmp = expanded;
@@ -32,6 +33,7 @@ void	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	redir_add_back(&curr->redirs, new_redir(token->type, expanded));
 	free(cleaned);
 	free(expanded);
+  return(0);
 }
 
 void	process_file_redir(t_cmd *curr, t_token *token, t_shell *shell)
@@ -46,20 +48,26 @@ void	process_file_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	free(expanded);
 }
 
-void	process_redir(t_cmd *curr, t_token *token, t_shell *shell)
+int	process_redir(t_cmd *curr, t_token *token, t_shell *shell)
 {
 	if (token->next && token->next->type == TOKEN_WORD)
 	{
 		if (token->type == TOKEN_REDIR_HEREDOC)
-			process_heredoc_redir(curr, token, shell);
+    {
+			if (process_heredoc_redir(curr, token, shell))
+        return (1);
+    }
 		else
+    {
 			process_file_redir(curr, token, shell);
+    }
 	}
 	else
 	{
 		shperror("minishell", "syntax error near unexpected token");
 		shell->exit_code = 2;
 	}
+  return (0);
 }
 
 void	process_word(t_cmd *curr, t_token *token, t_shell *shell)
