@@ -150,7 +150,7 @@ t_token				*new_token(char *value, t_token_type type);
 void				token_add_back(t_token **head, t_token *new_token);
 
 /* Parser actions */
-int				process_redir(t_cmd *curr, t_token *token, t_shell *shell);
+int					process_redir(t_cmd *curr, t_token *token, t_shell *shell);
 void				process_word(t_cmd *curr, t_token *token, t_shell *shell);
 
 /* Expander helpers */

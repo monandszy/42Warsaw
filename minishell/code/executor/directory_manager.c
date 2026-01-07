@@ -23,23 +23,22 @@ static char	*getcwdir(t_shell *shell)
 	return (buffer);
 }
 
-int add_if_exists(t_shell *shell, char *okey, char *cwd)
+int	add_if_exists(t_shell *shell, char *okey, char *cwd)
 {
-  char *key;
-  char *keye;
-  t_env *new_node;
+	char	*key;
+	char	*keye;
+	t_env	*new_node;
 
-  keye = ft_strjoin(okey, "=");
-  key = ft_strjoin(keye, cwd);
-  free(keye);
+	keye = ft_strjoin(okey, "=");
+	key = ft_strjoin(keye, cwd);
+	free(keye);
 	new_node = new_env_node(key);
 	free(key);
 	if (!new_node)
 		end(shell, "chdir new node malloc error\n");
-  
-  if (env_get(&shell->env_list, okey))
-    return(env_add_back(&shell->env_list, new_node));
-  return (0);
+	if (env_get(&shell->env_list, okey))
+		return (env_add_back(&shell->env_list, new_node));
+	return (0);
 }
 
 int	change_directory(t_shell *shell, t_cmd *cmd)
@@ -55,12 +54,12 @@ int	change_directory(t_shell *shell, t_cmd *cmd)
 			to = "";
 	}
 	else if (cmd->args[2])
-	  return (shperror(cmd->args[0], " too many arguments"), 1);
-  tmp = getcwdir(shell);
+		return (shperror(cmd->args[0], " too many arguments"), 1);
+	tmp = getcwdir(shell);
 	if (chdir(to) == -1)
 		return (perror(to), 1);
-  add_if_exists(shell, "OLDPWD", tmp);
-  add_if_exists(shell, "PWD", getcwdir(shell));
+	add_if_exists(shell, "OLDPWD", tmp);
+	add_if_exists(shell, "PWD", getcwdir(shell));
 	return (0);
 }
 

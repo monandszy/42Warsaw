@@ -23,12 +23,12 @@ int process_Ambient(t_parser_data *pd, char **parts, t_entry *entry)
   return (0);
 }
 
-// void cp_coord(t_coord *c1, t_coord *c2)
-// {
-//   c1->x = c2->x;
-//   c1->y = c2->y;
-//   c1->z = c2->z;
-// }
+void cp_coord(t_coord *c1, t_coord *c2)
+{
+  c1->x = c2->x;
+  c1->y = c2->y;
+  c1->z = c2->z;
+}
 
 // C -50.0,0,20 0,0,1 70
 int process_Camera(t_parser_data *pd, char **parts, t_entry *entry)
@@ -44,29 +44,45 @@ int process_Camera(t_parser_data *pd, char **parts, t_entry *entry)
 
   extract_coord(pd, parts[0], &pos);
   extract_coord(pd, parts[1], &vector);
-    fflush(stdout);
   fov = extract_number(pd, parts[2]);
 
   camera = (t_camera *) malloc(sizeof(camera));
   if (!camera)
     return (error(pd, "Error: Camera malloc failed\n"), 1);
   
-  camera->pos = pos;
-  camera->vector = vector;
-  // cp_coord(&camera->pos, &pos);
-  // cp_coord(&camera->vector, &vector);
+  cp_coord(&camera->pos, &pos);
+  cp_coord(&camera->vector, &vector);
   camera->fov = fov;
   entry->obj = camera;
 
   return (0);
 }
   
+// L -40.0,50.0,0.0 0.6 10,0,25
 int process_Light(t_parser_data *pd, char **parts, t_entry *entry)
 {
+  t_light *light;
+  t_coord pos;
+  float brightness;
+  int rgb;
+  
   entry->type = LIGHT;
-  error(pd, "Error: Light not implemented\n");
-  (void) parts;
-  (void) entry;
+  if (split_len(parts) != 4)
+    return (error(pd, "Error: Light invalid len\n"));
+
+  extract_coord(pd, parts[1], &pos);
+  brightness = extract_decimal(pd, parts[2]);
+  rgb = extract_rgb(pd, parts[3]);
+
+  light = (t_light *) malloc(sizeof(light));
+  if (!light)
+    return (error(pd, "Error: light malloc failed\n"), 1);
+  
+  cp_coord(&light->pos, &pos);
+  light->brightness = brightness;
+  light->rgb = rgb;
+  
+  entry->obj = light;
   return (0);
 }
   

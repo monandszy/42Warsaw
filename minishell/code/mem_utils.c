@@ -6,7 +6,7 @@
 /*   By: sandrzej <sandrzej@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 12:34:26 by sandrzej          #+#    #+#             */
-/*   Updated: 2025/12/17 12:37:07 by sandrzej         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:53:36 by sandrzej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	free_env_lst(t_env *lst)
 	}
 }
 
+// tcsetattr(STDIN_FILENO, TCSANOW, &shell->t);
 void	end(t_shell *shell, char *msg)
 {
-	// tcsetattr(STDIN_FILENO, TCSANOW, &shell->t);
 	rl_clear_history();
 	free_cmds(shell->cmds);
 	free_tokens(shell->tokens);

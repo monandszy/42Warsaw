@@ -22,8 +22,8 @@ int	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	delimiter = token->next->value;
 	cleaned = remove_quotes(delimiter);
 	expanded = read_heredoc(cleaned);
-  if (!expanded)
-    return (free(cleaned), 1);
+	if (!expanded)
+		return (free(cleaned), 1);
 	if (delimiter && *delimiter != '\'')
 	{
 		tmp = expanded;
@@ -33,7 +33,7 @@ int	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	redir_add_back(&curr->redirs, new_redir(token->type, expanded));
 	free(cleaned);
 	free(expanded);
-  return(0);
+	return (0);
 }
 
 void	process_file_redir(t_cmd *curr, t_token *token, t_shell *shell)
@@ -53,21 +53,21 @@ int	process_redir(t_cmd *curr, t_token *token, t_shell *shell)
 	if (token->next && token->next->type == TOKEN_WORD)
 	{
 		if (token->type == TOKEN_REDIR_HEREDOC)
-    {
+		{
 			if (process_heredoc_redir(curr, token, shell))
-        return (1);
-    }
+				return (1);
+		}
 		else
-    {
+		{
 			process_file_redir(curr, token, shell);
-    }
+		}
 	}
 	else
 	{
 		shperror("minishell", "syntax error near unexpected token");
 		shell->exit_code = 2;
 	}
-  return (0);
+	return (0);
 }
 
 void	process_word(t_cmd *curr, t_token *token, t_shell *shell)

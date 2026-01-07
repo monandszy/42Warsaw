@@ -14,37 +14,41 @@
 
 extern int	g_shlvl;
 
-char	*read_heredoc(char *delimiter)
+static char	*join_hd_line(char *content, char *line)
+{
+	char	*tmp;
+	char	*new_content;
+
+	tmp = ft_strjoin(content, line);
+	free(content);
+	new_content = ft_strjoin(tmp, "\n");
+	free(tmp);
+	return (new_content);
+}
+
+char	*read_heredoc(char *del)
 {
 	char	*line;
-	char	*content;
-	char	*tmp;
+	char	*res;
 
-	content = ft_strdup("");
-  g_shlvl = -1;
+	res = ft_strdup("");
+	g_shlvl = -1;
 	while (1)
 	{
 		line = readline("> ");
-    if (g_shlvl == 0)
-      return (free(content), NULL);
+		if (g_shlvl == 0)
+			return (free(res), NULL);
 		if (!line)
-    {
-      shperror("minishell", "while looking for delimiter");
-      break ;
-    }
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) == 0)
 		{
-			free(line);
+			shperror("minishell", "while looking for delimiter");
 			break ;
 		}
-		tmp = content;
-		content = ft_strjoin(content, line);
-		free(tmp);
-		tmp = content;
-		content = ft_strjoin(content, "\n");
-		free(tmp);
+		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
+			break ;
+		res = join_hd_line(res, line);
 		free(line);
 	}
-  g_shlvl = 0;
-	return (content);
+	if (line)
+		free(line);
+	return (g_shlvl = 0, res);
 }
