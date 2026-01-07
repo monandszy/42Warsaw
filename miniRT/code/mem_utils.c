@@ -31,7 +31,7 @@ int error(t_parser_data *pd, char *msg)
     if (pd->entries)
     {
       i = 0;
-      while (i < len)
+      while (i < len)`
       {
          if (pd->entries[i].obj)
            free(pd->entries[i].obj);

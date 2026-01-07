@@ -64,8 +64,6 @@ int process_object(t_parser_data *pd, char *obj, t_entry *entry)
 
   pd->parts = parts;
   specifier = parts[0];
-  printf("%s:[%ld]\n", specifier, split_len(parts));
-    fflush(stdout);
   if (ft_strncmp(specifier, "A", 2) == 0)
     process_Ambient(pd, parts + 1, entry);
   else if (ft_strncmp(specifier, "C", 2) == 0)
@@ -112,6 +110,7 @@ int parse_file(t_data *d, char *file)
     i++;
   }
   free_split(objects);
-  d->objects = entries;
+  d->entries = entries;
+  d->elen = len;
   return (0);
 }

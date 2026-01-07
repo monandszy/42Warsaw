@@ -102,7 +102,8 @@ typedef struct s_data
 	void			*win_id;
 	int				x;
 	int				y;
-  t_entry *objects;
+  t_entry *entries;
+  size_t elen;
 }					t_data;
 
 typedef struct s_parser_data
