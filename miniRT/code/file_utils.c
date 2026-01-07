@@ -71,7 +71,7 @@ int process_object(t_parser_data *pd, char *obj, t_entry *entry)
   else if (ft_strncmp(specifier, "C", 2) == 0)
     process_Camera(pd, parts + 1, entry);
   else if (ft_strncmp(specifier, "L", 2) == 0)
-    process_Light(pd, parts, entry);
+    process_Light(pd, parts + 1, entry);
   else if (ft_strncmp(specifier, "sp", 3) == 0)
     process_sphere(pd, parts + 1, entry);
   else if (ft_strncmp(specifier, "pl", 3) == 0)

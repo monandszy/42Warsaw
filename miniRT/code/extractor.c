@@ -72,4 +72,5 @@ void extract_coord(t_parser_data *pd, char *str, t_coord *coord)
   coord->x = ft_atof(parts[0]);
   coord->y = ft_atof(parts[1]);
   coord->z = ft_atof(parts[2]);
+  free_split(parts);
 }

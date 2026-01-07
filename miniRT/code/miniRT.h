@@ -60,14 +60,14 @@ typedef struct s_sphere
 {
   t_coord pos;
   float diameter;
-  int color;
+  int rgb;
 } t_sphere;
 
 typedef struct s_plane
 {
   t_coord pos;
   t_coord vector;
-  int color;
+  int rgb;
 } t_plane;
 
 typedef struct s_cylinder
@@ -76,7 +76,7 @@ typedef struct s_cylinder
   t_coord vector;
   float diameter;
   float height;
-  int color;
+  int rgb;
 } t_cylinder;
 
 
