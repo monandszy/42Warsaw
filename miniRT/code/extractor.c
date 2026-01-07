@@ -8,7 +8,7 @@ float extract_decimal(t_parser_data *pd, char *str)
     res = ft_atof(str);
   else
   {
-    error(pd);
+    error(pd, "Error: Invalid decimal\n");
     res = 0.0;
   }
   return (res);
@@ -22,14 +22,14 @@ int extract_rgb(t_parser_data *pd, char *str)
 
   parts = ft_split(str, ',');
   if (!parts)
-    return (error(pd));
+    return (error(pd, "Error: Split failed\n"), 1);
   if (split_len(parts) != 3)  
-    return (free_split(parts), error(pd));
+    return (free_split(parts), error(pd, "Error: RGB len is not 3\n"), 1);
   i = 0;
   while (i < 3)
   {
     if (!ft_isnumber(parts[i]))
-      return (free_split(parts), error(pd));
+      return (free_split(parts), error(pd, "Error: RGB part not number\n"), 1);
     i++;
   }
   free_split(parts);
@@ -44,14 +44,14 @@ void extract_coord(t_parser_data *pd, char *str, t_coord *coord)
 
   parts = ft_split(str, ',');
   if (!parts)
-    return (error(pd), (void) 0);
-  if (split_len(parts) != 3)  
-    return (free_split(parts), error(pd), (void) 0);
+    return (error(pd, "Error: Split failed\n"), (void) 0);
+  if (split_len(parts) != 3)
+    return (free_split(parts), error(pd, "Error: Coord len is not 3\n"), (void) 0);
   i = 0;
   while (i < 3)
   {
     if (!ft_is_decimal(parts[i]))
-      return (free_split(parts), error(pd), (void) 0);
+      return (free_split(parts), error(pd, "Error: Coord part not valid\n"), (void) 0);
     i++;
   }
   coord->x = ft_atof(parts[0]);

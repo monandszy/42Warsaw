@@ -129,7 +129,7 @@ int render(t_data *d);
 void	free_split(char **sp);
 size_t split_len(char **spl);
 void print_error(char *msg);
-int error(t_parser_data *pd);
+int error(t_parser_data *pd, char *msg);
 
 float	ft_atof(char *str);
 int	ft_is_decimal(char *str);

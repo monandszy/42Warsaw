@@ -60,7 +60,7 @@ int process_object(t_parser_data *pd, char *obj, t_entry *entry)
 
   parts = ft_split(obj, ' ');
   if (!parts || !parts[0])
-    return (error(pd));
+    return (error(pd, "Error: Split failed or empty object\n"));
 
   pd->parts = parts;
   specifier = parts[0];
@@ -92,13 +92,13 @@ int parse_file(t_data *d, char *file)
   pd.file_content = file;
   objects = ft_split(file, '\n');
   if (!objects)
-    return (error(&pd));
+    return (error(&pd, "Error: Split objects failed\n"));
   pd.objects = objects;
 
   len = split_len(objects);
   entries = (t_entry *) malloc(sizeof(t_entry) * len);
   if (!entries)
-    return (error(&pd));
+    return (error(&pd, "Error: Malloc entries failed\n"));
   ft_bzero(entries, sizeof(t_entry) * len);
   pd.entries = entries;
 
@@ -106,7 +106,7 @@ int parse_file(t_data *d, char *file)
   while(i < len)
   {
     if (process_object(&pd, objects[i], &entries[i]))
-      return (error(&pd));
+      return (error(&pd, "Error: Process object failed\n"));
     i++;
   }
   free_split(objects);

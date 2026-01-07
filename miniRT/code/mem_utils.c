@@ -16,7 +16,7 @@ void	free_split(char **sp)
 	}
 }
 
-int error(t_parser_data *pd)
+int error(t_parser_data *pd, char *msg)
 {
   size_t i;
   size_t len;
@@ -43,7 +43,7 @@ int error(t_parser_data *pd)
     free(pd->entries);
   if (pd->file_content)
     free(pd->file_content);
-  print_error("Error\n");
+  print_error(msg);
   exit(1);
   return (1);
 }

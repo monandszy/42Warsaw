@@ -9,14 +9,14 @@ int process_Ambient(t_parser_data *pd, char **parts, t_entry *entry)
 
   entry->type = AMBIENT;
   if (split_len(parts) != 3)
-    return (error(pd));
+    return (error(pd, "Error: Ambient invalid len\n"));
   
   range = extract_decimal(pd, parts[1]);
   rgb = extract_rgb(pd, parts[2]);
 
   ambient = (t_ambient *) malloc(sizeof(ambient));
   if (!ambient)
-    return (error(pd), 1);
+    return (error(pd, "Error: Ambient malloc failed\n"), 1);
   ambient->range = range;
   ambient->rgb = rgb;
   entry->obj = ambient;
@@ -27,7 +27,7 @@ int process_Ambient(t_parser_data *pd, char **parts, t_entry *entry)
 int process_Camera(t_parser_data *pd, char **parts, t_entry *entry)
 {
   t_camera *camera;
-  error(pd);
+  error(pd, "Error: Camera not implemented\n");
 
   entry->type = CAMERA;
   (void) camera;
@@ -39,7 +39,7 @@ int process_Camera(t_parser_data *pd, char **parts, t_entry *entry)
 int process_Light(t_parser_data *pd, char **parts, t_entry *entry)
 {
   entry->type = LIGHT;
-  error(pd);
+  error(pd, "Error: Light not implemented\n");
   (void) parts;
   (void) entry;
   return (0);
@@ -48,7 +48,7 @@ int process_Light(t_parser_data *pd, char **parts, t_entry *entry)
 int process_sphere(t_parser_data *pd, char **parts, t_entry *entry)
 {
   entry->type = SPHERE;
-  error(pd);
+  error(pd, "Error: Sphere not implemented\n");
   (void) parts;
   (void) entry;
   return (0);
@@ -57,7 +57,7 @@ int process_sphere(t_parser_data *pd, char **parts, t_entry *entry)
 int process_plane(t_parser_data *pd, char **parts, t_entry *entry)
 {
   entry->type = PLANE;
-  error(pd);
+  error(pd, "Error: Plane not implemented\n");
   (void) parts;
   (void) entry;
   return (0);
@@ -66,7 +66,7 @@ int process_plane(t_parser_data *pd, char **parts, t_entry *entry)
 int process_cylinder(t_parser_data *pd, char **parts, t_entry *entry)
 {
   entry->type = CYLINDER;
-  error(pd);
+  error(pd, "Error: Cylinder not implemented\n");
   (void) parts;
   (void) entry;
   return (0);
