@@ -14,6 +14,20 @@ float extract_decimal(t_parser_data *pd, char *str)
   return (res);
 }
 
+int extract_number(t_parser_data *pd, char *str)
+{
+  int res;
+
+  if (ft_is_number(str))
+    res = ft_atoi(str);
+  else
+  {
+    error(pd, "Error: Invalid Number\n");
+    res = 0.0;
+  }
+  return (res);
+}
+
 // "r,g,b"
 int extract_rgb(t_parser_data *pd, char *str)
 {
@@ -28,12 +42,13 @@ int extract_rgb(t_parser_data *pd, char *str)
   i = 0;
   while (i < 3)
   {
-    if (!ft_isnumber(parts[i]))
+    if (!ft_is_number(parts[i]))
       return (free_split(parts), error(pd, "Error: RGB part not number\n"), 1);
     i++;
   }
+  i = get_color(ft_atoi(parts[0]), ft_atoi(parts[1]), ft_atoi(parts[2]));
   free_split(parts);
-  return (get_color(ft_atoi(parts[0]), ft_atoi(parts[1]), ft_atoi(parts[2])));
+  return (i);
 }
 
 // "x,y,z"
@@ -57,5 +72,4 @@ void extract_coord(t_parser_data *pd, char *str, t_coord *coord)
   coord->x = ft_atof(parts[0]);
   coord->y = ft_atof(parts[1]);
   coord->z = ft_atof(parts[2]);
-  free_split(parts);
 }

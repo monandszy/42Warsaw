@@ -60,22 +60,24 @@ int process_object(t_parser_data *pd, char *obj, t_entry *entry)
 
   parts = ft_split(obj, ' ');
   if (!parts || !parts[0])
-    return (error(pd, "Error: Split failed or empty object\n"));
+    return (error(pd, "Error: Split failed or empty specifier\n"));
 
   pd->parts = parts;
   specifier = parts[0];
-  if (ft_strncmp(specifier, "A", 2))
-    process_Ambient(pd, parts, entry);
-  else if (ft_strncmp(specifier, "C", 2))
-    process_Camera(pd, parts, entry);
-  else if (ft_strncmp(specifier, "L", 2))
-    process_Light(pd, parts, entry);
-  else if (ft_strncmp(specifier, "sp", 3))
-    process_sphere(pd, parts, entry);
-  else if (ft_strncmp(specifier, "pl", 3))
-    process_plane(pd, parts, entry);
-  else if (ft_strncmp(specifier, "cy", 3))
-    process_cylinder(pd, parts, entry);
+  printf("%s:[%ld]\n", specifier, split_len(parts));
+    fflush(stdout);
+  if (ft_strncmp(specifier, "A", 2) == 0)
+    process_Ambient(pd, parts + 1, entry);
+  else if (ft_strncmp(specifier, "C", 2) == 0)
+    process_Camera(pd, parts + 1, entry);
+  else if (ft_strncmp(specifier, "L", 2) == 0)
+    process_Light(pd, parts + 1, entry);
+  else if (ft_strncmp(specifier, "sp", 3) == 0)
+    process_sphere(pd, parts + 1, entry);
+  else if (ft_strncmp(specifier, "pl", 3) == 0)
+    process_plane(pd, parts + 1, entry);
+  else if (ft_strncmp(specifier, "cy", 3) == 0)
+    process_cylinder(pd, parts + 1, entry);
   free_split(parts);
   pd->parts = NULL;
   return (0);

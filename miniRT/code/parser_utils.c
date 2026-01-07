@@ -54,7 +54,7 @@ float	ft_atof(char *str)
 	return (sign * result / power);
 }
 
-int	ft_isnumber(char *str)
+int	ft_is_number(char *str)
 {
 	int	i;
 

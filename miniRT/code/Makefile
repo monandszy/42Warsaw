@@ -1,6 +1,6 @@
 NAME = miniRT
 CC = cc
-CFLAGS = -g  -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 SRC = \
 	main.c \
 	window_utils.c \

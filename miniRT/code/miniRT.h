@@ -133,9 +133,10 @@ int error(t_parser_data *pd, char *msg);
 
 float	ft_atof(char *str);
 int	ft_is_decimal(char *str);
-int	ft_isnumber(char *str);
+int	ft_is_number(char *str);
 
 float extract_decimal(t_parser_data *pd, char *str);
+int extract_number(t_parser_data *pd, char *str);
 int extract_rgb(t_parser_data *pd, char *str);
 void extract_coord(t_parser_data *pd, char *str, t_coord *coord);
 

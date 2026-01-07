@@ -21,6 +21,8 @@ int error(t_parser_data *pd, char *msg)
   size_t i;
   size_t len;
 
+  print_error(msg);
+  fflush(stdout);
   if (pd->parts)
     free_split(pd->parts);
   if (pd->objects)
@@ -43,7 +45,6 @@ int error(t_parser_data *pd, char *msg)
     free(pd->entries);
   if (pd->file_content)
     free(pd->file_content);
-  print_error(msg);
   exit(1);
   return (1);
 }
