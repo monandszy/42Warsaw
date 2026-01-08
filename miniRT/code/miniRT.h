@@ -115,7 +115,9 @@ typedef struct s_data
 t_ambient *getAmbient(t_entry *entries);
 t_camera *getCamera(t_entry *entries);
 t_light *getLight(t_entry *entries);
-void *getObject(t_entry *entries, t_type type, int n);
+t_sphere *getSphere(t_entry *entries, int n);
+t_plane *getPlane(t_entry *entries, int n);
+t_cylinder *getCylinder(t_entry *entries, int n);
 
 typedef struct s_parser_data
 {

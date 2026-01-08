@@ -4,8 +4,6 @@ t_ambient *getAmbient(t_entry *entries)
 {
 	int	i;
 
-	if (!entries)
-		return (NULL);
 	i = 0;
 	while (entries[i].obj)
 	{
@@ -20,8 +18,6 @@ t_camera *getCamera(t_entry *entries)
 {
 	int	i;
 
-	if (!entries)
-		return (NULL);
 	i = 0;
 	while (entries[i].obj)
 	{
@@ -36,8 +32,6 @@ t_light *getLight(t_entry *entries)
 {
 	int	i;
 
-	if (!entries)
-		return (NULL);
 	i = 0;
 	while (entries[i].obj)
 	{
@@ -48,21 +42,59 @@ t_light *getLight(t_entry *entries)
 	return (NULL);
 }
 
-void *getObject(t_entry *entries, t_type type, int n)
+t_sphere *getSphere(t_entry *entries, int n)
 {
 	int	i;
 	int	count;
 
-	if (!entries)
-		return (NULL);
 	i = 0;
 	count = 0;
 	while (entries[i].obj)
 	{
-		if (entries[i].type == type)
+		if (entries[i].type == SPHERE)
 		{
 			if (count == n)
-				return (entries[i].obj);
+				return ((t_sphere *) entries[i].obj);
+			count++;
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+t_plane *getPlane(t_entry *entries, int n)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (entries[i].obj)
+	{
+		if (entries[i].type == PLANE)
+		{
+			if (count == n)
+				return ((t_plane *) entries[i].obj);
+			count++;
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+t_cylinder *getCylinder(t_entry *entries, int n)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (entries[i].obj)
+	{
+		if (entries[i].type == CYLINDER)
+		{
+			if (count == n)
+				return ((t_cylinder *) entries[i].obj);
 			count++;
 		}
 		i++;
