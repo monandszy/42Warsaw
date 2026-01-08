@@ -49,7 +49,7 @@ HumanB& HumanB::operator=(const HumanB& other)
   return *this;
 }
 
-HumanB::HumanB(HumanB& other)
+HumanB::HumanB(const HumanB& other)
 {
   this->_name = other._name;
   this->_weapon = other._weapon;
