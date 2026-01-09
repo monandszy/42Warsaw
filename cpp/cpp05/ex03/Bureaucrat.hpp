@@ -1,21 +1,21 @@
-#ifndef BUREUCRAT_HPP
-#define BUREUCRAT_HPP
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
 #include <iostream>
 
 class Form;
 
-class Bureucrat
+class Bureaucrat
 {
   private:
     const std::string _name;
     int _grade;
-    Bureucrat();
+    Bureaucrat();
   public:
-    ~Bureucrat();
-    Bureucrat(const std::string name, int grade);
-    Bureucrat(const Bureucrat& other);
-    Bureucrat& operator=(const Bureucrat& other);
+    ~Bureaucrat();
+    Bureaucrat(const std::string name, int grade);
+    Bureaucrat(const Bureaucrat& other);
+    Bureaucrat& operator=(const Bureaucrat& other);
 
     std::string getName() const;
     int getGrade() const;
@@ -51,5 +51,5 @@ class FormNotSignedException : public std::runtime_error
     virtual ~FormNotSignedException() throw() {}; 
 };
 
-std::ostream& operator<<(std::ostream& os, Bureucrat& obj);
+std::ostream& operator<<(std::ostream& os, Bureaucrat& obj);
 #endif

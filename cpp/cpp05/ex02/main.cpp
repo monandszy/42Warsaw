@@ -1,22 +1,50 @@
-#include "Bureucrat.hpp"
+#include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include "AForm.hpp"
 
 int main(void)
 {
-  Bureucrat b1("b1", 1);
-  Bureucrat b2("b2", 150);
+  ShrubberyCreationForm
+ShrubberyCreationForm
+  Bureaucrat b2("b2", 150);
   ShrubberyCreationForm sf1;
   Form &f1 = sf1;
+
   std::cout << f1 << std::endl;
-  // ShrubberyCreationForm f2();
+  RobotomyRequestForm rf2;
+  Form &f2 = rf2;
+  std::cout << f2 << std::endl;
+
+  PresidentialPardonForm pf3;
+  Form &f3 = pf3;
+  std::cout << f3 << std::endl;
   
   try
   {
     b1.executeForm(f1);
+    std::cout << std::endl;
     b1.signForm(f1);
     b1.executeForm(f1);
+    std::cout << std::endl;
+    b1.signForm(f2);
+    b1.executeForm(f2);
+    std::cout << std::endl;
+    b1.signForm(f3);
+    b1.executeForm(f3);
+
+    // b2.executeForm(f1);
+    // std::cout << std::endl;
+    // b2.signForm(f1);
+    // b2.executeForm(f1);
+    // std::cout << std::endl;
     // b2.signForm(f2);
+    // b2.executeForm(f2);
+    // std::cout << std::endl;
+    // b2.signForm(f3);
+    // b2.executeForm(f3);
+    
   }
   catch (std::exception& e)
   {

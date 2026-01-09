@@ -1,36 +1,36 @@
 
-#include "Bureucrat.hpp"
+#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-std::ostream& operator<<(std::ostream& os, Bureucrat& other) {
+std::ostream& operator<<(std::ostream& os, Bureaucrat& other) {
   os << other.getName() << ">, bureaucrat grade " << other.getGrade();
   return os;
 }
 
-std::string Bureucrat::getName() const {
+std::string Bureaucrat::getName() const {
   return _name;
 }
 
-int Bureucrat::getGrade() const {
+int Bureaucrat::getGrade() const {
   return _grade;
 }
 
-void Bureucrat::promote() {
+void Bureaucrat::promote() {
   if (_grade == 1)
     throw GradeTooHighException(_name.c_str());
   _grade--;
 }
 
-void Bureucrat::punish() {
+void Bureaucrat::punish() {
   if (_grade == 150)
     throw GradeTooLowException(_name.c_str());
   _grade++;
 }
 
-Bureucrat::~Bureucrat() {
+Bureaucrat::~Bureaucrat() {
 }
 
-Bureucrat::Bureucrat(const std::string name, int grade) : _name(name) {
+Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name) {
   if (grade > 150) 
     throw GradeTooHighException(name.c_str());
   else if (grade < 1)
@@ -38,12 +38,12 @@ Bureucrat::Bureucrat(const std::string name, int grade) : _name(name) {
   _grade = grade;
 }
 
-Bureucrat::Bureucrat(const Bureucrat& other) : _name(other._name) {
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name) {
   this->_grade = other._grade;
 }
 
-Bureucrat& Bureucrat::operator=(const Bureucrat& other) {
-  return (Bureucrat&) other;
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
+  return (Bureaucrat&) other;
 }
 
 GradeTooHighException::GradeTooHighException(char const* const message) throw()
@@ -76,7 +76,7 @@ char const * FormNotSignedException::what() const throw()
   return "FormNotSigned";
 }
 
-void Bureucrat::signForm(Form& target)
+void Bureaucrat::signForm(Form& target)
 {
   try {
     target.beSigned(*this); 
@@ -86,7 +86,7 @@ void Bureucrat::signForm(Form& target)
   }
 }
 
-void Bureucrat::executeForm(Form const & target) const {
+void Bureaucrat::executeForm(Form const & target) const {
   try {
     target.execute(*this);
     std::cout << _name << " executed " << target.getName() << std::endl;

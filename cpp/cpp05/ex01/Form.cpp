@@ -1,5 +1,5 @@
 #include "Form.hpp"
-#include "Bureucrat.hpp"
+#include "Bureaucrat.hpp"
 
 std::ostream& operator<<(std::ostream& os, Form& other) {
   os << other.getName() << "[";
@@ -58,7 +58,7 @@ Form& Form::operator=(const Form& other) {
   return (Form&) other;
 }
 
-void Form::beSigned(Bureucrat& slave) {
+void Form::beSigned(Bureaucrat& slave) {
   if (slave.getGrade() <= _sign_grade)
     _signed = true;
   else

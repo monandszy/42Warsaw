@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
 	main.cpp \
-	Bureucrat.cpp \
+	Bureaucrat.cpp \
 	Form.cpp
 	
 

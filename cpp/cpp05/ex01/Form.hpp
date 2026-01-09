@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class Bureucrat;
+class Bureaucrat;
 
 class Form  
 {
@@ -24,7 +24,7 @@ class Form
     int getSignGrade();
     int getExecGrade();
 
-    void beSigned(Bureucrat& slave);
+    void beSigned(Bureaucrat& slave);
 
 };
 std::ostream& operator<<(std::ostream& os, Form& obj);
