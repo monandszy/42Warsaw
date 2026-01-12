@@ -26,7 +26,7 @@ static char	*join_hd_line(char *content, char *line)
 	return (new_content);
 }
 
-char	*read_heredoc(char *del)
+char	*read_heredoc(t_shell *shell, char *del)
 {
 	char	*line;
 	char	*res;
@@ -37,9 +37,10 @@ char	*read_heredoc(char *del)
 	{
 		line = readline("> ");
 		if (g_shlvl == 0)
-			return (free(res), NULL);
+			return (shell->exit_code = 2, free(res), NULL);
 		if (!line)
 		{
+      shell->exit_code = 2;
 			shperror("minishell", "while looking for delimiter");
 			break ;
 		}

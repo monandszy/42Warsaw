@@ -21,7 +21,7 @@ int	process_heredoc_redir(t_cmd *curr, t_token *token, t_shell *shell)
 
 	delimiter = token->next->value;
 	cleaned = remove_quotes(delimiter);
-	expanded = read_heredoc(cleaned);
+	expanded = read_heredoc(shell, cleaned);
 	if (!expanded)
 		return (free(cleaned), 1);
 	if (delimiter && *delimiter != '\'')

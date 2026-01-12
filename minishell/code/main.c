@@ -27,11 +27,11 @@ static char	*read_input(t_shell *shell)
 	{
 		next_line = readline("> ");
 		if (g_shlvl == 0)
-			return (NULL);
+			return (shell->exit_code = 2, NULL);
 		if (!next_line)
 		{
 			shperror("minishell", "while looking for matching quote");
-			return (free(line), NULL);
+			return (shell->exit_code = 2, free(line), NULL);
 		}
 		line = ft_strjoin_free(line, "\n");
 		line = ft_strjoin_free(line, next_line);

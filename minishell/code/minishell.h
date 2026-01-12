@@ -141,7 +141,7 @@ int					add_cmd_arg(t_cmd *cmd, char *arg);
 char				*join_char(char *str, char c);
 char				*expand_str(char *str, t_shell *shell);
 char				*remove_quotes(char *str);
-char				*read_heredoc(char *delimiter);
+char				*read_heredoc(t_shell *shell, char *delimiter);
 
 /* Lexer helpers */
 void				handle_separator(char *line, int *i, t_token **head);

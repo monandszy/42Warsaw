@@ -27,6 +27,7 @@ void	handle_sigint(int sig)
 	else if (g_shlvl == -1)
 	{
 		g_shlvl = 0;
+    write(1, "^C", 2);
 		rl_replace_line("", 0);
 		rl_done = 1;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
