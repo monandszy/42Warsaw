@@ -19,7 +19,7 @@ static int	process_in(t_shell *shell, t_cmd *cmd, char *file)
 	(void)shell;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (redir_error(file));
+		return (perror(file), 1);
 	if (cmd->fdin != STDIN_FILENO)
 		close(cmd->fdin);
 	cmd->fdin = fd;
@@ -47,7 +47,7 @@ static int	process_out(t_shell *shell, t_cmd *cmd, char *file)
 	(void)shell;
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		return (redir_error(file));
+		return (perror(file), 1);
 	if (cmd->fdout != STDOUT_FILENO)
 		close(cmd->fdout);
 	cmd->fdout = fd;
@@ -61,7 +61,7 @@ static int	process_append(t_shell *shell, t_cmd *cmd, char *file)
 	(void)shell;
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (redir_error(file));
+		return (perror(file), 1);
 	if (cmd->fdout != STDOUT_FILENO)
 		close(cmd->fdout);
 	cmd->fdout = fd;

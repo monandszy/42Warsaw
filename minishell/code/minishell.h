@@ -119,7 +119,6 @@ int					recho(t_shell *shell, t_cmd *cmd);
 
 /* Utils */
 void				shperror(char *a, char *msg);
-int					redir_error(char *file);
 int					ft_isnumber(char *str);
 char				*ft_strjoin_free(char *s1, char *s2);
 void				end(t_shell *shell, char *msg);
