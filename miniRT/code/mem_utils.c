@@ -16,9 +16,24 @@ void	free_split(char **sp)
 	}
 }
 
+void free_entries(t_entry *entries, size_t len)
+{
+	size_t	i;
+
+	if (!entries)
+		return ;
+	i = 0;
+	while (i < len)
+	{
+		if (entries[i].obj)
+			free(entries[i].obj);
+		i++;
+	}
+	free(entries);
+}
+
 int error(t_parser_data *pd, char *msg)
 {
-  size_t i;
   size_t len;
 
   print_error(msg);
@@ -29,16 +44,7 @@ int error(t_parser_data *pd, char *msg)
   {
     len = split_len(pd->objects);
     if (pd->entries)
-    {
-      i = 0;
-      while (i < len)
-      {
-         if (pd->entries[i].obj)
-           free(pd->entries[i].obj);
-         i++;
-      }
-      free(pd->entries);
-    }
+      free_entries(pd->entries, len);
     free_split(pd->objects);
   }
   else if (pd->entries)

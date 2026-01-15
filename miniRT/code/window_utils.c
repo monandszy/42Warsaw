@@ -44,6 +44,9 @@ int	initialize_graphics(t_data *d, char *win_name)
 int	end(void *param)
 {
   t_data *d = (t_data *) param;
+  
+  if (d->entries)
+  	free_entries(d->entries, d->elen);
 	// mlx_loop_end(d->id);
   mlx_destroy_window(d->id, d->win_id);
 	mlx_destroy_display(d->id);

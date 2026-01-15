@@ -104,7 +104,18 @@ typedef struct s_data
 	int				y;
   t_entry *entries;
   size_t elen;
+  int count_ambient;
+  int count_camera;
+  int count_light;
+  int count_sphere;
+  int count_plane;
+  int count_cylinder;
 }					t_data;
+
+t_ambient *getAmbient(t_entry *entries);
+t_camera *getCamera(t_entry *entries);
+t_light *getLight(t_entry *entries);
+void *getObject(t_entry *entries, t_type type, int n);
 
 typedef struct s_parser_data
 {
@@ -128,6 +139,7 @@ int parse_file(t_data *d, char *file);
 int render(t_data *d);
 
 void	free_split(char **sp);
+void free_entries(t_entry *entries, size_t len);
 size_t split_len(char **spl);
 void print_error(char *msg);
 int error(t_parser_data *pd, char *msg);
