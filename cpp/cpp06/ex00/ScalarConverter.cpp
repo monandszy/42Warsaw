@@ -69,12 +69,12 @@ void ScalarConverter::convert(char *str)
       sf >> f;
 
       std::stringstream res;
-      res << std::fixed << f;
+      res << std::fixed << std::setprecision(32) << f;
 
       double d;
       d = f;
       std::stringstream sd;
-      sd << std::fixed << d;
+      sd << std::fixed << std::setprecision(64) << d;
 
       int i;
       i = d;
@@ -103,12 +103,12 @@ void ScalarConverter::convert(char *str)
       sd >> d;
 
       std::stringstream res;
-      res << std::fixed << d;
+      res << std::fixed << std::setprecision(64) << d;
 
       float f;
       f = d;
       std::stringstream sf;
-      sf << std::fixed << f;
+      sf << std::fixed << std::setprecision(32) << f;
 
       int i;
       i = d;
@@ -134,12 +134,12 @@ void ScalarConverter::convert(char *str)
       float f;
       f = i;
       std::stringstream sf;
-      sf << std::fixed << f;
+      sf << std::fixed << std::setprecision(32) << f;
 
       double d;
       d = i;
       std::stringstream sd;
-      sd << std::fixed << d;
+      sd << std::fixed << std::setprecision(64) << d;
 
       char c;
       c = i;

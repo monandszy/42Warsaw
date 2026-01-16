@@ -3,6 +3,8 @@
 
 class ScalarConverter
 {
+  private:
+    ScalarConverter();
   public:
     static void convert(char *input);
 };
