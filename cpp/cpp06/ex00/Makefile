@@ -2,7 +2,8 @@ NAME = converter
 CC = g++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
-	Converter.cpp
+	ScalarConverter.cpp \
+	main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))

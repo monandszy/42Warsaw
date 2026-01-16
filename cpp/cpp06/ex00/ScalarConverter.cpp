@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <limits>
 
+#include "ScalarConverter.hpp"
+
 static bool isnum(const char *str)
 {
   double result;
@@ -27,20 +29,33 @@ static void print_table(
   << "double: " << d << std::endl;
 }
 
-static void convert(char *str)
+static std::string getc(char c)
+{
+  if (std::isprint(c))
+  {
+    std::stringstream sc;
+    sc << c;
+    return ("'" + sc.str() + "'");
+  } else
+    return ("Not printable");
+}
+
+void ScalarConverter::convert(char *str)
 {
   std::string cppstr = str;
 
   // validate double infinity
   if (cppstr == "-inf" || cppstr == "+inf" || cppstr == "nan")
   {
+    std::cout << "Data type Escape" << std::endl;
     print_table("impossible", "impossible", cppstr + "f", cppstr);
   }
   // validate float
   else if (cppstr.length() != 1 && str[cppstr.length() - 1] == 'f')
   {
-    if (cppstr == "-inf" || cppstr == "+inf" || cppstr == "nan")
+    if (cppstr == "-inf" || cppstr == "+inf" || cppstr == "nanf")
     {
+      std::cout << "Data type Escape" << std::endl;
       print_table("impossible", "impossible", cppstr, cppstr);
       return ;
     }
@@ -54,24 +69,22 @@ static void convert(char *str)
       sf >> f;
 
       std::stringstream res;
-      res << std::setprecision(9) << f;
+      res << std::fixed << f;
 
       double d;
       d = f;
       std::stringstream sd;
-      sd << std::setprecision(9) << d;
+      sd << std::fixed << d;
 
       int i;
       i = d;
       std::stringstream si;
-      si << std::setprecision(9) << i;
+      si << i;
 
       char c;
       c = f;
-      std::stringstream sc;
-      sc << std::setprecision(9) << c;
 
-      print_table("'" + sc.str() + "'", si.str(), res.str() + "f", sd.str());
+      print_table(getc(c), si.str(), res.str() + "f", sd.str());
       return ;
     }
     else
@@ -90,24 +103,22 @@ static void convert(char *str)
       sd >> d;
 
       std::stringstream res;
-      res << std::setprecision(17) << d;
+      res << std::fixed << d;
 
       float f;
       f = d;
       std::stringstream sf;
-      sf << std::setprecision(17) << f;
+      sf << std::fixed << f;
 
       int i;
       i = d;
       std::stringstream si;
-      si << std::setprecision(17) << i;
+      si << i;
 
       char c;
       c = d;
-      std::stringstream sc;
-      sc << std::setprecision(17) << c;
 
-      print_table("'" + sc.str() + "'", si.str(), sf.str() + "f", res.str());
+      print_table(getc(c), si.str(), sf.str() + "f", res.str());
     }
     // validate int
     else
@@ -123,19 +134,19 @@ static void convert(char *str)
       float f;
       f = i;
       std::stringstream sf;
-      sf << f;
+      sf << std::fixed << f;
 
       double d;
       d = i;
       std::stringstream sd;
-      sd << d;
+      sd << std::fixed << d;
 
       char c;
       c = i;
       std::stringstream sc;
       sc << c;
 
-      print_table("'" + sc.str() + "'", res.str(), sf.str() + "f", sd.str());
+      print_table(getc(c), res.str(), sf.str() + "f", sd.str());
     }
   }
   else if (cppstr.length() == 1)
@@ -159,22 +170,11 @@ static void convert(char *str)
     std::stringstream sd;
     sd << d;
 
-    print_table("'" + cppstr + "'", si.str(), sf.str() + "f", sd.str());
+    print_table(getc(c), si.str(), sf.str() + "f", sd.str());
   }
   else
   {
-    std::cout << "Data type not recoginized, possibly a string or null" << std::endl;
+    std::cout << "Data type not recoginized, possibly a string or null or an out of scope double" << std::endl;
     return ;
   }
-}
-
-int main(int argc, char *argv[])
-{
-  if (argc != 2)
-  {
-    std::cout << "Invalid argument count" << std::endl;
-    return (1);
-  } 
-  convert(argv[1]);
-  return (0);
 }
