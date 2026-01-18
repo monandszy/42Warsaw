@@ -4,22 +4,21 @@
 #include "Weapon.hpp"
 
 class HumanB {
+ private:
+  std::string _name;
+  Weapon* _weapon;
+  HumanB(void);
 
-  private:
-    std::string _name;
-    Weapon* _weapon;
-    HumanB(void);
+ public:
+  Weapon* getWeapon(void) const;
+  HumanB(std::string name);
+  void attack(void);
+  void setWeapon(Weapon& weapon);
 
-  public:
-    Weapon* getWeapon(void) const;
-    HumanB(std::string name);
-    void attack(void);
-    void setWeapon(Weapon& weapon);
-    
-    HumanB(std::string name, Weapon* weapon);
-    ~HumanB(void);
-    HumanB& operator=(const HumanB& other);
-    HumanB(const HumanB& other);
+  HumanB(std::string name, Weapon* weapon);
+  ~HumanB(void);
+  HumanB& operator=(const HumanB& other);
+  HumanB(const HumanB& other);
 };
 
 #endif

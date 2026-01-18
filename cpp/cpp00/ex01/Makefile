@@ -17,8 +17,11 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(NAME): $(OBJS)
+$(NAME): format $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+format:
+	find -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format --style=Google -i
 
 test: 
 	./$(NAME)

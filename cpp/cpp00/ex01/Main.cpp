@@ -1,8 +1,9 @@
 
-#include "Contact.hpp"
-#include "Phonebook.hpp"
 #include <limits>
 #include <sstream>
+
+#include "Contact.hpp"
+#include "Phonebook.hpp"
 
 // int main(int argc, char *argv[])
 
@@ -42,7 +43,7 @@ void search(Phonebook& phonebook) {
     }
     std::stringstream ss(input);
     if (ss >> in && in >= 0 && in <= 7) {
-        break; 
+      break;
     }
     std::cout << "Invalid input." << std::endl;
   }
@@ -62,8 +63,7 @@ int main(void) {
   std::cout << "> ";
   while (std::getline(std::cin, input) && input != "END") {
     if (input.empty()) {
-    }
-    else if (input == "ADD") {
+    } else if (input == "ADD") {
       add(phonebook);
     } else if (input == "SEARCH") {
       phonebook.print();

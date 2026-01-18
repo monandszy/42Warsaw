@@ -4,17 +4,16 @@
 #include <iostream>
 
 class Zombie {
+ private:
+  std::string _name;
+  Zombie(void);
 
-  private:
-    std::string _name;
-    Zombie(void);
-
-  public:
-    void announce(void) const;
-    Zombie(std::string name);
-    Zombie(const Zombie& other);
-    Zombie& operator=(const Zombie& other);
-    ~Zombie(void);
+ public:
+  void announce(void) const;
+  Zombie(std::string name);
+  Zombie(const Zombie& other);
+  Zombie& operator=(const Zombie& other);
+  ~Zombie(void);
 };
 
 Zombie* newZombie(std::string name);

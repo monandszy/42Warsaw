@@ -1,7 +1,6 @@
 #include "Zombie.hpp"
 
-int main(void)
-{
+int main(void) {
   Zombie* z = newZombie("Catium1");
   randomChump("Catium2");
 
