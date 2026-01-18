@@ -1,7 +1,7 @@
 #include "DiamondTrap.hpp"
 
 int main(void) {
-  DiamondTrap trap("coolest 42 trap");
+  DiamondTrap trap("42 trap");
 
   DiamondTrap& trap2 = trap;
   DiamondTrap trap3(trap);

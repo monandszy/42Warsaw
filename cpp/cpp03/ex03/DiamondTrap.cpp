@@ -1,19 +1,32 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::~DiamondTrap(void) {
-  std::cout << "Bye. I was DiamondTrap ["<< _name <<"]" << std::endl;
+DiamondTrap& DiamondTrap::operator=(const DiamondTrap& other) {
+  if (this != &other) {
+    this->_name = other._name;
+    ClapTrap::operator=(other);
+  }
+  return *this;
 }
 
-DiamondTrap::DiamondTrap(std::string name) 
-: ClapTrap(name + "_clap_name"),
-  FragTrap(name + "_clap_name"),
-  ScavTrap(name + "_clap_name")
-{
+DiamondTrap::DiamondTrap(const DiamondTrap& other)
+    : ClapTrap(other), FragTrap(other), ScavTrap(other) {
+  this->_name = other._name;
+  std::cout << "Hi. I'm DiamondTrap [" << _name << "] (Copy)" << std::endl;
+}
+
+DiamondTrap::~DiamondTrap(void) {
+  std::cout << "Bye. I was DiamondTrap [" << _name << "]" << std::endl;
+}
+
+DiamondTrap::DiamondTrap(std::string name)
+    : ClapTrap(name + "_clap_name"),
+      FragTrap(name + "_clap_name"),
+      ScavTrap(name + "_clap_name") {
   _name = name;
   setHp(100);
   setMana(50);
   setDmg(30);
-  std::cout << "Hi. I'm DiamondTrap ["<< name <<"]" << std::endl;
+  std::cout << "Hi. I'm DiamondTrap [" << name << "]" << std::endl;
 }
 
 void DiamondTrap::attack(const std::string& target) {
@@ -22,18 +35,23 @@ void DiamondTrap::attack(const std::string& target) {
 
 void DiamondTrap::takeDamage(unsigned int amount) {
   if (ClapTrap::processTakeDamage(amount))
-    std::cout << "DiamondTrap [" << _name << "] takes [" << amount << "] points of damage!" << std::endl;
+    std::cout << "DiamondTrap [" << _name << "] takes [" << amount
+              << "] points of damage!" << std::endl;
   else
-    std::cout << "[" << _name << "]: I'm basically dead now, can't takeDamage" << std::endl;
+    std::cout << "[" << _name << "]: I'm basically dead now, can't takeDamage"
+              << std::endl;
 }
 
 void DiamondTrap::beRepaired(unsigned int amount) {
   if (ClapTrap::processBeRepaired(amount))
-    std::cout << "DiamondTrap [" << _name << "] heals for [" << amount << "] points!" << std::endl;
+    std::cout << "DiamondTrap [" << _name << "] heals for [" << amount
+              << "] points!" << std::endl;
   else
-    std::cout << "[" << _name << "]: I'm basically dead now, can't beRepaired" << std::endl;
+    std::cout << "[" << _name << "]: I'm basically dead now, can't beRepaired"
+              << std::endl;
 }
 
 void DiamondTrap::whoAmI(void) {
-  std::cout << "I, DiamondTrap [" << _name << "] contain the almighty [" << ClapTrap::getName() << "]" << std::endl;
+  std::cout << "I, DiamondTrap [" << _name << "] contain the almighty ["
+            << ClapTrap::getName() << "]" << std::endl;
 }

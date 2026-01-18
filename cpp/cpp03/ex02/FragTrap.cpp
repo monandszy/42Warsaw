@@ -1,32 +1,55 @@
 #include "FragTrap.hpp"
 
+FragTrap& FragTrap::operator=(const FragTrap& other) {
+  if (this != &other) {
+    this->setName(other.getName());
+    this->setHp(other.getHp());
+    this->setMana(other.getMana());
+    this->setDmg(other.getDmg());
+  }
+  return *this;
+}
+
+FragTrap::FragTrap(const FragTrap& other)
+    : ClapTrap(other.getName(), other.getHp(), other.getMana(),
+               other.getDmg()) {
+  (void)other;
+}
+
 FragTrap::~FragTrap(void) {
-  std::cout << "Bye. I was FragTrap ["<< getName() <<"]" << std::endl;
+  std::cout << "Bye. I was FragTrap [" << getName() << "]" << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name, 100, 100, 30) {
-  std::cout << "Hi. I'm FragTrap ["<< name <<"]" << std::endl;
+  std::cout << "Hi. I'm FragTrap [" << name << "]" << std::endl;
 }
 
 void FragTrap::attack(const std::string& target) {
   if (ClapTrap::processAttack(target))
-    std::cout << "FragTrap [" << getName() << "] attacks [" << target << "] causing [" << getDmg() << "] points of damage!" << std::endl;
-  else 
-    std::cout << "[" << getName() << "]: I'm basically dead now, can't attack" << std::endl;
+    std::cout << "FragTrap [" << getName() << "] attacks [" << target
+              << "] causing [" << getDmg() << "] points of damage!"
+              << std::endl;
+  else
+    std::cout << "[" << getName() << "]: I'm basically dead now, can't attack"
+              << std::endl;
 }
 
 void FragTrap::takeDamage(unsigned int amount) {
   if (ClapTrap::processTakeDamage(amount))
-    std::cout << "FragTrap [" << getName() << "] takes [" << amount << "] points of damage!" << std::endl;
+    std::cout << "FragTrap [" << getName() << "] takes [" << amount
+              << "] points of damage!" << std::endl;
   else
-    std::cout << "[" << getName() << "]: I'm basically dead now, can't takeDamage" << std::endl;
+    std::cout << "[" << getName()
+              << "]: I'm basically dead now, can't takeDamage" << std::endl;
 }
 
 void FragTrap::beRepaired(unsigned int amount) {
   if (ClapTrap::processBeRepaired(amount))
-    std::cout << "FragTrap [" << getName() << "] heals for [" << amount << "] points!" << std::endl;
+    std::cout << "FragTrap [" << getName() << "] heals for [" << amount
+              << "] points!" << std::endl;
   else
-    std::cout << "[" << getName() << "]: I'm basically dead now, can't beRepaired" << std::endl;
+    std::cout << "[" << getName()
+              << "]: I'm basically dead now, can't beRepaired" << std::endl;
 }
 
 void FragTrap::highFivesGuys(void) {

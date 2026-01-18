@@ -17,4 +17,8 @@ int main(void) {
 
   trap2.takeDamage(1);
   trap3.beRepaired(100);
+
+  ClapTrap* ptr = new ScavTrap("Test");
+  ptr->attack("itself");
+  delete ptr;
 }
