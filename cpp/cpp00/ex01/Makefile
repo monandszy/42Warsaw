@@ -6,22 +6,19 @@ SRC = \
 	Contact.cpp \
 	Phonebook.cpp
 
-OBJ = $(SRC:.cpp=.o)
-OBJ_PATH = $(addprefix $(OBJ_DIR)/, $(OBJ))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 OBJ_DIR = ./objs
 
-all: compile $(NAME)
-
-compile: $(OBJ_DIR) $(OBJ)
+all: $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $(OBJ_DIR)/$@ 
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(NAME):
-	$(CC) $(CFLAGS) $(OBJ_PATH) -o $(NAME) -lbsd
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 test: 
 	./$(NAME)
@@ -35,5 +32,5 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
-.PHONY: all fclean clean re test run $(NAME)
 
+.PHONY: all fclean clean re test run

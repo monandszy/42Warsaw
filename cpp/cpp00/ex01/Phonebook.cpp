@@ -18,7 +18,7 @@ Phonebook& Phonebook::operator=(const Phonebook& other) {
 Phonebook::~Phonebook() {}
 
 void Phonebook::add(Contact& contact) {
-  int order = _contacts[1].getOrder();
+  int order = _contacts[0].getOrder();
   int chosen = 0;
 
   for (int i = 1; i < 8; i++) {
@@ -43,10 +43,8 @@ void Phonebook::print(void) {
     Contact contact = _contacts[i];
     std::cout << "|";
     std::cout << std::setw(10) << std::right << i << "|";
-    fprint(contact.getNumber());
     fprint(contact.getFirstName());
     fprint(contact.getLastName());
-    fprint(contact.getNickname());
     std::cout << std::endl;
   }
 }
