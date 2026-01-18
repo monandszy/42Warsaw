@@ -1,7 +1,8 @@
 #include "AForm.hpp"
+
 #include "Bureaucrat.hpp"
 
-std::ostream& operator<<(std::ostream& os, Form& other) {
+std::ostream& operator<<(std::ostream& os, const AForm& other) {
   os << other.getName() << "[";
   os << "signed=" << other.getSigned();
   os << " sign_grade=" << other.getSignGrade();
@@ -10,56 +11,62 @@ std::ostream& operator<<(std::ostream& os, Form& other) {
   return os;
 }
 
-std::string Form::getName() const {
-  return _name;
-}
+std::string AForm::getName() const { return _name; }
 
-float Form::getSigned() const {
-  return _signed;
-}
+bool AForm::getSigned() const { return _signed; }
 
-int Form::getSignGrade() const {
-  return _sign_grade;
-}
+int AForm::getSignGrade() const { return _sign_grade; }
 
-int Form::getExecGrade() const {
-  return _exec_grade;
-}
+int AForm::getExecGrade() const { return _exec_grade; }
 
-Form::~Form() {
-}
+AForm::~AForm() {}
 
-Form::Form(const std::string name, int sign_grade, int exec_grade) 
-: _name(name),
-  _sign_grade(sign_grade),
-  _exec_grade(exec_grade)
-{
+AForm::AForm(const std::string name, int sign_grade, int exec_grade)
+    : _name(name), _sign_grade(sign_grade), _exec_grade(exec_grade) {
   if (sign_grade > 150)
-    throw GradeTooHighException("sign_grade");
+    throw InvalidExpertiseException("sign_grade");
   else if (sign_grade < 1)
-    throw GradeTooLowException("sign_grade");
+    throw InvalidExpertiseException("sign_grade");
   if (exec_grade > 150)
-    throw GradeTooHighException("exec_grade");
+    throw InvalidExpertiseException("exec_grade");
   else if (exec_grade < 1)
-    throw GradeTooLowException("exec_grade");
+    throw InvalidExpertiseException("exec_grade");
   this->_signed = false;
 }
 
-Form::Form(const Form& other) 
-: _name(other._name),
-  _sign_grade(other._sign_grade),
-  _exec_grade(other._exec_grade) 
-{
+AForm::AForm(const AForm& other)
+    : _name(other._name),
+      _sign_grade(other._sign_grade),
+      _exec_grade(other._exec_grade) {
   this->_signed = other._signed;
 }
 
-Form& Form::operator=(const Form& other) {
-  return (Form&) other;
+AForm& AForm::operator=(const AForm& other) {
+  if (this != &other) {
+    this->_signed = other._signed;
+  }
+  return *this;
 }
 
-void Form::beSigned(Bureaucrat& slave) {
+void AForm::beSigned(Bureaucrat& slave) {
   if (slave.getGrade() <= _sign_grade)
     _signed = true;
   else
-    throw GradeTooLowException(_name.c_str());
+    throw InvalidExpertiseException(_name.c_str());
+}
+
+AForm::FormNotSignedException::FormNotSignedException(
+    char const* const message) throw()
+    : std::runtime_error(message) {}
+
+char const* AForm::FormNotSignedException::what() const throw() {
+  return "FormNotSigned";
+}
+
+AForm::InvalidExpertiseException::InvalidExpertiseException(
+    char const* const message) throw()
+    : std::runtime_error(message) {}
+
+char const* AForm::InvalidExpertiseException::what() const throw() {
+  return "InvalidExpertise";
 }
