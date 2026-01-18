@@ -2,7 +2,7 @@
 Contact
 Stands for a phonebook contact
 
-Orthodox Canonical Form
+Orthodox Canonical AForm 
 - Default Constructor
 - Parameterized Constructor
 - Copy Constructor
