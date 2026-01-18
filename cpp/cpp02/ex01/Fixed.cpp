@@ -15,16 +15,13 @@ Fixed::Fixed(const Fixed& other) {
 
 Fixed& Fixed::operator=(const Fixed& other) {
   std::cout << "Copy assignment operator called" << std::endl;
-  if (this != &other)
-  {
+  if (this != &other) {
     this->_fpnumval = other._fpnumval;
   }
   return *this;
 }
 
-Fixed::~Fixed(void) {
-  std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed(void) { std::cout << "Destructor called" << std::endl; }
 
 Fixed::Fixed(const int fpnumval) {
   std::cout << "Int constructor called" << std::endl;
@@ -33,16 +30,12 @@ Fixed::Fixed(const int fpnumval) {
 
 Fixed::Fixed(const float fpnumval) {
   std::cout << "Float constructor called" << std::endl;
-  _fpnumval = fpnumval * _powstep;
+  _fpnumval = roundf(fpnumval * _powstep);
 }
 
-float Fixed::toFloat(void) const {
-  return  ((float) _fpnumval) /_powstep;
-}
+float Fixed::toFloat(void) const { return ((float)_fpnumval) / _powstep; }
 
-int Fixed::toInt(void) const {
-  return _fpnumval / _powstep;
-}
+int Fixed::toInt(void) const { return _fpnumval / _powstep; }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& other) {
   os << other.toFloat();
@@ -54,6 +47,4 @@ int Fixed::getRawBits(void) const {
   return _fpnumval;
 }
 
-void Fixed::setRawBits(const int raw) {
-  _fpnumval = raw;
-}
+void Fixed::setRawBits(const int raw) { _fpnumval = raw; }
