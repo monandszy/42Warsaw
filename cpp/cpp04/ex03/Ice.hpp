@@ -3,14 +3,13 @@
 
 #include "Chara.hpp"
 
-class Ice : public AMateria
-{
-  public:
-    Ice();
-    ~Ice() = default;
-    Ice(const Ice& other) = default;
-    Ice& operator=(const Ice &other) = default;
-    Ice* clone() const;
-    void use(ICharacter& target);
+class Ice : public AMateria {
+ public:
+  Ice();
+  ~Ice();
+  Ice(const Ice& other);
+  Ice& operator=(const Ice& other);
+  Ice* clone() const;
+  void use(ICharacter& target);
 };
 #endif

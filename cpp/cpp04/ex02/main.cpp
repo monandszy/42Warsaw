@@ -1,30 +1,23 @@
 #include "Animal.hpp"
+#include "Brain.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#include "Brain.hpp"
 
-int main(void)
-{
-  Animal *animal[100];
+int main(void) {
+  // const Animal* meta = new Animal();
+  const Animal* j = new Dog();
+  const Animal* i = new Cat();
 
-  for(int i = 0; i < 50; i++)
-  {
-    animal[i] = new Dog();
-  }
+  std::cout << j->getType() << " " << std::endl;
+  std::cout << i->getType() << " " << std::endl;
 
-  for(int i = 50; i < 100; i++)
-  {
-    animal[i] = new Cat();
-  }
+  i->makeSound();
+  j->makeSound();
 
-  for(int i = 0; i < 100; i++)
-  {
-    animal[i]->makeSound();
-  }
-  
-  for(int i = 0; i < 100; i++)
-  {
-    delete animal[i];
-  }
+  delete j;
+  delete i;
+ 
+  // Animal a;
+  // new Animal;
   return 0;
 }

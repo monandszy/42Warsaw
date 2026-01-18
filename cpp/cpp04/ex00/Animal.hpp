@@ -4,14 +4,15 @@
 #include <iostream>
 
 class Animal {
-  protected:
-    std::string _type;
-  public:
-    Animal(void);
-    ~Animal(void) = default;
-    Animal& operator=(const Animal& other) = default;
-    Animal(const Animal& other) = default;
-    void makeSound(void) const;
-    std::string getType(void) const;
+ protected:
+  std::string _type;
+
+ public:
+  Animal(void);
+  virtual ~Animal(void);
+  Animal& operator=(const Animal& other);
+  Animal(const Animal& other);
+  virtual void makeSound(void) const;
+  std::string getType(void) const;
 };
 #endif

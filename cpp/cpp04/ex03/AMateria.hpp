@@ -5,23 +5,22 @@
 
 class ICharacter;
 
-class AMateria
-{
-  private:
-    AMateria() = default;
+class AMateria {
+ private:
+  AMateria();
 
-  protected:
-    std::string _type;
-    
-  public:
-    virtual ~AMateria() = default;
-    AMateria(const AMateria& other) = default;
-    AMateria& operator=(const AMateria &other) = default;
+ protected:
+  std::string _type;
 
-    AMateria(std::string const & type);
-    const std::string& getType() const;
-    virtual AMateria* clone() const = 0;
-    virtual void use(ICharacter& target) = 0;
+ public:
+  virtual ~AMateria();
+  AMateria(const AMateria& other);
+  AMateria& operator=(const AMateria& other);
+
+  AMateria(std::string const& type);
+  const std::string& getType() const;
+  virtual AMateria* clone() const = 0;
+  virtual void use(ICharacter& target) = 0;
 };
 
 #endif
