@@ -22,7 +22,7 @@ class Array {
 
   Array(const Array<T>& other) {
     this->_arr = new T[other._size];
-    for (int i = 0; i < other._size; i++) {
+    for (unsigned int i = 0; i < other._size; i++) {
       this->_arr[i] = other._arr[i];
     }
   }
@@ -31,7 +31,7 @@ class Array {
     if (this != &other) {
       delete[] this->_arr;
       this->_arr = new T[other._size];
-      for (int i = 0; i < other._size; i++) {
+      for (unsigned int i = 0; i < other._size; i++) {
         this->_arr[i] = other._arr[i];
       }
     }

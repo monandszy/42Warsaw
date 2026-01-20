@@ -1,24 +1,7 @@
 
 #include <iostream>
 
-template <typename T>
-static void swap(T& a, T& b) {
-  T tmp = a;
-  a = b;
-  b = tmp;
-}
-
-template <typename T>
-static T& min(T& a, T& b) {
-  if (a > b) return (b);
-  return (a);
-}
-
-template <typename T>
-static T& max(T& a, T& b) {
-  if (a < b) return (b);
-  return (a);
-}
+#include "whatever.hpp"
 
 int main(void) {
   int a = 2;
