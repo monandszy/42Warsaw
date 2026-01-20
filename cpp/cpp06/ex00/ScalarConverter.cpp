@@ -57,20 +57,20 @@ void ScalarConverter::convert(char *str) {
       sf >> f;
 
       std::stringstream res;
-      res << std::fixed << std::setprecision(1) << f;
+      res << std::fixed << f;
 
       double d;
-      d = f;
+      d = static_cast <double> (f);
       std::stringstream sd;
-      sd << std::fixed << std::setprecision(1) << d;
+      sd << std::fixed << d;
 
       int i;
-      i = d;
+      i = static_cast <int> (f);
       std::stringstream si;
       si << i;
 
       char c;
-      c = f;
+      c = static_cast <char> (f);
 
       print_table(getc(c), si.str(), res.str() + "f", sd.str());
       return;
@@ -86,20 +86,20 @@ void ScalarConverter::convert(char *str) {
       sd >> d;
 
       std::stringstream res;
-      res << std::fixed << std::setprecision(1) << d;
+      res << std::fixed << d;
 
       float f;
-      f = d;
+      f = static_cast <float> (d);
       std::stringstream sf;
-      sf << std::fixed << std::setprecision(1) << f;
+      sf << std::fixed << f;
 
       int i;
-      i = d;
+      i = static_cast <int> (d);
       std::stringstream si;
       si << i;
 
       char c;
-      c = d;
+      c = static_cast <char> (d);
 
       print_table(getc(c), si.str(), sf.str() + "f", res.str());
     }
@@ -114,17 +114,17 @@ void ScalarConverter::convert(char *str) {
       res << i;
 
       float f;
-      f = i;
+      f = static_cast <float> (i);
       std::stringstream sf;
-      sf << std::fixed << std::setprecision(1) << f;
+      sf << std::fixed << f;
 
       double d;
-      d = i;
+      d = static_cast <double> (i);
       std::stringstream sd;
-      sd << std::fixed << std::setprecision(1) << d;
+      sd << std::fixed << d;
 
       char c;
-      c = i;
+      c = static_cast <char> (i);
       std::stringstream sc;
       sc << c;
 
