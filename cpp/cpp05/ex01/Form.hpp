@@ -30,7 +30,7 @@ class Form {
    public:
     InvalidExpertiseException(char const* const message) throw();
     virtual char const* what() const throw();
-    virtual ~InvalidExpertiseException() throw(){};
+    virtual ~InvalidExpertiseException() throw() {};
   };
 };
 std::ostream& operator<<(std::ostream& os, const Form& obj);
