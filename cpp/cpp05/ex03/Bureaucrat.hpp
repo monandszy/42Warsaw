@@ -2,6 +2,7 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 class AForm;
 
@@ -26,14 +27,14 @@ class Bureaucrat {
   void signForm(AForm& target);
   void executeForm(AForm const& form) const;
 
-  class GradeTooHighException : public std::runtime_error {
+  class GradeTooHighException : public std::invalid_argument {
    public:
     GradeTooHighException(char const* const message) throw();
     virtual char const* what() const throw();
     virtual ~GradeTooHighException() throw(){};
   };
 
-  class GradeTooLowException : public std::runtime_error {
+  class GradeTooLowException : public std::invalid_argument {
    public:
     GradeTooLowException(char const* const message) throw();
     virtual char const* what() const throw();

@@ -2,6 +2,7 @@
 #define FORM_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 class Bureaucrat;
 
@@ -26,11 +27,11 @@ class Form {
 
   void beSigned(Bureaucrat& slave);
 
-  class InvalidExpertiseException : public std::runtime_error {
+  class InvalidExpertiseException : public std::invalid_argument {
    public:
     InvalidExpertiseException(char const* const message) throw();
     virtual char const* what() const throw();
-    virtual ~InvalidExpertiseException() throw() {};
+    virtual ~InvalidExpertiseException() throw(){};
   };
 };
 std::ostream& operator<<(std::ostream& os, const Form& obj);

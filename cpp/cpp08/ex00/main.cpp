@@ -1,9 +1,15 @@
 #include <iostream>
 
+#include "Array.hpp"
 #include "easyfind.hpp"
 
 int main(void) {
-  int a[] = {1, 2, 3, 4};
+  Array<int> a(4);
+
+  a[0] = 1;
+  a[1] = 2;
+  a[2] = 3;
+  a[3] = 4;
 
   std::cout << easyfind(a, 1) << std::endl;
   std::cout << easyfind(a, 2) << std::endl;

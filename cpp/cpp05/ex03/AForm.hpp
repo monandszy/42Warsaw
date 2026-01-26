@@ -2,6 +2,7 @@
 #define AFORM_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 class Bureaucrat;
 
@@ -26,13 +27,13 @@ class AForm {
   virtual void beSigned(Bureaucrat& slave);
   virtual void execute(const Bureaucrat& slave) const = 0;
 
-  class FormNotSignedException : public std::runtime_error {
+  class FormNotSignedException : public std::invalid_argument {
    public:
     FormNotSignedException(char const* const message) throw();
     virtual char const* what() const throw();
     virtual ~FormNotSignedException() throw(){};
   };
-  class InvalidExpertiseException : public std::runtime_error {
+  class InvalidExpertiseException : public std::invalid_argument {
    public:
     InvalidExpertiseException(char const* const message) throw();
     virtual char const* what() const throw();

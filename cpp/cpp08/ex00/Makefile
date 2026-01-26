@@ -2,7 +2,8 @@ NAME = out
 CC = g++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
-	main.cpp
+	main.cpp \
+	Array.cpp
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 OBJ_DIR = ./objs
