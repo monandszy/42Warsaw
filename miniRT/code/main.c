@@ -6,12 +6,12 @@ int main(int argc, char **argv)
   char * file;
 
   if (argc != 2)
-    return (write(2, "Error: Invalid arg count\n", 6), 1);
+    return (write(2, "Error\n", 6), 1);
   file = initialize_file(&d, argv[1]);
   if (!file)
-		return (free(file), write(2, "Error: File initialization failed\n", 6), 1);
+		return (free(file), write(2, "Error\n", 6), 1);
   if (parse_file(&d, file))
-		return (write(2, "Error: File parsing failed\n", 6), 1);
+		return (write(2, "Error\n", 6), 1);
   free(file);
   if (initialize_graphics(&d, argv[1]))
 		return (write(2, "Error\n", 6), 1);
