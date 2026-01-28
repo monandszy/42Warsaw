@@ -1,5 +1,5 @@
 NAME = test_runner
-CC = g++
+CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
 	tests.cpp \

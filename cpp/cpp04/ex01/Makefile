@@ -1,5 +1,5 @@
 NAME = out
-CC = g++
+CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
 	main.cpp \
@@ -38,4 +38,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all fclean clean re test run
+.PHONY: all fclean clean re test run format
