@@ -40,7 +40,7 @@ void Harl::complain(std::string level) {
       error();
       break;
     default:
-      std::cout << "Shh.." << std::endl;
+      std::cout << "Shh.. Invalid Log Level" << std::endl;
   }
 }
 

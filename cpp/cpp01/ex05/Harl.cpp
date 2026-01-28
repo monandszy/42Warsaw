@@ -24,10 +24,11 @@ void Harl::complain(std::string level) {
   while (table[i].key) {
     if (std::string(table[i].key) == level) {
       (this->*table[i].value)();
-      break;
+      return ;
     }
     i++;
   }
+  std::cout << "Invalid Log Level" << std::endl;
 }
 
 void Harl::debug(void) {

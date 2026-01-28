@@ -21,7 +21,10 @@ std::string read_all(std::ifstream &in) {
 }
 
 void replaceAll(std::string &content, std::string from, std::string to) {
-  if (from.empty()) return;
+  if (from.empty() || to.empty()) {
+    std::cout << "WARN: s1 or s2 empty, skipping" << std::endl;
+    return ;
+  }
   size_t pos = content.find(from);
   while (pos != std::string::npos) {
     content.erase(pos, from.length());
