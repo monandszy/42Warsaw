@@ -78,7 +78,7 @@ Fixed Fixed::operator*(const Fixed& other) const {
 
 Fixed Fixed::operator/(const Fixed& other) const {
   Fixed result;
-  result.setRawBits(this->getRawBits() * _powstep / other.getRawBits());
+  result.setRawBits((long long) this->getRawBits() * _powstep / other.getRawBits());
   return result;
 }
 
