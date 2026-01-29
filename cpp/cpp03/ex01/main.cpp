@@ -1,7 +1,8 @@
 #include "ScavTrap.hpp"
 
 int main(void) {
-  ScavTrap trap("coolest 42 trap");
+  std::string name = "coolest 42 trap";
+  ScavTrap trap(name);
 
   ScavTrap& trap2 = trap;
   ScavTrap trap3(trap);
@@ -18,7 +19,8 @@ int main(void) {
   trap2.takeDamage(1);
   trap3.beRepaired(100);
 
-  ClapTrap* ptr = new ScavTrap("Test");
+  std::string name2 = "Test";
+  ClapTrap* ptr = new ScavTrap(name2);
   ptr->attack("itself");
   delete ptr;
 }

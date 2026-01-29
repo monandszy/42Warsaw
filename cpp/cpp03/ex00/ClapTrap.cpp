@@ -10,18 +10,13 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
   return *this;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) {
-  this->_name = other._name;
-  this->_hp = other._hp;
-  this->_mana = other._mana;
-  this->_dmg = other._dmg;
-}
+ClapTrap::ClapTrap(const ClapTrap& other) { *this = other; }
 
 ClapTrap::~ClapTrap(void) {
   std::cout << "Bye. I was [" << _name << "]" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) {
+ClapTrap::ClapTrap(const std::string& name) {
   _name = name;
   _hp = 10;
   _mana = 10;

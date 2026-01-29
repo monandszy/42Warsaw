@@ -16,15 +16,15 @@ class ClapTrap {
   ClapTrap(const ClapTrap& other);
   virtual ~ClapTrap(void);
 
-  ClapTrap(std::string name, unsigned int hp, unsigned int mana,
+  ClapTrap(const std::string& name, unsigned int hp, unsigned int mana,
            unsigned int dmg);
-  ClapTrap(std::string name);
+  ClapTrap(const std::string& name);
 
   virtual void attack(const std::string& target);
   virtual void takeDamage(unsigned int amount);
   virtual void beRepaired(unsigned int amount);
 
-  std::string getName(void) const;
+  const std::string& getName(void) const;
   unsigned int getHp(void) const;
   unsigned int getMana(void) const;
   unsigned int getDmg(void) const;

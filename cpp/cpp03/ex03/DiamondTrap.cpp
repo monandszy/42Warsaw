@@ -18,7 +18,7 @@ DiamondTrap::~DiamondTrap(void) {
   std::cout << "Bye. I was DiamondTrap [" << _name << "]" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name)
+DiamondTrap::DiamondTrap(const std::string& name)
     : ClapTrap(name + "_clap_name"),
       FragTrap(name + "_clap_name"),
       ScavTrap(name + "_clap_name") {
@@ -26,7 +26,7 @@ DiamondTrap::DiamondTrap(std::string name)
   setHp(100);
   setMana(50);
   setDmg(30);
-  std::cout << "Hi. I'm DiamondTrap [" << name << "]" << std::endl;
+  std::cout << "Hi. I'm DiamondTrap [" << _name << "]" << std::endl;
 }
 
 void DiamondTrap::attack(const std::string& target) {

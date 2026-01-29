@@ -2,10 +2,7 @@
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
   if (this != &other) {
-    this->setName(other.getName());
-    this->setHp(other.getHp());
-    this->setMana(other.getMana());
-    this->setDmg(other.getDmg());
+    ClapTrap::operator=(other);
   }
   return *this;
 }
@@ -20,7 +17,7 @@ ScavTrap::~ScavTrap(void) {
   std::cout << "Bye. I was ScavTrap [" << getName() << "]" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20) {
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name, 100, 50, 20) {
   std::cout << "Hi. I'm ScavTrap [" << name << "]" << std::endl;
 }
 

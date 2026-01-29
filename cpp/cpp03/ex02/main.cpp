@@ -1,7 +1,8 @@
 #include "FragTrap.hpp"
 
 int main(void) {
-  FragTrap trap("coolest 42 trap");
+  std::string name = "coolest 42 trap";
+  FragTrap trap(name);
 
   FragTrap& trap2 = trap;
   FragTrap trap3(trap);

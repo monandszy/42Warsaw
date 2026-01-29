@@ -1,7 +1,8 @@
 #include "DiamondTrap.hpp"
 
 int main(void) {
-  DiamondTrap trap("42 trap");
+  std::string name = "42 trap";
+  DiamondTrap trap(name);
 
   DiamondTrap& trap2 = trap;
   DiamondTrap trap3(trap);

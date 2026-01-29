@@ -17,7 +17,7 @@ FragTrap::~FragTrap(void) {
   std::cout << "Bye. I was FragTrap [" << getName() << "]" << std::endl;
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name, 100, 100, 30) {
+FragTrap::FragTrap(const std::string& name) : ClapTrap(name, 100, 100, 30) {
   std::cout << "Hi. I'm FragTrap [" << name << "]" << std::endl;
 }
 

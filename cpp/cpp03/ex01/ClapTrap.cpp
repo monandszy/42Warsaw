@@ -10,18 +10,13 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
   return *this;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) {
-  this->_name = other._name;
-  this->_hp = other._hp;
-  this->_mana = other._mana;
-  this->_dmg = other._dmg;
-}
+ClapTrap::ClapTrap(const ClapTrap& other) { *this = other; }
 
 ClapTrap::~ClapTrap(void) {
   std::cout << "Bye. I was ClapTrap [" << _name << "]" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) {
+ClapTrap::ClapTrap(const std::string& name) {
   _name = name;
   _hp = 10;
   _mana = 10;
@@ -29,7 +24,7 @@ ClapTrap::ClapTrap(std::string name) {
   std::cout << "Hi. I'm [" << _name << "]" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name, unsigned int hp, unsigned int mana,
+ClapTrap::ClapTrap(const std::string& name, unsigned int hp, unsigned int mana,
                    unsigned int dmg) {
   _name = name;
   _hp = hp;
@@ -95,7 +90,7 @@ bool ClapTrap::processBeRepaired(unsigned int amount) {
   return false;
 }
 
-std::string ClapTrap::getName(void) const { return _name; }
+const std::string& ClapTrap::getName(void) const { return _name; }
 
 unsigned int ClapTrap::getHp(void) const { return _hp; }
 
