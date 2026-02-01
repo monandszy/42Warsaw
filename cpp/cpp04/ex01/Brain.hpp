@@ -13,4 +13,5 @@ class Brain {
   Brain& operator=(const Brain& other);
   Brain(const Brain& other);
 };
+
 #endif

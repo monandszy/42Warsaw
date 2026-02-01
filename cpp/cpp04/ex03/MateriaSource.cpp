@@ -9,14 +9,6 @@ MateriaSource::~MateriaSource() {
     if (_eq[i]) delete _eq[i];
 }
 
-MateriaSource::MateriaSource(const MateriaSource& other) {
-  for (int i = 0; i < 4; i++)
-    if (other._eq[i])
-      this->_eq[i] = other._eq[i]->clone();
-    else
-      this->_eq[i] = NULL;
-}
-
 MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
   if (&other != this) {
     for (int i = 0; i < 4; i++)
@@ -28,6 +20,14 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
         this->_eq[i] = NULL;
   }
   return (*this);
+}
+
+MateriaSource::MateriaSource(const MateriaSource& other) {
+  for (int i = 0; i < 4; i++)
+    if (other._eq[i])
+      this->_eq[i] = other._eq[i]->clone();
+    else
+      this->_eq[i] = NULL;
 }
 
 void MateriaSource::learnMateria(AMateria* m) {

@@ -1,5 +1,10 @@
 #include "Animal.hpp"
 
+Animal::Animal(void) {
+  std::cout << "Animal constructor called" << std::endl;
+  _type = "animal";
+}
+
 Animal::~Animal(void) { std::cout << "Animal destructor called" << std::endl; }
 
 Animal& Animal::operator=(const Animal& other) {
@@ -9,15 +14,10 @@ Animal& Animal::operator=(const Animal& other) {
   return *this;
 }
 
-Animal::Animal(const Animal& other) { this->_type = other._type; }
+Animal::Animal(const Animal& other) { *this = other; }
 
 void Animal::makeSound(void) const {
-  std::cout << getType() << " sound" << std::endl;
+  std::cout << getType() << " base default sound" << std::endl;
 }
 
-Animal::Animal(void) {
-  std::cout << "Animal constructor called" << std::endl;
-  Animal::_type = "animal";
-}
-
-std::string Animal::getType(void) const { return Animal::_type; }
+const std::string& Animal::getType(void) const { return _type; }

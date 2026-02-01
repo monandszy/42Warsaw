@@ -2,18 +2,14 @@
 
 Chara::Chara() {}
 
+Chara::Chara(const std::string& name) {
+  _name = name;
+  for (int i = 0; i < 4; i++) _eq[i] = NULL;
+}
+
 Chara::~Chara() {
   for (int i = 0; i < 4; i++)
     if (_eq[i]) delete _eq[i];
-}
-
-Chara::Chara(const Chara& other) {
-  this->_name = other._name;
-  for (int i = 0; i < 4; i++)
-    if (other._eq[i])
-      this->_eq[i] = other._eq[i]->clone();
-    else
-      this->_eq[i] = NULL;
 }
 
 Chara& Chara::operator=(const Chara& other) {
@@ -30,12 +26,16 @@ Chara& Chara::operator=(const Chara& other) {
   return *this;
 }
 
-Chara::Chara(const std::string& name) {
-  _name = name;
-  for (int i = 0; i < 4; i++) _eq[i] = NULL;
+Chara::Chara(const Chara& other) {
+  this->_name = other._name;
+  for (int i = 0; i < 4; i++)
+    if (other._eq[i])
+      this->_eq[i] = other._eq[i]->clone();
+    else
+      this->_eq[i] = NULL;
 }
 
-std::string const& Chara::getName() const { return _name; }
+const std::string& Chara::getName() const { return _name; }
 
 void Chara::equip(AMateria* m) {
   for (int i = 0; i < 4; i++)

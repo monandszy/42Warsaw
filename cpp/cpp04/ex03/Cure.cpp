@@ -3,9 +3,9 @@
 
 #include "AMateria.hpp"
 
-Cure::~Cure() {}
+Cure::Cure() : AMateria("cure") {}
 
-Cure::Cure(const Cure& other) : AMateria(other) { (void)other; }
+Cure::~Cure() {}
 
 Cure& Cure::operator=(const Cure& other) {
   if (this != &other) {
@@ -14,7 +14,7 @@ Cure& Cure::operator=(const Cure& other) {
   return *this;
 }
 
-Cure::Cure() : AMateria("cure") {}
+Cure::Cure(const Cure& other) : AMateria(other) { *this = other; }
 
 Cure* Cure::clone() const { return new Cure(*this); }
 

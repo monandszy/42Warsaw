@@ -2,9 +2,9 @@
 
 #include "AMateria.hpp"
 
-Ice::~Ice() {}
+Ice::Ice() : AMateria("ice") {}
 
-Ice::Ice(const Ice& other) : AMateria(other) { (void)other; }
+Ice::~Ice() {}
 
 Ice& Ice::operator=(const Ice& other) {
   if (this != &other) {
@@ -13,7 +13,7 @@ Ice& Ice::operator=(const Ice& other) {
   return *this;
 }
 
-Ice::Ice() : AMateria("ice") {}
+Ice::Ice(const Ice& other) : AMateria(other) { *this = other; }
 
 Ice* Ice::clone() const { return new Ice(*this); }
 

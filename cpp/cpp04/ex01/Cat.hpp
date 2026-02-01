@@ -6,11 +6,14 @@
 #include "Animal.hpp"
 
 class Cat : public Animal {
+ protected:
+  Brain* _brain;
+
  public:
   Cat(void);
   ~Cat(void);
-  void makeSound(void) const;
   Cat& operator=(const Cat& other);
   Cat(const Cat& other);
+  void makeSound(void) const;
 };
 #endif

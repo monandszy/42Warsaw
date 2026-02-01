@@ -16,7 +16,7 @@ int main(void) {
 
   delete j;
   delete i;
- 
+
   // Animal a;
   // new Animal;
   return 0;

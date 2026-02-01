@@ -1,32 +1,23 @@
 #include "Animal.hpp"
 
-void Animal::makeSound(void) const {
-  std::cout << getType() << " sound" << std::endl;
-}
-
 Animal::Animal(void) {
-  Animal::_type = "animal";
-  _brain = new Brain();
+  std::cout << "Animal constructor called" << std::endl;
+  _type = "animal";
 }
 
-Animal::~Animal(void) { delete _brain; }
-
-std::string Animal::getType(void) const { return Animal::_type; }
+Animal::~Animal(void) { std::cout << "Animal destructor called" << std::endl; }
 
 Animal& Animal::operator=(const Animal& other) {
   if (this != &other) {
     this->_type = other._type;
-    if (other._brain) {
-      delete this->_brain;
-      this->_brain = new Brain(*other._brain);
-    }
   }
   return *this;
 }
 
-Animal::Animal(const Animal& other) {
-  this->_type = other._type;
-  if (other._brain) {
-    this->_brain = new Brain(*other._brain);
-  }
+Animal::Animal(const Animal& other) { this->_type = other._type; }
+
+void Animal::makeSound(void) const {
+  std::cout << getType() << " sound" << std::endl;
 }
+
+const std::string& Animal::getType(void) const { return _type; }

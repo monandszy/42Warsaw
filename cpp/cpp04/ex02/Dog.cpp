@@ -2,11 +2,7 @@
 
 Dog::~Dog(void) {}
 
-void Dog::makeSound(void) const {
-  std::cout << getType() << " bark sound" << std::endl;
-}
-
-Dog::Dog(void) : Animal() { Animal::_type = "dog"; }
+Dog::Dog(void) : Animal() { _type = "dog"; }
 
 Dog& Dog::operator=(const Dog& other) {
   if (this != &other) {
@@ -15,4 +11,8 @@ Dog& Dog::operator=(const Dog& other) {
   return *this;
 }
 
-Dog::Dog(const Dog& other) : Animal(other) { (void)other; }
+Dog::Dog(const Dog& other) : Animal(other) { *this = other; }
+
+void Dog::makeSound(void) const {
+  std::cout << getType() << " bark sound" << std::endl;
+}

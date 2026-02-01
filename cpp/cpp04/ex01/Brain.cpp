@@ -1,8 +1,13 @@
 #include "Brain.hpp"
 
-Brain::Brain(void) {}
+Brain::Brain(void) {
+  std::cout << "Brain constructor called" << std::endl;
+  for (int i = 0; i < 100; i++) {
+    this->_ideas[i] = "Idea: " + i;
+  }
+}
 
-Brain::~Brain(void) {}
+Brain::~Brain(void) { std::cout << "Brain destructor called" << std::endl; }
 
 Brain& Brain::operator=(const Brain& other) {
   if (this != &other) {
@@ -13,8 +18,4 @@ Brain& Brain::operator=(const Brain& other) {
   return *this;
 }
 
-Brain::Brain(const Brain& other) {
-  for (int i = 0; i < 100; i++) {
-    this->_ideas[i] = other._ideas[i];
-  }
-}
+Brain::Brain(const Brain& other) { *this = other; }
