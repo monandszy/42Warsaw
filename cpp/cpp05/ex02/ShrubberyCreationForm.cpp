@@ -9,8 +9,7 @@
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
     : AForm("ShrubberyCreationForm", 145, 137), _target(target) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
-    : AForm(other), _target(other._target) {}
+ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(
     const ShrubberyCreationForm& other) {
@@ -21,12 +20,15 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(
   return *this;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
+    : AForm(other), _target(other._target) {}
 
 void ShrubberyCreationForm::execute(const Bureaucrat& slave) const {
-  if (!this->getSigned()) throw FormNotSignedException(slave.getName().c_str());
+  if (!this->getSigned())
+    throw FormNotSignedException("FormNotSignedException: " + slave.getName());
   if (slave.getGrade() > this->getExecGrade())
-    throw InvalidExpertiseException(slave.getName().c_str());
+    throw InvalidExpertiseException("InvalidExpertiseException: " +
+                                    slave.getName());
 
   std::ofstream outFile((_target + "_shrubbery").c_str());
   if (!outFile.is_open()) {

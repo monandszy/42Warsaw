@@ -15,12 +15,12 @@ class Form {
   Form();
 
  public:
+  Form(const std::string& name, int sign_grade, int exec_grade);
   ~Form();
-  Form(const std::string name, int sign_grade, int exec_grade);
-  Form(const Form& other);
   Form& operator=(const Form& other);
+  Form(const Form& other);
 
-  std::string getName() const;
+  const std::string& getName() const;
   bool getSigned() const;
   int getSignGrade() const;
   int getExecGrade() const;
@@ -29,9 +29,8 @@ class Form {
 
   class InvalidExpertiseException : public std::invalid_argument {
    public:
-    InvalidExpertiseException(char const* const message) throw();
-    virtual char const* what() const throw();
-    virtual ~InvalidExpertiseException() throw(){};
+    InvalidExpertiseException(const std::string& message) throw();
+    virtual ~InvalidExpertiseException() throw();
   };
 };
 std::ostream& operator<<(std::ostream& os, const Form& obj);

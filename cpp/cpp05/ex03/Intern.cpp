@@ -9,12 +9,12 @@ Intern::Intern() {}
 
 Intern::~Intern() {}
 
-Intern::Intern(const Intern& other) { (void)other; }
-
 Intern& Intern::operator=(const Intern& other) {
   (void)other;
   return (*this);
 }
+
+Intern::Intern(const Intern& other) { (void)other; }
 
 AForm* Intern::presidential(const std::string& target) {
   return new PresidentialPardonForm(target);

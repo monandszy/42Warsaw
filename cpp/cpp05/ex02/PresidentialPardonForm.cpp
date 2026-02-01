@@ -6,9 +6,7 @@
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
     : AForm("PresidentialPardonForm", 25, 5), _target(target) {}
 
-PresidentialPardonForm::PresidentialPardonForm(
-    const PresidentialPardonForm& other)
-    : AForm(other), _target(other._target) {}
+PresidentialPardonForm::~PresidentialPardonForm() {}
 
 PresidentialPardonForm& PresidentialPardonForm::operator=(
     const PresidentialPardonForm& other) {
@@ -19,12 +17,16 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(
   return *this;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+PresidentialPardonForm::PresidentialPardonForm(
+    const PresidentialPardonForm& other)
+    : AForm(other), _target(other._target) {}
 
 void PresidentialPardonForm::execute(const Bureaucrat& slave) const {
-  if (!this->getSigned()) throw FormNotSignedException(slave.getName().c_str());
+  if (!this->getSigned())
+    throw FormNotSignedException("FormNotSignedException: " + slave.getName());
   if (slave.getGrade() > this->getExecGrade())
-    throw InvalidExpertiseException(slave.getName().c_str());
+    throw InvalidExpertiseException("InvalidExpertiseException: " +
+                                    slave.getName());
   std::cout << _target << " has been pardoned by Zaphod Beeblebrox."
             << std::endl;
 }

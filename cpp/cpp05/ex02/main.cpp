@@ -7,15 +7,15 @@
 int main(void) {
   Bureaucrat b1("b1", 150);
   ShrubberyCreationForm sf1("home");
-  AForm &f1 = sf1;
+  AForm& f1 = sf1;
 
   std::cout << f1 << std::endl;
   RobotomyRequestForm rf2("Bender");
-  AForm &f2 = rf2;
+  AForm& f2 = rf2;
   std::cout << f2 << std::endl;
 
   PresidentialPardonForm pf3("Arthur Dent");
-  AForm &f3 = pf3;
+  AForm& f3 = pf3;
   std::cout << f3 << std::endl;
 
   try {
@@ -41,7 +41,7 @@ int main(void) {
     // b2.signForm(f3);
     // b2.executeForm(f3);
 
-  } catch (std::exception &e) {
+  } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }
 }

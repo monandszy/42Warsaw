@@ -8,8 +8,7 @@
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
     : AForm("RobotomyRequestForm", 72, 45), _target(target) {}
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
-    : AForm(other), _target(other._target) {}
+RobotomyRequestForm::~RobotomyRequestForm() {}
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(
     const RobotomyRequestForm& other) {
@@ -20,14 +19,16 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(
   return *this;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
+    : AForm(other), _target(other._target) {}
 
 void RobotomyRequestForm::execute(const Bureaucrat& slave) const {
   if (!this->getSigned()) {
-    throw FormNotSignedException(slave.getName().c_str());
+    throw FormNotSignedException("FormNotSignedException: " + slave.getName());
   }
   if (slave.getGrade() > this->getExecGrade()) {
-    throw InvalidExpertiseException(slave.getName().c_str());
+    throw InvalidExpertiseException("InvalidExpertiseException: " +
+                                    slave.getName());
   }
   std::cout << "* drrrrriiiiiilllllling noises *" << std::endl;
   if (std::rand() % 2) {

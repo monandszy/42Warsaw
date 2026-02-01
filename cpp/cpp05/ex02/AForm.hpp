@@ -12,14 +12,15 @@ class AForm {
   bool _signed;
   const int _sign_grade;
   const int _exec_grade;
+  AForm();
 
  public:
+  AForm(const std::string& name, int sign_grade, int exec_grade);
   virtual ~AForm();
-  virtual AForm& operator=(const AForm& other);
-  AForm(const std::string name, int sign_grade, int exec_grade);
+  AForm& operator=(const AForm& other);
   AForm(const AForm& other);
 
-  std::string getName() const;
+  const std::string& getName() const;
   bool getSigned() const;
   int getSignGrade() const;
   int getExecGrade() const;
@@ -27,17 +28,16 @@ class AForm {
   virtual void beSigned(Bureaucrat& slave);
   virtual void execute(const Bureaucrat& slave) const = 0;
 
-  class FormNotSignedException : public std::invalid_argument {
-   public:
-    FormNotSignedException(char const* const message) throw();
-    virtual char const* what() const throw();
-    virtual ~FormNotSignedException() throw(){};
-  };
   class InvalidExpertiseException : public std::invalid_argument {
    public:
-    InvalidExpertiseException(char const* const message) throw();
-    virtual char const* what() const throw();
-    virtual ~InvalidExpertiseException() throw(){};
+    InvalidExpertiseException(const std::string& message) throw();
+    virtual ~InvalidExpertiseException() throw();
+  };
+
+  class FormNotSignedException : public std::invalid_argument {
+   public:
+    FormNotSignedException(const std::string& message) throw();
+    virtual ~FormNotSignedException() throw();
   };
 };
 std::ostream& operator<<(std::ostream& os, const AForm& obj);

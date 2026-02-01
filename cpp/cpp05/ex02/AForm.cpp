@@ -2,36 +2,30 @@
 
 #include "Bureaucrat.hpp"
 
-std::ostream& operator<<(std::ostream& os, const AForm& other) {
-  os << other.getName() << "[";
-  os << "signed=" << other.getSigned();
-  os << " sign_grade=" << other.getSignGrade();
-  os << " exec_grade=" << other.getExecGrade();
-  os << "]";
-  return os;
+AForm::AForm(const std::string& name, int sign_grade, int exec_grade)
+    : _name(name), _sign_grade(sign_grade), _exec_grade(exec_grade) {
+  if (sign_grade > 150)
+    throw InvalidExpertiseException(
+        "InvalidExpertiseException: sign_grade input");
+  else if (sign_grade < 1)
+    throw InvalidExpertiseException(
+        "InvalidExpertiseException: sign_grade input");
+  if (exec_grade > 150)
+    throw InvalidExpertiseException(
+        "InvalidExpertiseException: exec_grade input");
+  else if (exec_grade < 1)
+    throw InvalidExpertiseException(
+        "InvalidExpertiseException: exec_grade input");
+  this->_signed = false;
 }
-
-std::string AForm::getName() const { return _name; }
-
-bool AForm::getSigned() const { return _signed; }
-
-int AForm::getSignGrade() const { return _sign_grade; }
-
-int AForm::getExecGrade() const { return _exec_grade; }
 
 AForm::~AForm() {}
 
-AForm::AForm(const std::string name, int sign_grade, int exec_grade)
-    : _name(name), _sign_grade(sign_grade), _exec_grade(exec_grade) {
-  if (sign_grade > 150)
-    throw InvalidExpertiseException("sign_grade");
-  else if (sign_grade < 1)
-    throw InvalidExpertiseException("sign_grade");
-  if (exec_grade > 150)
-    throw InvalidExpertiseException("exec_grade");
-  else if (exec_grade < 1)
-    throw InvalidExpertiseException("exec_grade");
-  this->_signed = false;
+AForm& AForm::operator=(const AForm& other) {
+  if (this != &other) {
+    this->_signed = other._signed;
+  }
+  return *this;
 }
 
 AForm::AForm(const AForm& other)
@@ -41,32 +35,38 @@ AForm::AForm(const AForm& other)
   this->_signed = other._signed;
 }
 
-AForm& AForm::operator=(const AForm& other) {
-  if (this != &other) {
-    this->_signed = other._signed;
-  }
-  return *this;
-}
+const std::string& AForm::getName() const { return _name; }
+
+bool AForm::getSigned() const { return _signed; }
+
+int AForm::getSignGrade() const { return _sign_grade; }
+
+int AForm::getExecGrade() const { return _exec_grade; }
 
 void AForm::beSigned(Bureaucrat& slave) {
   if (slave.getGrade() <= _sign_grade)
     _signed = true;
   else
-    throw InvalidExpertiseException(_name.c_str());
+    throw InvalidExpertiseException("InvalidExpertiseException: " + _name);
 }
 
-AForm::FormNotSignedException::FormNotSignedException(
-    char const* const message) throw()
-    : std::runtime_error(message) {}
-
-char const* AForm::FormNotSignedException::what() const throw() {
-  return "FormNotSigned";
+std::ostream& operator<<(std::ostream& os, const AForm& other) {
+  os << other.getName() << "[";
+  os << "signed=" << other.getSigned();
+  os << " sign_grade=" << other.getSignGrade();
+  os << " exec_grade=" << other.getExecGrade();
+  os << "]";
+  return os;
 }
 
 AForm::InvalidExpertiseException::InvalidExpertiseException(
-    char const* const message) throw()
-    : std::runtime_error(message) {}
+    const std::string& message) throw()
+    : std::invalid_argument(message) {}
 
-char const* AForm::InvalidExpertiseException::what() const throw() {
-  return "InvalidExpertise";
-}
+AForm::InvalidExpertiseException::~InvalidExpertiseException() throw() {}
+
+AForm::FormNotSignedException::FormNotSignedException(
+    const std::string& message) throw()
+    : std::invalid_argument(message) {}
+
+AForm::FormNotSignedException::~FormNotSignedException() throw() {}
