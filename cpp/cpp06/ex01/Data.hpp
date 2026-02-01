@@ -9,11 +9,12 @@ class Data {
 
  public:
   Data();
+  Data(const std::string& data);
   ~Data();
   const Data operator=(const Data& other);
   Data(const Data& other);
-  Data(std::string data);
-  std::string& get_data();
+
+  const std::string& getData();
 };
 
 #endif

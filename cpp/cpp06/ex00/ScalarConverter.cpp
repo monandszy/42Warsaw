@@ -6,21 +6,13 @@
 #include <sstream>
 #include <string>
 
-static bool isnum(const char *str) {
+static bool isnum(const char* str) {
   double result;
   std::istringstream i(str);
 
   i >> result;
 
   return !i.fail() && i.eof();
-}
-
-static void print_table(std::string c, std::string i, std::string f,
-                        std::string d) {
-  std::cout << "char: " << c << std::endl
-            << "int: " << i << std::endl
-            << "float: " << f << std::endl
-            << "double: " << d << std::endl;
 }
 
 static std::string getc(char c) {
@@ -32,7 +24,25 @@ static std::string getc(char c) {
     return ("Not printable");
 }
 
-void ScalarConverter::convert(char *str) {
+static void print_table(std::string c, std::string i, std::string f,
+                        std::string d) {
+  std::cout << "char: " << c << std::endl
+            << "int: " << i << std::endl
+            << "float: " << f << std::endl
+            << "double: " << d << std::endl;
+}
+
+static void print_values(char c, int i, float f, double d) {
+  std::stringstream si;
+  si << i;
+  std::stringstream sf;
+  sf << std::fixed << f;
+  std::stringstream sd;
+  sd << std::fixed << d;
+  print_table(getc(c), si.str(), sf.str() + "f", sd.str());
+}
+
+void ScalarConverter::convert(char* str) {
   std::string cppstr = str;
 
   // validate double infinity
@@ -55,25 +65,8 @@ void ScalarConverter::convert(char *str) {
       float f;
       std::stringstream sf(cut);
       sf >> f;
-
-      std::stringstream res;
-      res << std::fixed << f;
-
-      double d;
-      d = static_cast <double> (f);
-      std::stringstream sd;
-      sd << std::fixed << d;
-
-      int i;
-      i = static_cast <int> (f);
-      std::stringstream si;
-      si << i;
-
-      char c;
-      c = static_cast <char> (f);
-
-      print_table(getc(c), si.str(), res.str() + "f", sd.str());
-      return;
+      print_values(static_cast<char>(f), static_cast<int>(f), f,
+                   static_cast<double>(f));
     } else {
       std::cout << "Invalid float input" << std::endl;
     }
@@ -84,73 +77,24 @@ void ScalarConverter::convert(char *str) {
       double d;
       std::stringstream sd(str);
       sd >> d;
-
-      std::stringstream res;
-      res << std::fixed << d;
-
-      float f;
-      f = static_cast <float> (d);
-      std::stringstream sf;
-      sf << std::fixed << f;
-
-      int i;
-      i = static_cast <int> (d);
-      std::stringstream si;
-      si << i;
-
-      char c;
-      c = static_cast <char> (d);
-
-      print_table(getc(c), si.str(), sf.str() + "f", res.str());
+      print_values(static_cast<char>(d), static_cast<int>(d),
+                   static_cast<float>(d), d);
     }
-    // validate int
+    // validate int (no . detected)
     else {
       std::cout << "Data type Int" << std::endl;
       int i;
       std::stringstream si(str);
       si >> i;
-
-      std::stringstream res;
-      res << i;
-
-      float f;
-      f = static_cast <float> (i);
-      std::stringstream sf;
-      sf << std::fixed << f;
-
-      double d;
-      d = static_cast <double> (i);
-      std::stringstream sd;
-      sd << std::fixed << d;
-
-      char c;
-      c = static_cast <char> (i);
-      std::stringstream sc;
-      sc << c;
-
-      print_table(getc(c), res.str(), sf.str() + "f", sd.str());
+      print_values(static_cast<char>(i), i, static_cast<float>(i),
+                   static_cast<double>(i));
     }
   } else if (cppstr.length() == 1) {
     std::cout << "Data type Char" << std::endl;
     char c;
     c = str[0];
-
-    int i;
-    i = c;
-    std::stringstream si;
-    si << i;
-
-    float f;
-    f = i;
-    std::stringstream sf;
-    sf << std::fixed << std::setprecision(1) << f;
-
-    double d;
-    d = i;
-    std::stringstream sd;
-    sd << std::fixed << std::setprecision(1) << d;
-
-    print_table(getc(c), si.str(), sf.str() + "f", sd.str());
+    print_values(c, static_cast<int>(c), static_cast<float>(c),
+                 static_cast<double>(c));
   } else {
     std::cout << "Data type not recoginized, possibly a string or null or an "
                  "out of scope double"

@@ -6,7 +6,7 @@ class ScalarConverter {
   ScalarConverter();
 
  public:
-  static void convert(char *input);
+  static void convert(char* input);
 };
 
 #endif

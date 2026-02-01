@@ -4,11 +4,11 @@
 int main(void) {
   Data* d = new Data("cat");
 
-  std::cout << d->get_data() << std::endl;
+  std::cout << d->getData() << std::endl;
   uintptr_t t = Serializer::serialize(d);
   std::cout << t << std::endl;
   Data* td = Serializer::deserialize(t);
-  std::cout << td->get_data() << std::endl;
+  std::cout << td->getData() << std::endl;
 
   delete d;
 }

@@ -1,4 +1,4 @@
-NAME = converter
+NAME = out
 CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 SRC = \
@@ -17,7 +17,7 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(NAME): format $(OBJS)
+$(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 format:

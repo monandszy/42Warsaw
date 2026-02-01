@@ -2,6 +2,8 @@
 
 Data::Data() {}
 
+Data::Data(const std::string& data) { _data = data; }
+
 Data::~Data() {}
 
 const Data Data::operator=(const Data& other) {
@@ -11,8 +13,6 @@ const Data Data::operator=(const Data& other) {
   return (*this);
 }
 
-Data::Data(const Data& other) { this->_data = other._data; }
+Data::Data(const Data& other) { *this = other; }
 
-Data::Data(std::string data) { _data = data; }
-
-std::string& Data::get_data() { return _data; }
+const std::string& Data::getData() { return _data; }
