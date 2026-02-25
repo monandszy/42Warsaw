@@ -1,3 +1,6 @@
+#ifndef __BUREAUCRAT_H__
+#define __BUREAUCRAT_H__
+
 
 #include "Bureaucrat.hpp"
 
@@ -54,3 +57,4 @@ Bureaucrat::GradeTooLowException::GradeTooLowException(
     : std::invalid_argument(message) {}
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() {}
+#endif // __BUREAUCRAT_H__
