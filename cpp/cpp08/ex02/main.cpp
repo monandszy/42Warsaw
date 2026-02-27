@@ -29,7 +29,7 @@ int main() {
     ++it;
   }
 
-  // std::stack<int> s(mstack);
+  std::stack<int> s(mstack);
   std::cout << mstack << std::endl;
   return 0;
 }

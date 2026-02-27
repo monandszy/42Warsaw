@@ -2,11 +2,12 @@
 #define MUTANTSTACK_HPP
 
 #include <iostream>
+#include <stack>
 #include <stdexcept>
 #include <vector>
 
 template <typename T>
-class MutantStack {
+class MutantStack : public std::stack<T> {
  private:
   typename std::vector<T> _m;
 
