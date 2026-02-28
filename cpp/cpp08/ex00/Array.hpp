@@ -1,6 +1,7 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+#include <iostream>
 #include <stdexcept>
 
 template <typename T>
@@ -49,4 +50,15 @@ class Array {
 
   unsigned int size() { return _size; }
 };
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, Array<T>& other) {
+  os << "{";
+  for (unsigned int i = 0; i < other.size(); i++) {
+    os << "[" << other[i] << "]";
+  }
+  os << "}";
+  return os;
+}
+
 #endif

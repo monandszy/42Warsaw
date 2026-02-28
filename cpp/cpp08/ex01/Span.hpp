@@ -1,15 +1,17 @@
 #ifndef SPAN_HPP
 #define SPAN_HPP
 
+#include <vector>
+
 class Span {
  private:
-  unsigned int _size;
-  unsigned int _memsize;
-  int* _mem;
+  Span();
+  unsigned int _N;
+  unsigned int _index;
+  std::vector<unsigned int> _mem;
 
  public:
   ~Span();
-  Span();
   Span(unsigned int);
   Span(const Span& other);
   Span& operator=(const Span& other);

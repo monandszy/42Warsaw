@@ -8,9 +8,9 @@ int easyfind(T& hay, int needle) {
       if (hay[i] == needle) return i;
     }
   } catch (std::exception& e) {
-    throw std::runtime_error("Not Found");
+    throw std::out_of_range("Not Found");
   }
-  throw std::runtime_error("Not Found");
+  throw std::out_of_range("Not Found");
 }
 
 #endif
