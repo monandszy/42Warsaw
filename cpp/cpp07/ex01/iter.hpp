@@ -6,4 +6,5 @@ void iter(T a[], const int len, void (*apply)(T&)) {
 template <typename T>
 void apply(T& obj) {
   std::cout << "appling to: " << obj << std::endl;
+  obj = 1;
 }
