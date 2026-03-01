@@ -11,5 +11,11 @@ int main() {
   sp.addNumber(11);
   std::cout << sp.shortestSpan() << std::endl;
   std::cout << sp.longestSpan() << std::endl;
+  try {
+    // sp.addNumber(6);
+    sp.addNumber(30, 1);
+  } catch (std::exception& e) {
+    std::cout << e.what() << std::endl;
+  }
   return 0;
 }
