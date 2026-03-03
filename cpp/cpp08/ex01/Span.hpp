@@ -1,14 +1,14 @@
 #ifndef SPAN_HPP
 #define SPAN_HPP
 
-#include <vector>
+#include <set>
 
 class Span {
  private:
   Span();
   unsigned int _N;
   unsigned int _index;
-  std::vector<unsigned int> _mem;
+  std::set<unsigned int> _mem;
 
  public:
   ~Span();

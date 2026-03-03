@@ -1,31 +1,28 @@
 #include <iostream>
 
-#include "Array.hpp"
+#include <vector>
 #include "easyfind.hpp"
 
 int main(void) {
-  Array<int> a(4);
-
-  a[0] = 1;
-  a[1] = 2;
-  a[2] = 3;
-  a[3] = 4;
+  std::vector<int> a;
+  a.push_back(1);
+  a.push_back(2);
+  a.push_back(3);
+  a.push_back(4);
 
   std::cout << easyfind(a, 1) << std::endl;
   std::cout << easyfind(a, 2) << std::endl;
   std::cout << easyfind(a, 3) << std::endl;
 
-  try {
-    std::cout << easyfind("cat", 3) << std::endl;
-  } catch (std::exception& e) {
-    std::cerr << e.what() << std::endl;
-  }
+  // try {
+  //   std::cout << easyfind("cat", 3) << std::endl;
+  // } catch (std::exception& e) {
+  //   std::cerr << e.what() << std::endl;
+  // }
 
   try {
     std::cout << easyfind(a, -1000) << std::endl;
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
   }
-
-  std::cout << std::endl << a << std::endl;
 }
