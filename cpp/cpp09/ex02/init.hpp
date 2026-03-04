@@ -1,12 +1,7 @@
-#ifndef PMERGEME_HPP
-#define PMERGEME_HPP
+#ifndef INIT_HPP
+#define INIT_HPP
 
-#include <algorithm>
-#include <cmath>
-#include <iostream>
-#include <list>
-#include <sstream>
-#include <vector>
+#include "utils.hpp"
 
 void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }
 
