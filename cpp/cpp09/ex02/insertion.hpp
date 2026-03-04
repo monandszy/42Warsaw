@@ -1,6 +1,9 @@
 #ifndef INSERTION_HPP
 #define INSERTION_HPP
 
+#include <algorithm>
+#include <cmath>
+
 template <typename T>
 void initialize_tofrom(int argc, int pow, T& t, T& to, T& from) {
   typename T::iterator it = t.begin();
@@ -72,22 +75,15 @@ T find_insertion_point(T range_begin, int num_groups, int pow, int target) {
   return insertion_point;
 }
 
+/*
+size of the search space for any given element is mathematically predetermined
+*/
 template <typename T>
 void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
-                            typename T::iterator& target, int pow,
-                            int tmp_bound, int count) {
+                            typename T::iterator& target, int pow, int bound_i,
+                            int count) {
   while (count > 0) {
-    // std::cout << "pair:" << *target_begin << "|" << *target << std::endl;
     int to_insert = *target;
-    // I need to find the bound (ax) to limit the insertion and optimize the
-    // binary search.
-    int bound_i = tmp_bound;  // <------------- wrong but works unoptimally
-
-    // approaches.
-    // I need to assign b and a to numbers to recognise them later.
-    // I could parse int into structs instead.
-    // another approach would involve a custom collection evolving alongside the
-    // code to track the a/b position.
 
     std::cout << "bound_i: " << bound_i << std::endl;
     typename T::iterator begin = to.begin();
@@ -113,27 +109,29 @@ void optimal_binary_insert(T& to, T& from, int pow) {
   std::cout << "preto: ";
   print_sorted(to);
   int from_size = from.size() / pow;
+  int j_index = 3;
   int prev_j = 1;
   int curr_j = 3;
   while (1) {
     int limit_c = std::min(curr_j - 1, from_size);
-    int j_i = limit_c - prev_j;
+    int j_c = limit_c - prev_j;
 
     typename T::iterator target_begin = from.begin();
     forward(target_begin, from.end(), (limit_c - 1) * pow);
 
-    std::cout << "shift: " << j_i << std::endl;
+    std::cout << "shift: " << j_c << std::endl;
     typename T::iterator target = target_begin;
     forward(target, from.end(), pow - 1);
 
-    int size = to.size() / pow;
-    process_Jacobsthal_set(to, from, target_begin, target, pow, size, j_i + 1);
+    int size = std::min(std::pow(2, j_index) - 1, (double)(int)to.size() / pow);
+    process_Jacobsthal_set(to, from, target_begin, target, pow, size, j_c + 1);
 
     std::cout << "-------------" << std::endl;
     if (from_size < curr_j) break;
     int next_j = get_Jacobsthal(prev_j, curr_j);
     prev_j = curr_j;
     curr_j = next_j;
+    j_index++;
   }
 }
 
