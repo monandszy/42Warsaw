@@ -31,7 +31,7 @@ void replace_to(int argc, int pow, T& to, T& from) {
 
   int pairc = (argc / pow);
   int c = pow * pairc;
-  std::cout << "cccccccccccc:" << c << std::endl;
+  // std::cout << "cccccccccccc:" << c << std::endl;
   for (int i = 0; i < c; i++) {
     if (ti == to.end() || fi == from.end()) {
       std::cout << "!!!!!!!!!!!!!!!!!!!!!" << std::endl;
@@ -82,19 +82,20 @@ template <typename T>
 void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
                             typename T::iterator& target, int pow, int bound_i,
                             int count) {
+  (void)from;
   while (count > 0) {
     int to_insert = *target;
 
-    std::cout << "bound_i: " << bound_i << std::endl;
+    // std::cout << "bound_i: " << bound_i << std::endl;
     typename T::iterator begin = to.begin();
     typename T::iterator point =
         find_insertion_point(begin, bound_i, pow, to_insert);
 
     insert_group(to, point, target_begin, pow);
-    std::cout << "from: ";
-    print_sorted(from);
-    std::cout << "to: ";
-    print_sorted(to);
+    // std::cout << "from: ";
+    // print_sorted(from);
+    // std::cout << "to: ";
+    // print_sorted(to);
 
     reverse(target, to.begin(), pow);
     reverse(target_begin, to.begin(), pow);
@@ -104,10 +105,10 @@ void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
 
 template <typename T>
 void optimal_binary_insert(T& to, T& from, int pow) {
-  std::cout << "prefrom: ";
-  print_sorted(from);
-  std::cout << "preto: ";
-  print_sorted(to);
+  // std::cout << "prefrom: ";
+  // print_sorted(from);
+  // std::cout << "preto: ";
+  // print_sorted(to);
   int from_size = from.size() / pow;
   int j_index = 3;
   int prev_j = 1;
@@ -119,14 +120,14 @@ void optimal_binary_insert(T& to, T& from, int pow) {
     typename T::iterator target_begin = from.begin();
     forward(target_begin, from.end(), (limit_c - 1) * pow);
 
-    std::cout << "shift: " << j_c << std::endl;
+    // std::cout << "shift: " << j_c << std::endl;
     typename T::iterator target = target_begin;
     forward(target, from.end(), pow - 1);
 
     int size = std::min(std::pow(2, j_index) - 1, (double)(int)to.size() / pow);
     process_Jacobsthal_set(to, from, target_begin, target, pow, size, j_c + 1);
 
-    std::cout << "-------------" << std::endl;
+    // std::cout << "-------------" << std::endl;
     if (from_size < curr_j) break;
     int next_j = get_Jacobsthal(prev_j, curr_j);
     prev_j = curr_j;

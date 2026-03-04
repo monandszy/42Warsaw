@@ -11,6 +11,9 @@ Time C2
 // std::list
 // std::vector
 
+#include <ctime>
+#include <iomanip>
+
 #include "init.hpp"
 #include "insertion.hpp"
 #include "ordering.hpp"
@@ -22,17 +25,17 @@ void sort(int argc, int pow, T& t) {
 
   order_pairs(pow, t);
   sort(argc, pow * 2, t);
-  print_sorted(t);
+  // print_sorted(t);
 
   T to;
   T from;
   initialize_tofrom(argc, pow, t, to, from);
-  std::cout << "pow: " << pow << std::endl;
+  // std::cout << "pow: " << pow << std::endl;
 
   if (from.size() != 0) {
     optimal_binary_insert(to, from, pow);
     replace_to(argc, pow, t, to);
-    std::cout << std::endl;
+    // std::cout << std::endl;
   }
 }
 
@@ -52,10 +55,25 @@ int main(int argc, char* argv[]) {
     initialize(argc, argv, v);
     initialize(argc, argv, l);
     print_argv(argc, argv);
+
+    std::clock_t start_v = std::clock();
     sort(argc - 1, 1, v);
-    // sort(argc, 1, l);
+    std::clock_t stop_v = std::clock();
+
+    double duration_v = double(stop_v - start_v) / CLOCKS_PER_SEC;
+    std::cout << "vector: " << std::fixed << std::setprecision(6) << duration_v
+              << " seconds" << std::endl;
     print_sorted(v);
-    // print_sorted(l);
+
+    std::clock_t start_l = std::clock();  // time start
+    sort(argc - 1, 1, l);
+    std::clock_t stop_l = std::clock();  // time stop
+
+    double duration_l = double(stop_l - start_l) / CLOCKS_PER_SEC;
+    std::cout << "list: " << std::fixed << std::setprecision(6) << duration_l
+              << " seconds" << std::endl;
+
+    print_sorted(l);
   } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }
