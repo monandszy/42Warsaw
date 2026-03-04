@@ -44,7 +44,6 @@ void print_argv(int argc, char* argv[]) {
 
 template <typename T>
 void print_sorted(T& t) {
-  std::cout << "Sorted: ";
   std::cout << "[";
   for (typename T::iterator it = t.begin(); it != t.end(); ++it) {
     std::cout << " " << *it;
