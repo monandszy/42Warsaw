@@ -74,14 +74,20 @@ T find_insertion_point(T range_begin, int num_groups, int pow, int target) {
 
 template <typename T>
 void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
-                            typename T::iterator& target, int pow, int curr_j,
-                            int count) {
+                            typename T::iterator& target, int pow,
+                            int tmp_bound, int count) {
   while (count > 0) {
     // std::cout << "pair:" << *target_begin << "|" << *target << std::endl;
     int to_insert = *target;
     // I need to find the bound (ax) to limit the insertion and optimize the
     // binary search.
-    int bound_i = curr_j;  // <------------- wrong
+    int bound_i = tmp_bound;  // <------------- wrong but works unoptimally
+
+    // approaches.
+    // I need to assign b and a to numbers to recognise them later.
+    // I could parse int into structs instead.
+    // another approach would involve a custom collection evolving alongside the
+    // code to track the a/b position.
 
     std::cout << "bound_i: " << bound_i << std::endl;
     typename T::iterator begin = to.begin();
@@ -120,8 +126,8 @@ void optimal_binary_insert(T& to, T& from, int pow) {
     typename T::iterator target = target_begin;
     forward(target, from.end(), pow - 1);
 
-    process_Jacobsthal_set(to, from, target_begin, target, pow, curr_j,
-                           j_i + 1);
+    int size = to.size() / pow;
+    process_Jacobsthal_set(to, from, target_begin, target, pow, size, j_i + 1);
 
     std::cout << "-------------" << std::endl;
     if (from_size < curr_j) break;

@@ -6,9 +6,7 @@ N - Push to Stack
 O - Pop 2, apply, push result.
 */
 
-#include <fstream>
 #include <iostream>
-#include <sstream>
 #include <stack>
 
 void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }

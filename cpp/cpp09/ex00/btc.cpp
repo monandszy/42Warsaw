@@ -2,8 +2,7 @@
 
 void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }
 
-void pair(std::map<std::string, double>& data,
-          std::multimap<std::string, double>& input) {
+void pair(std::map<std::string, double>& data, std::multimap<std::string, double>& input) {
   for (std::multimap<std::string, double>::iterator it = input.begin();
        it != input.end(); ++it) {
     std::string key = it->first;
