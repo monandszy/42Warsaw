@@ -1,6 +1,8 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+#include <stdexcept>
+
 template <typename T>
 class Array {
  private:
@@ -22,6 +24,7 @@ class Array {
 
   Array(const Array<T>& other) {
     this->_arr = new T[other._size];
+    this->_size = other._size;
     for (unsigned int i = 0; i < other._size; i++) {
       this->_arr[i] = other._arr[i];
     }
@@ -31,6 +34,7 @@ class Array {
     if (this != &other) {
       delete[] this->_arr;
       this->_arr = new T[other._size];
+      this->_size = other._size;
       for (unsigned int i = 0; i < other._size; i++) {
         this->_arr[i] = other._arr[i];
       }

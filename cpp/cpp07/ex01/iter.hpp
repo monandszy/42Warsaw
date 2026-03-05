@@ -1,3 +1,8 @@
+#ifndef ITER_HPP
+#define ITER_HPP
+
+#include <iostream>
+
 template <typename T>
 void iter(T a[], const int len, void (*apply)(const T&)) {
   for (int i = 0; i < len; i++) apply(a[i]);
@@ -5,6 +10,7 @@ void iter(T a[], const int len, void (*apply)(const T&)) {
 
 template <typename T>
 void apply(const T& obj) {
-  std::cout << "appling to: " << obj << std::endl;
-  obj = 1;
+  std::cout << "applying to: " << obj << std::endl;
 }
+
+#endif
