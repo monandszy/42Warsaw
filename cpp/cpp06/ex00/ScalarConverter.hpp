@@ -1,12 +1,18 @@
-#ifndef CONVERTER_HPP
-#define CONVERTER_HPP
+#ifndef SCALARCONVERTER_HPP
+#define SCALARCONVERTER_HPP
+
+#include <iostream>
+#include <iomanip>
+#include <limits>
+#include <sstream>
+#include <string>
 
 class ScalarConverter {
  private:
   ScalarConverter();
 
  public:
-  static void convert(char* input);
+  static void convert(const std::string& input);
 };
 
 #endif

@@ -11,10 +11,10 @@ class Data {
   Data();
   Data(const std::string& data);
   ~Data();
-  const Data operator=(const Data& other);
+  Data& operator=(const Data& other);
   Data(const Data& other);
 
-  const std::string& getData();
+  const std::string& getData() const;
 };
 
 #endif

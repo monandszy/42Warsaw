@@ -1,11 +1,5 @@
 #include "ScalarConverter.hpp"
 
-#include <iomanip>
-#include <iostream>
-#include <limits>
-#include <sstream>
-#include <string>
-
 static bool isnum(const char* str) {
   double result;
   std::istringstream i(str);
@@ -42,8 +36,8 @@ static void print_values(char c, int i, float f, double d) {
   print_table(getc(c), si.str(), sf.str() + "f", sd.str());
 }
 
-void ScalarConverter::convert(char* str) {
-  std::string cppstr = str;
+void ScalarConverter::convert(const std::string &cppstr) {
+  const char *str = cppstr.c_str();
 
   // validate double infinity
   if (cppstr == "-inf" || cppstr == "+inf" || cppstr == "nan") {
@@ -96,7 +90,7 @@ void ScalarConverter::convert(char* str) {
     print_values(c, static_cast<int>(c), static_cast<float>(c),
                  static_cast<double>(c));
   } else {
-    std::cout << "Data type not recoginized, possibly a string or null or an "
+    std::cout << "Data type not recognized, possibly a string or null or an "
                  "out of scope double"
               << std::endl;
     return;
