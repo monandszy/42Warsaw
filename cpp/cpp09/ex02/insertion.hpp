@@ -3,22 +3,27 @@
 
 #include <algorithm>
 #include <cmath>
-#include <vector>
+#include <utility>
 
-template <typename T>
-void initialize_tofrom(int argc, int pow, T& t, T& to, T& from) {
+// bound = initial position of paired in main chain
+template <typename T, typename U>
+void initialize_tofrom(int argc, int pow, T& t, T& to, U& from) {
   typename T::iterator it = t.begin();
 
   int pairc = (argc / pow);
   int c = pow * pairc;
+  int group_num = 0;
   for (int i = 0; i < c; i++) {
     if (it == t.end()) break;
-    if (i < pow * 2)
+    if (i < pow * 2) {
       to.push_back(*it);
-    else if ((i / pow) % 2 == 0)
-      from.push_back(*it);
-    else
+    } else if ((i / pow) % 2 == 0) {
+      int bound = group_num + 2;
+      from.push_back(std::make_pair(*it, bound));
+      if ((i + 1) % pow == 0) group_num++;
+    } else {
       to.push_back(*it);
+    }
     ++it;
   }
 }
@@ -52,6 +57,18 @@ void insert_group(T& to, typename T::iterator insert_pos_it,
   to.insert(insert_pos_it, group_start_it, end);
 }
 
+template <typename T, typename Ui>
+void insert_group_from_pairs(T& to, typename T::iterator insert_pos_it,
+                             Ui group_start_it, int pow) {
+  T values;
+  Ui pair_it = group_start_it;
+  for (int p = 0; p < pow; ++p) {
+    values.push_back(pair_it->first);
+    ++pair_it;
+  }
+  to.insert(insert_pos_it, values.begin(), values.end());
+}
+
 template <typename T>
 T find_insertion_point(T range_begin, int num_groups, int pow, int target,
                        int& out_idx) {
@@ -78,15 +95,21 @@ T find_insertion_point(T range_begin, int num_groups, int pow, int target,
   return insertion_point;
 }
 
-template <typename T>
-void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
-                            typename T::iterator& target, int pow, int j_idx,
-                            int count, std::vector<int>& positions) {
-  (void)from;
-  while (count > 0) {
-    int to_insert = *target;
+template <typename U>
+void update_bounds(U& from, int insert_idx) {
+  for (typename U::iterator it = from.begin(); it != from.end(); ++it) {
+    if (it->second >= insert_idx) {
+      it->second++;
+    }
+  }
+}
 
-    int bound_i = positions[j_idx - 1];
+template <typename T, typename U>
+void process_Jacobsthal_set(T& to, U& from, typename U::iterator& target_begin,
+                            typename U::iterator& target, int pow, int count) {
+  while (count > 0) {
+    int to_insert = target->first;
+    int bound_i = target->second;
 
     int to_size = static_cast<int>(to.size() / pow);
     if (bound_i > to_size) bound_i = to_size;
@@ -96,47 +119,34 @@ void process_Jacobsthal_set(T& to, T& from, typename T::iterator& target_begin,
     typename T::iterator point =
         find_insertion_point(begin, bound_i, pow, to_insert, insert_idx);
 
-    insert_group(to, point, target_begin, pow);
+    insert_group_from_pairs(to, point, target_begin, pow);
 
-    for (size_t i = 0; i < positions.size(); ++i) {
-      if (positions[i] >= insert_idx) {
-        positions[i]++;
-      }
-    }
+    update_bounds(from, insert_idx);
 
-    j_idx--;
-    reverse(target, to.begin(), pow);
-    reverse(target_begin, to.begin(), pow);
+    reverse(target, from.begin(), pow);
+    reverse(target_begin, from.begin(), pow);
     count--;
   }
 }
 
-template <typename T>
-void optimal_binary_insert(T& to, T& from, int pow) {
-  int from_size = from.size() / pow;
+template <typename T, typename U>
+void optimal_binary_insert(T& to, U& from, int pow) {
+  int from_size = static_cast<int>(from.size()) / pow;
   int prev_j = 1;
   int curr_j = 3;
-
-
-  std::vector<int> positions;
-  for (int k = 2; k <= from_size + 1; ++k) {
-    positions.push_back(k); 
-  }
 
   while (1) {
     int limit_c = std::min(curr_j - 1, from_size);
     int j_c = limit_c - prev_j;
 
-    typename T::iterator target_begin = from.begin();
+    typename U::iterator target_begin = from.begin();
     forward(target_begin, from.end(), (limit_c - 1) * pow);
 
-    typename T::iterator target = target_begin;
+    typename U::iterator target = target_begin;
     forward(target, from.end(), pow - 1);
 
-    int mj_idx = limit_c;
     int count = j_c + 1;
-    process_Jacobsthal_set(to, from, target_begin, target, pow, mj_idx, count,
-                           positions);
+    process_Jacobsthal_set(to, from, target_begin, target, pow, count);
 
     if (from_size < curr_j) break;
     int next_j = get_Jacobsthal(prev_j, curr_j);

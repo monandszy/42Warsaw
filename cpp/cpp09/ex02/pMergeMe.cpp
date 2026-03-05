@@ -31,16 +31,16 @@ void is_sorted(T& t) {
   }
 }
 
-template <typename T>
+template <typename T, typename U>
 void sort(int argc, int pow, T& t) {
   if (pow * 2 > argc) return;
 
   order_pairs(pow, t);
-  sort(argc, pow * 2, t);
+  sort<T, U>(argc, pow * 2, t);
   // print_sorted(t);
 
   T to;
-  T from;
+  U from;  // U is container of pairs (value, bound)
   initialize_tofrom(argc, pow, t, to, from);
   // std::cout << "pow: " << pow << std::endl;
 
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     print_argv(argc, argv);
 
     std::clock_t start_v = std::clock();
-    sort(argc - 1, 1, v);
+    sort<std::vector<int>, std::vector<std::pair<int, int> > >(argc - 1, 1, v);
     std::clock_t stop_v = std::clock();
 
     double duration_v = double(stop_v - start_v) / CLOCKS_PER_SEC;
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     is_sorted(v);
 
     std::clock_t start_l = std::clock();  // time start
-    sort(argc - 1, 1, l);
+    sort<std::list<int>, std::list<std::pair<int, int> > >(argc - 1, 1, l);
     std::clock_t stop_l = std::clock();  // time stop
 
     double duration_l = double(stop_l - start_l) / CLOCKS_PER_SEC;
