@@ -20,6 +20,18 @@ Time C2
 #include "utils.hpp"
 
 template <typename T>
+void is_sorted(T& t) {
+  int prev = *t.begin();
+  for (typename T::iterator it = ++t.begin(); it != t.end(); ++it) {
+    if (prev > *it) {
+      log("!!!!!!!!!!!!!!!!!Not Sorted!!!!!!!!!!!!!!!");
+      std::cout << prev << "|" << *it << std::endl;
+    }
+    prev = *it;
+  }
+}
+
+template <typename T>
 void sort(int argc, int pow, T& t) {
   if (pow * 2 > argc) return;
 
@@ -64,6 +76,7 @@ int main(int argc, char* argv[]) {
     std::cout << "vector: " << std::fixed << std::setprecision(6) << duration_v
               << " seconds" << std::endl;
     print_sorted(v);
+    is_sorted(v);
 
     std::clock_t start_l = std::clock();  // time start
     sort(argc - 1, 1, l);
@@ -74,6 +87,7 @@ int main(int argc, char* argv[]) {
               << " seconds" << std::endl;
 
     print_sorted(l);
+    is_sorted(l);
   } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }
