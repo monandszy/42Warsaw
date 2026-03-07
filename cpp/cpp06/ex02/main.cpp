@@ -2,7 +2,6 @@
 #include "Impl.hpp"
 
 int main(void) {
-  std::srand(std::time(NULL));
   for (int i = 0; i < 10; i++) {
     Base* b = Base::generate();
     Base& bb = *b;

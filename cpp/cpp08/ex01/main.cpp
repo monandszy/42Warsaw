@@ -3,7 +3,7 @@
 #include "Span.hpp"
 
 int main() {
-  Span sp = Span(5);
+  Span sp = Span(6);
   sp.addNumber(6);
   sp.addNumber(3);
   sp.addNumber(17);
@@ -12,8 +12,12 @@ int main() {
   std::cout << sp.shortestSpan() << std::endl;
   std::cout << sp.longestSpan() << std::endl;
   try {
-    // sp.addNumber(6);
-    sp.addNumber(30, 1);
+    sp.addNumber(6);
+
+    // sp.addNumber(9);
+    // sp.addNumber(7);
+    
+    // sp.addNumber(30, 1);
   } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }

@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 template <typename T>
-class MutantStack : public std::stack<T> {
+class MutantStack : public std::stack<T, std::deque<T>  > {
  public:
   class iterator {
    private:

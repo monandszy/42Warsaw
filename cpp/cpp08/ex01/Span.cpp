@@ -36,7 +36,7 @@ void Span::addNumber(unsigned int i) {
 
 // append_range in cpp++23
 void Span::addNumber(unsigned int start, unsigned int end) {
-  if (end < start) std::invalid_argument("Invalid Span");
+  if (end < start) throw std::invalid_argument("Invalid Span");
 
   for (std::set<unsigned int>::iterator it = _mem.begin(); it != _mem.end();
        ++it) {

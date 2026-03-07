@@ -1,7 +1,7 @@
 #ifndef SERIALIZER_HPP
 #define SERIALIZER_HPP
 
-#include <<cstdint>>
+#include <stdint.h> // for uintptr_t
 
 class Data;
 
