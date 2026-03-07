@@ -11,44 +11,36 @@ Time C2
 // std::list
 // std::vector
 
+#include <climits>
 #include <ctime>
 #include <iomanip>
 
 #include "init.hpp"
 #include "insertion.hpp"
 #include "ordering.hpp"
+#include "sorting.hpp"
 #include "utils.hpp"
 
-template <typename T>
-void is_sorted(T& t) {
-  int prev = *t.begin();
-  for (typename T::iterator it = ++t.begin(); it != t.end(); ++it) {
-    if (prev > *it) {
-      log("!!!!!!!!!!!!!!!!!Not Sorted!!!!!!!!!!!!!!!");
-      std::cout << prev << "|" << *it << std::endl;
-    }
-    prev = *it;
+int get_Jacobsthal(int prev, int curr) { return (prev + 2 * curr); }
+
+void print_argv(int argc, char* argv[]) {
+  std::cout << "Unsorted: ";
+  std::cout << "[";
+  for (int i = 1; i < argc; i++) {
+    std::cout << " " << argv[i];
   }
+  std::cout << " ]" << std::endl;
 }
 
-template <typename T, typename U>
-void sort(int argc, int pow, T& t) {
-  if (pow * 2 > argc) return;
+void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }
 
-  order_pairs(pow, t);
-  sort<T, U>(argc, pow * 2, t);
-  // print_sorted(t);
-
-  T to;
-  U from;  // U is container of pairs (value, bound)
-  initialize_tofrom(argc, pow, t, to, from);
-  // std::cout << "pow: " << pow << std::endl;
-
-  if (from.size() != 0) {
-    optimal_binary_insert(to, from, pow);
-    replace_to(argc, pow, t, to);
-    // std::cout << std::endl;
+bool isnum(const char* str) {
+  if (str == NULL || *str == '\0') return false;
+  if (*str == '-') return false;
+  for (const char* p = str; *p; ++p) {
+    if (!isdigit(*p)) return false;
   }
+  return true;
 }
 
 // std::sort(v.begin(), v.end());
@@ -60,7 +52,6 @@ int main(int argc, char* argv[]) {
   }
 
   std::vector<int> v;
-  // v.reserve(argc - 1);
   std::list<int> l;
 
   try {

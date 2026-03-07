@@ -1,7 +1,5 @@
 #include "btc.hpp"
 
-#include <iomanip>
-
 bool isnum(const char* str) {
   double result;
   std::istringstream i(str);
@@ -19,28 +17,28 @@ void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }
 
 void pair(std::map<std::string, double>& data,
           std::multimap<std::string, double>& input) {
-  for (std::multimap<std::string, double>::iterator it = input.begin();
-       it != input.end(); ++it) {
-    std::string key = it->first;
-    double value = it->second;
+  for (std::multimap<std::string, double>::iterator ii = input.begin();
+       ii != input.end(); ++ii) {
+    std::string key = ii->first;
+    double value = ii->second;
 
     std::map<std::string, double>::iterator res = data.find(key);
     if (res == data.end()) {
       // log("WARN: key not found for " + it->first);
       std::string prevkey = "";
-      for (std::map<std::string, double>::iterator it = data.begin();
-           it != data.end(); ++it) {
-        if (key < it->first) break;
-        prevkey = it->first;
+      for (std::map<std::string, double>::iterator id = data.begin();
+           id != data.end(); ++id) {
+        if (key < id->first) break;
+        prevkey = id->first;
       }
       if (prevkey.empty()) {
-        log("ERROR: previous key not found for " + it->first);
+        log("ERROR: previous key not found for " + ii->first);
         continue;
       }
       log("Found: " + prevkey);
-      res = it;
+      res = data.find(prevkey);
     }
-    double target = value * res->second;
+    double target = (double) value * res->second;
     std::cout << "[" << key << "]"
               << " => " << std::fixed << std::setprecision(2) << res->second
               << " = " << target << std::endl;
@@ -98,18 +96,18 @@ int parse_input(std::multimap<std::string, double>& csv,
 }
 
 int main(int argc, char* argv[]) {
-  if (argc != 2) {
+  if (argc != 3) {
     log("ERROR: invalid argument count");
     return 1;
   }
   std::map<std::string, double> data;
   std::multimap<std::string, double> input;
   std::cout << "Parsing: "
-            << "data.csv" << std::endl;
-  if (parse_data(data, "data.csv", ",")) return 1;
+            << argv[1] << std::endl;
+  if (parse_data(data, argv[1], ",")) return 1;
   std::cout << "-------------------------" << std::endl;
-  std::cout << "Parsing: " << argv[1] << std::endl;
-  if (parse_input(input, argv[1], " | ")) return 1;
+  std::cout << "Parsing: " << argv[2] << std::endl;
+  if (parse_input(input, argv[2], " | ")) return 1;
   std::cout << "-------------------------" << std::endl;
   pair(data, input);
 }

@@ -1,41 +1,31 @@
 #ifndef INIT_HPP
 #define INIT_HPP
 
+#include <climits>
+
 #include "utils.hpp"
 
-void log(const std::string& s) { std::cout << "[" << s << "]" << std::endl; }
+void log(const std::string& s);
 
-static bool isnum(const char* str) {
-  double result;
-  std::istringstream i(str);
-  i >> result;
-  return !i.fail() && i.eof();
-}
+bool isnum(const char* str);
 
 template <typename T>
 void initialize(int argc, char* argv[], T& c) {
   for (int i = 1; i < argc; i++) {
     if (!isnum(argv[i])) {
-      throw std::runtime_error("ERROR: argument not a number");
+      throw std::runtime_error("ERROR: argument not a positive integer");
     }
-    int a;
+    long long a;
     std::stringstream si(argv[i]);
     si >> a;
-    if (a < 0) {
-      throw std::runtime_error("ERROR: argument negative");
+    if (a > INT_MAX) {
+      throw std::runtime_error("ERROR: integer overflow");
     }
-    c.push_back(a);
+    c.push_back(static_cast<int>(a));
   }
 }
 
-void print_argv(int argc, char* argv[]) {
-  std::cout << "Unsorted: ";
-  std::cout << "[";
-  for (int i = 1; i < argc; i++) {
-    std::cout << " " << argv[i];
-  }
-  std::cout << " ]" << std::endl;
-}
+void print_argv(int argc, char* argv[]);
 
 template <typename T>
 void print_sorted(T& t) {

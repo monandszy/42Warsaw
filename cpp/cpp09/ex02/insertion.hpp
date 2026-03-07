@@ -28,7 +28,7 @@ void initialize_tofrom(int argc, int pow, T& t, T& to, U& from) {
   }
 }
 
-int get_Jacobsthal(int prev, int curr) { return (prev + 2 * curr); }
+int get_Jacobsthal(int prev, int curr);
 
 template <typename T>
 void replace_to(int argc, int pow, T& to, T& from) {
@@ -37,10 +37,8 @@ void replace_to(int argc, int pow, T& to, T& from) {
 
   int pairc = (argc / pow);
   int c = pow * pairc;
-  // std::cout << "cccccccccccc:" << c << std::endl;
   for (int i = 0; i < c; i++) {
     if (ti == to.end() || fi == from.end()) {
-      std::cout << "!!!!!!!!!!!!!!!!!!!!!" << std::endl;
       break;
     }
     *ti = *fi;

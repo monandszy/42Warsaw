@@ -6,6 +6,7 @@ N - Push to Stack
 O - Pop 2, apply, push result.
 */
 
+#include <climits>
 #include <iostream>
 #include <stack>
 
@@ -33,26 +34,52 @@ std::pair<int, int> pop_two(std::stack<int>& s) {
   return (std::make_pair(i1, i2));
 }
 
+
+int safe_add(int a, int b) {
+  long long res = (long long)a + b;
+  if (res > INT_MAX || res < INT_MIN) 
+      throw std::runtime_error("Overflow");
+  return (int)res;
+}
+
+int safe_sub(int a, int b) {
+  long long res = (long long)a - b;
+  if (res > INT_MAX || res < INT_MIN) 
+      throw std::runtime_error("Overflow");
+  return (int)res;
+}
+
+int safe_mul(int a, int b) {
+  long long res = (long long)a * b;
+  if (res > INT_MAX || res < INT_MIN) 
+      throw std::runtime_error("Overflow");
+  return (int)res;
+}
+
 void loop_equation(std::stack<int>& s, char* m) {
+  std::pair<int, int> curr;
   for (int i = 0; m[i]; i++) {
-    if (m[i] == ' ') {
+    if (i % 2 == 1 && m[i] != ' ') {
+      throw std::invalid_argument("ERROR: Non space separated characters");
+    } else if (m[i] == ' ') {
       continue;
     } else if (isdigit(m[i])) {
       s.push(m[i] - '0');
     } else if (m[i] == '+') {
-      std::pair<int, int> i = pop_two(s);
-      s.push(i.first + i.second);
+      curr = pop_two(s);
+      s.push(safe_add(curr.first, curr.second));
     } else if (m[i] == '-') {
-      std::pair<int, int> i = pop_two(s);
-      s.push(i.first - i.second);
+      curr = pop_two(s);
+      s.push(safe_sub(curr.first, curr.second));
     } else if (m[i] == '*') {
-      std::pair<int, int> i = pop_two(s);
-      s.push(i.first * i.second);
+      curr = pop_two(s);
+      s.push(safe_mul(curr.first, curr.second));
     } else if (m[i] == '/') {
-      std::pair<int, int> i = pop_two(s);
-      s.push(i.first / i.second);
+      curr = pop_two(s);
+      if (curr.second == 0) throw std::invalid_argument("ERROR: Division by 0");
+      s.push(curr.first / curr.second);
     } else {
-      log("ERROR: unknown character");
+      throw std::invalid_argument("ERROR: unknown character");
     }
   }
 }
@@ -67,7 +94,7 @@ int main(int argc, char* argv[]) {
   try {
     loop_equation(s, m);
     if (s.size() != 1) {
-      throw std::runtime_error("Invalid result");
+      throw std::runtime_error("Invalid result, more than one or zero numbers");
     }
     std::cout << s.top() << std::endl;
   } catch (std::exception& e) {
