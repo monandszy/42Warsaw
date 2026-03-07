@@ -1,4 +1,4 @@
-#ifndef BTC_HHP
+#ifndef BTC_HPP
 #define BTC_HPP
 
 /*
@@ -15,25 +15,19 @@ multimap
 
 void log(const std::string& s);
 
-static bool isnum(const char* str) {
-  double result;
-  std::istringstream i(str);
-  i >> result;
-  return !i.fail() && i.eof();
-}
-
+bool isnum(const char* str);
 // https://stackoverflow.com/questions/9436697/c-check-if-a-date-is-valid
-static bool isdate(const char* str) {
-  struct tm tm;
-  if (!strptime(str, "%Y-%m-%d", &tm)) return (false);
-  return (true);
-}
+bool isdate(const char* str);
 
 template <typename T>
-void parse_ssv(T& csv, std::ifstream& in, const std::string& s) {
+void parse_ssv(T& csv, std::ifstream& in, const std::string& s,
+               int (*validate)(double, int)) {
+  int i = 0;
   for (std::string line; getline(in, line);) {
+    i++;
     if (line.find(s) == std::string::npos) {
-      log("ERROR: while looking for csv separator");
+      std::cout << "ERROR[" << i << "] while looking for csv separator"
+                << std::endl;
       continue;
     }
     int spos = line.find(s);
@@ -41,31 +35,17 @@ void parse_ssv(T& csv, std::ifstream& in, const std::string& s) {
     std::string value = line.substr(spos + s.size());
 
     if (!(isdate(key.c_str()) && isnum(value.c_str()))) {
-      log("ERROR: while validating key and value");
+      std::cout << "ERROR[" << i << "] while validating key and value"
+                << std::endl;
       continue;
     }
     std::stringstream sd(value);
     double v;
     sd >> v;
-    if (v < 0) {
-      log("ERROR: negative value");
-      continue;
-    }
+
+    if ((*validate)(v, i)) continue;
     csv.insert(std::make_pair(key, v));
   }
-}
-
-template <typename T>
-void parse_file(T& csv, const std::string& name, const std::string& s) {
-  std::ifstream in(name.c_str());
-
-  if (!in.is_open()) {
-    log("ERROR: while opening file");
-  }
-  std::string f;
-  getline(in, f);
-  parse_ssv(csv, in, s);
-  in.close();
 }
 
 #endif
