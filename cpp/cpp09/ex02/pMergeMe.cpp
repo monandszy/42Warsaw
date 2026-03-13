@@ -13,6 +13,7 @@ Time C2
 
 #include <climits>
 #include <ctime>
+#include <deque>
 #include <iomanip>
 
 #include "init.hpp"
@@ -79,6 +80,7 @@ int main(int argc, char* argv[]) {
 
     print_sorted(l);
     is_sorted(l);
+
   } catch (std::exception& e) {
     std::cout << e.what() << std::endl;
   }

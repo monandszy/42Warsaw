@@ -22,7 +22,7 @@ void sort(int argc, int pow, T& t) {
   // print_sorted(t);
 
   T to;
-  U from; 
+  U from;
   initialize_tofrom(argc, pow, t, to, from);
   // std::cout << "pow: " << pow << std::endl;
 

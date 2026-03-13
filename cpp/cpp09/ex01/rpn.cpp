@@ -34,25 +34,21 @@ std::pair<int, int> pop_two(std::stack<int>& s) {
   return (std::make_pair(i1, i2));
 }
 
-
 int safe_add(int a, int b) {
   long long res = (long long)a + b;
-  if (res > INT_MAX || res < INT_MIN) 
-      throw std::runtime_error("Overflow");
+  if (res > INT_MAX || res < INT_MIN) throw std::runtime_error("Overflow");
   return (int)res;
 }
 
 int safe_sub(int a, int b) {
   long long res = (long long)a - b;
-  if (res > INT_MAX || res < INT_MIN) 
-      throw std::runtime_error("Overflow");
+  if (res > INT_MAX || res < INT_MIN) throw std::runtime_error("Overflow");
   return (int)res;
 }
 
 int safe_mul(int a, int b) {
   long long res = (long long)a * b;
-  if (res > INT_MAX || res < INT_MIN) 
-      throw std::runtime_error("Overflow");
+  if (res > INT_MAX || res < INT_MIN) throw std::runtime_error("Overflow");
   return (int)res;
 }
 

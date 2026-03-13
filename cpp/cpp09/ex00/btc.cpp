@@ -38,10 +38,10 @@ void pair(std::map<std::string, double>& data,
       log("Found: " + prevkey);
       res = data.find(prevkey);
     }
-    double target = (double) value * res->second;
+    double target = (double)value * res->second;
     std::cout << "[" << key << "]"
               << " => " << std::fixed << std::setprecision(2) << res->second
-              << " = " << target << std::endl;
+              << "*" << ii->second << " = " << target << std::endl;
   }
 }
 
@@ -102,8 +102,7 @@ int main(int argc, char* argv[]) {
   }
   std::map<std::string, double> data;
   std::multimap<std::string, double> input;
-  std::cout << "Parsing: "
-            << argv[1] << std::endl;
+  std::cout << "Parsing: " << argv[1] << std::endl;
   if (parse_data(data, argv[1], ",")) return 1;
   std::cout << "-------------------------" << std::endl;
   std::cout << "Parsing: " << argv[2] << std::endl;
