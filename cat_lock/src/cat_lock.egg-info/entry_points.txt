@@ -1,0 +1,2 @@
+[console_scripts]
+cat-lock = cat_lock.main:cli_entry
