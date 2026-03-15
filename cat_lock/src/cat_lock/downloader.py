@@ -24,15 +24,21 @@ def ensure_cat_image() -> str:
         }
         api_key = os.getenv('CAT_API_KEY')
         if api_key:
+            print(f"Loaded API key from env (length {len(api_key)})")
             headers['x-api-key'] = api_key
+        else:
+            print("No API key loaded! Might be restricted to 1 or 10.")
             
         req = urllib.request.Request(api_url, headers=headers)
         with urllib.request.urlopen(req) as response:
             data = json.loads(response.read().decode())
             
+        print(f"Cat API returned {len(data)} items to download.")
+            
         last_filepath = ""
-        for item in data:
+        for i, item in enumerate(data):
             image_url = item['url']
+            print(f"[{i+1}/{len(data)}] Downloading {image_url}...")
             
             # Determine extension
             ext = image_url.split('.')[-1]
