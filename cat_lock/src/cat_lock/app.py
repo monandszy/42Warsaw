@@ -154,7 +154,6 @@ def run_lock_screen():
     root.bind("<MouseWheel>", block_global)
 
     # Force fullscreen behavior actively on Windows and grab all input strictly
-    root.state('zoomed')
     root.attributes("-fullscreen", True)
     root.attributes("-topmost", True)
     
