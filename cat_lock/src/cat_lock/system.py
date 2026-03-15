@@ -40,12 +40,19 @@ GNOME_KEYS_TO_DISABLE = [
 ]
 
 # Define the standard Ubuntu default keybindings to restore
-UBUNTU_DEFAULT_KEYS = [
+# Define the standard Ubuntu default keybindings to restore, 
+# modified to make Alt+Tab switch individual windows instead of apps
+UBUNTU_DEFAULT_KEYS =[
     ("org.gnome.mutter", "overlay-key", "'Super_L'"),
-    ("org.gnome.desktop.wm.keybindings", "switch-applications", "['<Super>Tab', '<Alt>Tab']"),
-    ("org.gnome.desktop.wm.keybindings", "switch-applications-backward", "['<Shift><Super>Tab', '<Shift><Alt>Tab']"),
-    ("org.gnome.desktop.wm.keybindings", "switch-windows", "[]"),
-    ("org.gnome.desktop.wm.keybindings", "switch-windows-backward", "[]"),
+    
+    # Leave only Super+Tab for the app switcher (grouped by app)
+    ("org.gnome.desktop.wm.keybindings", "switch-applications", "['<Super>Tab']"),
+    ("org.gnome.desktop.wm.keybindings", "switch-applications-backward", "['<Shift><Super>Tab']"),
+    
+    # Assign Alt+Tab to the window switcher (shows individual window contents)
+    ("org.gnome.desktop.wm.keybindings", "switch-windows", "['<Alt>Tab']"),
+    ("org.gnome.desktop.wm.keybindings", "switch-windows-backward", "['<Shift><Alt>Tab']"),
+    
     ("org.gnome.desktop.wm.keybindings", "cycle-windows", "['<Alt>Escape']"),
     ("org.gnome.desktop.wm.keybindings", "cycle-windows-backward", "['<Shift><Alt>Escape']"),
     ("org.gnome.shell.keybindings", "toggle-overview", "['<Super>s']"),

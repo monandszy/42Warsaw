@@ -25,56 +25,6 @@ def inhibit_sleep() -> bool:
         return False
     return True
 
-<<<<<<< HEAD
-class SystemKeyBlocker:
-    """Context manager to safely disable and restore GNOME shortcuts and adjust brightness."""
-    def __init__(self):
-        self.original_settings = {}
-        self.brightness_files = []
-
-    def _get_brightness_files(self):
-        """Find brightness control files in sysfs (Ubuntu/Linux)."""
-        paths = []
-        base = "/sys/class/backlight/"
-        if os.path.exists(base):
-            for dev in os.listdir(base):
-                sys_path = os.path.join(base, dev, "brightness")
-                max_path = os.path.join(base, dev, "max_brightness")
-                if os.path.isfile(sys_path) and os.path.isfile(max_path) and os.access(sys_path, os.W_OK):
-                    paths.append(sys_path)
-        return paths
-
-    def _set_brightness_low(self):
-        self.brightness_files = []
-        for sys_path in self._get_brightness_files():
-            try:
-                with open(sys_path, "r") as f:
-                    current = f.read().strip()
-                self.brightness_files.append((sys_path, current))
-                
-                # Try setting to 1 so the screen isn't completely black but is at lowest level
-                with open(sys_path, "w") as f:
-                    f.write("1\n")
-            except Exception as e:
-                print(f"Failed to lower brightness for {sys_path}: {e}")
-
-    def _restore_brightness(self):
-        for sys_path, original in self.brightness_files:
-            try:
-                with open(sys_path, "w") as f:
-                    f.write(f"{original}\n")
-            except Exception as e:
-                print(f"Failed to restore brightness for {sys_path}: {e}")
-        self.brightness_files.clear()
-
-    def _restore(self):
-        if self.original_settings:
-            print("\nRestoring system shortcuts...")
-            for (schema, key), original_val in self.original_settings.items():
-                subprocess.run(["gsettings", "set", schema, key, original_val])
-            self.original_settings.clear()
-        
-=======
 # --- The rest of the file is the SystemKeyBlocker class from the previous step ---
 
 # Define the keybindings to be disabled
@@ -90,12 +40,19 @@ GNOME_KEYS_TO_DISABLE = [
 ]
 
 # Define the standard Ubuntu default keybindings to restore
-UBUNTU_DEFAULT_KEYS = [
+# Define the standard Ubuntu default keybindings to restore, 
+# modified to make Alt+Tab switch individual windows instead of apps
+UBUNTU_DEFAULT_KEYS =[
     ("org.gnome.mutter", "overlay-key", "'Super_L'"),
-    ("org.gnome.desktop.wm.keybindings", "switch-applications", "['<Super>Tab', '<Alt>Tab']"),
-    ("org.gnome.desktop.wm.keybindings", "switch-applications-backward", "['<Shift><Super>Tab', '<Shift><Alt>Tab']"),
-    ("org.gnome.desktop.wm.keybindings", "switch-windows", "[]"),
-    ("org.gnome.desktop.wm.keybindings", "switch-windows-backward", "[]"),
+    
+    # Leave only Super+Tab for the app switcher (grouped by app)
+    ("org.gnome.desktop.wm.keybindings", "switch-applications", "['<Super>Tab']"),
+    ("org.gnome.desktop.wm.keybindings", "switch-applications-backward", "['<Shift><Super>Tab']"),
+    
+    # Assign Alt+Tab to the window switcher (shows individual window contents)
+    ("org.gnome.desktop.wm.keybindings", "switch-windows", "['<Alt>Tab']"),
+    ("org.gnome.desktop.wm.keybindings", "switch-windows-backward", "['<Shift><Alt>Tab']"),
+    
     ("org.gnome.desktop.wm.keybindings", "cycle-windows", "['<Alt>Escape']"),
     ("org.gnome.desktop.wm.keybindings", "cycle-windows-backward", "['<Shift><Alt>Escape']"),
     ("org.gnome.shell.keybindings", "toggle-overview", "['<Super>s']"),
@@ -156,20 +113,14 @@ class SystemKeyBlocker:
                 print(f"    Value to restore was: {default_val}")
                 print(f"    Stderr from gsettings: {e.stderr.strip()}")
 
->>>>>>> e8543bf (fix: reset default)
         self._restore_brightness()
         print("Shield removed, sleep and display settings restored.")
 
     def __enter__(self):
         print("Disabling system shortcuts (Alt+Tab, Super)...")
         self._set_brightness_low()
-<<<<<<< HEAD
-        
-        for schema, key, disabled_val in GNOME_KEYS:
-=======
 
         for schema, key, disabled_val in GNOME_KEYS_TO_DISABLE:
->>>>>>> e8543bf (fix: reset default)
             try:
                 subprocess.run(["gsettings", "set", schema, key, disabled_val], check=True)
             except (FileNotFoundError, subprocess.CalledProcessError) as e:
