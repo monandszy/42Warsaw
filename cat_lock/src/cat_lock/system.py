@@ -7,6 +7,8 @@ GNOME_KEYS =[
     ("org.gnome.mutter", "overlay-key", "''"),                               
     ("org.gnome.desktop.wm.keybindings", "switch-applications", "[]"),       
     ("org.gnome.desktop.wm.keybindings", "switch-windows", "[]"),            
+    ("org.gnome.desktop.wm.keybindings", "cycle-windows", "[]"),
+    ("org.gnome.desktop.wm.keybindings", "cycle-windows-backward", "[]"),
     ("org.gnome.shell.keybindings", "toggle-overview", "[]"),                
 ]
 

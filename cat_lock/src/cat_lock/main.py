@@ -9,9 +9,6 @@ def cli_entry():
         inhibit_sleep()
         return
         
-    # 2. Fetch dependencies (raises exceptions if no internet)
-    cat_img_path = ensure_cat_image()
-    
     # 3. Apply lock screen with system keys disabled via Context Manager
     with SystemKeyBlocker():
-        run_lock_screen(cat_img_path)
+        run_lock_screen(ensure_cat_image)

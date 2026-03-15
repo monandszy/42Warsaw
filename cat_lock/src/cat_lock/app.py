@@ -1,7 +1,11 @@
+import os
 import tkinter as tk
 from PIL import Image, ImageTk
+from dotenv import load_dotenv
 
-def run_lock_screen(image_path: str):
+load_dotenv()
+
+def run_lock_screen(image_getter):
     root = tk.Tk()
     root.title("Cat Lock")
 
@@ -11,8 +15,11 @@ def run_lock_screen(image_path: str):
     root.config(cursor="X_cursor")
     root.protocol("WM_DELETE_WINDOW", lambda: None)
 
+    release_key = os.getenv("RELEASE_PASSPHRASE", "s").lower()
+    cycle_interval = int(os.getenv("CYCLE_INTERVAL", "0"))
+
     def unlock(event):
-        if event.keysym.lower() == 's':
+        if event.keysym.lower() == release_key:
             root.destroy()
         return "break"
 
@@ -28,14 +35,22 @@ def run_lock_screen(image_path: str):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
-    # We removed the fallback. If Pillow/Image breaks, the app explicitly crashes here.
-    img = Image.open(image_path)
-    img.thumbnail((screen_width, screen_height))
-    
-    cat_img = ImageTk.PhotoImage(img)
-    label = tk.Label(root, image=cat_img, bg="black")
-    label.image = cat_img  # Keep a reference in memory
+    label = tk.Label(root, bg="black")
     label.pack(expand=True)
+
+    def update_image():
+        image_path = image_getter()
+        if not image_path: return
+        img = Image.open(image_path)
+        img.thumbnail((screen_width, screen_height))
+        cat_img = ImageTk.PhotoImage(img)
+        label.config(image=cat_img)
+        label.image = cat_img  # Keep a reference in memory
+        
+        if cycle_interval > 0:
+            root.after(cycle_interval * 1000, update_image)
+
+    update_image()
 
     root.focus_force()
     root.grab_set()
