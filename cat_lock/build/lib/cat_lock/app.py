@@ -1,4 +1,5 @@
 import os
+import random
 import tkinter as tk
 from PIL import Image, ImageTk
 from dotenv import load_dotenv, find_dotenv
@@ -33,12 +34,15 @@ def run_lock_screen():
     # State tracking for emergency unlock
     class EscState:
         count = 0
+        typed_keys = ""
 
     def unlock(event):
-        if event.keysym.lower() == release_key:
+        EscState.typed_keys += event.keysym.lower()
+        if EscState.typed_keys.endswith(release_key):
             root.destroy()
         # Emergency unlock: Press 'Escape' 3 times in a row
         elif event.keysym == "Escape":
+            EscState.typed_keys = ""
             EscState.count += 1
             if EscState.count >= 10:
                 print("Emergency unlock triggered!")
@@ -103,10 +107,7 @@ def run_lock_screen():
             CarouselState.images = new_photos
 
         if CarouselState.images:
-            if CarouselState.current_index >= len(CarouselState.images):
-                CarouselState.current_index = 0
-
-            image_path = CarouselState.images[CarouselState.current_index]
+            image_path = random.choice(CarouselState.images)
             print(f"Cycling to: {image_path}")
 
             try:
@@ -120,8 +121,6 @@ def run_lock_screen():
             except Exception as e:
                 print(f"Error drawing image: {e}")
 
-            CarouselState.current_index = (CarouselState.current_index + 1) % len(CarouselState.images)
-
         if cycle_interval > 0:
             # Reschedule itself reliably
             root.after(cycle_interval * 1000, cycle_image)
@@ -130,13 +129,23 @@ def run_lock_screen():
     cycle_image()
 
     def unlock_global(event):
-        if event.keysym.lower() == release_key:
-            CarouselState.running = False
-            root.destroy()
+        try:
+            key = event.char.lower() if event.char else event.keysym.lower()
+            if key and len(key) == 1:
+                EscState.typed_keys += key
+                if len(EscState.typed_keys) > len(release_key):
+                    EscState.typed_keys = EscState.typed_keys[-len(release_key):]
+                
+                if EscState.typed_keys == release_key:
+                    CarouselState.running = False
+                    root.destroy()
+        except Exception:
+            pass
+
         # Emergency unlock: Press 'Escape' 3 times in a row
-        elif event.keysym == "Escape":
+        if event.keysym == "Escape":
             EscState.count += 1
-            if EscState.count >= 3:
+            if EscState.count >= 100:
                 print("Emergency unlock triggered!")
                 CarouselState.running = False
                 root.destroy()

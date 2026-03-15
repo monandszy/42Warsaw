@@ -9,11 +9,11 @@ def cli_entry():
         ensure_cat_image()
         return
 
-    # 1. Block sleep
+    # Block sleep
     if len(sys.argv) < 2 or sys.argv[1] != "inhibited":
         if inhibit_sleep():
             return
         
-    # 3. Apply lock screen with system keys disabled via Context Manager
+    # Apply lock screen with system keys disabled via Context Manager
     with SystemKeyBlocker():
         run_lock_screen()
