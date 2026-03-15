@@ -1,4 +1,5 @@
 import os
+import random
 import tkinter as tk
 from PIL import Image, ImageTk
 from dotenv import load_dotenv, find_dotenv
@@ -106,10 +107,7 @@ def run_lock_screen():
             CarouselState.images = new_photos
 
         if CarouselState.images:
-            if CarouselState.current_index >= len(CarouselState.images):
-                CarouselState.current_index = 0
-
-            image_path = CarouselState.images[CarouselState.current_index]
+            image_path = random.choice(CarouselState.images)
             print(f"Cycling to: {image_path}")
 
             try:
@@ -122,8 +120,6 @@ def run_lock_screen():
 
             except Exception as e:
                 print(f"Error drawing image: {e}")
-
-            CarouselState.current_index = (CarouselState.current_index + 1) % len(CarouselState.images)
 
         if cycle_interval > 0:
             # Reschedule itself reliably
