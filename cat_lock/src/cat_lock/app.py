@@ -33,12 +33,15 @@ def run_lock_screen():
     # State tracking for emergency unlock
     class EscState:
         count = 0
+        typed_keys = ""
 
     def unlock(event):
-        if event.keysym.lower() == release_key:
+        EscState.typed_keys += event.keysym.lower()
+        if EscState.typed_keys.endswith(release_key):
             root.destroy()
         # Emergency unlock: Press 'Escape' 3 times in a row
         elif event.keysym == "Escape":
+            EscState.typed_keys = ""
             EscState.count += 1
             if EscState.count >= 10:
                 print("Emergency unlock triggered!")
@@ -130,11 +133,21 @@ def run_lock_screen():
     cycle_image()
 
     def unlock_global(event):
-        if event.keysym.lower() == release_key:
-            CarouselState.running = False
-            root.destroy()
+        try:
+            key = event.char.lower() if event.char else event.keysym.lower()
+            if key and len(key) == 1:
+                EscState.typed_keys += key
+                if len(EscState.typed_keys) > len(release_key):
+                    EscState.typed_keys = EscState.typed_keys[-len(release_key):]
+                
+                if EscState.typed_keys == release_key:
+                    CarouselState.running = False
+                    root.destroy()
+        except Exception:
+            pass
+
         # Emergency unlock: Press 'Escape' 3 times in a row
-        elif event.keysym == "Escape":
+        if event.keysym == "Escape":
             EscState.count += 1
             if EscState.count >= 3:
                 print("Emergency unlock triggered!")
