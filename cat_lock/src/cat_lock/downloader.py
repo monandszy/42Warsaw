@@ -13,7 +13,18 @@ def ensure_cat_image() -> str:
     api_url = "https://api.thecatapi.com/v1/images/search"
     print("Downloading new cat photo from The Cat API...")
     try:
-        req = urllib.request.Request(api_url)
+        from dotenv import load_dotenv
+        load_dotenv()
+        
+        headers = { 
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+            'Accept': 'application/json'
+        }
+        api_key = os.getenv('CAT_API_KEY')
+        if api_key:
+            headers['x-api-key'] = api_key
+            
+        req = urllib.request.Request(api_url, headers=headers)
         with urllib.request.urlopen(req) as response:
             data = json.loads(response.read().decode())
             image_url = data[0]['url']
@@ -29,7 +40,8 @@ def ensure_cat_image() -> str:
         filepath = os.path.join(PHOTOS_DIR, filename)
 
         headers = {
-            'User-Agent': 'Mozilla/5.0'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+            'Accept': 'image/*'
         }
         img_req = urllib.request.Request(image_url, headers=headers)
         with urllib.request.urlopen(img_req) as img_response, open(filepath, 'wb') as out_file:
