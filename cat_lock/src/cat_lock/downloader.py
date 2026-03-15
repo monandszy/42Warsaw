@@ -3,7 +3,9 @@ import urllib.request
 import json
 import uuid
 
-PHOTOS_DIR = "./photos"
+# Base the photos directory off the location of this file, up two levels if it's in src/cat_lock/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+PHOTOS_DIR = os.path.join(BASE_DIR, "photos")
 
 def ensure_cat_image() -> str:
     """Downloads a new cat image from The Cat API if it doesn't exist, saves it, and returns the path."""

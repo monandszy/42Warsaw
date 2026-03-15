@@ -7,20 +7,27 @@ GNOME_KEYS =[
     ("org.gnome.mutter", "overlay-key", "''"),                               
     ("org.gnome.desktop.wm.keybindings", "switch-applications", "[]"),       
     ("org.gnome.desktop.wm.keybindings", "switch-windows", "[]"),            
+    ("org.gnome.desktop.wm.keybindings", "cycle-windows", "[]"),
+    ("org.gnome.desktop.wm.keybindings", "cycle-windows-backward", "[]"),
     ("org.gnome.shell.keybindings", "toggle-overview", "[]"),                
 ]
 
-def inhibit_sleep():
-    """Relaunches the script wrapped in systemd-inhibit."""
+def inhibit_sleep() -> bool:
+    """Relaunches the script wrapped in systemd-inhibit. Returns False if unsupported."""
     print("Activating sleep block and cat shield...")
-    os.execlp(
-        "systemd-inhibit", 
-        "systemd-inhibit", 
-        "--what=sleep:idle", 
-        "--who=CatShield", 
-        "--why=Waiting for 's' key", 
-        sys.executable, sys.argv[0], "inhibited"
-    )
+    try:
+        os.execlp(
+            "systemd-inhibit", 
+            "systemd-inhibit", 
+            "--what=sleep:idle", 
+            "--who=CatShield", 
+            "--why=Waiting for 's' key", 
+            sys.executable, sys.argv[0], "inhibited"
+        )
+    except FileNotFoundError:
+        print("systemd-inhibit not found, continuing without sleep block...")
+        return False
+    return True
 
 class SystemKeyBlocker:
     """Context manager to safely disable and restore GNOME shortcuts."""
@@ -39,10 +46,14 @@ class SystemKeyBlocker:
     def __enter__(self):
         print("Disabling system shortcuts (Alt+Tab, Super)...")
         for schema, key, disabled_val in GNOME_KEYS:
-            result = subprocess.run(["gsettings", "get", schema, key], capture_output=True, text=True)
-            if result.returncode == 0:
-                self.original_settings[(schema, key)] = result.stdout.strip()
-                subprocess.run(["gsettings", "set", schema, key, disabled_val])
+            try:
+                result = subprocess.run(["gsettings", "get", schema, key], capture_output=True, text=True)
+                if result.returncode == 0:
+                    self.original_settings[(schema, key)] = result.stdout.strip()
+                    subprocess.run(["gsettings", "set", schema, key, disabled_val])
+            except FileNotFoundError:
+                print("gsettings not found, skipping GNOME shortcut block...")
+                break
         
         # Register atexit just in case the app is killed abruptly but cleanly
         atexit.register(self._restore)

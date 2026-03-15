@@ -4,11 +4,16 @@ from cat_lock.downloader import ensure_cat_image
 from cat_lock.app import run_lock_screen
 
 def cli_entry():
+    # If explicitly asked to download via "cat-lock download"
+    if len(sys.argv) > 1 and sys.argv[1] == "download":
+        ensure_cat_image()
+        return
+
     # 1. Block sleep
     if len(sys.argv) < 2 or sys.argv[1] != "inhibited":
-        inhibit_sleep()
-        return
+        if inhibit_sleep():
+            return
         
     # 3. Apply lock screen with system keys disabled via Context Manager
     with SystemKeyBlocker():
-        run_lock_screen(ensure_cat_image)
+        run_lock_screen()
