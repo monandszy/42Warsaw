@@ -3,9 +3,19 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from dotenv import load_dotenv, find_dotenv
 
-# Try finding .env explicitly up the hierarchy
-if not load_dotenv(find_dotenv()):
-    raise RuntimeError("The .env file could not be loaded!")
+# Try finding .env explicitly
+env_path = find_dotenv()
+if not env_path:
+    # Fallback 1: Current working directory
+    cwd_env = os.path.join(os.getcwd(), ".env")
+    if os.path.isfile(cwd_env):
+        env_path = cwd_env
+    else:
+        # Fallback 2: Project root if installed loosely / editable
+        env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".env"))
+
+if not load_dotenv(env_path):
+    raise RuntimeError(f"The .env file could not be loaded! Searched: {env_path}")
 
 def run_lock_screen():
     root = tk.Tk()
