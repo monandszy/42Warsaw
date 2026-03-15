@@ -25,6 +25,7 @@ First initialize a .env file with your values, following the .env.example.
    ```bash
    cat-lock
    ```
+To exit the carousel simply write your chosen password
 
 ### Emergency
 In case of an emergency lockdown press the Esc key 100 times.
