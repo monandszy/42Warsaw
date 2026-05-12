@@ -3,7 +3,6 @@ import urllib.request
 import json
 import uuid
 
-# Base the photos directory off the location of this file, up two levels if it's in src/cat_lock/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 PHOTOS_DIR = os.path.join(BASE_DIR, "photos")
 
@@ -40,7 +39,6 @@ def ensure_cat_image() -> str:
             image_url = item['url']
             print(f"[{i+1}/{len(data)}] Downloading {image_url}...")
             
-            # Determine extension
             ext = image_url.split('.')[-1]
             if '?' in ext:
                 ext = ext.split('?')[0]
@@ -65,7 +63,6 @@ def ensure_cat_image() -> str:
         return last_filepath
     except Exception as e:
         print(f"Failed to fetch image: {e}")
-        # fallback to an existing photo if possible
         photos = [p for p in os.listdir(PHOTOS_DIR) if os.path.isfile(os.path.join(PHOTOS_DIR, p))]
         if photos:
             return os.path.join(PHOTOS_DIR, photos[0])

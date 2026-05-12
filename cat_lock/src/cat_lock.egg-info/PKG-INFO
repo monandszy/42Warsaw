@@ -7,3 +7,5 @@ Description-Content-Type: text/markdown
 Requires-Dist: Pillow>=10.0.0
 Requires-Dist: python-dotenv>=1.0.0
 Requires-Dist: requests>=2.25.0
+Requires-Dist: pyautogui>=0.9.54
+Requires-Dist: pynput>=1.7.0

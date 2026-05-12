@@ -21,7 +21,7 @@ First initialize a .env file with your values, following the .env.example.
    ```bash
    cat-lock download
    ```
-#### Run the application from anywhere in your terminal:
+#### Run the application in your terminal:
    ```bash
    cat-lock
    ```

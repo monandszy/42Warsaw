@@ -3,31 +3,38 @@ import os
 import subprocess
 import atexit
 
-# This is the function that was missing.
-def inhibit_sleep() -> bool:
-    """Relaunches the script wrapped in systemd-inhibit. Returns False if unsupported."""
-    # Check if the script is already running under systemd-inhibit
-    if len(sys.argv) > 1 and sys.argv[-1] == "inhibited":
-        return True # Already inhibited, proceed with the lock screen logic
+import os
+import sys
+import shutil
 
-    print("Activating sleep block and cat shield...")
-    try:
-        # Relaunch the script with all original arguments, plus the "inhibited" flag
-        args = ["systemd-inhibit", 
-                "--what=sleep:idle", 
-                "--who=CatShield", 
-                "--why=Waiting for user input", 
-                sys.executable] + sys.argv + ["inhibited"]
-        
-        os.execvp(args[0], args)
-    except FileNotFoundError:
+def inhibit_sleep() -> bool:
+    """Relaunches the script wrapped in systemd-inhibit."""
+    if len(sys.argv) > 1 and sys.argv[-1] == "inhibited":
+        return True 
+
+    inhibit_cmd = shutil.which("systemd-inhibit")
+    if not inhibit_cmd:
         print("systemd-inhibit not found, continuing without sleep block...")
         return False
+
+    print("Activating sleep block...")
+    
+    args = [
+        inhibit_cmd,
+        "--what=sleep:idle",
+        "--who=CatShield",
+        "--why=Waiting for user input",
+        sys.executable
+    ] + sys.argv + ["inhibited"]
+    
+    try:
+        os.execvp(args[0], args)
+    except Exception as e:
+        print(f"Failed to relaunch with systemd-inhibit: {e}")
+        return False
+        
     return True
 
-# --- The rest of the file is the SystemKeyBlocker class from the previous step ---
-
-# Define the keybindings to be disabled
 GNOME_KEYS_TO_DISABLE = [
     ("org.gnome.mutter", "overlay-key", "''"),
     ("org.gnome.desktop.wm.keybindings", "switch-applications", "[]"),
@@ -39,17 +46,12 @@ GNOME_KEYS_TO_DISABLE = [
     ("org.gnome.shell.keybindings", "toggle-overview", "[]"),
 ]
 
-# Define the standard Ubuntu default keybindings to restore
-# Define the standard Ubuntu default keybindings to restore, 
-# modified to make Alt+Tab switch individual windows instead of apps
 UBUNTU_DEFAULT_KEYS =[
     ("org.gnome.mutter", "overlay-key", "'Super_L'"),
     
-    # Leave only Super+Tab for the app switcher (grouped by app)
     ("org.gnome.desktop.wm.keybindings", "switch-applications", "['<Super>Tab']"),
     ("org.gnome.desktop.wm.keybindings", "switch-applications-backward", "['<Shift><Super>Tab']"),
     
-    # Assign Alt+Tab to the window switcher (shows individual window contents)
     ("org.gnome.desktop.wm.keybindings", "switch-windows", "['<Alt>Tab']"),
     ("org.gnome.desktop.wm.keybindings", "switch-windows-backward", "['<Shift><Alt>Tab']"),
     

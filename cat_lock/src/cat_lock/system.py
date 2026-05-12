@@ -3,23 +3,36 @@ import os
 import subprocess
 import atexit
 
+import os
+import sys
+import shutil
+
 def inhibit_sleep() -> bool:
-    """Relaunches the script wrapped in systemd-inhibit. Returns False if unsupported."""
+    """Relaunches the script wrapped in systemd-inhibit."""
     if len(sys.argv) > 1 and sys.argv[-1] == "inhibited":
         return True 
 
-    print("Activating sleep block and cat shield...")
-    try:
-        args = ["systemd-inhibit", 
-                "--what=sleep:idle", 
-                "--who=CatShield", 
-                "--why=Waiting for user input", 
-                sys.executable] + sys.argv + ["inhibited"]
-        
-        os.execvp(args[0], args)
-    except FileNotFoundError:
+    inhibit_cmd = shutil.which("systemd-inhibit")
+    if not inhibit_cmd:
         print("systemd-inhibit not found, continuing without sleep block...")
         return False
+
+    print("Activating sleep block...")
+    
+    args = [
+        inhibit_cmd,
+        "--what=sleep:idle",
+        "--who=CatShield",
+        "--why=Waiting for user input",
+        sys.executable
+    ] + sys.argv + ["inhibited"]
+    
+    try:
+        os.execvp(args[0], args)
+    except Exception as e:
+        print(f"Failed to relaunch with systemd-inhibit: {e}")
+        return False
+        
     return True
 
 GNOME_KEYS_TO_DISABLE = [

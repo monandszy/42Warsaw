@@ -31,7 +31,6 @@ def run_lock_screen():
     release_key = os.environ["RELEASE_PASSPHRASE"].lower()
     cycle_interval = int(os.environ["CYCLE_INTERVAL"])
     
-    # State tracking for emergency unlock
     class EscState:
         count = 0
         typed_keys = ""
@@ -40,7 +39,6 @@ def run_lock_screen():
         EscState.typed_keys += event.keysym.lower()
         if EscState.typed_keys.endswith(release_key):
             root.destroy()
-        # Emergency unlock: Press 'Escape' 3 times in a row
         elif event.keysym == "Escape":
             EscState.typed_keys = ""
             EscState.count += 1
@@ -87,16 +85,10 @@ def run_lock_screen():
             valid.extend(glob.glob(os.path.join(photos_dir, ext)))
         return sorted(valid)
 
-    # Initialize the core carousel tracking logic outside of local functions securely
-    # Tkinter works best with instances or completely bound scoping.
     class CarouselState:
         images = get_local_photos()
         current_index = 0
         running = True
-
-    # Keep a reference to the PhotoImage object inside the label to prevent immediate garbage collection
-    # We must also strictly prevent the garbage collector from taking our current image reference
-    # during successive calls.
 
     def cycle_image():
         if not CarouselState.running:
@@ -113,19 +105,17 @@ def run_lock_screen():
             try:
                 img = Image.open(image_path)
                 img.thumbnail((screen_width, screen_height))
-                cat_img = ImageTk.PhotoImage(img) # create new reference
+                cat_img = ImageTk.PhotoImage(img) 
                 
                 label.configure(image=cat_img)
-                label.image = cat_img # IMPORTANT: hold strictly to avoiding garbage collecting!
+                label.image = cat_img 
 
             except Exception as e:
                 print(f"Error drawing image: {e}")
 
         if cycle_interval > 0:
-            # Reschedule itself reliably
             root.after(cycle_interval * 1000, cycle_image)
 
-    # Begin cycling
     cycle_image()
 
     def unlock_global(event):
@@ -142,7 +132,6 @@ def run_lock_screen():
         except Exception:
             pass
 
-        # Emergency unlock: Press 'Escape' 3 times in a row
         if event.keysym == "Escape":
             EscState.count += 1
             if EscState.count >= 100:
@@ -162,7 +151,6 @@ def run_lock_screen():
     root.bind("<Motion>", block_global)
     root.bind("<MouseWheel>", block_global)
 
-    # Force fullscreen behavior actively on Windows and grab all input strictly
     root.attributes("-fullscreen", True)
     root.attributes("-topmost", True)
     

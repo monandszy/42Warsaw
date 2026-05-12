@@ -13,6 +13,9 @@ def cli_entry():
     if len(sys.argv) < 2 or sys.argv[1] != "inhibited":
         if inhibit_sleep():
             return
+    
+    from pynput.keyboard import Key, Controller
+    keyboard = Controller()
         
     # Apply lock screen with system keys disabled via Context Manager
     with SystemKeyBlocker():
